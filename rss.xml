@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>파라다이스 히어로 (paradise-hero.com) × 김쌤의 영웅라디오</title>
     <link>https://paradise-hero.com/</link>
-    <description>가수 황영웅 팬덤 플랫폼 &amp; @김쌤의영웅라디오 공식 사연·방송 피드</description>
+    <atom:link href="https://paradise-hero.com/rss.xml" rel="self" type="application/rss+xml" />
+    <description>가수 황영웅 공식 팬덤 플랫폼 &amp; @김쌤의영웅라디오 사연 복덕방·동행 포토부스·방송 피드</description>
     <language>ko-KR</language>
+    <lastBuildDate>Mon, 09 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[사연 복덕방] 어머님들의 눈물과 감동 삶의 사연 — 파라다이스 사연 복덕방 개통</title>
+      <link>https://paradise-hero.com/story.html</link>
+      <description>유튜브 @김쌤의영웅라디오 연계 사연 접수 창구. 음성 받아쓰기와 큰 글씨로 편안하게 사연을 남기실 수 있습니다.</description>
+      <pubDate>Mon, 09 Nov 2026 09:00:00 +0900</pubDate>
+      <guid isPermaLink="false">paradise-hero-story-hub-20261109</guid>
+    </item>
+    <item>
+      <title>[영웅 포토부스] 황영웅과 함께 찍는 즉석 기념사진 포토부스 개통</title>
+      <link>https://paradise-hero.com/booth.html</link>
+      <description>스마트폰 카메라로 황영웅님과 다정하게 어깨동무한 세상에 하나뿐인 기념사진을 만들고 바로 저장하세요.</description>
+      <pubDate>Mon, 09 Nov 2026 09:00:00 +0900</pubDate>
+      <guid isPermaLink="false">paradise-hero-photo-booth-20261109</guid>
+    </item>
     <item>
       <title>[1회] 황영웅 노래로 다시 찾은 봄날 — 칠순 어머님의 눈물 사연</title>
       <link>https://paradise-hero.com/radio.html#ep01</link>
-      <description>김쌤의 영웅라디오 1회차 풀버전 다시듣기 및 사연 전문</description>
+      <description>김쌤의 영웅라디오 1회차 풀버전 다시듣기 및 사연 전문 (당신 편 감동 해설).</description>
+      <pubDate>Mon, 09 Nov 2026 08:00:00 +0900</pubDate>
       <guid isPermaLink="false">paradise-hero-ep01</guid>
+    </item>
+    <item>
+      <title>[골드 VIP] 파라다이스 골드 VIP 서포터즈 및 실시간 황금 응원 전광판</title>
+      <link>https://paradise-hero.com/vip.html</link>
+      <description>가수 황영웅을 지키고 응원하는 가장 품격 있는 동행. 실시간 응원 전광판과 골드 멤버십 안내.</description>
+      <pubDate>Mon, 09 Nov 2026 07:00:00 +0900</pubDate>
+      <guid isPermaLink="false">paradise-hero-vip-supporters-20261109</guid>
+    </item>
+    <item>
+      <title>[음원 가이드] 어머님들을 위한 돋보기 없는 1-클릭 합법 음원 스트리밍 가이드</title>
+      <link>https://paradise-hero.com/stream.html</link>
+      <description>멜론, 지니, 유튜브뮤직 1-클릭 스트리밍 및 황영웅 명곡 순위 올리기 안내.</description>
+      <pubDate>Mon, 09 Nov 2026 06:00:00 +0900</pubDate>
+      <guid isPermaLink="false">paradise-hero-stream-guide-20261109</guid>
     </item>
   </channel>
 </rss>

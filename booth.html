@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>파라다이스 포토부스 | 황영웅과 함께 찍는 즉석 기념사진</title>
+  <meta name="description" content="황영웅과 함께 찍는 파라다이스 즉석 포토부스! 4종의 고화질 기념 프레임과 함께 인생 사진을 남기고 스마트폰에 바로 저장하세요.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://paradise-hero.com/booth.html">
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:site_name" content="파라다이스 - 가수 황영웅 팬덤 플랫폼">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="파라다이스 포토부스 | 황영웅과 함께 찍는 즉석 기념사진">
+  <meta property="og:description" content="앱 설치 없이 브라우저에서 바로! 황영웅님과 다정하게 어깨동무한 세상에 하나뿐인 기념사진을 만드세요.">
+  <meta property="og:url" content="https://paradise-hero.com/booth.html">
+  <meta property="og:image" content="https://paradise-hero.com/assets/frames/frame_flower_path.png">
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="파라다이스 포토부스 | 황영웅과 함께 찍는 즉석 기념사진">
+  <meta name="twitter:description" content="앱 설치 없이 브라우저에서 바로! 황영웅님과 다정하게 어깨동무한 세상에 하나뿐인 기념사진을 만드세요.">
+  <meta name="twitter:image" content="https://paradise-hero.com/assets/frames/frame_flower_path.png">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://paradise-hero.com/booth.html#webpage",
+        "url": "https://paradise-hero.com/booth.html",
+        "name": "파라다이스 포토부스 | 황영웅과 함께 찍는 즉석 기념사진",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://paradise-hero.com/#website",
+          "url": "https://paradise-hero.com/",
+          "name": "파라다이스"
+        },
+        "description": "황영웅과 함께 찍는 즉석 포토부스. 4종 기념 프레임과 무인 브라우저 즉석 저장.",
+        "inLanguage": "ko-KR"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://paradise-hero.com/booth.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "홈",
+            "item": "https://paradise-hero.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "영웅 포토부스",
+            "item": "https://paradise-hero.com/booth.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- 파라다이스 시니어 WCAG AAA 스타일시트 -->
+  <link rel="stylesheet" href="css/senior-style.css">
+
+  <style>
+    /* ==========================================================================
+       포토부스 전용 고대비 & 시니어 친화 스타일
+       ========================================================================== */
+    .booth-container {
+      max-width: 840px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+    }
+
+    .booth-step-card {
+      background-color: #FFFFFF;
+      border: 2px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .booth-step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px dashed #E5E7EB;
+    }
+
+    .booth-step-badge {
+      background-color: var(--brand-emerald);
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .booth-step-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--brand-emerald-dark);
+      margin: 0;
+    }
+
+    /* 상단 사진 촬영 & 업로드 버튼 그룹 */
+    .ingestion-btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 600px) {
+      .ingestion-btn-group {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn-camera-capture {
+      min-height: 60px;
+      background: linear-gradient(135deg, var(--brand-emerald) 0%, var(--brand-emerald-dark) 100%);
+      color: #FFFFFF;
+      font-size: 19px;
+      font-weight: 800;
+      border: 2px solid var(--brand-gold);
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(27, 77, 62, 0.25);
+      transition: transform 0.1s ease, filter 0.2s ease;
+    }
+    .btn-camera-capture:hover {
+      filter: brightness(1.1);
+    }
+    .btn-camera-capture:active {
+      transform: scale(0.97);
+    }
+
+    .btn-album-upload {
+      min-height: 60px;
+      background-color: #F8FAFC;
+      color: var(--brand-emerald-dark);
+      font-size: 19px;
+      font-weight: 800;
+      border: 2px solid #CBD5E1;
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.1s ease, background-color 0.2s ease;
+    }
+    .btn-album-upload:hover {
+      background-color: #F1F5F9;
+      border-color: var(--brand-emerald);
+    }
+    .btn-album-upload:active {
+      transform: scale(0.97);
+    }
+
+    /* 프레임 선택 트레이 */
+    .frame-tray {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 640px) {
+      .frame-tray {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .frame-select-btn {
+      background-color: #FAFAF8;
+      border: 3px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      min-height: 56px;
+    }
+    .frame-select-btn:hover {
+      border-color: var(--brand-gold);
+    }
+    .frame-select-btn.active {
+      border-color: var(--brand-emerald);
+      background-color: #EBF8F2;
+      box-shadow: 0 4px 14px rgba(27, 77, 62, 0.3);
+    }
+    .frame-select-btn img {
+      width: 100%;
+      max-width: 110px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      border: 1px solid #D4AF37;
+    }
+    .frame-select-label {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--brand-emerald-dark);
+      text-align: center;
+    }
+
+    /* 캔버스 작업대 영역 */
+    .canvas-workspace {
+      position: relative;
+      background-color: #1A1A1A;
+      border: 4px solid var(--brand-gold);
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 16px auto;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      max-width: 540px;
+      aspect-ratio: 3 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #booth-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      cursor: grab;
+    }
+    #booth-canvas:active {
+      cursor: grabbing;
+    }
+
+    /* 시니어 조작 툴바 (최소 56px 터치 타겟) */
+    .senior-toolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .btn-tool {
+      min-height: 56px;
+      min-width: 56px;
+      flex: 1 1 calc(25% - 8px);
+      background-color: #F8FAFC;
+      border: 2px solid #CBD5E1;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--brand-emerald-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.1s ease, background-color 0.2s ease;
+    }
+    .btn-tool:hover {
+      background-color: #E2E8F0;
+      border-color: var(--brand-emerald);
+    }
+    .btn-tool:active {
+      transform: scale(0.95);
+    }
+    .btn-tool-reset {
+      background-color: #FEF3C7;
+      border-color: var(--brand-gold);
+      color: #92400E;
+    }
+
+    /* 저장 & 공유 메인 버튼 */
+    .save-action-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .btn-save-primary {
+      min-height: 64px;
+      background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+      color: #FFFFFF;
+      font-size: 22px;
+      font-weight: 900;
+      border: 2px solid #FFFFFF;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 6px 18px rgba(184, 134, 11, 0.35);
+      transition: transform 0.1s ease, filter 0.2s ease;
+    }
+    .btn-save-primary:hover {
+      filter: brightness(1.08);
+    }
+    .btn-save-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-share-secondary {
+      min-height: 56px;
+      background-color: #FEE500;
+      color: #191919;
+      font-size: 19px;
+      font-weight: 800;
+      border: 2px solid #E5CE00;
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.1s ease;
+    }
+    .btn-share-secondary:active {
+      transform: scale(0.97);
+    }
+
+    /* 모달 팝업 레이아웃 */
+    .booth-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.75);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    .booth-modal-content {
+      background-color: #FFFFFF;
+      border-radius: 24px;
+      max-width: 520px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 3px solid var(--brand-gold);
+      text-align: center;
+    }
+    .booth-modal-preview {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      border-radius: 12px;
+      border: 2px solid var(--brand-gold);
+      margin: 16px auto;
+      display: block;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .senior-notice-box {
+      background-color: #FEF9C3;
+      border: 2px dashed #CA8A04;
+      color: #854D0E;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin: 16px 0;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <!-- 스킵 네비게이션 -->
+  <a href="#main-content" class="skip-link">본문 바로가기</a>
+
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand-logo">
+        <span class="logo-icon" aria-hidden="true">👑</span>
+        <div>
+          <span class="logo-text">파라다이스</span>
+          <span class="logo-sub">포토부스</span>
+        </div>
+      </div>
+      <div class="accessibility-bar">
+        <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 18px)">
+          <span aria-hidden="true">🔍</span> 글자크게 가+
+        </button>
+      </div>
+    </div>
+
+    <!-- 6대 상시 노출 메뉴 -->
+    <nav class="main-nav" aria-label="메인 메뉴">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">🏠</span>
+            <span>처음으로</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="radio.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">📻</span>
+            <span>김쌤 라디오</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="stream.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">🎵</span>
+            <span>노래 듣기 가이드</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="community.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">💬</span>
+            <span>파라다이스 사랑방</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="vip.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">👑</span>
+            <span>황금빛 VIP</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="booth.html" class="nav-link nav-item active" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">📸</span>
+            <span>영웅과 함께</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 실시간 황금 응원 전광판 -->
+  <aside class="billboard-banner" aria-label="실시간 응원 전광판">
+    <span class="billboard-label">🌟 실시간 응원 전광판</span>
+    <div class="billboard-ticker">
+      <span class="billboard-text">
+        [대구 달서구 순자 어머니] "영웅님과 나란히 서서 사진 찍으니 평생 소원 풀었습니다!" 💚 &nbsp;&nbsp;&nbsp;&nbsp;
+        [서울 강서 영희맘] "카톡 프로필 사진으로 해두니 친구들이 어디서 찍었냐고 난리네요." 🌸 &nbsp;&nbsp;&nbsp;&nbsp;
+        [부산 해운대 정숙님] "안방 벽에 예쁘게 인화해서 걸어두었습니다. 영원히 당신 편!" 🌟
+      </span>
+    </div>
+    <a href="vip.html#billboard-support" class="btn-billboard-action">나도 황금 응원 보내기 👉</a>
+  </aside>
+
+  <!-- 메인 본문 영역 -->
+  <main id="main-content" class="container booth-container">
+    <!-- 히어로 인트로 섹션 -->
+    <section class="senior-card highlight-card" aria-labelledby="booth-heading" style="margin-top: 24px;">
+      <div class="section-title-wrap">
+        <span class="section-badge">📸 100% 무료 즉석 기념사진</span>
+        <h1 id="booth-heading" class="section-title">
+          "어머님, 영웅님과 다정하게 기념사진 찍으세요!"
+        </h1>
+        <p class="section-desc" style="font-size: 18px; line-height: 1.6; color: #374151; margin-top: 8px;">
+          별도의 앱 설치나 회원가입 전혀 없이, 스마트폰 카메라로 바로 찍거나 내 앨범에 있는 예쁜 사진을 골라 영웅님과 함께한 멋진 기념사진을 완성해보세요.
+        </p>
+      </div>
+
+      <!-- 사진 입력 버튼 그룹 (카메라 & 앨범) -->
+      <div class="ingestion-btn-group" style="margin-top: 20px;">
+        <button type="button" id="btn-camera" class="btn-camera-capture" aria-label="카메라로 사진 찍기">
+          <span aria-hidden="true">📸</span>
+          <span id="btn-camera-text">영웅님과 사진 찍기</span>
+        </button>
+        <button type="button" id="btn-album" class="btn-album-upload" aria-label="스마트폰 앨범에서 사진 고르기">
+          <span aria-hidden="true">📁</span>
+          <span>내 앨범에서 사진 고르기</span>
+        </button>
+        <!-- 실제 파일 인풋 (숨김) -->
+        <input type="file" id="booth-file-input" accept="image/*" style="display: none;" aria-label="앨범 사진 선택 파일 입력창">
+        <!-- 카메라 비디오 스트림 (숨김) -->
+        <video id="booth-video" autoplay playsinline muted style="display: none;"></video>
+      </div>
+    </section>
+
+    <!-- 1단계: 프레임 선택 카드 -->
+    <section class="booth-step-card" aria-labelledby="step1-title">
+      <div class="booth-step-header">
+        <span class="booth-step-badge">1단계</span>
+        <h2 id="step1-title" class="booth-step-title">마음에 드는 기념 프레임을 골라주세요</h2>
+      </div>
+      <p style="font-size: 16px; color: #4B5563; margin-top: -6px; margin-bottom: 12px;">
+        아래 4가지 기념 프레임 중 마음에 드는 디자인을 누르시면 바로 적용됩니다.
+      </p>
+
+      <div class="frame-tray" role="radiogroup" aria-label="기념 프레임 선택 목록">
+        <button type="button" class="frame-select-btn active" data-frame-index="0" role="radio" aria-checked="true">
+          <img src="assets/frames/thumb_flower_path.png" alt="다정한 꽃길 프레임 미리보기">
+          <span class="frame-select-label">🌸 다정한 꽃길</span>
+        </button>
+        <button type="button" class="frame-select-btn" data-frame-index="1" role="radio" aria-checked="false">
+          <img src="assets/frames/thumb_golden_milestone.png" alt="63만장 골드 프레임 미리보기">
+          <span class="frame-select-label">👑 63만장 골드</span>
+        </button>
+        <button type="button" class="frame-select-btn" data-frame-index="2" role="radio" aria-checked="false">
+          <img src="assets/frames/thumb_paradise_4cut.png" alt="파라다이스 4컷 프레임 미리보기">
+          <span class="frame-select-label">🎞️ 인생 4컷</span>
+        </button>
+        <button type="button" class="frame-select-btn" data-frame-index="3" role="radio" aria-checked="false">
+          <img src="assets/frames/thumb_radio_studio.png" alt="명예 DJ 라디오 프레임 미리보기">
+          <span class="frame-select-label">📻 명예 DJ 라디오</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2단계: 캔버스 작업대 & 시니어 조작 툴바 -->
+    <section class="booth-step-card" aria-labelledby="step2-title">
+      <div class="booth-step-header">
+        <span class="booth-step-badge">2단계</span>
+        <h2 id="step2-title" class="booth-step-title">사진 위치와 크기를 알맞게 맞춰주세요</h2>
+      </div>
+      <p style="font-size: 16px; color: #4B5563; margin-top: -6px; margin-bottom: 8px;">
+        사진을 손가락으로 드래그하여 움직이시거나, 아래 큰 버튼을 눌러 쉽게 조절하실 수 있습니다.
+      </p>
+
+      <!-- 1080x1440 캔버스 뷰포트 -->
+      <div class="canvas-workspace">
+        <canvas id="booth-canvas" width="1080" height="1440" aria-label="기념사진 편집 캔버스 작업대"></canvas>
+      </div>
+
+      <!-- 시니어 맞춤 왕버튼 조작 툴바 (56px+ 터치 타겟) -->
+      <div class="senior-toolbar" aria-label="사진 크기 및 위치 조절 버튼 모음">
+        <div class="toolbar-row">
+          <button type="button" id="btn-zoom-in" class="btn-tool" aria-label="사진 10% 확대">
+            <span aria-hidden="true">🔍</span> 확대 (+)
+          </button>
+          <button type="button" id="btn-zoom-out" class="btn-tool" aria-label="사진 10% 축소">
+            <span aria-hidden="true">🔍</span> 축소 (-)
+          </button>
+          <button type="button" id="btn-flip" class="btn-tool" aria-label="사진 좌우 뒤집기">
+            <span aria-hidden="true">↔</span> 좌우반전
+          </button>
+          <button type="button" id="btn-rotate" class="btn-tool" aria-label="사진 90도 회전">
+            <span aria-hidden="true">↷</span> 90° 회전
+          </button>
+        </div>
+
+        <div class="toolbar-row">
+          <button type="button" id="btn-pan-up" class="btn-tool" aria-label="사진 위로 이동">
+            <span aria-hidden="true">⬆</span> 위로
+          </button>
+          <button type="button" id="btn-pan-down" class="btn-tool" aria-label="사진 아래로 이동">
+            <span aria-hidden="true">⬇</span> 아래로
+          </button>
+          <button type="button" id="btn-pan-left" class="btn-tool" aria-label="사진 왼쪽으로 이동">
+            <span aria-hidden="true">⬅</span> 왼쪽
+          </button>
+          <button type="button" id="btn-pan-right" class="btn-tool" aria-label="사진 오른쪽으로 이동">
+            <span aria-hidden="true">➡</span> 오른쪽
+          </button>
+          <button type="button" id="btn-reset" class="btn-tool btn-tool-reset" aria-label="사진 크기 및 위치 원래대로 복구">
+            <span aria-hidden="true">↺</span> 원래대로
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3단계: 내 스마트폰에 저장 & 공유하기 -->
+    <section class="booth-step-card" aria-labelledby="step3-title">
+      <div class="booth-step-header">
+        <span class="booth-step-badge">3단계</span>
+        <h2 id="step3-title" class="booth-step-title">완성된 사진을 내 스마트폰에 저장하세요</h2>
+      </div>
+
+      <div class="save-action-group">
+        <button type="button" id="btn-save-photo" class="btn-save-primary" aria-label="완성된 사진 스마트폰에 안심 저장하기">
+          <span aria-hidden="true">💾</span>
+          <span>스마트폰에 안심 저장하기 (무료)</span>
+        </button>
+
+        <button type="button" id="btn-share-photo" class="btn-share-secondary" aria-label="가족 및 친구 카카오톡으로 자랑하기">
+          <span aria-hidden="true">🌸</span>
+          <span>가족 · 친구 카톡으로 자랑하기</span>
+        </button>
+      </div>
+
+      <!-- 안심 안내 및 개인정보 보호 고지 -->
+      <div class="senior-notice-box" style="margin-top: 20px;">
+        <p style="margin: 0; font-size: 16px;">
+          🔒 <strong>100% 안심 개인정보 보호:</strong> 어머님의 소중한 사진은 외부 서버로 절대 전송되지 않으며, 고객님의 스마트폰 화면 안에서만 안전하게 완성됩니다. 안심하고 마음껏 이용하세요!
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- 저장 완료 & 길게 누르기 축하 모달 -->
+  <div id="save-celebration-modal" class="booth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-celeb-title">
+    <div class="booth-modal-content">
+      <h3 id="modal-celeb-title" style="font-size: 24px; color: var(--brand-emerald-dark); margin: 0;">
+        🎉 예쁜 기념사진이 완성되었습니다!
+      </h3>
+      <p style="font-size: 17px; color: #4B5563; margin: 8px 0;">
+        사진이 스마트폰 [다운로드] 폴더에 안전하게 저장되었습니다.
+      </p>
+
+      <img id="modal-preview-img" class="booth-modal-preview" alt="완성된 황영웅 기념사진">
+
+      <div class="senior-notice-box" style="text-align: center;">
+        <span style="font-size: 20px;" aria-hidden="true">👆</span><br>
+        <strong>[아이폰 / 카카오톡 화면 안내]</strong><br>
+        위 사진을 손가락으로 <strong>1초간 꾹~ 누르시면</strong><br>
+        <span style="color: #1B4D3E; font-weight: 800;">[내 폰에 사진 저장]</span> 또는 <span style="color: #1B4D3E; font-weight: 800;">[공유]</span>를 바로 누르실 수 있습니다! 🌸
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;">
+        <button type="button" id="btn-modal-share" class="btn-share-secondary" style="min-height: 56px;">
+          💬 카카오톡으로 사진 보내기
+        </button>
+        <button type="button" id="btn-modal-close" class="btn-tool" style="min-height: 56px; font-weight: 800;">
+          ✕ 닫기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 카메라 권한 안내 모달 -->
+  <div id="camera-fallback-modal" class="booth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-cam-title">
+    <div class="booth-modal-content">
+      <h3 id="modal-cam-title" style="font-size: 22px; color: var(--brand-emerald-dark); margin: 0;">
+        🌸 카메라 연결 안내
+      </h3>
+      <p id="camera-fallback-msg" style="font-size: 17px; color: #4B5563; margin: 12px 0; line-height: 1.5;">
+        카메라 연결이 잠시 어려워요. 대신 아래 [내 앨범에서 사진 고르기]를 누르시면 스마트폰 앨범에 있는 예쁜 사진으로 바로 만드실 수 있습니다!
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
+        <button type="button" id="btn-fallback-album" class="btn-camera-capture" style="min-height: 56px;">
+          📁 내 앨범에서 사진 고르기
+        </button>
+        <button type="button" id="btn-fallback-close" class="btn-tool" style="min-height: 56px;">
+          ✕ 닫기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 사이트 공통 푸터 -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="footer-logo">👑 파라다이스 · 황영웅 공식 팬 커뮤니티</span>
+        <p class="footer-text">
+          본 플랫폼은 가수 황영웅님을 사랑하는 5070 어머님 팬들을 위한 순수 팬 커뮤니티 공간입니다.<br>
+          유튜브 <a href="https://www.youtube.com/@김쌤의영웅라디오" target="_blank" rel="noopener noreferrer" style="color: var(--brand-gold); text-decoration: underline;">@김쌤의영웅라디오</a> 채널과 함께하며, 모든 저작권 및 초상권은 원저작권자에게 있습니다.
+        </p>
+      </div>
+
+      <div class="footer-info">
+        <p class="footer-links">
+          <a href="index.html">처음으로</a> ·
+          <a href="radio.html">김쌤 라디오</a> ·
+          <a href="booth.html">영웅과 함께</a> ·
+          <a href="vip.html">골드 VIP 멤버십</a>
+        </p>
+        <p class="footer-copyright">
+          공식 지원 및 문의: <a href="mailto:beable9489@gmail.com" style="color: var(--brand-gold);">beable9489@gmail.com</a><br>
+          멤버십 공식 결제처: Lemon Squeezy Store #296100 (GetBreakAI &amp; KIDS-FIT Global Studio)<br>
+          © 2026 파라다이스 (paradise-hero.com). All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 스크립트 연결 -->
+  <script src="js/senior-accessibility.js"></script>
+  <script src="js/radio-player.js"></script>
+  <script src="js/photo-booth.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 1. 포토부스 엔진 초기화
+      const canvas = document.getElementById('booth-canvas');
+      const video = document.getElementById('booth-video');
+      const fileInput = document.getElementById('booth-file-input');
+
+      const engine = new PhotoBoothEngine({ canvas, video, fileInput });
+      engine.init();
+
+      // 전역 참조 (디버깅 및 테스트 연동)
+      window.photoBoothEngine = engine;
+
+      // 2. 카메라 버튼 토글 로직
+      const btnCamera = document.getElementById('btn-camera');
+      const btnCameraText = document.getElementById('btn-camera-text');
+      btnCamera.addEventListener('click', async function () {
+        if (!engine.isCameraStreaming) {
+          const started = await engine.startCamera();
+          if (started) {
+            btnCameraText.textContent = '📸 찰칵! 셔터 누르기';
+            btnCamera.style.background = 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)';
+          }
+        } else {
+          // 셔터 누름
+          engine.captureSnapshot();
+          btnCameraText.textContent = '영웅님과 사진 찍기';
+          btnCamera.style.background = '';
+        }
+      });
+
+      // 3. 앨범 선택 버튼
+      const btnAlbum = document.getElementById('btn-album');
+      btnAlbum.addEventListener('click', function () {
+        fileInput.click();
+      });
+
+      // 4. 프레임 선택 버튼군
+      const frameBtns = document.querySelectorAll('.frame-select-btn');
+      frameBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          frameBtns.forEach(function (b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-checked', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-checked', 'true');
+
+          const idx = parseInt(btn.getAttribute('data-frame-index'), 10);
+          engine.selectFrame(idx);
+        });
+      });
+
+      // 5. 시니어 툴바 버튼 연결
+      document.getElementById('btn-zoom-in').addEventListener('click', function () { engine.zoomIn(0.1); });
+      document.getElementById('btn-zoom-out').addEventListener('click', function () { engine.zoomOut(0.1); });
+      document.getElementById('btn-flip').addEventListener('click', function () { engine.flipHorizontal(); });
+      document.getElementById('btn-rotate').addEventListener('click', function () { engine.rotateClockwise(); });
+
+      document.getElementById('btn-pan-up').addEventListener('click', function () { engine.pan(0, -30); });
+      document.getElementById('btn-pan-down').addEventListener('click', function () { engine.pan(0, 30); });
+      document.getElementById('btn-pan-left').addEventListener('click', function () { engine.pan(-30, 0); });
+      document.getElementById('btn-pan-right').addEventListener('click', function () { engine.pan(30, 0); });
+      document.getElementById('btn-reset').addEventListener('click', function () { engine.resetTransform(); });
+
+      // 6. 저장 및 축하 모달
+      let lastExportedBlob = null;
+      let lastExportedFilename = '';
+      const celebModal = document.getElementById('save-celebration-modal');
+      const modalPreviewImg = document.getElementById('modal-preview-img');
+
+      document.getElementById('btn-save-photo').addEventListener('click', async function () {
+        try {
+          const result = await engine.exportPhoto();
+          lastExportedBlob = result.blob;
+          lastExportedFilename = result.filename;
+
+          // 모달에 미리보기 표시
+          modalPreviewImg.src = result.url;
+          celebModal.style.display = 'flex';
+        } catch (err) {
+          console.error('[PhotoBooth] Save error:', err);
+          alert('사진 저장 중 오류가 발생했습니다. 다시 시도해 주세요.');
+        }
+      });
+
+      // 공유하기 버튼 (메인 & 모달)
+      const triggerShare = async function () {
+        if (!lastExportedBlob) {
+          try {
+            const result = await engine.exportPhoto();
+            lastExportedBlob = result.blob;
+            lastExportedFilename = result.filename;
+            modalPreviewImg.src = result.url;
+          } catch (e) {
+            return;
+          }
+        }
+        const shared = await engine.sharePhoto(lastExportedBlob, lastExportedFilename);
+        if (!shared) {
+          alert('스마트폰의 공유 기능이 열리지 않았습니다. 사진을 1초간 꾹 눌러 저장하신 후 카카오톡으로 전송해보세요! 🌸');
+        }
+      };
+
+      document.getElementById('btn-share-photo').addEventListener('click', triggerShare);
+      document.getElementById('btn-modal-share').addEventListener('click', triggerShare);
+
+      document.getElementById('btn-modal-close').addEventListener('click', function () {
+        celebModal.style.display = 'none';
+      });
+
+      // 카메라 폴백 모달 버튼
+      const camModal = document.getElementById('camera-fallback-modal');
+      document.getElementById('btn-fallback-album').addEventListener('click', function () {
+        camModal.style.display = 'none';
+        fileInput.click();
+      });
+      document.getElementById('btn-fallback-close').addEventListener('click', function () {
+        camModal.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>

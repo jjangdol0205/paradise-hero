@@ -1,0 +1,122 @@
+[
+  {
+    "story_id": "story_20261109_001",
+    "sender_name": "대구 달서구 이순자 어머니",
+    "sender_location": "대구 달서구",
+    "contact_info_masked": "010-****-5678",
+    "contact_info_private": "010-1234-5678",
+    "song_title": "당신 편",
+    "story_title": "병실에서 손잡아준 당신 편, 영웅아 고맙다",
+    "story_content": "김쌤, 작년 가을에 40년을 한결같이 곁을 지키던 남편을 오랜 병간호 끝에 먼저 하늘나라로 떠나보냈습니다. 장례를 다 치르고 홀로 텅 빈 집에 돌아왔는데, 방안의 공기가 어찌나 시리고 차갑던지요. 남편이 벗어둔 외투를 부여잡고 며칠 동안 밥 한 숟갈 뜨지 못한 채 울기만 했습니다. 자식들도 제 가정이 있으니 매일 붙어있을 수는 없고, 혼자 우두커니 앉아있으면 가슴을 짓눌렀습니다. 그렇게 넋을 놓고 누워만 있던 저를 다시 일으켜 세운 건 딸아이가 머리맡에 틀어주고 간 영웅님의 노래였습니다. 세상이 다 등을 돌려도 내가 당신 편이 되겠소라는 묵직한 첫 소절이 귀를 때리는 순간 멈췄던 눈물이 왈칵 쏟아졌습니다. 그날 밤 목놓아 울고 났더니 가슴을 짓누르던 돌덩이가 씻겨 내려간 듯 시원해졌습니다. 영웅님, 내 인생 가장 어두웠던 골짜기에서 손을 잡아줘서 참 고맙고 감사합니다. 부디 아프지 말고 오래오래 노래해 주세요.",
+    "created_at": "2026-11-09T08:00:00Z",
+    "cheer_count": 188,
+    "resonance_score": 88.5,
+    "score_breakdown": {
+      "cheer_score": 34.2,
+      "emotion_score": 26.5,
+      "length_score": 20.0,
+      "song_score": 15.0,
+      "decay_penalty": 0.0
+    },
+    "tier": "top_spotlight",
+    "status": "selected_for_radio",
+    "broadcast_info": {
+      "episode_number": 1,
+      "broadcast_date": "2026-11-11",
+      "youtube_video_id": "ep01_preview",
+      "youtube_url": "https://www.youtube.com/@김쌤의영웅라디오"
+    }
+  },
+  {
+    "story_id": "story_20261108_002",
+    "sender_name": "전북 익산 박정옥 어머니",
+    "sender_location": "전북 익산",
+    "contact_info_masked": "010-****-8842",
+    "contact_info_private": "010-8765-8842",
+    "song_title": "꽃구경",
+    "story_title": "어머니 손잡고 떠났던 그 시절 꽃구경을 떠올리며",
+    "story_content": "김쌤 안녕하세요. 칠순을 훌쩍 넘긴 나이에 영웅님을 알게 되어 매일이 꿈결 같은 박정옥입니다. 작년에 아흔넷이 되신 저희 친정 어머니를 먼저 떠나보내고 한동안 멍하니 살았습니다. 봄이 와도 꽃이 핀 줄도 모르고 지냈는데, 우연히 유튜브에서 영웅님이 부르신 '꽃구경'을 듣게 되었습니다. '어머니 꽃구경 가요' 하며 시작하는 그 애절하고 따뜻한 목소리가 어찌나 가슴을 파고들던지요. 라디오를 들으며 얼마나 울었는지 모릅니다. 영웅님의 노래는 단순한 가요가 아니라, 가슴속 깊이 묻어둔 어머니를 향한 사모곡이자 눈물의 치유였습니다. 전국의 영웅시대 친구들과 함께 버스를 대절해 콘서트장에 다녀오던 날, 평생 자식들 키우느라 청춘을 다 바친 제 인생에도 다시 봄날이 찾아왔음을 느꼈습니다. 김쌤 라디오에서 이 꽃구경을 함께 들으며 하늘에 계신 어머니께 사랑한다는 말을 꼭 전하고 싶습니다.",
+    "created_at": "2026-11-08T10:30:00Z",
+    "cheer_count": 134,
+    "resonance_score": 81.2,
+    "score_breakdown": {
+      "cheer_score": 31.8,
+      "emotion_score": 24.8,
+      "length_score": 20.0,
+      "song_score": 15.0,
+      "decay_penalty": 1.2
+    },
+    "tier": "heartfelt_resonant",
+    "status": "ranked",
+    "broadcast_info": null
+  },
+  {
+    "story_id": "story_20261107_003",
+    "sender_name": "부산 해운대 김영희 님",
+    "sender_location": "부산 해운대",
+    "contact_info_masked": "010-****-3421",
+    "contact_info_private": "010-9988-3421",
+    "song_title": "비상",
+    "story_title": "항암의 차가운 병상에서 다시 날아오르게 해준 비상",
+    "story_content": "2년 전 유방암 판정을 받고 힘든 수술과 고통스러운 항암 치료를 견뎌야 했습니다. 머리카락이 한 웅큼씩 빠지고 거울을 볼 때마다 쏟아지는 눈물을 참을 수가 없었습니다. 새벽마다 통증으로 잠 못 이루던 밤, 병실 침대에서 이어폰을 꽂고 영웅님의 '비상'을 들었습니다. '이 세상 어딘가 내 쉴 곳을 찾아서' 힘차게 솟구쳐 오르는 영웅님의 울림 있는 목소리가 제 메마른 영혼에 강력한 버팀목이 되어주었습니다. '나도 여기서 주저앉지 않고 반드시 완치되어 두 발로 당당하게 날아오르리라' 굳게 다짐했습니다. 힘겨웠던 6차 항암 치료를 모두 마치고 지난달 마침내 완치 판정을 받았습니다. 영웅님의 노래는 제 생명의 은인이자 가장 든든한 동행이었습니다. 감사하고 또 감사합니다.",
+    "created_at": "2026-11-07T14:15:00Z",
+    "cheer_count": 98,
+    "resonance_score": 76.9,
+    "score_breakdown": {
+      "cheer_score": 29.5,
+      "emotion_score": 24.2,
+      "length_score": 20.0,
+      "song_score": 15.0,
+      "decay_penalty": 2.4
+    },
+    "tier": "heartfelt_resonant",
+    "status": "ranked",
+    "broadcast_info": null
+  },
+  {
+    "story_id": "story_20261106_004",
+    "sender_name": "강원 강릉 최선자 어머니",
+    "sender_location": "강원 강릉",
+    "contact_info_masked": "010-****-7712",
+    "contact_info_private": "010-5544-7712",
+    "song_title": "인사동 찻집",
+    "story_title": "먼저 떠난 여고 동창과의 추억, 인사동 찻집에서",
+    "story_content": "어느덧 칠십 고개를 넘어 뒤돌아보니 청춘은 쏜살같이 지나갔습니다. 여고 시절 단짝으로 평생을 함께 울고 웃었던 친구가 3년 전 갑작스럽게 세상을 떠났습니다. 젊은 날 서울에 놀러 갈 때마다 인사동 전통 찻집에서 쌍화차를 나눠 마시며 미래를 이야기하던 그 시절이 영웅님의 노래 '인사동 찻집'을 들을 때마다 눈앞에 아지랑이처럼 피어오릅니다. 영웅님의 구수한 감성과 담백한 목소리가 친구 잃은 제 쓸쓸한 마음에 따스한 차 한 잔처럼 온기를 전해줍니다. 영웅시대 강릉 모임에 나가면서 좋은 친구들을 새로 만나 위로를 얻고 있습니다. 영웅님, 오래오래 건강하게 좋은 노래 들려주세요.",
+    "created_at": "2026-11-06T09:20:00Z",
+    "cheer_count": 76,
+    "resonance_score": 71.4,
+    "score_breakdown": {
+      "cheer_score": 27.8,
+      "emotion_score": 21.0,
+      "length_score": 20.0,
+      "song_score": 15.0,
+      "decay_penalty": 3.6
+    },
+    "tier": "heartfelt_resonant",
+    "status": "ranked",
+    "broadcast_info": null
+  },
+  {
+    "story_id": "story_20261105_005",
+    "sender_name": "서울 양천구 정명숙 님",
+    "sender_location": "서울 양천구",
+    "contact_info_masked": "010-****-1983",
+    "contact_info_private": "010-3322-1983",
+    "song_title": "함께해요",
+    "story_title": "일흔에 찾은 내 인생의 봄날, 함께해요",
+    "story_content": "평생을 남편과 삼 남매 뒷바라지에 제 이름 석 자는 잊어버리고 그저 '누구 엄마'로만 살아왔습니다. 막내까지 결혼시키고 찾아온 빈 둥지 증후군으로 우울증이 찾아왔을 때, 기적처럼 영웅님의 노래 '함께해요'를 만났습니다. '함께 손잡고 걸어가요'라는 가사에 가슴이 뭉클해져 팬카페에 가입하고 스밍하는 법도 배웠습니다. 스마트폰 다루는 법도 서툴렀던 제가 이제는 투표도 하고 응원봉도 흔들며 새로운 활력을 얻었습니다. 칠십 평생 처음으로 나를 위한 순수한 열정을 발견하게 해준 영웅님께 진심으로 고마운 마음을 전합니다.",
+    "created_at": "2026-11-05T16:45:00Z",
+    "cheer_count": 62,
+    "resonance_score": 67.8,
+    "score_breakdown": {
+      "cheer_score": 26.2,
+      "emotion_score": 20.4,
+      "length_score": 20.0,
+      "song_score": 15.0,
+      "decay_penalty": 4.8
+    },
+    "tier": "community_feed",
+    "status": "ranked",
+    "broadcast_info": null
+  }
+]
