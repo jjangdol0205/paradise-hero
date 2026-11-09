@@ -1,0 +1,677 @@
+{
+  "channel_name": "@김쌤의영웅라디오",
+  "episode_number": 1,
+  "episode_title": "[제1화] '어머니, 제가 당신의 편이 되어드릴게요' — 황영웅 [당신 편]에 얽힌 눈물의 사연과 김쌤의 감동 해설",
+  "total_chapters": 6,
+  "total_video_duration_sec": 818.8,
+  "aspect_ratio": "16:9",
+  "resolution": "1920x1080",
+  "video_specifications": {
+    "width": 1920,
+    "height": 1080,
+    "aspect_ratio": "16:9",
+    "framerate": 30,
+    "video_codec": "libx264",
+    "video_profile": "high",
+    "crf": 18,
+    "preset": "fast",
+    "audio_codec": "aac",
+    "audio_bitrate": "320k",
+    "audio_samplerate": 48000,
+    "ken_burns": {
+      "cycle_duration_sec": 30.0,
+      "zoom_start": 1.0,
+      "zoom_end": 1.05,
+      "ffmpeg_zoompan_filter": "zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30"
+    },
+    "subtitles": {
+      "font_family": "NanumSquareRoundEB / Malgun Gothic / AppleSDGothicNeo",
+      "font_size_pt": 54,
+      "font_size_range": "52~56pt",
+      "text_color": "#FFFFFF",
+      "outline_color": "#1A1A1A",
+      "outline_width_px": 8,
+      "vertical_align_y": 910,
+      "safe_margin_bottom_px": 170,
+      "max_lines_per_cue": 2,
+      "max_chars_per_line": 26
+    }
+  },
+  "ffmpeg_render_command": "ffmpeg -loop 1 -framerate 30 -t {duration} -i {background_image} -i {master_audio} -filter_complex \"[0:v]scale=1920:1080,zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30[bg];[bg]drawtext=text='{subtitle_text}':fontcolor=white:fontsize=54:bordercolor=black:borderw=8:x=(w-text_w)/2:y=910[v]\" -map \"[v]\" -map 1:a -c:v libx264 -preset fast -crf 18 -c:a aac -b:a 320k -shortest output_1080p.mp4",
+  "chapters": [
+    {
+      "chapter_index": 1,
+      "chapter_id": "ch1_opening",
+      "title": "오프닝 — 파라다이스 어머님들, 저녁 진지 드셨습니까?",
+      "timeline_start_sec": 0.0,
+      "timeline_end_sec": 114.1,
+      "duration_sec": 114.1,
+      "visual_asset_file": "visuals/ch1_scene_1080p.png",
+      "art_prompt": "Cinematic 16:9 wide shot, cozy retro Korean radio studio at late autumn twilight. Warm golden sunset streaming through large wooden window pane, vintage broadcast tube microphone on mahogany desk, steaming porcelain teacup emitting gentle vapor, glowing amber dials of analog radio. Soft depth of field, warm cozy nostalgic atmosphere, 8k resolution, cinematic lighting --ar 16:9",
+      "visual_elements": [
+        "원목 스튜디오",
+        "노을빛 창가",
+        "진공관 마이크",
+        "따뜻한 도자기 찻잔"
+      ],
+      "color_palette": [
+        "#2C1A14",
+        "#E89B53",
+        "#F5E3C8",
+        "#4A6B5B"
+      ],
+      "ken_burns_motion": {
+        "duration_sec": 114.1,
+        "zoom_ratio": "1.00x -> 1.05x",
+        "pan_direction": "slow center-bottom to center-top drift",
+        "ffmpeg_filter": "zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30"
+      },
+      "subtitles_count": 5,
+      "subtitles": [
+        {
+          "segment_id": "ep01_seg_01",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "전국과 해외에 계신 사랑하는 파라다이스 가족 여러분, 그리고 우리 어머님들, 안녕하셨습니까. 저녁 진지는 따뜻하게 챙겨 드셨는지요.",
+          "estimated_duration_sec": 15.5,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_02",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "가을바람이 제법 옷깃을 여미게 만드는 저녁입니다. 문득 붉게 물든 창밖을 바라보다가, 오늘 하루도 가족들 뒷바라지하랴, 무거운 장바구니 들고 오가랴 애쓰셨을 우리 어머님들의 거친 손이 떠올랐습니다.",
+          "estimated_duration_sec": 21.3,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_03",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "세상은 늘 어머니들에게 이것저것 해달라며 보채기만 하지, 정작 오늘 어머니 당신의 마음은 어떠했는지 따뜻하게 물어봐 주는 사람은 참 드물지요. 자식들 밥 챙겨 먹이고 설거지 끝내고 나면, 휑한 거실에 찾아오는 그 고요함과 쓸쓸함을 저 김쌤은 잘 알고 있습니다.",
+          "estimated_duration_sec": 26.1,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_04",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "오늘 하루도 참 고생 많으셨습니다. 여러분의 고단했던 하루 끝자락에, 작지만 결코 꺼지지 않는 따스한 모닥불을 지펴드리는 곳. 김쌤의 영웅 라디오, 김쌤입니다.",
+          "estimated_duration_sec": 18.8,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_05",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "오늘 밤만큼은 세상의 모든 근심과 무거운 짐일랑 잠시 내려놓으시고, 귓가에 이어폰을 꽂거나 머리맡에 잔잔히 틀어두신 채, 세상에서 가장 따뜻한 목소리에 온전히 기대어 쉬어가시길 바랍니다.",
+          "estimated_duration_sec": 20.4,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        }
+      ]
+    },
+    {
+      "chapter_index": 2,
+      "chapter_id": "ch2_hero_story",
+      "title": "영웅 이야기 — 모진 비바람을 견뎌낸 그 깊은 목소리의 비밀",
+      "timeline_start_sec": 114.1,
+      "timeline_end_sec": 263.2,
+      "duration_sec": 149.1,
+      "visual_asset_file": "visuals/ch2_scene_1080p.png",
+      "art_prompt": "Cinematic 16:9 landscape, majestic concert hall stage silhouette. Solo singer silhouette holding a retro acoustic guitar in center spotlight, beams of soft emerald and gold lights cutting through subtle atmospheric haze. Far background showing ocean of glowing emerald green cheering lights from loving audience. Profound emotional resonance, inspiring and solemn aura, ultra high quality, 35mm lens --ar 16:9",
+      "visual_elements": [
+        "콘서트 무대 실루엣",
+        "에메랄드/골드 조명",
+        "어쿠스틱 기타",
+        "객석 응원 불빛"
+      ],
+      "color_palette": [
+        "#0E2A1E",
+        "#27AE60",
+        "#F1C40F",
+        "#1A1A1A"
+      ],
+      "ken_burns_motion": {
+        "duration_sec": 149.1,
+        "zoom_ratio": "1.00x -> 1.05x",
+        "pan_direction": "slow center-bottom to center-top drift",
+        "ffmpeg_filter": "zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30"
+      },
+      "subtitles_count": 6,
+      "subtitles": [
+        {
+          "segment_id": "ep01_seg_06",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "우리 영웅님이 처음 이 노래를 세상에 선보였을 때, 수많은 팬분들이 가슴을 부여잡고 함께 눈물 흘렸던 그 벅찬 순간을 기억하십니까.",
+          "estimated_duration_sec": 13.8,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_07",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "화려한 무대 뒤 좁은 대기실에서, 묵묵히 기타 줄을 고르며 객석을 가득 채운 어머님들의 눈망울 하나하나를 마음에 새겼다는 영웅님. 세상의 모진 비바람과 차가운 시선 속에서도 그가 다시 마이크를 굳게 잡을 수 있었던 단 하나의 이유는 바로 파라다이스 여러분이었습니다.",
+          "estimated_duration_sec": 26.5,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_08",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "'파라다이스 여러분이 내 곁에 계시기에, 나는 결코 쓰러질 수 없다.' 그 절박하고도 단단한 약속 하나로 빚어낸 노래가 바로 오늘 우리가 함께 마음에 새길 [당신 편]입니다.",
+          "estimated_duration_sec": 18.4,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_09",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "노래를 듣다 보면 문득 궁금해집니다. 왜 영웅님의 목소리는 이토록 가슴을 깊게 파고들까요? 기교나 화려한 고음으로 귀를 자극하는 가수는 세상에 많습니다. 하지만 눈물과 고난, 그리고 세월의 인내로 빚어낸 목소리는 차원이 다릅니다. 사람의 메마른 영혼에 곧바로 닿기 때문입니다.",
+          "estimated_duration_sec": 30.1,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_10",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "영웅님의 중저음 배음에는 세월의 모진 풍파를 홀로 견뎌낸 사람만이 간직할 수 있는 깊은 울림이 배어 있습니다. 억지로 꾸며낸 소리가 아니라, 가슴 밑바닥에서 길어 올린 그 진솔함이, 춥고 외로웠던 우리 어머님들의 마음에 한 겹 따뜻한 털 스웨터를 입혀주는 것입니다.",
+          "estimated_duration_sec": 26.8,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_11",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "가수와 팬의 관계를 넘어, 서로의 상처를 보듬고 함께 울고 웃어온 지난 시간들. 오늘 밤 우리가 나누는 이 이야기는 단순한 연예계 소식이 아니라, 우리네 삶을 함께 지켜낸 거룩한 동행의 기록입니다.",
+          "estimated_duration_sec": 21.5,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        }
+      ]
+    },
+    {
+      "chapter_index": 3,
+      "chapter_id": "ch3_song_commentary",
+      "title": "명곡 해설 — '내가 그대 편이 되겠소', [당신 편] 가사 속 눈물의 약속",
+      "timeline_start_sec": 263.2,
+      "timeline_end_sec": 413.5,
+      "duration_sec": 150.3,
+      "visual_asset_file": "visuals/ch3_scene_1080p.png",
+      "art_prompt": "Cinematic 16:9 close-up view, vintage turntable vinyl record spinning slowly on dark oak table. A single golden maple leaf resting beside the vinyl sleeve with elegant Korean calligraphy title '당신 편'. Soft warm ambient desk lamp, gentle analog audio wave reflections in background, peaceful poetic melancholia --ar 16:9",
+      "visual_elements": [
+        "회전하는 LP 턴테이블",
+        "단풍잎 한 잎",
+        "감성 캘리그라피 [당신 편]",
+        "은은한 스탠드 조명"
+      ],
+      "color_palette": [
+        "#1F1610",
+        "#D35400",
+        "#F39C12",
+        "#E5DCC5"
+      ],
+      "ken_burns_motion": {
+        "duration_sec": 150.3,
+        "zoom_ratio": "1.00x -> 1.05x",
+        "pan_direction": "slow center-bottom to center-top drift",
+        "ffmpeg_filter": "zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30"
+      },
+      "subtitles_count": 6,
+      "subtitles": [
+        {
+          "segment_id": "ep01_seg_12",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "'세상이 다 등을 돌려도, 나는 언제나 당신 편입니다.' 이 짧고 투박한 노랫말 한 줄이 왜 이토록 우리 어머님들의 가슴을 먹먹하게 만들까요?",
+          "estimated_duration_sec": 15.3,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_13",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "평생을 자식 키우느라 청춘 다 바치고, 남편 뒷바라지하느라 정작 자신을 위한 인생은 한 번도 살아보지 못했던 우리 어머니들. 힘들다고 투정 한번 부릴 곳 없이, 속으로만 눈물을 삼키며 '엄마니까 참아야지', '아내니까 견뎌야지' 하며 살아오시지 않으셨습니까.",
+          "estimated_duration_sec": 27.1,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_14",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "그렇게 평생 내 편 하나 없이 외로운 섬처럼 버텨오셨던 우리네 어머니들에게, 영웅님의 묵직한 중저음은 '어머니, 이제 제가 어머니의 편이 되어드릴게요'라는 세상에서 가장 든든한 아들의 고백이었습니다.",
+          "estimated_duration_sec": 20.9,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_15",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "가사를 조금 더 들여다보겠습니다. '모진 비바람 불어와도 내 손을 놓지 마오.' 영웅님은 자기가 높은 곳에서 손을 내미는 것이 아니라, 가장 낮은 곳에서 어머니와 눈높이를 맞추며 손을 잡자고 말합니다. 이것이 바로 황영웅이라는 가수가 가진 진정성의 힘입니다.",
+          "estimated_duration_sec": 27.5,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_16",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "노래 후반부로 갈수록 감정이 터져 나오는 그 절정 대목을 가만히 들어보십시오. 억눌렸던 슬픔을 소리 질러 토해내는 것이 아니라, 상처투성이인 어머님의 등을 조용히 토닥여주는 따뜻한 체온이 그대로 전해져 옵니다.",
+          "estimated_duration_sec": 21.9,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_17",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "오늘 밤만큼은 다른 누구의 엄마도, 누구의 아내도 아닌, 오롯이 어머님 당신 자신만을 위해 이 노래의 한 소절 한 소절을 가슴에 담아보셨으면 좋겠습니다. 영웅님이 노래로 전하는 그 따뜻한 온기가 여러분의 마음속에 오래도록 머물기를 바랍니다.",
+          "estimated_duration_sec": 25.6,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        }
+      ]
+    },
+    {
+      "chapter_index": 4,
+      "chapter_id": "ch4_fan_letter",
+      "title": "파라다이스 사연 우체통 — 대구 이순자 어머님의 눈물겨운 사연 낭독",
+      "timeline_start_sec": 413.5,
+      "timeline_end_sec": 652.8,
+      "duration_sec": 239.3,
+      "visual_asset_file": "visuals/ch4_scene_1080p.png",
+      "art_prompt": "Cinematic 16:9 still life, heartfelt handwritten letter on traditional Korean Hanji paper lying on wooden desk. Reading glasses folded neatly next to the letter, single flickering candle in brass holder casting dancing warm shadows. Quiet rainy autumn window in soft background, deeply touching, tender, tearful yet healing mood --ar 16:9",
+      "visual_elements": [
+        "정성스런 한지 손편지",
+        "돋보기안경",
+        "은은한 촛불",
+        "비 내리는 밤 창가"
+      ],
+      "color_palette": [
+        "#1A1412",
+        "#C0392B",
+        "#F39C12",
+        "#BDC3C7"
+      ],
+      "ken_burns_motion": {
+        "duration_sec": 239.3,
+        "zoom_ratio": "1.00x -> 1.05x",
+        "pan_direction": "slow center-bottom to center-top drift",
+        "ffmpeg_filter": "zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30"
+      },
+      "subtitles_count": 9,
+      "subtitles": [
+        {
+          "segment_id": "ep01_seg_18",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "오늘 저희 파라다이스 사랑방 우체통에 도착한 사연 한 편을 조심스럽게 꺼내봅니다. 대구 달서구에서 일흔둘의 이순자 어머님께서 떨리는 손으로 정성껏 써 내려가신 편지글입니다.",
+          "estimated_duration_sec": 18.2,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_19",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "어머님께서 가슴에 묻어두셨던 애절한 사연을, 어머님의 고운 육성 그대로 대신 전해드립니다.",
+          "estimated_duration_sec": 10.9,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_20",
+          "speaker": "fan_letter_writer",
+          "speaker_display": "💌 [사연 낭독]",
+          "text": "김쌤, 작년 가을에 40년을 한결같이 곁을 지키던 남편을 오랜 병간호 끝에 먼저 하늘나라로 떠나보냈습니다. 장례를 다 치르고 홀로 텅 빈 집에 돌아왔는데, 방안의 공기가 어찌나 시리고 차갑던지요. 남편이 벗어둔 외투를 부여잡고 며칠 동안 밥 한 숟갈 뜨지 못한 채 울기만 했습니다.",
+          "estimated_duration_sec": 28.6,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_21",
+          "speaker": "fan_letter_writer",
+          "speaker_display": "💌 [사연 낭독]",
+          "text": "자식들도 제 가정이 있으니 매일 붙어있을 수는 없고, 혼자 우두커니 앉아있으면 '내가 살아서 뭐 하나, 나도 얼른 따라가야지' 하는 못된 생각만 가슴을 짓눌렀습니다. 그렇게 넋을 놓고 누워만 있던 저를 다시 일으켜 세운 건, 서울 사는 딸아이가 머리맡에 틀어주고 간 영웅님의 노래였습니다.",
+          "estimated_duration_sec": 29.1,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_22",
+          "speaker": "fan_letter_writer",
+          "speaker_display": "💌 [사연 낭독]",
+          "text": "'세상이 다 등을 돌려도 내가 당신 편이 되겠소.' 그 묵직한 첫 소절이 귀를 때리는 순간, 온몸에 소름이 돋고 멈췄던 눈물이 왈칵 쏟아졌습니다. 마치 저세상에 간 남편이 하늘에서 영웅님의 목소리를 빌려, '여보, 울지 마. 내가 영웅이 노래로 당신 곁을 지켜줄게' 하고 속삭이는 것만 같았습니다.",
+          "estimated_duration_sec": 31.1,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_23",
+          "speaker": "fan_letter_writer",
+          "speaker_display": "💌 [사연 낭독]",
+          "text": "그날 밤 밤새도록 목놓아 울고 났더니, 신기하게도 가슴을 짓누르던 돌덩이가 씻겨 내려간 듯 시원해졌습니다. 이튿날 아침 자리에서 일어나 밥을 안치고, 마당에 쌓인 낙엽을 쓸어냈습니다. 이제는 매일 아침 영웅님 노래를 들으며 활기차게 하루를 시작하고, 경로당에 가서도 다른 친구들에게 영웅님 자랑을 하느라 시간 가는 줄 모릅니다.",
+          "estimated_duration_sec": 33.9,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_24",
+          "speaker": "fan_letter_writer",
+          "speaker_display": "💌 [사연 낭독]",
+          "text": "다음 달에 있을 대구 콘서트 티켓도 딸아이가 구해줘서, 요즘은 그날 입고 갈 예쁜 옷을 고르며 하루하루 설레는 마음으로 살아갑니다. 영웅님, 내 인생 가장 어두웠던 골짜기에서 내 손을 잡아줘서 참 고마워요. 부디 아프지 말고 오래오래 노래해 주세요.",
+          "estimated_duration_sec": 26.6,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_25",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "이순자 어머님... 사연을 읽는 내내 제 가슴도 먹먹해져서 목이 메어왔습니다. 40년을 함께했던 반쪽을 떠나보내고 홀로 마주하셨을 그 적막함과 슬픔을, 감히 제가 어찌 다 헤아릴 수 있겠습니까.",
+          "estimated_duration_sec": 22.6,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_26",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "하지만 어머님, 하늘에 계신 아버님께서도 영웅님의 노래를 통해 기운을 차리신 어머님의 모습을 보며 누구보다 안도하고 기뻐하고 계실 겁니다. 이제 어머님 곁에는 든든한 영웅님이 계시고, 전국에서 함께 손잡아 줄 수십만 파라다이스 가족들이 있습니다.",
+          "estimated_duration_sec": 26.3,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        }
+      ]
+    },
+    {
+      "chapter_index": 5,
+      "chapter_id": "ch5_fandom_cheer",
+      "title": "영웅 응원석 — 파라다이스 가족들이 함께 만드는 황금빛 기적",
+      "timeline_start_sec": 652.8,
+      "timeline_end_sec": 734.4,
+      "duration_sec": 81.6,
+      "visual_asset_file": "visuals/ch5_scene_1080p.png",
+      "art_prompt": "Cinematic 16:9 panoramic view, thousands of glowing emerald-green and gold cheering light sticks waving in unison under a clear starry night sky. Dawn horizon breaking with hopeful golden sunlight over distant mountain ridge, sense of profound unity, triumphant solidarity and benevolence --ar 16:9",
+      "visual_elements": [
+        "에메랄드빛 응원봉 물결",
+        "별빛 밤하늘",
+        "새벽 여명과 황금빛 능선",
+        "선한 연대의 온기"
+      ],
+      "color_palette": [
+        "#0B3B24",
+        "#2ECC71",
+        "#F1C40F",
+        "#34495E"
+      ],
+      "ken_burns_motion": {
+        "duration_sec": 81.6,
+        "zoom_ratio": "1.00x -> 1.05x",
+        "pan_direction": "slow center-bottom to center-top drift",
+        "ffmpeg_filter": "zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30"
+      },
+      "subtitles_count": 3,
+      "subtitles": [
+        {
+          "segment_id": "ep01_seg_27",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "이순자 어머님뿐만 아니라, 오늘도 삶의 무게를 묵묵히 짊어지고 각자의 자리에서 버텨내고 계실 전국의 수많은 파라다이스 가족 여러분.",
+          "estimated_duration_sec": 14.0,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_28",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "이번 주에도 우리 파라다이스 가족들의 따뜻한 나눔과 기부 소식이 전국 곳곳에서 들려왔습니다. 소외된 독거 어르신들에게 따뜻한 밥 한 끼를 전하고, 어려운 청소년들을 위해 장학금을 모아주신 어머님들의 고운 손길... 그것이 바로 영웅님이 세상에서 가장 자랑스러워하는 파라다이스의 품격입니다.",
+          "estimated_duration_sec": 31.4,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_29",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "남을 비방하거나 시기하지 않고, 오직 진실한 노래와 선한 영향력으로 세상을 조금씩 밝혀나가는 여러분이 계시기에, 영웅님은 오늘도 흔들림 없이 노래할 수 있습니다. 우리가 함께 어깨를 겯고 걸어가는 이 길은 결코 외롭지 않습니다.",
+          "estimated_duration_sec": 24.2,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        }
+      ]
+    },
+    {
+      "chapter_index": 6,
+      "chapter_id": "ch6_closing_cta",
+      "title": "클로징 — 편안한 밤 되세요 & 공식 사랑방 사연 안내",
+      "timeline_start_sec": 734.4,
+      "timeline_end_sec": 818.8,
+      "duration_sec": 84.4,
+      "visual_asset_file": "visuals/ch6_scene_1080p.png",
+      "art_prompt": "Cinematic 16:9 wide landscape, serene night sky filled with gentle glowing stars and warm crescent moon over a peaceful sleeping countryside town. A warm yellow light softly glowing from a single rooftop window, quiet lullaby atmosphere, peaceful rest and healing sleep --ar 16:9",
+      "visual_elements": [
+        "초승달과 별빛 밤하늘",
+        "고요한 마을의 따뜻한 창문 불빛",
+        "평화로운 자장가 무드",
+        "공식 로고 오버레이"
+      ],
+      "color_palette": [
+        "#0A192F",
+        "#1B2A4A",
+        "#F7D070",
+        "#E0E6ED"
+      ],
+      "ken_burns_motion": {
+        "duration_sec": 84.4,
+        "zoom_ratio": "1.00x -> 1.05x",
+        "pan_direction": "slow center-bottom to center-top drift",
+        "ffmpeg_filter": "zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30"
+      },
+      "subtitles_count": 3,
+      "subtitles": [
+        {
+          "segment_id": "ep01_seg_30",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "오늘 방송에 소개해 드린 대구 이순자 어머님의 사연 전문과 영웅님을 향한 따뜻한 응원의 글들은, 저희 공식 커뮤니티 파라다이스 히어로 닷컴에서 언제든 다시 읽어보실 수 있습니다.",
+          "estimated_duration_sec": 17.7,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_31",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "가슴속에 담아둔 어머님의 소중한 삶의 이야기나 영웅님께 전하고 싶은 편지가 있으시다면, 공식 사랑방 사연 우체통에 편안히 남겨주세요. 김쌤의 영웅 라디오 사연 신청 및 황금빛 VIP 혜택은 공식 커뮤니티 https://paradise-hero.com 에서 확인하세요.",
+          "estimated_duration_sec": 28.6,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        },
+        {
+          "segment_id": "ep01_seg_32",
+          "speaker": "dj_kim",
+          "speaker_display": "🎙️ [DJ 김쌤]",
+          "text": "오늘 밤도 영웅님의 따뜻한 노래 귓가에 얹어두시고, 가슴속 응어리진 걱정일랑 모두 털어내신 채 달콤하고 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 건강하시고, 늘 행복하십시오. 건행!",
+          "estimated_duration_sec": 26.1,
+          "style": {
+            "font_size_pt": 54,
+            "color": "#FFFFFF",
+            "outline_color": "#1A1A1A",
+            "outline_width": 8,
+            "y_position": 910
+          }
+        }
+      ]
+    }
+  ]
+}

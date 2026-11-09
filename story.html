@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>파라다이스 사연 우체통 | @김쌤의영웅라디오 사연 신청</title>
+  <meta name="description" content="유튜브 @김쌤의영웅라디오 공식 단일 사연 접수 창구. 황영웅 가수의 노래와 함께 울고 웃었던 어머님들의 눈물과 감동의 삶의 사연을 정성껏 모십니다.">
+  <link rel="stylesheet" href="css/senior-style.css">
+</head>
+<body>
+  <!-- 스킵 네비게이션 -->
+  <a href="#main-content" class="skip-link">본문 바로가기</a>
+
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand-logo">
+        <span class="logo-icon" aria-hidden="true">👑</span>
+        <div>
+          <span class="logo-text">파라다이스</span>
+          <span class="logo-sub">사연 우체통</span>
+        </div>
+      </div>
+      <div class="accessibility-bar">
+        <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 18px)">
+          <span aria-hidden="true">🔍</span> 글자크게 가+
+        </button>
+      </div>
+    </div>
+
+    <!-- 5대 메뉴 -->
+    <nav class="main-nav" aria-label="메인 메뉴">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">🏠</span>
+            <span>처음으로</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="radio.html" class="nav-link active" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">📻</span>
+            <span>김쌤 라디오</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="stream.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">🎵</span>
+            <span>노래 듣기 가이드</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="community.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">💬</span>
+            <span>파라다이스 사랑방</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="vip.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">👑</span>
+            <span>황금빛 VIP</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 실시간 황금 응원 전광판 -->
+  <aside class="billboard-banner" aria-label="실시간 응원 전광판">
+    <span class="billboard-label">🌟 실시간 응원 전광판</span>
+    <div class="billboard-ticker">
+      <span class="billboard-text">
+        [김쌤의 영웅 라디오] "어머님들이 보내주신 사연 하나하나가 우리 모두의 살아있는 역사입니다." 💚 &nbsp;&nbsp;&nbsp;&nbsp;
+        [매주 화/금 저녁 7시 정기 방송] 유튜브 @김쌤의영웅라디오에서 감동의 낭독이 펼쳐집니다! 🌟
+      </span>
+    </div>
+    <a href="vip.html#billboard-support" class="btn-billboard-action">나도 황금 응원 보내기 👉</a>
+  </aside>
+
+  <!-- 본문 컨테이너 -->
+  <main id="main-content" class="container">
+    <!-- 사연 우체통 안내 섹션 -->
+    <section class="senior-card highlight-card" aria-labelledby="story-intro-heading">
+      <div class="section-title-wrap">
+        <span class="section-badge">📬 단일 관문(One-Gate) 우체통</span>
+        <h1 id="story-intro-heading" class="section-title">
+          김쌤의 영웅 라디오 파라다이스 사연 우체통
+        </h1>
+        <p class="section-desc">
+          가슴 깊은 곳에 묻어두었던 어머님의 삶의 이야기, 황영웅 가수의 노래를 듣고 눈물 흘리며 다시 힘을 냈던 순간의 감동을 들려주세요.
+        </p>
+      </div>
+
+      <div style="background-color: var(--brand-gold-light); padding: 18px 20px; border-radius: 12px; border: 1px solid var(--brand-gold); margin-bottom: 24px;">
+        <p style="font-weight: 800; color: var(--brand-emerald-dark); margin-bottom: 6px;">
+          💌 어머님을 위한 다정한 약속:
+        </p>
+        <p style="font-size: 17px; line-height: 1.8;">
+          • 글씨가 서툴거나 오타가 있어도 괜찮습니다. 어머님의 진심 어린 마음이 가장 아름다운 글입니다.<br>
+          • 방송에 채택되신 분께는 김쌤이 정성껏 낭독해 드리고, <strong>실물 황금빛 감사 선물 패키지</strong>를 자택으로 무료 배송해 드립니다.<br>
+          • 컴퓨터나 스마트폰 입력이 어려우실 땐 공식 이메일 <strong>beable9489@gmail.com</strong>으로 사연을 편하게 보내주셔도 똑같이 접수됩니다.
+        </p>
+      </div>
+
+      <!-- 사연 신청 폼 -->
+      <form id="story-submission-form" onsubmit="event.preventDefault(); submitStory();">
+        <div class="form-group">
+          <label for="story-sender" class="form-label">
+            1. 성함 또는 부르고 싶은 닉네임 <span style="color: #DC2626;">*</span>
+          </label>
+          <input type="text" id="story-sender" class="form-input" placeholder="예: 대구 달서구 이순자 어머니, 익산 정옥 님" required>
+          <p class="form-help">방송에서 익명을 원하시면 '익명의 파라다이스 팬' 등으로 적어주세요.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="story-contact" class="form-label">
+            2. 연락처 (휴대폰 번호 또는 이메일) <span style="color: #DC2626;">*</span>
+          </label>
+          <input type="text" id="story-contact" class="form-input" placeholder="예: 010-1234-5678 또는 beable9489@gmail.com" required>
+          <p class="form-help">방송 채택 시 안내 및 선물을 우편으로 보내드리기 위해 사용되며 외부에 절대 공개되지 않습니다.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="story-song" class="form-label">
+            3. 김쌤 라디오에서 함께 듣고 싶은 황영웅 신청곡
+          </label>
+          <select id="story-song" class="form-select">
+            <option value="당신 편">당신 편 (정규 1집 타이틀곡)</option>
+            <option value="꽃구경">꽃구경 (미니 1집 타이틀곡)</option>
+            <option value="당신꽃">당신꽃 (정규 1집 수록곡)</option>
+            <option value="인사동 찻집">인사동 찻집 (미니 1집 애창곡)</option>
+            <option value="함께해요">함께해요 (팬송)</option>
+            <option value="황금빛 인생">황금빛 인생</option>
+            <option value="복덩이">복덩이</option>
+            <option value="비나리">비나리 (무대 커버곡)</option>
+            <option value="비상">비상 (치유의 명곡)</option>
+            <option value="기타">기타 (직접 작성)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="story-title" class="form-label">
+            4. 사연의 제목 <span style="color: #DC2626;">*</span>
+          </label>
+          <input type="text" id="story-title" class="form-input" placeholder="예: 병실에서 손잡아준 당신 편, 영웅아 고맙다" required>
+        </div>
+
+        <div class="form-group">
+          <label for="story-content" class="form-label">
+            5. 어머님의 소중한 사연 본문 <span style="color: #DC2626;">*</span>
+          </label>
+          <textarea id="story-content" class="form-textarea" style="min-height: 220px;" placeholder="가족 이야기, 황영웅 가수를 응원하며 생긴 에피소드, 잊지 못할 추억 등 가슴속 이야기를 편안하게 들려주세요." required></textarea>
+        </div>
+
+        <div class="form-group" style="background-color: #F9FAFB; padding: 16px; border-radius: 12px; border: 1px solid var(--border-color);">
+          <label style="display: flex; align-items: center; gap: 12px; font-weight: 700; cursor: pointer;">
+            <input type="checkbox" id="story-agree" required style="width: 24px; height: 24px; accent-color: var(--brand-emerald);">
+            <span>[필수] 작성해주신 사연은 @김쌤의영웅라디오 유튜브 방송에서 낭독될 수 있음에 동의합니다.</span>
+          </label>
+        </div>
+
+        <button type="submit" class="senior-btn btn-primary" style="width: 100%; min-height: 64px; font-size: 22px;">
+          <span aria-hidden="true">💌</span>
+          <span>사연 우체통에 정성껏 접수하기</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- 접수 확인 안내 박스 -->
+    <div id="story-success-box" class="senior-card" style="display: none; background-color: #F0FDF4; border: 3px solid var(--brand-emerald); text-align: center; margin-top: 24px;">
+      <span style="font-size: 48px;" aria-hidden="true">🌸</span>
+      <h2 style="font-size: var(--font-heading); color: var(--brand-emerald-dark); margin: 12px 0;">
+        어머님의 소중한 사연이 무사히 도착했습니다!
+      </h2>
+      <p style="font-size: var(--font-base); line-height: 1.8; margin-bottom: 20px;">
+        DJ 김쌤이 정성 어린 마음으로 한 자 한 자 읽고 다음 방송에서 따뜻하게 보답해 드리겠습니다.<br>
+        방송 일정은 유튜브 <strong>@김쌤의영웅라디오</strong> 및 이곳 <strong>김쌤 라디오관</strong>에서 확인하실 수 있습니다.
+      </p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="radio.html" class="senior-btn btn-primary" style="min-width: 200px;">
+          <span>📻 라디오 방송 목록 보러가기</span>
+        </a>
+        <a href="community.html" class="senior-btn btn-gold" style="min-width: 200px;">
+          <span>💬 사랑방에서 응원 남기기</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- 시니어 안심 푸터 -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <h2 class="footer-title">👑 파라다이스 사연 접수 센터</h2>
+      <p>어머님들의 소중한 이야기 하나하나를 가장 정성스럽고 따뜻하게 보듬겠습니다.</p>
+
+      <div class="footer-contact-box">
+        <p><strong>사연 접수 및 고객지원 공식 창구:</strong></p>
+        <a href="mailto:beable9489@gmail.com" class="footer-contact-email">beable9489@gmail.com</a>
+        <p style="font-size: 14px; color: #D1D5DB; margin-top: 6px;">
+          우편 접수나 전화 사연 상담을 희망하시는 경우 이메일로 연락처를 남겨주시면 정성껏 안내해 드립니다.
+        </p>
+      </div>
+
+      <div class="footer-notice">
+        <p>• <strong>스토어 결제 라이선스:</strong> Lemon Squeezy Store #296100 연동을 통해 투명한 결제 및 서포터즈 관리를 지원합니다.</p>
+        <p>• <strong>개인정보 보호 준수:</strong> 보내주신 연락처와 개인정보는 방송 확인 및 선물 배송 목적 이외에는 절대 사용되지 않습니다.</p>
+      </div>
+
+      <div class="footer-copyright">
+        © 2026 PARADISE-HERO.COM &amp; Dream Company 제4사업부. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/senior-accessibility.js"></script>
+  <script src="js/radio-player.js"></script>
+  <script>
+    function submitStory() {
+      const sender = document.getElementById('story-sender').value;
+      const title = document.getElementById('story-title').value;
+
+      document.getElementById('story-submission-form').style.display = 'none';
+      const successBox = document.getElementById('story-success-box');
+      successBox.style.display = 'block';
+      successBox.scrollIntoView({ behavior: 'smooth' });
+
+      console.log(`[사연 우체통 접수 완료] 신청자: ${sender}, 제목: ${title}`);
+    }
+  </script>
+</body>
+</html>

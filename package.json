@@ -1,0 +1,14 @@
+{
+  "name": "paradise-hero-division4",
+  "version": "1.0.0",
+  "description": "Division 4: Hwang Young-woong (황영웅) Fandom Platform paradise-hero.com & @김쌤의영웅라디오 Media Pipeline",
+  "main": "index.html",
+  "scripts": {
+    "test": "node tests/monetization_blueprint.test.js && node tests/web_platform.test.js && node tests/video_pipeline.test.js",
+    "test:blueprint": "node tests/monetization_blueprint.test.js",
+    "test:web": "node tests/web_platform.test.js",
+    "test:pipeline": "node tests/video_pipeline.test.js"
+  },
+  "author": "Dream Company Division 4",
+  "license": "UNLICENSED"
+}

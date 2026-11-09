@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>파라다이스 히어로 (paradise-hero.com) × 김쌤의 영웅라디오</title>
+    <link>https://paradise-hero.com/</link>
+    <description>가수 황영웅 팬덤 플랫폼 &amp; @김쌤의영웅라디오 공식 사연·방송 피드</description>
+    <language>ko-KR</language>
+    <item>
+      <title>[1회] 황영웅 노래로 다시 찾은 봄날 — 칠순 어머님의 눈물 사연</title>
+      <link>https://paradise-hero.com/radio.html#ep01</link>
+      <description>김쌤의 영웅라디오 1회차 풀버전 다시듣기 및 사연 전문</description>
+      <guid isPermaLink="false">paradise-hero-ep01</guid>
+    </item>
+  </channel>
+</rss>

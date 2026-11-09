@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>파라다이스 사랑방 | 팬 응원 &amp; 출석체크</title>
+  <meta name="description" content="황영웅 공식 팬덤 파라다이스 사랑방. 회원가입 없이 닉네임만으로 남기는 따뜻한 응원 한마디, 매일 출석체크, 그리고 김쌤 라디오 사연 신청 연동.">
+  <link rel="stylesheet" href="css/senior-style.css">
+</head>
+<body>
+  <!-- 스킵 네비게이션 -->
+  <a href="#main-content" class="skip-link">본문 바로가기</a>
+
+  <!-- 상단 헤더 & 네비게이션 -->
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand-logo">
+        <span class="logo-icon" aria-hidden="true">👑</span>
+        <div>
+          <span class="logo-text">파라다이스</span>
+          <span class="logo-sub">사랑방 &amp; 출석체크</span>
+        </div>
+      </div>
+      <div class="accessibility-bar">
+        <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 18px)">
+          <span aria-hidden="true">🔍</span> 글자크게 가+
+        </button>
+      </div>
+    </div>
+
+    <!-- 5대 메뉴 -->
+    <nav class="main-nav" aria-label="메인 메뉴">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">🏠</span>
+            <span>처음으로</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="radio.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">📻</span>
+            <span>김쌤 라디오</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="stream.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">🎵</span>
+            <span>노래 듣기 가이드</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="community.html" class="nav-link active" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">💬</span>
+            <span>파라다이스 사랑방</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="vip.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">👑</span>
+            <span>황금빛 VIP</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 실시간 황금 응원 전광판 -->
+  <aside class="billboard-banner" aria-label="실시간 응원 전광판">
+    <span class="billboard-label">🌟 실시간 응원 전광판</span>
+    <div class="billboard-ticker">
+      <span class="billboard-text">
+        [대구 달서구 순자 어머니] "오늘도 출석 도장 쾅! 영웅아 밥 든든히 챙겨먹어라" 💚 &nbsp;&nbsp;&nbsp;&nbsp;
+        [서울 강서 영희맘] "사랑방에서 어머님들과 수다 떠니 하루 시름이 다 잊혀지네요" 🌟
+      </span>
+    </div>
+    <a href="vip.html#billboard-support" class="btn-billboard-action">나도 황금 응원 보내기 👉</a>
+  </aside>
+
+  <!-- 본문 컨테이너 -->
+  <main id="main-content" class="container">
+    <!-- 사랑방 소개 및 출석체크 폼 -->
+    <section class="senior-card highlight-card" aria-labelledby="community-form-heading">
+      <div class="section-title-wrap">
+        <span class="section-badge">💬 따뜻한 정이 넘치는</span>
+        <h1 id="community-form-heading" class="section-title">
+          파라다이스 사랑방 &amp; 한 줄 응원
+        </h1>
+        <p class="section-desc">
+          복잡한 비밀번호 입력 없이, 부르고 싶은 예쁜 닉네임만 적고 황영웅 가수에게 힘이 되는 응원과 안부를 남겨주세요.
+        </p>
+      </div>
+
+      <form id="cheer-form" onsubmit="event.preventDefault(); postCheerMessage();">
+        <div class="form-group">
+          <label for="cheer-nickname" class="form-label">
+            👤 닉네임 (또는 성함)
+          </label>
+          <input type="text" id="cheer-nickname" class="form-input" placeholder="예: 대구 순자 어머니, 서울 영희맘" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cheer-content" class="form-label">
+            💌 영웅님께 보내는 응원 한마디 (또는 출석 인사)
+          </label>
+          <textarea id="cheer-content" class="form-textarea" placeholder="오늘 하루 어떤 노래를 들으셨나요? 영웅이에게 힘이 되는 따뜻한 글을 남겨주세요." required></textarea>
+        </div>
+
+        <button type="submit" class="senior-btn btn-primary" style="width: 100%;">
+          <span aria-hidden="true">🌟</span>
+          <span>응원 글 등록 &amp; 출석 도장 찍기</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- 유튜브 연계 사연 우체통 바로가기 배너 -->
+    <section class="senior-card" style="background: linear-gradient(135deg, #1B4D3E 0%, #0E2820 100%); color: #FFFFFF; border: 2px solid var(--brand-gold);">
+      <h2 style="font-size: var(--font-heading); color: var(--brand-gold); margin-bottom: 10px;">
+        📬 가슴 뭉클한 사연이 있으신가요?
+      </h2>
+      <p style="font-size: var(--font-base); line-height: 1.8; margin-bottom: 20px;">
+        한 줄 응원을 넘어, 내 삶의 애틋한 이야기와 황영웅 노래에 얽힌 눈물의 사연은 <strong>[파라다이스 사연 우체통]</strong>에 남겨주세요. DJ 김쌤이 감동의 유튜브 라디오 방송으로 따뜻하게 읽어드립니다.
+      </p>
+      <a href="story.html" class="senior-btn btn-gold">
+        <span aria-hidden="true">✍</span>
+        <span>김쌤 라디오 사연 접수 창구 바로가기 👉</span>
+      </a>
+    </section>
+
+    <!-- 실시간 팬 응원 글 목록 피드 -->
+    <section class="senior-card" aria-labelledby="cheer-list-heading">
+      <div class="section-title-wrap">
+        <span class="section-badge">💚 팬들의 황금빛 이야기</span>
+        <h2 id="cheer-list-heading" class="section-title">사랑방 실시간 응원 피드</h2>
+        <p class="section-desc">서로를 보듬어주는 파라다이스 가족들의 따뜻한 온기가 가득합니다.</p>
+      </div>
+
+      <div id="cheer-feed-list">
+        <!-- 기본 예시 글 1 -->
+        <article class="senior-card" style="border-left: 6px solid var(--brand-gold); margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="background-color: var(--brand-gold); color: var(--brand-emerald-dark); font-size: 13px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">👑 골드 VIP</span>
+              <strong style="color: var(--brand-emerald-dark); font-size: 19px;">대구 달서구 이순자 어머니</strong>
+            </div>
+            <span style="font-size: 14px; color: var(--text-muted);">방금 전</span>
+          </div>
+          <p style="font-size: var(--font-base); line-height: 1.8;">
+            "오늘도 새벽같이 일어나 〈당신 편〉 틀어놓고 청소 마쳤습니다. 영웅이 목소리만 들으면 허리 아픈 줄도 모르겠어요. 파라다이스 식구들 모두 감기 조심하세요!"
+          </p>
+        </article>
+
+        <!-- 기본 예시 글 2 -->
+        <article class="senior-card" style="border-left: 6px solid var(--brand-gold); margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="background-color: var(--brand-gold); color: var(--brand-emerald-dark); font-size: 13px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">👑 평생 수호자</span>
+              <strong style="color: var(--brand-emerald-dark); font-size: 19px;">부산 해운대 박정숙 님</strong>
+            </div>
+            <span style="font-size: 14px; color: var(--text-muted);">15분 전</span>
+          </div>
+          <p style="font-size: var(--font-base); line-height: 1.8;">
+            "김쌤 라디오 1화 다시듣고 또 울컥했습니다. 세상이 아무리 모질어도 우리가 어머니의 마음으로 끝까지 영웅이 편이 되어줄 겁니다. 힘내라 영웅아!"
+          </p>
+        </article>
+
+        <!-- 기본 예시 글 3 -->
+        <article class="senior-card" style="border-left: 6px solid var(--brand-emerald); margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="background-color: #E5E7EB; color: #374151; font-size: 13px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">💚 일반 회원</span>
+              <strong style="color: var(--brand-emerald-dark); font-size: 19px;">서울 송파 김영희 님</strong>
+            </div>
+            <span style="font-size: 14px; color: var(--text-muted);">1시간 전</span>
+          </div>
+          <p style="font-size: var(--font-base); line-height: 1.8;">
+            "오늘 스트리밍 3단계 가이드 보고 멜론 하트 누르기 성공했어요! 돋보기 안 써도 글씨가 큼직해서 너무 편하고 좋습니다."
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- 시니어 안심 푸터 -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <h2 class="footer-title">👑 파라다이스 사랑방</h2>
+      <p>가수 황영웅 팬들의 따뜻한 쉼터이자 아름다운 소통 공간입니다.</p>
+
+      <div class="footer-contact-box">
+        <p><strong>사랑방 운영 및 문의:</strong></p>
+        <a href="mailto:beable9489@gmail.com" class="footer-contact-email">beable9489@gmail.com</a>
+        <p style="font-size: 14px; color: #D1D5DB; margin-top: 6px;">
+          따뜻한 소통 문화를 위해 악성 댓글이나 분란 조장 글은 자동 정화됩니다.
+        </p>
+      </div>
+
+      <div class="footer-notice">
+        <p>• <strong>스토어 결제 라이선스:</strong> 본 플랫폼은 Lemon Squeezy Store #296100을 통한 안전 결제 및 서포터즈 관리를 지원합니다.</p>
+        <p>• <strong>저작권 및 공정 이용:</strong> 모든 팬 활동은 가수의 공식 권익 보호 및 건전한 팬 문화 조성을 최우선으로 합니다.</p>
+      </div>
+
+      <div class="footer-copyright">
+        © 2026 PARADISE-HERO.COM &amp; Dream Company 제4사업부. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/senior-accessibility.js"></script>
+  <script src="js/radio-player.js"></script>
+  <script>
+    // 간단한 프론트엔드 출석 및 응원글 등록 로직 (새로고침 전까지 DOM 즉시 반영)
+    function postCheerMessage() {
+      const nameInput = document.getElementById('cheer-nickname');
+      const contentInput = document.getElementById('cheer-content');
+      const feedList = document.getElementById('cheer-feed-list');
+
+      const name = nameInput.value.trim();
+      const content = contentInput.value.trim();
+
+      if (!name || !content) return;
+
+      const newArticle = document.createElement('article');
+      newArticle.className = 'senior-card';
+      newArticle.style.borderLeft = '6px solid var(--brand-emerald)';
+      newArticle.style.marginBottom = '16px';
+      newArticle.style.backgroundColor = '#F0FDF4';
+
+      newArticle.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="background-color: var(--brand-emerald); color: #FFFFFF; font-size: 13px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">🌟 방금 등록</span>
+            <strong style="color: var(--brand-emerald-dark); font-size: 19px;">${name}</strong>
+          </div>
+          <span style="font-size: 14px; color: var(--brand-emerald); font-weight: 700;">출석 완료!</span>
+        </div>
+        <p style="font-size: var(--font-base); line-height: 1.8;">
+          ${content.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+        </p>
+      `;
+
+      feedList.insertBefore(newArticle, feedList.firstChild);
+      nameInput.value = '';
+      contentInput.value = '';
+      alert('🌟 응원 글이 사랑방에 따뜻하게 등록되었습니다! 감사합니다.');
+    }
+  </script>
+</body>
+</html>
