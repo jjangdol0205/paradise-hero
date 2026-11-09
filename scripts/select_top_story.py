@@ -77,10 +77,10 @@ def validate_story(story):
     if URL_REGEX.search(full_text):
         return False, "External link or unauthorized URL detected"
 
-    # 4. Length Bounds (60 to 3000 chars)
+    # 4. Length Bounds (30 to 3000 chars - aligned with story-hub.js)
     char_len = len(content.strip())
-    if char_len < 60:
-        return False, f"Story content too short: {char_len} chars (min 60 required)"
+    if char_len < 30:
+        return False, f"Story content too short: {char_len} chars (min 30 required)"
     if char_len > 3000:
         return False, f"Story content too long: {char_len} chars (max 3000 allowed)"
 
@@ -105,7 +105,11 @@ def compute_resonance_score(story, current_time=None):
     if current_time is None:
         current_time = datetime.now(timezone.utc)
 
-    cheer_count = max(0, int(story.get("cheer_count", 0)))
+    raw_cheer = story.get("cheer_count")
+    try:
+        cheer_count = max(0, int(raw_cheer)) if raw_cheer is not None else 0
+    except (ValueError, TypeError):
+        cheer_count = 0
     content = story.get("story_content", "") or ""
     song_title = (story.get("song_title", "") or "").strip()
     created_at_str = story.get("created_at")
@@ -204,12 +208,30 @@ def segment_story_for_radio(story):
         s = s.strip()
         if not s:
             continue
-        if len(current_chunk) + len(s) + 1 <= 170:
-            current_chunk = f"{current_chunk} {s}".strip() if current_chunk else s
+        # Fallback split for excessively long unpunctuated chunks (>170 chars)
+        sub_sentences = []
+        if len(s) > 170:
+            words = s.split()
+            sub_accum = ""
+            for w in words:
+                if len(sub_accum) + len(w) + 1 <= 160:
+                    sub_accum = f"{sub_accum} {w}".strip() if sub_accum else w
+                else:
+                    if sub_accum:
+                        sub_sentences.append(sub_accum)
+                    sub_accum = w
+            if sub_accum:
+                sub_sentences.append(sub_accum)
         else:
-            if current_chunk:
-                chunks.append(current_chunk)
-            current_chunk = s
+            sub_sentences = [s]
+
+        for sub_s in sub_sentences:
+            if len(current_chunk) + len(sub_s) + 1 <= 170:
+                current_chunk = f"{current_chunk} {sub_s}".strip() if current_chunk else sub_s
+            else:
+                if current_chunk:
+                    chunks.append(current_chunk)
+                current_chunk = sub_s
 
     if current_chunk:
         chunks.append(current_chunk)

@@ -19,6 +19,8 @@ import urllib.error
 from typing import List, Dict, Any
 
 HOST = "paradise-hero.com"
+GITHUB_PAGES_HOST = "jjangdol0205.github.io"
+GITHUB_PAGES_URL = f"https://{GITHUB_PAGES_HOST}/paradise-hero/"
 KEY = "c75f10bb24814e518712613d9646bca3"
 KEY_LOCATION = f"https://{HOST}/{KEY}.txt"
 
@@ -99,7 +101,7 @@ def submit_to_endpoint(endpoint: str, payload: Dict[str, Any], timeout: int = 15
 
 
 def verify_live_domain(url: str = f"https://{HOST}/", timeout: int = 10) -> Dict[str, Any]:
-    """Verify live connectivity of paradise-hero.com."""
+    """Verify live connectivity and authentic Paradise Hero branding."""
     req = urllib.request.Request(
         url,
         headers={
@@ -110,17 +112,28 @@ def verify_live_domain(url: str = f"https://{HOST}/", timeout: int = 10) -> Dict
         "url": url,
         "status": None,
         "live": False,
+        "brand_verified": False,
         "message": ""
     }
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             code = resp.getcode()
+            body = resp.read().decode('utf-8', errors='replace')
             result["status"] = code
-            result["live"] = (code == 200)
-            result["message"] = f"HTTP {code} OK (Live)"
+            has_brand = ("파라다이스" in body or "황영웅" in body)
+            result["brand_verified"] = has_brand
+            if code == 200 and has_brand:
+                result["live"] = True
+                result["message"] = f"HTTP {code} OK (Paradise Hero Verified)"
+            elif code == 200:
+                result["live"] = False
+                result["message"] = f"HTTP {code} OK (Content mismatch - missing '파라다이스' brand content)"
+            else:
+                result["live"] = False
+                result["message"] = f"HTTP {code}"
     except urllib.error.HTTPError as e:
         result["status"] = e.code
-        result["live"] = (e.code in (200, 301, 302))
+        result["live"] = False
         result["message"] = f"HTTP {e.code}"
     except Exception as e:
         result["message"] = f"Check failed / DNS propagation: {str(e)}"
@@ -155,17 +168,26 @@ def run_submission() -> bool:
 
     print("-" * 65)
     print("[*] Verifying Live Domain Accessibility...")
-    live_res = verify_live_domain()
-    print(f"    Status: {live_res['message']}")
+    live_res = verify_live_domain(f"https://{HOST}/")
+    print(f"    Custom Domain ({HOST}): {live_res['message']}")
+
+    gh_res = verify_live_domain(GITHUB_PAGES_URL)
+    print(f"    GitHub Pages Origin ({GITHUB_PAGES_URL}): {gh_res['message']}")
 
     print("=" * 65)
-    if any_success or live_res.get("live"):
-        print("[SUCCESS] IndexNow submission and live check completed successfully!")
+    is_live = live_res.get("live") or gh_res.get("live")
+    if any_success and live_res.get("live"):
+        print("[SUCCESS] IndexNow submission and custom domain live check completed successfully!")
+        return True
+    elif any_success and gh_res.get("live"):
+        print("[SUCCESS] IndexNow accepted; GitHub Pages live check passed (custom domain in DNS/Pages routing propagation).")
+        return True
+    elif is_live:
+        print("[NOTE] Live site content verified, but IndexNow search engine key verification is in propagation.")
         return True
     else:
-        print("[NOTE] All external requests encountered network/propagation delays.")
-        # If running in isolated sandbox or pre-DNS, we do not crash if requests were built properly
-        return True
+        print("[FAIL] Neither IndexNow submission succeeded nor live site content verified.")
+        return False
 
 
 if __name__ == "__main__":
