@@ -1,0 +1,204 @@
+/**
+ * character-catalog.js
+ * 10 Anime Prince Trot Singer Character Catalog & Profile Engine
+ * paradise-hero.com Division 4
+ *
+ * Provides rich profile metadata, visual assets reference,
+ * color tokens, and shoujo-manga prince visual identifiers for:
+ * 1. 황영웅 (Hwang Young-woong) - 감성 황태자
+ * 2. 임영웅 (Lim Young-woong) - 별빛 황제 왕자
+ * 3. 이찬원 (Lee Chan-won) - 찬또 브레인 왕자
+ * 4. 영탁 (Young Tak) - 청량 에너지 왕자
+ * 5. 정동원 (Jeong Dong-won) - 음악 신동 소년왕자
+ * 6. 김호중 (Kim Ho-joong) - 트바로티 고결 왕자
+ * 7. 장민호 (Jang Min-ho) - 로맨틱 신사 왕자
+ * 8. 박서진 (Park Seo-jin) - 열정의 장구 왕자
+ * 9. 손태진 (Son Tae-jin) - 크로스오버 클래식 왕자
+ * 10. 안성훈 / 진해성 (Ahn Sung-hoon / Jin Hae-seong) - 정통 감성 마스터 왕자
+ */
+
+(function (global) {
+  'use strict';
+
+  const CHARACTER_CARDS = [
+    {
+      id: 'hwang_young_woong',
+      name_ko: '황영웅',
+      name_en: 'Hwang Young-woong',
+      title: '감성 황태자',
+      theme_color: '#1B4D3E',
+      accent_color: '#D4AF37',
+      badge_emoji: '👑',
+      catchphrase: '언제나 어머님 편, 영원히 함께 걸어가요 💚',
+      signature_visual: '에메랄드 수호 브로치, 다정한 어깨동무 포즈, 골드 마이크',
+      thumb_path: 'assets/characters/thumb_hwang_young_woong.png',
+      sprite_path: 'assets/characters/sprite_hwang_young_woong.png'
+    },
+    {
+      id: 'lim_young_woong',
+      name_ko: '임영웅',
+      name_en: 'Lim Young-woong',
+      title: '별빛 황제 왕자',
+      theme_color: '#38BDF8',
+      accent_color: '#F0F9FF',
+      badge_emoji: '🌟',
+      catchphrase: '언제나 건강하고 행복하세요, 건행! 🌟',
+      signature_visual: '순백의 연미복, 별빛 후광, 하늘색 실크 타이, 건행 손인사',
+      thumb_path: 'assets/characters/thumb_lim_young_woong.png',
+      sprite_path: 'assets/characters/sprite_lim_young_woong.png'
+    },
+    {
+      id: 'lee_chan_won',
+      name_ko: '이찬원',
+      name_en: 'Lee Chan-won',
+      title: '찬또 브레인 왕자',
+      theme_color: '#FB7185',
+      accent_color: '#FFF1F2',
+      badge_emoji: '🌸',
+      catchphrase: '찬란하게 빛나는 우리들의 소중한 이야기 🌸',
+      signature_visual: '앤틱 금테 안경, 찬란한 백합꽃, 브리티시 황실 제복',
+      thumb_path: 'assets/characters/thumb_lee_chan_won.png',
+      sprite_path: 'assets/characters/sprite_lee_chan_won.png'
+    },
+    {
+      id: 'young_tak',
+      name_ko: '영탁',
+      name_en: 'Young Tak',
+      title: '청량 에너지 왕자',
+      theme_color: '#2563EB',
+      accent_color: '#EFF6FF',
+      badge_emoji: '⚡',
+      catchphrase: '내 사람들과 함께하는 진짜배기 시간! ⚡',
+      signature_visual: '코발트 블루 사파이어 재킷, 엄지 척 시그니처, 청량한 미소',
+      thumb_path: 'assets/characters/thumb_young_tak.png',
+      sprite_path: 'assets/characters/sprite_young_tak.png'
+    },
+    {
+      id: 'jeong_dong_won',
+      name_ko: '정동원',
+      name_en: 'Jeong Dong-won',
+      title: '음악 신동 소년왕자',
+      theme_color: '#10B981',
+      accent_color: '#ECFDF5',
+      badge_emoji: '🎷',
+      catchphrase: '어머님들의 영원한 비타민 왕자님! 🎷',
+      signature_visual: '골든 색소폰/바이올린 모티브, 민트 왕자 케이프, 요정 눈웃음',
+      thumb_path: 'assets/characters/thumb_jeong_dong_won.png',
+      sprite_path: 'assets/characters/sprite_jeong_dong_won.png'
+    },
+    {
+      id: 'kim_ho_joong',
+      name_ko: '김호중',
+      name_en: 'Kim Ho-joong',
+      title: '트바로티 고결 왕자',
+      theme_color: '#9333EA',
+      accent_color: '#FAF5FF',
+      badge_emoji: '💜',
+      catchphrase: '가장 높은 곳에서 울려 퍼지는 사랑의 노래 💜',
+      signature_visual: '웅장한 벨벳 오페라 망토, 황금 엠블럼, 더블 브레스트 수트',
+      thumb_path: 'assets/characters/thumb_kim_ho_joong.png',
+      sprite_path: 'assets/characters/sprite_kim_ho_joong.png'
+    },
+    {
+      id: 'jang_min_ho',
+      name_ko: '장민호',
+      name_en: 'Jang Min-ho',
+      title: '로맨틱 신사 왕자',
+      theme_color: '#F59E0B',
+      accent_color: '#FFFBEB',
+      badge_emoji: '🤵',
+      catchphrase: '영원히 변치 않는 최고의 품격으로 모십니다 🤵',
+      signature_visual: '조각 같은 비주얼, 샴페인 골드 턱시도, 젠틀한 에스코트 손길',
+      thumb_path: 'assets/characters/thumb_jang_min_ho.png',
+      sprite_path: 'assets/characters/sprite_jang_min_ho.png'
+    },
+    {
+      id: 'park_seo_jin',
+      name_ko: '박서진',
+      name_en: 'Park Seo-jin',
+      title: '열정의 장구 왕자',
+      theme_color: '#EAB308',
+      accent_color: '#FEFCE8',
+      badge_emoji: '🪘',
+      catchphrase: '어머님의 심장을 두드리는 신명나는 닻별! 🪘',
+      signature_visual: '황금 장구채, 닻별 엠블럼, 날렵한 미소년 이목구비, 흩날리는 꽃잎',
+      thumb_path: 'assets/characters/thumb_park_seo_jin.png',
+      sprite_path: 'assets/characters/sprite_park_seo_jin.png'
+    },
+    {
+      id: 'son_tae_jin',
+      name_ko: '손태진',
+      name_en: 'Son Tae-jin',
+      title: '크로스오버 클래식 왕자',
+      theme_color: '#9F1239',
+      accent_color: '#FFF1F2',
+      badge_emoji: '🍷',
+      catchphrase: '귓가에 맴도는 가장 감미로운 세레나데 🍷',
+      signature_visual: '버건디 와인 벨벳 수트, 붉은 와인 로즈, 그랜드 피아노 모티브',
+      thumb_path: 'assets/characters/thumb_son_tae_jin.png',
+      sprite_path: 'assets/characters/sprite_son_tae_jin.png'
+    },
+    {
+      id: 'ahn_sung_hoon_jin_hae_seong',
+      name_ko: '안성훈 / 진해성',
+      name_en: 'Ahn Sung-hoon / Jin Hae-seong',
+      title: '정통 감성 마스터 왕자',
+      theme_color: '#0D9488',
+      accent_color: '#F0FDFA',
+      badge_emoji: '🎙️',
+      catchphrase: '가슴 깊은 곳을 울리는 진한 위로와 눈물 🎙️',
+      signature_visual: '전통 자개 문양 매듭 장식, 정통 마이크, 듬직하고 포근한 어깨',
+      thumb_path: 'assets/characters/thumb_ahn_sung_hoon_jin_hae_seong.png',
+      sprite_path: 'assets/characters/sprite_ahn_sung_hoon_jin_hae_seong.png'
+    }
+  ];
+
+  /**
+   * Find a character profile by its unique slug ID
+   * @param {string} id
+   * @returns {Object|null}
+   */
+  function getCharacterById(id) {
+    if (!id) return null;
+    return CHARACTER_CARDS.find(function (c) {
+      return c.id === id;
+    }) || null;
+  }
+
+  /**
+   * Return array of all 10 anime prince trot characters
+   * @returns {Array<Object>}
+   */
+  function getAllCharacters() {
+    return CHARACTER_CARDS.slice();
+  }
+
+  /**
+   * Get primary theme color for a character
+   * @param {string} id
+   * @param {string} fallback
+   * @returns {string}
+   */
+  function getCharacterThemeColor(id, fallback) {
+    const char = getCharacterById(id);
+    return (char && char.theme_color) || fallback || '#1B4D3E';
+  }
+
+  // Global browser exports
+  global.CHARACTER_CARDS = CHARACTER_CARDS;
+  global.ANIME_PRINCE_CHARACTERS = CHARACTER_CARDS;
+  global.getCharacterById = getCharacterById;
+  global.getAllCharacters = getAllCharacters;
+  global.getCharacterThemeColor = getCharacterThemeColor;
+
+  // Node.js CommonJS export
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+      CHARACTER_CARDS,
+      ANIME_PRINCE_CHARACTERS: CHARACTER_CARDS,
+      getCharacterById,
+      getAllCharacters,
+      getCharacterThemeColor
+    };
+  }
+})(typeof window !== 'undefined' ? window : global);

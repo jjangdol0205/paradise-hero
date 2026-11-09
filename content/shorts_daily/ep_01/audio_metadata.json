@@ -1,0 +1,75 @@
+{
+  "audio_file": "audio_ep01.wav",
+  "sample_rate": 44100,
+  "channels": 2,
+  "total_duration_sec": 17.233,
+  "beat_count": 8,
+  "beat_durations_sec": [
+    2.0,
+    2.009,
+    2.0,
+    2.011,
+    2.008,
+    2.009,
+    2.01,
+    3.011
+  ],
+  "beat_start_times_sec": [
+    0.0,
+    2.025,
+    4.059,
+    6.084,
+    8.12,
+    10.153,
+    12.187,
+    14.222
+  ],
+  "peak_amplitude": 0.8658,
+  "peak_dbfs": -1.25,
+  "clipped_samples": 0,
+  "max_internal_silence_sec": 0.0218,
+  "zero_silence_compliant": true,
+  "limiter_compliant": true,
+  "sfx_markers": [
+    {
+      "beat_idx": 0,
+      "time_sec": 0.0,
+      "sfx_type": "hook_chime"
+    },
+    {
+      "beat_idx": 1,
+      "time_sec": 2.025,
+      "sfx_type": "cut_whoosh"
+    },
+    {
+      "beat_idx": 2,
+      "time_sec": 4.059,
+      "sfx_type": "cut_whoosh"
+    },
+    {
+      "beat_idx": 3,
+      "time_sec": 6.084,
+      "sfx_type": "metric_ping"
+    },
+    {
+      "beat_idx": 4,
+      "time_sec": 8.12,
+      "sfx_type": "cut_whoosh"
+    },
+    {
+      "beat_idx": 5,
+      "time_sec": 10.153,
+      "sfx_type": "metric_ping"
+    },
+    {
+      "beat_idx": 6,
+      "time_sec": 12.187,
+      "sfx_type": "metric_ping"
+    },
+    {
+      "beat_idx": 7,
+      "time_sec": 14.222,
+      "sfx_type": "outro_drop"
+    }
+  ]
+}

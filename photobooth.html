@@ -392,6 +392,149 @@
       margin: 16px 0;
       text-align: left;
     }
+
+    /* 10대 왕자 캐릭터 선택 트레이 */
+    .character-tray {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (max-width: 860px) {
+      .character-tray {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 540px) {
+      .character-tray {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .character-select-btn {
+      background-color: #FAFAF8;
+      border: 3px solid #E2E8F0;
+      border-radius: 18px;
+      padding: 12px 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-height: 110px;
+      transition: all 0.2s ease;
+    }
+    .character-select-btn:hover {
+      border-color: var(--brand-gold);
+      transform: translateY(-2px);
+    }
+    .character-select-btn.active {
+      border-color: #1B4D3E;
+      background-color: #ECFDF5;
+      box-shadow: 0 4px 16px rgba(27, 77, 62, 0.25);
+    }
+    .character-select-btn img {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #D4AF37;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .char-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #111827;
+      text-align: center;
+    }
+    .char-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #4B5563;
+      text-align: center;
+    }
+
+    /* 이용권 실시간 헤더 뱃지 */
+    .user-credit-badge-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #FEF9C3;
+      border: 2px solid #D4AF37;
+      border-radius: 30px;
+      padding: 6px 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .user-credit-badge {
+      font-size: 16px;
+      font-weight: 800;
+      color: #854D0E;
+    }
+    .btn-recharge-badge {
+      background-color: #D4AF37;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 14px;
+      padding: 4px 12px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: filter 0.2s ease;
+    }
+    .btn-recharge-badge:hover {
+      filter: brightness(1.1);
+    }
+
+    /* Lemon Squeezy 시니어 결제 모달 요소 */
+    .btn-lemon-pay {
+      min-height: 64px;
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 900;
+      border: 2px solid #34D399;
+      border-radius: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.3);
+      margin: 16px 0;
+      transition: transform 0.1s ease, filter 0.2s ease;
+    }
+    .btn-lemon-pay:hover {
+      filter: brightness(1.08);
+    }
+    .btn-lemon-pay:active {
+      transform: scale(0.97);
+    }
+    .qr-display-box {
+      background-color: #F8FAFC;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 16px;
+      margin: 16px 0;
+      text-align: center;
+    }
+    .qr-code-img {
+      width: 220px;
+      height: 220px;
+      border: 3px solid #1B4D3E;
+      border-radius: 12px;
+      margin: 8px auto;
+      display: block;
+      background-color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    .qr-step-list {
+      text-align: left;
+      margin: 12px 0 6px 0;
+      padding-left: 20px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #374151;
+    }
   </style>
 </head>
 <body>
@@ -408,7 +551,11 @@
           <span class="logo-sub">포토부스</span>
         </div>
       </div>
-      <div class="accessibility-bar">
+      <div class="accessibility-bar" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <div id="user-credit-badge-wrap" class="user-credit-badge-wrap">
+          <span id="user-credit-badge" class="user-credit-badge" role="status" aria-live="polite">🎫 보유 이용권: 1장</span>
+          <button type="button" id="btn-recharge-open" class="btn-recharge-badge" aria-label="이용권 충전하기">⚡ 충전</button>
+        </div>
         <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 18px)">
           <span aria-hidden="true">🔍</span> 글자크게 가+
         </button>
@@ -502,10 +649,74 @@
       </div>
     </section>
 
-    <!-- 1단계: 프레임 선택 카드 -->
-    <section class="booth-step-card" aria-labelledby="step1-title">
+    <!-- 1단계: 함께 사진 찍을 트롯 왕자님 선택 -->
+    <section class="booth-step-card" id="step-character-card" aria-labelledby="step-char-title">
       <div class="booth-step-header">
         <span class="booth-step-badge">1단계</span>
+        <h2 id="step-char-title" class="booth-step-title">함께 사진 찍을 트롯 왕자님을 골라주세요 (10인)</h2>
+      </div>
+      <p style="font-size: 16px; color: #4B5563; margin-top: -6px; margin-bottom: 12px;">
+        영웅님을 비롯한 10명의 순정만화 트롯 왕자님 중 마음에 드는 파트너를 누르시면 다정한 투샷이 적용됩니다.
+      </p>
+
+      <div class="character-tray" id="character-tray" role="radiogroup" aria-label="트롯 왕자 캐릭터 선택 목록">
+        <button type="button" class="character-select-btn active" data-character-id="hwang_young_woong" role="radio" aria-checked="true">
+          <img src="assets/characters/thumb_hwang_young_woong.png" alt="황영웅">
+          <span class="char-name">황영웅</span>
+          <span class="char-title">👑 감성 황태자</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="lim_young_woong" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_lim_young_woong.png" alt="임영웅">
+          <span class="char-name">임영웅</span>
+          <span class="char-title">🌟 별빛 황제</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="lee_chan_won" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_lee_chan_won.png" alt="이찬원">
+          <span class="char-name">이찬원</span>
+          <span class="char-title">🌸 찬또 브레인</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="young_tak" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_young_tak.png" alt="영탁">
+          <span class="char-name">영탁</span>
+          <span class="char-title">⚡ 청량 에너지</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="jeong_dong_won" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_jeong_dong_won.png" alt="정동원">
+          <span class="char-name">정동원</span>
+          <span class="char-title">🎷 음악 신동</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="kim_ho_joong" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_kim_ho_joong.png" alt="김호중">
+          <span class="char-name">김호중</span>
+          <span class="char-title">💜 트바로티</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="jang_min_ho" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_jang_min_ho.png" alt="장민호">
+          <span class="char-name">장민호</span>
+          <span class="char-title">🤵 로맨틱 신사</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="park_seo_jin" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_park_seo_jin.png" alt="박서진">
+          <span class="char-name">박서진</span>
+          <span class="char-title">🪘 열정 장구</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="son_tae_jin" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_son_tae_jin.png" alt="손태진">
+          <span class="char-name">손태진</span>
+          <span class="char-title">🍷 클래식 왕자</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="ahn_sung_hoon_jin_hae_seong" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_ahn_sung_hoon_jin_hae_seong.png" alt="안성훈/진해성">
+          <span class="char-name">안성훈/진해성</span>
+          <span class="char-title">🎙️ 정통 감성</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2단계: 프레임 선택 카드 -->
+    <section class="booth-step-card" aria-labelledby="step1-title">
+      <div class="booth-step-header">
+        <span class="booth-step-badge">2단계</span>
         <h2 id="step1-title" class="booth-step-title">마음에 드는 기념 프레임을 골라주세요</h2>
       </div>
       <p style="font-size: 16px; color: #4B5563; margin-top: -6px; margin-bottom: 12px;">
@@ -662,6 +873,94 @@
     </div>
   </div>
 
+  <!-- 첫 방문 1회 무료 이용권 닉네임 등록 모달 -->
+  <div id="signup-modal" class="booth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-signup-title">
+    <div class="booth-modal-content">
+      <div style="font-size: 40px; margin-bottom: 8px;" aria-hidden="true">🎁</div>
+      <h3 id="modal-signup-title" style="font-size: 24px; color: var(--brand-emerald-dark); margin: 0;">
+        어머님, 첫 방문을 진심으로 환영합니다!
+      </h3>
+      <p style="font-size: 17px; color: #4B5563; margin: 10px 0; line-height: 1.5;">
+        닉네임을 등록해 주시면 영웅님과 함께 찍는<br>
+        <strong>1회 무료 즉석 기념사진 이용권(1장)</strong>을 바로 충전해 드립니다 🌸
+      </p>
+
+      <div style="margin: 20px 0; text-align: left;">
+        <label for="input-user-nickname" style="display: block; font-size: 16px; font-weight: 800; color: #1B4D3E; margin-bottom: 8px;">
+          어머님 닉네임을 적어주세요 (예: 대구 순자 어머니):
+        </label>
+        <input type="text" id="input-user-nickname" placeholder="예: 대구 순자 어머니" maxlength="20" style="width: 100%; box-sizing: border-box; min-height: 56px; font-size: 18px; padding: 10px 16px; border: 2px solid #CBD5E1; border-radius: 14px; font-weight: 700;">
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <button type="button" id="btn-signup-submit" class="btn-save-primary" style="min-height: 60px; font-size: 20px;">
+          🎫 1회 무료 이용권 받고 시작하기 👉
+        </button>
+        <button type="button" id="btn-signup-later" class="btn-tool" style="min-height: 50px; font-weight: 800;">
+          건너뛰고 바로 둘러보기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3,000원 이용권 충전 Lemon Squeezy 시니어 결제 모달 -->
+  <div id="senior-payment-modal" class="booth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-payment-title">
+    <div class="booth-modal-content">
+      <div style="font-size: 36px; margin-bottom: 6px;" aria-hidden="true">👑</div>
+      <h3 id="modal-payment-title" style="font-size: 23px; color: var(--brand-emerald-dark); margin: 0;">
+        3,000원 이용권 충전 (어머님 혜택가)
+      </h3>
+      <p style="font-size: 16px; color: #4B5563; margin: 8px 0; line-height: 1.5;">
+        무료 이용권을 모두 사용하셨습니다.<br>
+        영웅님 및 10대 왕자님과 영원히 간직할 고화질 기념사진을 계속 만드시려면 <strong>3,000원 이용권</strong>을 충전해 주세요.
+      </p>
+
+      <!-- 요금 안내 박스 -->
+      <div style="background-color: #FEF9C3; border: 2px solid #D4AF37; border-radius: 14px; padding: 12px 16px; margin: 12px 0; font-size: 18px; font-weight: 800; color: #854D0E;">
+        💳 3,000원 이용권 (~$2.20 USD) / 1회 추가 촬영 및 고화질 다운로드
+      </div>
+
+      <!-- 채널 1: 스마트폰 1-클릭 바로 결제 버튼 (min 64px 높이, 20px+ 폰트) -->
+      <a id="btn-lemon-checkout" href="https://kidsfitglobal.lemonsqueezy.com/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?store=296100" target="_blank" rel="noopener noreferrer" class="btn-lemon-pay" style="min-height: 64px; font-size: 20px; font-weight: 900;" aria-label="Lemon Squeezy Store #296100 스마트폰에서 3,000원 결제하기">
+        <span>📱 스마트폰에서 3,000원 결제하기 👉</span>
+      </a>
+
+      <!-- 채널 2: QR코드 간편 결제 및 3단계 시니어 안내 -->
+      <div class="qr-display-box">
+        <h4 style="margin: 0 0 8px 0; font-size: 17px; color: #1B4D3E; font-weight: 800;">
+          📷 스마트폰 카메라로 QR코드를 비춰보세요
+        </h4>
+        <img id="payment-qr-img" class="qr-code-img" src="assets/payments/qr_photobooth_3000.png" alt="Lemon Squeezy Store #296100 3,000원 결제 QR코드">
+        <ol class="qr-step-list">
+          <li><strong>1단계:</strong> 📷 스마트폰 기본 카메라 앱을 켭니다.</li>
+          <li><strong>2단계:</strong> 🔍 화면 속 네모난 QR코드를 비춥니다.</li>
+          <li><strong>3단계:</strong> 👆 화면에 뜨는 노란색 결제 링크를 터치하면 3,000원 결제창으로 바로 이동합니다.</li>
+        </ol>
+      </div>
+
+      <!-- 채널 3: 오프라인 지원 및 충전 코드 입력 창구 -->
+      <div style="background-color: #F1F5F9; border-radius: 14px; padding: 12px 16px; margin-top: 12px; text-align: left;">
+        <div style="font-size: 14px; color: #475569; margin-bottom: 8px;">
+          💬 카드 결제가 어려우시거나 전화/문자 지원이 필요하신가요?<br>
+          공식 고객지원: <a href="mailto:beable9489@gmail.com" style="color: #1B4D3E; font-weight: 700;">beable9489@gmail.com</a><br>
+          멤버십 공식 결제처: Lemon Squeezy Store #296100
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;">
+          <input type="text" id="input-recharge-token" placeholder="충전 코드 입력 (예: HERO2026)" style="flex: 1; min-height: 48px; border: 2px solid #CBD5E1; border-radius: 10px; padding: 0 12px; font-weight: 700; font-size: 15px;">
+          <button type="button" id="btn-apply-token" class="btn-tool" style="min-height: 48px; font-weight: 800; padding: 0 14px; background-color: var(--brand-emerald); color: #FFFFFF; border: none;">
+            충전 적용
+          </button>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <button type="button" id="btn-payment-close" class="btn-tool" style="min-height: 52px; width: 100%; font-weight: 800;">
+          ✕ 닫기
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- 사이트 공통 푸터 -->
   <footer class="site-footer">
     <div class="container footer-content">
@@ -692,11 +991,14 @@
   <!-- 스크립트 연결 -->
   <script src="js/senior-accessibility.js"></script>
   <script src="js/radio-player.js"></script>
+  <script src="js/character-catalog.js"></script>
   <script src="js/photo-booth.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // 1. 포토부스 엔진 초기화
+      // =======================================================================
+      // 1. 포토부스 캔버스 엔진 초기화 (5-Layer Two-Shot)
+      // =======================================================================
       const canvas = document.getElementById('booth-canvas');
       const video = document.getElementById('booth-video');
       const fileInput = document.getElementById('booth-file-input');
@@ -704,10 +1006,158 @@
       const engine = new PhotoBoothEngine({ canvas, video, fileInput });
       engine.init();
 
-      // 전역 참조 (디버깅 및 테스트 연동)
+      // 전역 참조 (디버깅 및 자동화 테스트 연동)
       window.photoBoothEngine = engine;
 
-      // 2. 카메라 버튼 토글 로직
+      // =======================================================================
+      // 2. 사용자 이용권 라이프사이클 (localStorage: paradise_photobooth_user)
+      // =======================================================================
+      const STORAGE_KEY = 'paradise_photobooth_user';
+
+      function getStoredUser() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function saveStoredUser(user) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+        } catch (e) {
+          console.warn('[PhotoBooth] localStorage save failed:', e);
+        }
+      }
+
+      function updateCreditBadgeUI(user) {
+        const badgeEl = document.getElementById('user-credit-badge');
+        if (!badgeEl) return;
+        if (user && user.registered) {
+          const nickname = user.nickname || '어머님';
+          const credits = typeof user.credits === 'number' ? user.credits : 0;
+          badgeEl.textContent = `👑 [${nickname}] 어머님 | 🎫 보유 이용권: ${credits}장`;
+        } else {
+          badgeEl.textContent = '🎫 첫 방문 1회 무료 이용권 받기';
+        }
+      }
+
+      let currentUser = getStoredUser();
+      const signupModal = document.getElementById('signup-modal');
+      const paymentModal = document.getElementById('senior-payment-modal');
+
+      if (!currentUser || !currentUser.registered) {
+        // 첫 방문 시 1회 무료 이용권 가입 모달 자동 오픈
+        if (signupModal) signupModal.style.display = 'flex';
+        updateCreditBadgeUI(null);
+      } else {
+        updateCreditBadgeUI(currentUser);
+      }
+
+      // 첫 방문 가입 제출
+      const inputNickname = document.getElementById('input-user-nickname');
+      const btnSignupSubmit = document.getElementById('btn-signup-submit');
+      const btnSignupLater = document.getElementById('btn-signup-later');
+
+      function completeSignup(name) {
+        const nickname = name || (inputNickname && inputNickname.value.trim()) || '사랑하는 어머님';
+        currentUser = {
+          registered: true,
+          nickname: nickname,
+          credits: 1, // 1회 무료 이용권 지급
+          freeCreditGranted: true,
+          totalGenerated: 0,
+          createdAt: new Date().toISOString()
+        };
+        saveStoredUser(currentUser);
+        updateCreditBadgeUI(currentUser);
+        if (signupModal) signupModal.style.display = 'none';
+      }
+
+      if (btnSignupSubmit) {
+        btnSignupSubmit.addEventListener('click', function () {
+          completeSignup(inputNickname ? inputNickname.value.trim() : '');
+        });
+      }
+      if (btnSignupLater) {
+        btnSignupLater.addEventListener('click', function () {
+          completeSignup('사랑하는 어머님');
+        });
+      }
+
+      // 헤더 배지 클릭 시 가입 모달 또는 충전창 오픈
+      const badgeWrap = document.getElementById('user-credit-badge-wrap');
+      if (badgeWrap) {
+        badgeWrap.addEventListener('click', function () {
+          currentUser = getStoredUser();
+          if (!currentUser || !currentUser.registered) {
+            if (signupModal) signupModal.style.display = 'flex';
+          } else {
+            if (paymentModal) paymentModal.style.display = 'flex';
+          }
+        });
+      }
+
+      // 헤더 ⚡ 충전 버튼
+      const btnRechargeOpen = document.getElementById('btn-recharge-open');
+      if (btnRechargeOpen) {
+        btnRechargeOpen.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (paymentModal) paymentModal.style.display = 'flex';
+        });
+      }
+
+      // 결제 모달 닫기
+      const btnPaymentClose = document.getElementById('btn-payment-close');
+      if (btnPaymentClose) {
+        btnPaymentClose.addEventListener('click', function () {
+          if (paymentModal) paymentModal.style.display = 'none';
+        });
+      }
+
+      // 오프라인 지원 토큰 HERO2026 충전 로직
+      const btnApplyToken = document.getElementById('btn-apply-token');
+      const inputToken = document.getElementById('input-recharge-token');
+      if (btnApplyToken) {
+        btnApplyToken.addEventListener('click', function () {
+          const val = inputToken ? inputToken.value.trim().toUpperCase() : '';
+          if (val === 'HERO2026') {
+            currentUser = getStoredUser() || { registered: true, nickname: '사랑하는 어머님', credits: 0, totalGenerated: 0 };
+            currentUser.credits = (currentUser.credits || 0) + 1;
+            currentUser.registered = true;
+            saveStoredUser(currentUser);
+            updateCreditBadgeUI(currentUser);
+            if (inputToken) inputToken.value = '';
+            alert('🎉 [HERO2026] 특별 지원 충전 코드가 정상 승인되었습니다!\n이용권 1장이 충전되었습니다 💚');
+            if (paymentModal) paymentModal.style.display = 'none';
+          } else {
+            alert('입력하신 충전 코드가 올바르지 않습니다. 고객지원 이메일(beable9489@gmail.com)로 문의해 주세요.');
+          }
+        });
+      }
+
+      // =======================================================================
+      // 3. 10 Anime Prince 캐릭터 선택 트레이 이벤트
+      // =======================================================================
+      const charBtns = document.querySelectorAll('.character-select-btn');
+      charBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          charBtns.forEach(function (b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-checked', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-checked', 'true');
+
+          const charId = btn.getAttribute('data-character-id');
+          engine.selectCharacter(charId);
+        });
+      });
+
+      // =======================================================================
+      // 4. 카메라 촬영 & 앨범 업로드
+      // =======================================================================
       const btnCamera = document.getElementById('btn-camera');
       const btnCameraText = document.getElementById('btn-camera-text');
       btnCamera.addEventListener('click', async function () {
@@ -718,20 +1168,20 @@
             btnCamera.style.background = 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)';
           }
         } else {
-          // 셔터 누름
           engine.captureSnapshot();
           btnCameraText.textContent = '영웅님과 사진 찍기';
           btnCamera.style.background = '';
         }
       });
 
-      // 3. 앨범 선택 버튼
       const btnAlbum = document.getElementById('btn-album');
       btnAlbum.addEventListener('click', function () {
         fileInput.click();
       });
 
-      // 4. 프레임 선택 버튼군
+      // =======================================================================
+      // 5. 프레임 선택 버튼군
+      // =======================================================================
       const frameBtns = document.querySelectorAll('.frame-select-btn');
       frameBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -747,7 +1197,9 @@
         });
       });
 
-      // 5. 시니어 툴바 버튼 연결
+      // =======================================================================
+      // 6. 시니어 툴바 버튼 연결
+      // =======================================================================
       document.getElementById('btn-zoom-in').addEventListener('click', function () { engine.zoomIn(0.1); });
       document.getElementById('btn-zoom-out').addEventListener('click', function () { engine.zoomOut(0.1); });
       document.getElementById('btn-flip').addEventListener('click', function () { engine.flipHorizontal(); });
@@ -759,14 +1211,36 @@
       document.getElementById('btn-pan-right').addEventListener('click', function () { engine.pan(30, 0); });
       document.getElementById('btn-reset').addEventListener('click', function () { engine.resetTransform(); });
 
-      // 6. 저장 및 축하 모달
+      // =======================================================================
+      // 7. 저장 (이용권 차감 & 0장 시 결제 모달 차단 인터셉트)
+      // =======================================================================
       let lastExportedBlob = null;
       let lastExportedFilename = '';
       const celebModal = document.getElementById('save-celebration-modal');
       const modalPreviewImg = document.getElementById('modal-preview-img');
 
       document.getElementById('btn-save-photo').addEventListener('click', async function () {
+        currentUser = getStoredUser();
+
+        // 1) 비회원 상태인 경우 회원가입 모달 안내
+        if (!currentUser || !currentUser.registered) {
+          if (signupModal) signupModal.style.display = 'flex';
+          return;
+        }
+
+        // 2) 잔여 이용권이 0장 이하인 경우 결제 모달로 인터셉트
+        if ((currentUser.credits || 0) <= 0) {
+          if (paymentModal) paymentModal.style.display = 'flex';
+          return;
+        }
+
+        // 3) 이용권이 1장 이상인 경우 차감 후 사진 내보내기 허용
         try {
+          currentUser.credits = Math.max(0, currentUser.credits - 1);
+          currentUser.totalGenerated = (currentUser.totalGenerated || 0) + 1;
+          saveStoredUser(currentUser);
+          updateCreditBadgeUI(currentUser);
+
           const result = await engine.exportPhoto();
           lastExportedBlob = result.blob;
           lastExportedFilename = result.filename;

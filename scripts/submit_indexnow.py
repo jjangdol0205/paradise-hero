@@ -38,7 +38,8 @@ URL_LIST = [
     f"https://{HOST}/radio.html",
     f"https://{HOST}/community.html",
     f"https://{HOST}/stream.html",
-    f"https://{HOST}/vip.html"
+    f"https://{HOST}/vip.html",
+    f"https://{HOST}/news.html"
 ]
 
 

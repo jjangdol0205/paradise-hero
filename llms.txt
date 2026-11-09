@@ -41,6 +41,10 @@
 - URL: https://paradise-hero.com/vip.html
 - Description: 가수 황영웅을 품격 있게 응원하는 골드 VIP 멤버십 (Lemon Squeezy Store #296100) 및 실시간 황금 응원 전광판.
 
+### 8. 트로트 뉴스 포털 (Trot RSS News Portal)
+- URL: https://paradise-hero.com/news.html
+- Description: 10대 트로트 왕자님들의 실시간 뉴스 피드 집계(황영웅, 임영웅, 이찬원 등) 및 5070 시니어 맞춤 3단계 큰 글씨 모달 리더(WCAG AAA).
+
 ## Technical & Accessibility Standards
 - Accessibility: WCAG AAA 준수 (다크 에메랄드 #1B4D3E, 골드 #D4AF37, 기본 폰트 >= 20px, 터치 타겟 >= 60px, 3단계 글자 크기 조절기).
 - SEO & Crawling: 100% indexable (STRICT ZERO noindex), canonical links, OpenGraph metadata, JSON-LD Schema.org graph.

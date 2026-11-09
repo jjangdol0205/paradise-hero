@@ -20,7 +20,8 @@ const ALL_HTML_PAGES = [
   { file: 'radio.html', canonical: 'https://paradise-hero.com/radio.html' },
   { file: 'community.html', canonical: 'https://paradise-hero.com/community.html' },
   { file: 'stream.html', canonical: 'https://paradise-hero.com/stream.html' },
-  { file: 'vip.html', canonical: 'https://paradise-hero.com/vip.html' }
+  { file: 'vip.html', canonical: 'https://paradise-hero.com/vip.html' },
+  { file: 'news.html', canonical: 'https://paradise-hero.com/news.html' }
 ];
 
 const PROHIBITED_WORDS = ['최저가', '할인율', '특가', '폭탄세일'];
@@ -60,7 +61,7 @@ console.log('  [PASS] All metadata, feeds, manifests, and deployment scripts exi
 // -----------------------------------------------------------------------------
 // Test 2: SEO Meta Tags & STRICT ZERO noindex across ALL 8 HTML Pages
 // -----------------------------------------------------------------------------
-console.log('\nTest 2: Verifying SEO meta tags, Googlebot, and STRICT ZERO noindex across all 8 HTML pages...');
+console.log(`\nTest 2: Verifying SEO meta tags, Googlebot, and STRICT ZERO noindex across all ${ALL_HTML_PAGES.length} HTML pages...`);
 
 ALL_HTML_PAGES.forEach(({ file, canonical }) => {
   const html = fs.readFileSync(path.join(ROOT_DIR, file), 'utf-8');
@@ -125,7 +126,7 @@ assert.strictEqual(changefreqCount, ALL_HTML_PAGES.length, 'All entries in sitem
 
 const priorityCount = (sitemapContent.match(/<priority>[0-1]\.[0-9]<\/priority>/g) || []).length;
 assert.strictEqual(priorityCount, ALL_HTML_PAGES.length, 'All entries in sitemap must define priority');
-console.log(`  [PASS] sitemap.xml verified (8 URLs registered, 100% lastmod 2026-11-09, valid priority & changefreq)`);
+console.log(`  [PASS] sitemap.xml verified (${ALL_HTML_PAGES.length} URLs registered, 100% lastmod 2026-11-09, valid priority & changefreq)`);
 
 // -----------------------------------------------------------------------------
 // Test 4: RSS 2.0 Feed Validity & Channel Items
@@ -144,7 +145,8 @@ assert.ok(itemCount >= 4, `rss.xml must contain at least 4 items, got ${itemCoun
 assert.ok(rssContent.includes('story.html'), 'rss.xml must feature story hub');
 assert.ok(rssContent.includes('booth.html'), 'rss.xml must feature photo booth');
 assert.ok(rssContent.includes('radio.html'), 'rss.xml must feature radio episodes');
-console.log(`  [PASS] rss.xml verified (${itemCount} items, dated 2026-11-09, covering story hub & photo booth)`);
+assert.ok(rssContent.includes('news.html'), 'rss.xml must feature trot news portal');
+console.log(`  [PASS] rss.xml verified (${itemCount} items, dated 2026-11-09, covering story hub, photo booth, and trot news)`);
 
 // -----------------------------------------------------------------------------
 // Test 5: Robots.txt Specification
@@ -171,7 +173,7 @@ ALL_HTML_PAGES.forEach(({ file }) => {
   assert.ok(llmsContent.includes(check), `llms.txt must index endpoint: ${check}`);
 });
 assert.ok(llmsContent.includes('WCAG AAA'), 'llms.txt must describe WCAG AAA accessibility standard');
-console.log(`  [PASS] llms.txt verified (${llmsContent.length} chars, indexing all 8 endpoints)`);
+console.log(`  [PASS] llms.txt verified (${llmsContent.length} chars, indexing all ${ALL_HTML_PAGES.length} endpoints)`);
 
 // -----------------------------------------------------------------------------
 // Test 7: IndexNow Submission Script & Key Verification
