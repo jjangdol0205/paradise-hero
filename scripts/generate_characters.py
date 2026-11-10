@@ -26,12 +26,18 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 ARTIFACT_DIR = r"C:\Users\jjang\.gemini\antigravity\brain\1921e31e-ab59-4720-9419-93cac770374d"
 RAW_SOURCES = {
-    1: os.path.join(ARTIFACT_DIR, "raw_prince_1_1794269226368.jpg"),
-    2: os.path.join(ARTIFACT_DIR, "raw_prince_2_1794269245698.jpg"),
-    3: os.path.join(ARTIFACT_DIR, "raw_prince_3_1794269262613.jpg"),
-    4: os.path.join(ARTIFACT_DIR, "raw_prince_4_1794269279083.jpg"),
+    1: os.path.join(ARTIFACT_DIR, "raw_char_1_hwang_young_woong_1794270927123.jpg"),
+    2: os.path.join(ARTIFACT_DIR, "raw_char_2_lim_young_woong_1794270944368.jpg"),
+    3: os.path.join(ARTIFACT_DIR, "raw_char_3_lee_chan_won_1794270962440.jpg"),
+    4: os.path.join(ARTIFACT_DIR, "raw_char_4_young_tak_1794270978595.jpg"),
+    5: os.path.join(ARTIFACT_DIR, "raw_char_5_jeong_dong_won_1794270996820.jpg"),
+    6: os.path.join(ARTIFACT_DIR, "raw_char_6_kim_ho_joong_1794270926516.jpg"),
+    7: os.path.join(ARTIFACT_DIR, "raw_char_7_jang_min_ho_1794270943674.jpg"),
+    8: os.path.join(ARTIFACT_DIR, "raw_char_8_park_seo_jin_1794270961355.jpg"),
+    9: os.path.join(ARTIFACT_DIR, "raw_char_9_son_tae_jin_1794270977967.jpg"),
+    10: os.path.join(ARTIFACT_DIR, "raw_char_10_ahn_sung_hoon_1794270996450.jpg"),
 }
-HERO_SOURCE = os.path.join(ARTIFACT_DIR, "hero_main_1794269296581.jpg")
+HERO_SOURCE = os.path.join(ARTIFACT_DIR, "hero_main_hwang_young_woong_1794271012943.jpg")
 
 
 def get_font(size: int, bold: bool = False):
@@ -222,14 +228,9 @@ def generate_character_sprite(char_info: dict, index_zero_based: int = 0) -> Ima
             fill=(theme_rgb[0], theme_rgb[1], theme_rgb[2], alpha),
         )
 
-    # 2. Composite Webtoon Prince Cutout on Right Side (Two-Shot Partner Position)
-    prince_idx = (index_zero_based % 4) + 1
+    # 2. Composite Webtoon Prince Cutout on Right Side (Two-Shot Partner Position — 1:1 Singer Likeness)
+    prince_idx = index_zero_based + 1
     cutout = get_prince_cutout(prince_idx)
-
-    # Slight color warmth variation for characters 5..10 so all 10 feel distinct while keeping high webtoon quality
-    if index_zero_based >= 4:
-        enhancer = ImageEnhance.Color(cutout)
-        cutout = enhancer.enhance(1.08 if index_zero_based % 2 == 0 else 0.94)
 
     target_w = 720
     target_h = int(cutout.height * (target_w / cutout.width))
@@ -306,13 +307,13 @@ def generate_character_thumbnail( char_info: dict, index_zero_based: int = 0) ->
         width=2,
     )
 
-    prince_idx = (index_zero_based % 4) + 1
+    prince_idx = index_zero_based + 1
     cutout = get_prince_cutout(prince_idx)
     cw, ch = cutout.size
-    # Crop upper face & bust region
-    crop_size = int(min(cw, ch) * 0.68)
+    # Crop upper face & bust region centered on the singer's real-life likeness face
+    crop_size = int(min(cw, ch) * 0.62)
     cx = cw // 2
-    cy = int(ch * 0.36)
+    cy = int(ch * 0.30)
     crop_box = (
         max(0, cx - crop_size // 2),
         max(0, cy - crop_size // 2),
