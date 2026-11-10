@@ -27,17 +27,30 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 ARTIFACT_DIR = r"C:\Users\jjang\.gemini\antigravity\brain\1921e31e-ab59-4720-9419-93cac770374d"
 RAW_SOURCES = {
     1: os.path.join(ARTIFACT_DIR, "raw_char_1_hwang_young_woong_1794270927123.jpg"),
-    2: os.path.join(ARTIFACT_DIR, "raw_char_2_lim_young_woong_1794270944368.jpg"),
-    3: os.path.join(ARTIFACT_DIR, "raw_char_3_lee_chan_won_1794270962440.jpg"),
-    4: os.path.join(ARTIFACT_DIR, "raw_char_4_young_tak_1794270978595.jpg"),
-    5: os.path.join(ARTIFACT_DIR, "raw_char_5_jeong_dong_won_1794270996820.jpg"),
-    6: os.path.join(ARTIFACT_DIR, "raw_char_6_kim_ho_joong_1794270926516.jpg"),
-    7: os.path.join(ARTIFACT_DIR, "raw_char_7_jang_min_ho_1794270943674.jpg"),
-    8: os.path.join(ARTIFACT_DIR, "raw_char_8_park_seo_jin_1794270961355.jpg"),
-    9: os.path.join(ARTIFACT_DIR, "raw_char_9_son_tae_jin_1794270977967.jpg"),
-    10: os.path.join(ARTIFACT_DIR, "raw_char_10_ahn_sung_hoon_1794270996450.jpg"),
+    2: os.path.join(ARTIFACT_DIR, "hwang_look_2_white_tuxedo_1794271917754.jpg"),
+    3: os.path.join(ARTIFACT_DIR, "hwang_look_3_pink_cardigan_heart_1794271936006.jpg"),
+    4: os.path.join(ARTIFACT_DIR, "hwang_look_4_all_black_suit_1794271955646.jpg"),
+    5: os.path.join(ARTIFACT_DIR, "hwang_look_5_royal_uniform_1794271970920.jpg"),
+    6: os.path.join(ARTIFACT_DIR, "hwang_look_6_purple_velvet_concert_1794271918941.jpg"),
+    7: os.path.join(ARTIFACT_DIR, "hwang_look_7_autumn_trenchcoat_1794271937794.jpg"),
+    8: os.path.join(ARTIFACT_DIR, "hwang_look_8_golden_hanbok_1794271954389.jpg"),
+    9: os.path.join(ARTIFACT_DIR, "hwang_look_9_burgundy_rose_1794271971955.jpg"),
+    10: os.path.join(ARTIFACT_DIR, "hwang_look_10_radio_dj_glasses_1794271991280.jpg"),
 }
 HERO_SOURCE = os.path.join(ARTIFACT_DIR, "hero_main_hwang_young_woong_1794271012943.jpg")
+
+HWANG_LOOK_TITLES = [
+    "감성 황태자 · 에메랄드 수트",
+    "순백의 프린스 · 화이트 수트",
+    "다정한 미소 · 핑크 손하트",
+    "중저음 카리스마 · 올블랙",
+    "파라다이스 황태자 · 황실 제복",
+    "단독 콘서트 · 퍼플 벨벳",
+    "가을 남자의 순정 · 트렌치코트",
+    "다정한 효도왕자 · 금빛 한복",
+    "당신 편 세레나데 · 붉은 장미",
+    "심야 라디오 DJ · 금테 안경",
+]
 
 
 def get_font(size: int, bold: bool = False):
@@ -272,8 +285,8 @@ def generate_character_sprite(char_info: dict, index_zero_based: int = 0) -> Ima
     )
 
     # Strictly pure Korean text (no Unicode emojis that break malgun.ttf)
-    clean_title = char_info["title"]
-    name_text = char_info["name_ko"]
+    clean_title = HWANG_LOOK_TITLES[index_zero_based % len(HWANG_LOOK_TITLES)]
+    name_text = "황영웅"
     sub_text = "언제나 당신 편 파라다이스 기념사진"
 
     draw.text((BODY_CX, banner_y + 26), clean_title, font=font_title, fill=soft_gold, anchor="mm")

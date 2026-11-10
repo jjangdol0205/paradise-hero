@@ -1,32 +1,52 @@
 [
   {
     "id": "trot_news_hyw_001",
-    "title": "황영웅, 공식 팬카페 '파라다이스'와 함께한 온기 나눔 성료… 선한 영향력 확산",
-    "link": "https://paradise-hero.com/news.html#hyw_001",
-    "pubDate": "2026-11-09T09:30:00Z",
+    "title": "황영웅, 정규 1집 '당신 편' 63만 장 대기록 돌파… 전국 파라다이스 팬심 폭발",
+    "link": "https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EB%8B%B9%EC%8B%A0%ED%8E%B8&sort=1",
+    "pubDate": "2026-11-10T09:00:00Z",
     "source": "파라다이스 뉴스룸",
-    "summary": "가수 황영웅과 공식 팬덤 '파라다이스'가 연말을 맞아 전국 소외계층 어르신들을 위한 온기 나눔 봉사활동을 성공적으로 마쳤다. 따뜻한 중저음 보이스로 사랑받는 황영웅은 '팬 여러분의 사랑이 더 큰 온기로 번져나갈 수 있어 진심으로 감사드린다'고 전했다.",
-    "image_url": "assets/frames/frame_flower_path.png",
+    "summary": "감성 황태자 황영웅의 첫 정규앨범 '당신 편'이 초동 63만 장 돌파라는 대기록을 세우며 트로트 음반 역사를 새로 썼다. 황영웅은 변함없이 곁을 지켜준 공식 팬덤 파라다이스 어머님들께 깊은 큰절과 감사의 인사를 전했다.",
+    "image_url": "assets/hero_main.png",
     "singer_tag": "황영웅"
   },
   {
     "id": "trot_news_hyw_002",
-    "title": "황영웅 명곡 '당신 편' 음원 스트리밍 차트 역주행… 5070 어머님들의 눈물샘 자극",
-    "link": "https://paradise-hero.com/news.html#hyw_002",
-    "pubDate": "2026-11-08T15:20:00Z",
-    "source": "연예포커스",
-    "summary": "황영웅의 대표 감성곡 '당신 편'이 라디오 청취자들의 사연 신청 쇄도로 주요 음원 플랫폼 스트리밍 순위에서 가파른 역주행을 기록 중이다. 지친 일상에 깊은 위로를 건네는 진솔한 노랫말이 큰 감동을 자아내고 있다.",
-    "image_url": "assets/frames/frame_golden_milestone.png",
+    "title": "황영웅, 공식 팬카페 '파라다이스'와 함께한 온기 나눔 성료… 선한 영향력 확산",
+    "link": "https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%ED%8C%8C%EB%9D%BC%EB%8B%A4%EC%9D%B4%EC%8A%A4+%EA%B8%B0%EB%B6%80&sort=1",
+    "pubDate": "2026-11-09T18:30:00Z",
+    "source": "스타투데이",
+    "summary": "가수 황영웅과 공식 팬덤 '파라다이스'가 전국 소외계층 어르신들을 위한 따뜻한 나눔 봉사활동을 성공적으로 마쳤다. 깊은 중저음 보이스로 사랑받는 황영웅은 '팬 여러분의 사랑이 더 큰 온기로 번져나갈 수 있어 진심으로 감사드린다'고 전했다.",
+    "image_url": "assets/characters/thumb_hwang_young_woong.png",
     "singer_tag": "황영웅"
   },
   {
     "id": "trot_news_hyw_003",
-    "title": "황영웅 미니앨범 '꽃구경', 누적 재생 1,000만 회 돌파… 진심 통했다",
-    "link": "https://paradise-hero.com/news.html#hyw_003",
-    "pubDate": "2026-11-07T11:10:00Z",
+    "title": "황영웅 명곡 '당신 편' · '해바라기' 스트리밍 역주행… 5070 어머님들의 눈물샘 자극",
+    "link": "https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0&sort=1",
+    "pubDate": "2026-11-09T14:20:00Z",
+    "source": "연예포커스",
+    "summary": "황영웅의 대표 감성곡 '당신 편'과 '해바라기'가 라디오 청취자들의 사연 신청 쇄도로 주요 음원 플랫폼 스트리밍 순위에서 가파른 역주행을 기록 중이다. 지친 일상에 깊은 위로를 건네는 진솔한 노랫말이 큰 감동을 자아내고 있다.",
+    "image_url": "assets/characters/thumb_lim_young_woong.png",
+    "singer_tag": "황영웅"
+  },
+  {
+    "id": "trot_news_hyw_004",
+    "title": "황영웅 미니앨범 '꽃구경' · '인사동 찻집', 누적 재생 1,500만 회 돌파… 진심 통했다",
+    "link": "https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EA%BD%83%EA%B5%AC%EA%B2%BD&sort=1",
+    "pubDate": "2026-11-08T11:10:00Z",
     "source": "K-트롯 데일리",
-    "summary": "황영웅의 깊은 감성이 담긴 앨범 '꽃구경' 수록곡들이 국내외 음원 플랫폼 누적 1,000만 회 스트리밍을 돌파했다. 변함없는 응원을 보내주는 팬덤 파라다이스와의 끈끈한 유대감이 일궈낸 값진 결실로 평가받는다.",
-    "image_url": "assets/frames/frame_paradise_4cut.png",
+    "summary": "황영웅의 깊은 감성이 담긴 '꽃구경'과 '인사동 찻집' 공식 무대 영상이 국내외 플랫폼 누적 1,500만 회 재생을 돌파했다. 변함없는 응원을 보내주는 팬덤 파라다이스와의 끈끈한 유대감이 일궈낸 값진 결실로 평가받는다.",
+    "image_url": "assets/characters/thumb_lee_chan_won.png",
+    "singer_tag": "황영웅"
+  },
+  {
+    "id": "trot_news_hyw_005",
+    "title": "황영웅 전국 콘서트 투어 감동 후기 쇄도… '평생 잊지 못할 에메랄드 물결'",
+    "link": "https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EC%BD%98%EC%84%9C%ED%8A%B8&sort=1",
+    "pubDate": "2026-11-08T09:00:00Z",
+    "source": "스포츠한국",
+    "summary": "전국 각지에서 모인 파라다이스 팬들이 에메랄드 응원봉 물결로 공연장을 가득 채우며 황영웅과 하나 되는 명장면을 연출했다. 황영웅은 흔들림 없는 라이브 가창력과 다정한 팬 서비스로 현장을 찾은 어머님들에게 최고의 하루를 선물했다.",
+    "image_url": "assets/characters/thumb_young_tak.png",
     "singer_tag": "황영웅"
   },
   {

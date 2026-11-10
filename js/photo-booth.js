@@ -254,7 +254,7 @@
     preloadFrames() {
       COMMEMORATIVE_FRAMES.forEach((frame, idx) => {
         const img = new Image();
-        img.src = frame.src + '?v=20261110b';
+        img.src = frame.src + '?v=20261110c';
         img.onload = () => {
           this.frameImages[frame.id] = img;
           if (idx === this.activeFrameIndex && !this.userImage && !this.isCameraStreaming) {
@@ -274,7 +274,7 @@
       this.characters.forEach((char) => {
         if (typeof Image !== 'undefined') {
           const img = new Image();
-          img.src = char.sprite_path + '?v=20261110b';
+          img.src = char.sprite_path + '?v=20261110c';
           img.onload = () => {
             this.characterImages[char.id] = img;
             if (char.id === this.activeCharacterId && !this.userImage && !this.isCameraStreaming) {
