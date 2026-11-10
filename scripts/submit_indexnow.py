@@ -167,6 +167,22 @@ def run_submission() -> bool:
         if res["success"]:
             any_success = True
 
+    # Google WebSub (PubSubHubbub) real-time RSS & Sitemap broadcast
+    for feed_url in (f"https://{HOST}/rss.xml", f"https://{HOST}/sitemap.xml"):
+        try:
+            body_bytes = f"hub.mode=publish&hub.url={feed_url}".encode("utf-8")
+            wreq = urllib.request.Request(
+                "https://pubsubhubbub.appspot.com/",
+                data=body_bytes,
+                headers={"Content-Type": "application/x-www-form-urlencoded"},
+                method="POST"
+            )
+            with urllib.request.urlopen(wreq, timeout=10) as wresp:
+                print(f"    [PASS] Google WebSub Ping ({feed_url}) -> HTTP {wresp.getcode()}")
+                any_success = True
+        except Exception as we:
+            print(f"    [WARN] Google WebSub Ping ({feed_url}) -> {we}")
+
     print("-" * 65)
     print("[*] Verifying Live Domain Accessibility...")
     live_res = verify_live_domain(f"https://{HOST}/")
