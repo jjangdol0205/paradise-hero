@@ -13,11 +13,11 @@
     "framerate": 30,
     "video_codec": "libx264",
     "video_profile": "high",
-    "crf": 18,
-    "preset": "fast",
+    "crf": 22,
+    "preset": "ultrafast",
     "audio_codec": "aac",
-    "audio_bitrate": "320k",
-    "audio_samplerate": 48000,
+    "audio_bitrate": "192k",
+    "audio_samplerate": 44100,
     "ken_burns": {
       "cycle_duration_sec": 30.0,
       "zoom_start": 1.0,
@@ -25,19 +25,19 @@
       "ffmpeg_zoompan_filter": "zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30"
     },
     "subtitles": {
-      "font_family": "NanumSquareRoundEB / Malgun Gothic / AppleSDGothicNeo",
+      "font_family": "Malgun Gothic Bold / NanumSquareRoundEB",
       "font_size_pt": 54,
       "font_size_range": "52~56pt",
       "text_color": "#FFFFFF",
+      "highlight_color": "#FFE600",
       "outline_color": "#1A1A1A",
       "outline_width_px": 8,
       "vertical_align_y": 910,
       "safe_margin_bottom_px": 170,
       "max_lines_per_cue": 2,
-      "max_chars_per_line": 26
+      "max_chars_per_line": 25
     }
   },
-  "ffmpeg_render_command": "ffmpeg -loop 1 -framerate 30 -t {duration} -i {background_image} -i {master_audio} -filter_complex \"[0:v]scale=1920:1080,zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30[bg];[bg]drawtext=text='{subtitle_text}':fontcolor=white:fontsize=54:bordercolor=black:borderw=8:x=(w-text_w)/2:y=910[v]\" -map \"[v]\" -map 1:a -c:v libx264 -preset fast -crf 18 -c:a aac -b:a 320k -shortest output_1080p.mp4",
   "chapters": [
     {
       "chapter_index": 1,

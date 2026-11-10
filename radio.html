@@ -70,104 +70,94 @@
   <!-- 스킵 네비게이션 -->
   <a href="#main-content" class="skip-link">본문 바로가기</a>
 
-  <!-- 상단 헤더 & 시니어 안심 네비게이션 -->
+  <!-- 상단 슬림 헤더 & 5대 핵심 네비게이션 -->
   <header class="site-header">
     <div class="header-top">
       <div class="brand-logo">
         <span class="logo-icon" aria-hidden="true">👑</span>
         <div>
           <span class="logo-text">파라다이스</span>
-          <span class="logo-sub">김쌤의 영웅 라디오 전용관</span>
+          <span class="logo-sub">김쌤의 영웅 라디오</span>
         </div>
       </div>
       <div class="accessibility-bar">
+        <a href="vip.html" class="btn-font-scaler" style="background-color: #0E2820; color: #D4AF37; border-color: #D4AF37; text-decoration: none;">
+          <span aria-hidden="true">👑</span> VIP 후원
+        </a>
         <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 18px)">
           <span aria-hidden="true">🔍</span> 글자크게 가+
         </button>
       </div>
     </div>
 
-    <!-- 6대 메뉴 -->
+    <!-- 5대 상시 노출 메뉴 (모바일 한 줄 완벽 노출) -->
     <nav class="main-nav" aria-label="메인 메뉴">
       <ul class="nav-list">
         <li class="nav-item">
           <a href="index.html" class="nav-link">
             <span class="nav-icon" aria-hidden="true">🏠</span>
-            <span>처음으로</span>
+            <span>홈</span>
           </a>
         </li>
         <li class="nav-item">
           <a href="radio.html" class="nav-link active" aria-current="page">
             <span class="nav-icon" aria-hidden="true">📻</span>
-            <span>김쌤 라디오</span>
+            <span>영웅라디오</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="news.html" class="nav-link">
-            <span class="nav-icon" aria-hidden="true">📰</span>
-            <span>트로트 뉴스</span>
+          <a href="booth.html" class="nav-link">
+            <span class="nav-icon" aria-hidden="true">📸</span>
+            <span>기념사진관<span class="sr-only"> 영웅과 함께</span></span>
           </a>
         </li>
         <li class="nav-item">
           <a href="stream.html" class="nav-link">
             <span class="nav-icon" aria-hidden="true">🎵</span>
-            <span>노래 듣기 가이드</span>
+            <span>노래듣기</span>
           </a>
         </li>
         <li class="nav-item">
           <a href="community.html" class="nav-link">
             <span class="nav-icon" aria-hidden="true">💬</span>
-            <span>파라다이스 사랑방</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="vip.html" class="nav-link">
-            <span class="nav-icon" aria-hidden="true">👑</span>
-            <span>황금빛 VIP</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="booth.html" class="nav-link nav-item">
-            <span class="nav-icon" aria-hidden="true">📸</span>
-            <span>영웅과 함께</span>
+            <span>사랑방</span>
           </a>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- 실시간 황금 응원 전광판 -->
-  <aside class="billboard-banner" aria-label="실시간 응원 전광판">
-    <span class="billboard-label">🌟 실시간 응원 전광판</span>
-    <div class="billboard-ticker">
-      <span class="billboard-text">
-        [대구 달서구 순자 어머니] "김쌤 목소리로 제 사연 읽어주셔서 펑펑 울었습니다. 고마워요!" 💚 &nbsp;&nbsp;&nbsp;&nbsp;
-        [광주 북구 미숙님] "매일 저녁 설거지할 때마다 김쌤 라디오 틀어놓고 들어요." 🌟
-      </span>
-    </div>
-    <a href="vip.html#billboard-support" class="btn-billboard-action">나도 황금 응원 보내기 👉</a>
-  </aside>
-
   <!-- 본문 컨테이너 -->
   <main id="main-content" class="container">
-    <!-- 라디오 채널 소개 -->
+    <!-- 1. 라디오 채널 소개 & 본문 중앙 16:9 보이는 유튜브 플레이어 (무음 버그 해결) -->
     <section class="senior-card highlight-card" aria-labelledby="radio-intro-heading">
       <div class="section-title-wrap">
-        <span class="section-badge">📻 감성 충전 라디오</span>
+        <span class="section-badge">📻 화면을 누르면 바로 소리가 나옵니다</span>
         <h1 id="radio-intro-heading" class="section-title">
           황영웅과 함께 걷는 @김쌤의영웅라디오
         </h1>
-        <p class="section-desc">
-          따뜻한 중저음의 힐링 DJ 김쌤이 들려주는 감동의 명곡 해설과 5070 어머님들의 눈물겨운 삶의 이야기.
+        <p class="section-desc" id="main-youtube-title">
+          📺 현재 선택된 방송: 1화 [보컬전쟁] 임영웅 vs 황영웅, 소리 전문가들이 분석한 결정적 차이
         </p>
       </div>
 
-      <div style="background-color: var(--brand-gold-light); padding: 18px 20px; border-radius: 12px; border: 1px solid var(--brand-gold); margin-bottom: 20px;">
-        <p style="font-weight: 700; color: var(--brand-emerald-dark); margin-bottom: 6px;">
-          📌 방송 청취 안내:
+      <!-- 보이는 16:9 유튜브 공식 임베드 플레이어 -->
+      <div class="video-embed-container">
+        <iframe
+          id="main-youtube-embed"
+          src="https://www.youtube.com/embed/lGkMncY4u1o?playsinline=1&amp;rel=0"
+          title="김쌤의 영웅 라디오 공식 유튜브 플레이어"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div style="background-color: var(--brand-gold-light); padding: 16px 20px; border-radius: 12px; border: 1px solid var(--brand-gold); margin-bottom: 20px;">
+        <p style="font-weight: 800; color: var(--brand-emerald-dark); margin-bottom: 6px;">
+          📌 소리 잘 나오게 듣는 방법:
         </p>
         <p style="font-size: 17px; line-height: 1.7;">
-          아래 <strong>[▶ 방송 바로듣기]</strong> 버튼을 누르시면 화면을 닫거나 다른 페이지를 둘러보셔도 화면 맨 아래 고정 플레이어에서 음악과 방송이 끊김 없이 계속 재생됩니다.
+          위 유튜브 영상 화면 한가운데 <strong>[▶ 재생]</strong>을 누르시거나, 아래 1화~5화 중 원하시는 <strong>[▶ 바로듣기]</strong> 버튼을 누르시면 위 화면에서 시원한 소리와 함께 방송이 바로 나옵니다!
         </p>
       </div>
 
@@ -183,84 +173,101 @@
       </div>
     </section>
 
-    <!-- 회차별 라디오 방송 목록 -->
+    <!-- 2. 회차별 라디오 방송 목록 (실제 유튜브 영상 5편 완벽 연동) -->
     <section class="senior-card" aria-labelledby="episode-list-heading">
       <div class="section-title-wrap">
-        <span class="section-badge">🎙 정규 방송 목록</span>
+        <span class="section-badge">🎙 정규 방송 목록 (1~5화)</span>
         <h2 id="episode-list-heading" class="section-title">김쌤의 영웅 라디오 전편 다시듣기</h2>
-        <p class="section-desc">가슴 뭉클한 감동을 다시 느껴보세요. 언제든 1-클릭으로 재생됩니다.</p>
+        <p class="section-desc">아래 버튼을 누르시면 상단 TV 화면에서 해당 방송이 즉시 재생됩니다.</p>
       </div>
 
-      <!-- 에피소드 1 -->
-      <article class="senior-card" style="border-left: 6px solid var(--brand-gold);">
+      <!-- 에피소드 1: lGkMncY4u1o -->
+      <div style="background-color: #FAFAF8; border-left: 6px solid var(--brand-gold); padding: 20px; border-radius: 12px; margin-bottom: 18px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <h3 style="font-size: var(--font-subheading); color: var(--brand-emerald-dark); font-weight: 800;">
-            제1화: 어머니, 제가 당신의 편이 되어드릴게요
+            제1화: [보컬전쟁] 임영웅 vs 황영웅, 소리 전문가들이 분석한 결정적 차이
           </h3>
           <span style="font-size: 15px; color: var(--text-muted); font-weight: 700;">방송 시간 15분 20초</span>
         </div>
         <p style="margin-bottom: 12px; color: var(--text-charcoal);">
           <strong>배경 명곡:</strong> 정규 1집 타이틀곡 〈당신 편〉<br>
-          <strong>사연 소개:</strong> 평생 가족을 위해 헌신하다 무릎 관절 수술을 받고 홀로 병실에 누워 계시던 대구 순자 어머니의 눈물겨운 고백. 세상이 다 등을 돌린 것 같았던 밤, 황영웅 가수의 '당신 편'을 듣고 다시 일어설 용기를 얻게 된 기적 같은 사연을 낭독합니다.
+          <strong>방송 소개:</strong> 대한민국 트로트계를 뒤흔든 황영웅 가수의 독보적인 중저음 울림과 흉성 공명 발성을 소리 전문가의 시선으로 깊이 있게 분석하고, 대구 순자 어머니의 사연을 함께 전합니다.
         </p>
         <button type="button" class="senior-btn btn-gold" data-play-episode="0" style="width: 100%;">
-          <span>▶ 1화 바로듣기 (연속 재생)</span>
+          <span>▶ 1화 바로듣기 (화면에서 즉시 재생)</span>
         </button>
-      </article>
+      </div>
 
-      <!-- 에피소드 2 -->
-      <article class="senior-card" style="border-left: 6px solid var(--brand-emerald);">
+      <!-- 에피소드 2: QcrBg7UWg3k -->
+      <div style="background-color: #FAFAF8; border-left: 6px solid var(--brand-emerald); padding: 20px; border-radius: 12px; margin-bottom: 18px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <h3 style="font-size: var(--font-subheading); color: var(--brand-emerald-dark); font-weight: 800;">
-            제2화: 가을 바람 타고 온 꽃구경의 추억
+            제2화: 황영웅, 아무도 몰랐던 침묵의 시간들... 빛과 그림자 8부작 풀스토리
           </h3>
           <span style="font-size: 15px; color: var(--text-muted); font-weight: 700;">방송 시간 16분 45초</span>
         </div>
         <p style="margin-bottom: 12px; color: var(--text-charcoal);">
-          <strong>배경 명곡:</strong> 미니 1집 대표곡 〈꽃구경〉<br>
-          <strong>사연 소개:</strong> 치매를 앓으시는 노모의 손을 잡고 시골길을 걸으며 황영웅의 '꽃구경'을 함께 불렀던 전북 익산 정옥 님의 사연. 모녀의 애틋한 사랑과 눈물 젖은 꽃잎의 추억을 김쌤의 다정한 목소리로 전합니다.
+          <strong>배경 명곡:</strong> 미니 1집 대표곡 〈꽃구경〉 · 트로트 인생다큐<br>
+          <strong>방송 소개:</strong> 모진 비바람과 침묵의 시간 속에서도 흔들리지 않고 팬들과의 약속을 지켜낸 가수 황영웅의 눈물겨운 8부작 풀스토리 다큐멘터리입니다.
         </p>
         <button type="button" class="senior-btn btn-primary" data-play-episode="1" style="width: 100%;">
-          <span>▶ 2화 바로듣기 (연속 재생)</span>
+          <span>▶ 2화 바로듣기 (화면에서 즉시 재생)</span>
         </button>
-      </article>
+      </div>
 
-      <!-- 에피소드 3 -->
-      <article class="senior-card" style="border-left: 6px solid var(--brand-gold);">
+      <!-- 에피소드 3: kgkUqsI5d2k -->
+      <div style="background-color: #FAFAF8; border-left: 6px solid var(--brand-gold); padding: 20px; border-radius: 12px; margin-bottom: 18px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <h3 style="font-size: var(--font-subheading); color: var(--brand-emerald-dark); font-weight: 800;">
-            제3화: 인사동 찻집에서 나눈 어머니의 눈물과 위로
+            제3화: 소리 전문가가 분석한 황영웅의 압승 이유 (김쌤의 영웅 라디오)
           </h3>
           <span style="font-size: 15px; color: var(--text-muted); font-weight: 700;">방송 시간 17분 10초</span>
         </div>
         <p style="margin-bottom: 12px; color: var(--text-charcoal);">
-          <strong>배경 명곡:</strong> 〈인사동 찻집〉<br>
-          <strong>사연 소개:</strong> 서울로 상경해 고단한 삶을 버텨낸 30년 세월, 오랜만에 고향 친구를 만나 쌍화차 한 잔을 마시며 황영웅의 노래로 청춘을 회상한 감동 실화.
+          <strong>배경 명곡:</strong> 〈인사동 찻집〉 · 〈비나리〉<br>
+          <strong>방송 소개:</strong> 첫 소절만으로도 듣는 이의 가슴을 무너지게 만드는 황영웅 특유의 한(恨)과 호소력, 그리고 5070 어머님들이 열광할 수밖에 없는 음악적 비결을 해설합니다.
         </p>
         <button type="button" class="senior-btn btn-gold" data-play-episode="2" style="width: 100%;">
-          <span>▶ 3화 바로듣기 (연속 재생)</span>
+          <span>▶ 3화 바로듣기 (화면에서 즉시 재생)</span>
         </button>
-      </article>
+      </div>
 
-      <!-- 에피소드 4 -->
-      <article class="senior-card" style="border-left: 6px solid var(--brand-emerald);">
+      <!-- 에피소드 4: NArJ2CH2IAw -->
+      <div style="background-color: #FAFAF8; border-left: 6px solid var(--brand-emerald); padding: 20px; border-radius: 12px; margin-bottom: 18px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <h3 style="font-size: var(--font-subheading); color: var(--brand-emerald-dark); font-weight: 800;">
-            제4화: 당신꽃으로 활짝 피어난 우리들의 황금빛 인생
+            제4화: 황영웅 운명이 뒤바뀐 8주간의 기록 (오디오북 특집)
           </h3>
           <span style="font-size: 15px; color: var(--text-muted); font-weight: 700;">방송 시간 15분 50초</span>
         </div>
         <p style="margin-bottom: 12px; color: var(--text-charcoal);">
           <strong>배경 명곡:</strong> 〈당신꽃〉, 〈황금빛 인생〉<br>
-          <strong>사연 소개:</strong> 자식들 다 키워 떠나보내고 텅 빈 가슴으로 살아가던 어느 어머니가, 황영웅 팬클럽 파라다이스에서 소중한 친구들을 만나 다시 활짝 웃음을 되찾은 기쁨의 사연.
+          <strong>방송 소개:</strong> 무명 시절의 아픔을 딛고 대한민국 최고의 감성 황태자로 우뚝 서기까지, 운명이 뒤바뀐 8주간의 감동 실록을 김쌤의 따뜻한 목소리로 낭독합니다.
         </p>
         <button type="button" class="senior-btn btn-primary" data-play-episode="3" style="width: 100%;">
-          <span>▶ 4화 바로듣기 (연속 재생)</span>
+          <span>▶ 4화 바로듣기 (화면에서 즉시 재생)</span>
         </button>
-      </article>
+      </div>
+
+      <!-- 에피소드 5: GwJBs6kouow -->
+      <div style="background-color: #FAFAF8; border-left: 6px solid var(--brand-gold); padding: 20px; border-radius: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+          <h3 style="font-size: var(--font-subheading); color: var(--brand-emerald-dark); font-weight: 800;">
+            제5화: 황영웅 귀환 확정 &amp; 파라다이스 총공 특집 브리핑
+          </h3>
+          <span style="font-size: 15px; color: var(--text-muted); font-weight: 700;">방송 시간 14분 30초</span>
+        </div>
+        <p style="margin-bottom: 12px; color: var(--text-charcoal);">
+          <strong>배경 명곡:</strong> 〈함께해요〉, 〈비상〉<br>
+          <strong>방송 소개:</strong> 정규 1집 63만 장 신화를 일궈낸 파라다이스 팬덤의 위대한 결집력과 앞으로 펼쳐질 전국 콘서트 및 방송 총공 가이드를 정리해 드립니다.
+        </p>
+        <button type="button" class="senior-btn btn-gold" data-play-episode="4" style="width: 100%;">
+          <span>▶ 5화 바로듣기 (화면에서 즉시 재생)</span>
+        </button>
+      </div>
     </section>
 
-    <!-- 유튜브 1-Click 무료 구독 배너 (Pillar 4 Funnel) -->
+    <!-- 유튜브 1-Click 무료 구독 배너 -->
     <section class="senior-card" style="background: linear-gradient(135deg, #1B4D3E 0%, #0E2820 100%); color: #FFFFFF; border: 2px solid var(--brand-gold); text-align: center; margin-top: 24px;">
       <span style="font-size: 40px;" aria-hidden="true">📺</span>
       <h2 style="font-size: var(--font-heading); color: var(--brand-gold); margin: 8px 0 12px;">
@@ -287,6 +294,18 @@
         <span>✍ 사연 신청 양식 작성하기 👉</span>
       </a>
     </section>
+
+    <!-- 하단 실시간 황금 응원 전광판 -->
+    <aside class="billboard-banner" aria-label="실시간 응원 전광판" style="border-radius: 16px;">
+      <span class="billboard-label">🌟 실시간 응원 전광판</span>
+      <div class="billboard-ticker">
+        <span class="billboard-text">
+          [대구 달서구 순자 어머니] "김쌤 목소리로 제 사연 읽어주셔서 펑펑 울었습니다. 고마워요!" 💚 &nbsp;&nbsp;&nbsp;&nbsp;
+          [광주 북구 미숙님] "매일 저녁 설거지할 때마다 김쌤 라디오 틀어놓고 들어요." 🌟
+        </span>
+      </div>
+      <a href="vip.html#billboard-support" class="btn-billboard-action">나도 황금 응원 보내기 👉</a>
+    </aside>
   </main>
 
   <!-- 시니어 안심 푸터 -->
@@ -302,6 +321,16 @@
           사연 작성에 어려움이 있으신 경우 이메일로 사연을 보내주셔도 정성껏 접수해 드립니다.
         </p>
       </div>
+
+      <p style="margin: 14px 0; font-size: 16px;">
+        <a href="index.html" style="color: var(--brand-gold);">홈</a> ·
+        <a href="radio.html" style="color: var(--brand-gold);">영웅라디오</a> ·
+        <a href="booth.html" style="color: var(--brand-gold);">기념사진관</a> ·
+        <a href="stream.html" style="color: var(--brand-gold);">노래듣기</a> ·
+        <a href="community.html" style="color: var(--brand-gold);">사랑방</a> ·
+        <a href="news.html" style="color: var(--brand-gold);">트로트뉴스</a> ·
+        <a href="vip.html" style="color: var(--brand-gold);">골드VIP</a>
+      </p>
 
       <div class="footer-notice">
         <p>• <strong>스토어 결제 라이선스:</strong> 본 플랫폼은 Lemon Squeezy Store #296100을 통한 안심 결제 체계를 채택하고 있습니다.</p>

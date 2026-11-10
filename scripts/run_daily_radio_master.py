@@ -25,7 +25,7 @@ if sys.platform == "win32":
         pass
 
 
-def run_pipeline(episode_num: int, sample_audio: bool = True):
+def run_pipeline(episode_num: int, sample_audio: bool = False):
     base_dir = os.path.dirname(os.path.abspath(__file__))
     content_dir = os.path.abspath(os.path.join(base_dir, "..", "content", f"episode_{episode_num:02d}"))
     os.makedirs(content_dir, exist_ok=True)

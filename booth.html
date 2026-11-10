@@ -541,19 +541,19 @@
   <!-- 스킵 네비게이션 -->
   <a href="#main-content" class="skip-link">본문 바로가기</a>
 
-  <!-- 상단 헤더 & 네비게이션 -->
+  <!-- 상단 슬림 헤더 & 5대 핵심 네비게이션 -->
   <header class="site-header">
     <div class="header-top">
       <div class="brand-logo">
         <span class="logo-icon" aria-hidden="true">👑</span>
         <div>
           <span class="logo-text">파라다이스</span>
-          <span class="logo-sub">포토부스</span>
+          <span class="logo-sub">기념사진관</span>
         </div>
       </div>
       <div class="accessibility-bar" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
         <div id="user-credit-badge-wrap" class="user-credit-badge-wrap">
-          <span id="user-credit-badge" class="user-credit-badge" role="status" aria-live="polite">🎫 보유 이용권: 1장</span>
+          <span id="user-credit-badge" class="user-credit-badge" role="status" aria-live="polite">🎫 무료 촬영 이용권</span>
           <button type="button" id="btn-recharge-open" class="btn-recharge-badge" aria-label="이용권 충전하기">⚡ 충전</button>
         </div>
         <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 18px)">
@@ -562,265 +562,236 @@
       </div>
     </div>
 
-    <!-- 6대 상시 노출 메뉴 -->
+    <!-- 5대 상시 노출 메뉴 (모바일 한 줄 100% 노출) -->
     <nav class="main-nav" aria-label="메인 메뉴">
       <ul class="nav-list">
         <li class="nav-item">
           <a href="index.html" class="nav-link">
             <span class="nav-icon" aria-hidden="true">🏠</span>
-            <span>처음으로</span>
+            <span>홈</span>
           </a>
         </li>
         <li class="nav-item">
           <a href="radio.html" class="nav-link">
             <span class="nav-icon" aria-hidden="true">📻</span>
-            <span>김쌤 라디오</span>
+            <span>영웅라디오</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="booth.html" class="nav-link active" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">📸</span>
+            <span>기념사진관<span class="sr-only"> 영웅과 함께</span></span>
           </a>
         </li>
         <li class="nav-item">
           <a href="stream.html" class="nav-link">
             <span class="nav-icon" aria-hidden="true">🎵</span>
-            <span>노래 듣기 가이드</span>
+            <span>노래듣기</span>
           </a>
         </li>
         <li class="nav-item">
           <a href="community.html" class="nav-link">
             <span class="nav-icon" aria-hidden="true">💬</span>
-            <span>파라다이스 사랑방</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="vip.html" class="nav-link">
-            <span class="nav-icon" aria-hidden="true">👑</span>
-            <span>황금빛 VIP</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="booth.html" class="nav-link nav-item active" aria-current="page">
-            <span class="nav-icon" aria-hidden="true">📸</span>
-            <span>영웅과 함께</span>
+            <span>사랑방</span>
           </a>
         </li>
       </ul>
     </nav>
   </header>
 
-  <!-- 실시간 황금 응원 전광판 -->
-  <aside class="billboard-banner" aria-label="실시간 응원 전광판">
-    <span class="billboard-label">🌟 실시간 응원 전광판</span>
-    <div class="billboard-ticker">
-      <span class="billboard-text">
-        [대구 달서구 순자 어머니] "영웅님과 나란히 서서 사진 찍으니 평생 소원 풀었습니다!" 💚 &nbsp;&nbsp;&nbsp;&nbsp;
-        [서울 강서 영희맘] "카톡 프로필 사진으로 해두니 친구들이 어디서 찍었냐고 난리네요." 🌸 &nbsp;&nbsp;&nbsp;&nbsp;
-        [부산 해운대 정숙님] "안방 벽에 예쁘게 인화해서 걸어두었습니다. 영원히 당신 편!" 🌟
-      </span>
-    </div>
-    <a href="vip.html#billboard-support" class="btn-billboard-action">나도 황금 응원 보내기 👉</a>
-  </aside>
-
   <!-- 메인 본문 영역 -->
   <main id="main-content" class="container booth-container">
-    <!-- 히어로 인트로 섹션 -->
-    <section class="senior-card highlight-card" aria-labelledby="booth-heading" style="margin-top: 24px;">
-      <div class="section-title-wrap">
-        <span class="section-badge">📸 100% 무료 즉석 기념사진</span>
-        <h1 id="booth-heading" class="section-title">
-          "어머님, 영웅님과 다정하게 기념사진 찍으세요!"
+    <!-- 1단계: 내 사진 찍기 / 앨범에서 고르기 & 실시간 캔버스 미리보기 -->
+    <section class="booth-step-card" id="step1-canvas-card" aria-labelledby="booth-heading" style="margin-top: 20px; border: 3px solid var(--brand-gold);">
+      <div class="booth-step-header">
+        <span class="booth-step-badge">1단계</span>
+        <h1 id="booth-heading" class="booth-step-title">
+          내 사진을 올리고 위치를 맞춰보세요 (100% 무료)
         </h1>
-        <p class="section-desc" style="font-size: 18px; line-height: 1.6; color: #374151; margin-top: 8px;">
-          별도의 앱 설치나 회원가입 전혀 없이, 스마트폰 카메라로 바로 찍거나 내 앨범에 있는 예쁜 사진을 골라 영웅님과 함께한 멋진 기념사진을 완성해보세요.
-        </p>
       </div>
+      <p style="font-size: 18px; line-height: 1.6; color: #374151; margin-top: -4px; margin-bottom: 16px;">
+        회원가입 없이 바로 찍으실 수 있습니다! 아래 <strong>[내 사진 찍기]</strong> 또는 <strong>[앨범에서 사진 고르기]</strong>를 누르면 순정만화 왕자님 모습의 영웅님 옆에 내 사진이 바로 들어갑니다.
+      </p>
 
-      <!-- 사진 입력 버튼 그룹 (카메라 & 앨범) -->
-      <div class="ingestion-btn-group" style="margin-top: 20px;">
-        <button type="button" id="btn-camera" class="btn-camera-capture" aria-label="카메라로 사진 찍기">
+      <!-- 사진 입력 왕버튼 그룹 (카메라 & 앨범 — 최상단 즉시 노출) -->
+      <div class="ingestion-btn-group">
+        <button type="button" id="btn-camera" class="btn-camera-capture" aria-label="카메라로 내 사진 찍기">
           <span aria-hidden="true">📸</span>
-          <span id="btn-camera-text">영웅님과 사진 찍기</span>
+          <span id="btn-camera-text">내 사진 찍기 (카메라)</span>
         </button>
         <button type="button" id="btn-album" class="btn-album-upload" aria-label="스마트폰 앨범에서 사진 고르기">
-          <span aria-hidden="true">📁</span>
-          <span>내 앨범에서 사진 고르기</span>
+          <span aria-hidden="true">🖼️</span>
+          <span>앨범에서 사진 고르기</span>
         </button>
         <!-- 실제 파일 인풋 (숨김) -->
         <input type="file" id="booth-file-input" accept="image/*" style="display: none;" aria-label="앨범 사진 선택 파일 입력창">
         <!-- 카메라 비디오 스트림 (숨김) -->
         <video id="booth-video" autoplay playsinline muted style="display: none;"></video>
       </div>
-    </section>
 
-    <!-- 1단계: 함께 사진 찍을 트롯 왕자님 선택 -->
-    <section class="booth-step-card" id="step-character-card" aria-labelledby="step-char-title">
-      <div class="booth-step-header">
-        <span class="booth-step-badge">1단계</span>
-        <h2 id="step-char-title" class="booth-step-title">함께 사진 찍을 트롯 왕자님을 골라주세요 (10인)</h2>
-      </div>
-      <p style="font-size: 16px; color: #4B5563; margin-top: -6px; margin-bottom: 12px;">
-        영웅님을 비롯한 10명의 순정만화 트롯 왕자님 중 마음에 드는 파트너를 누르시면 다정한 투샷이 적용됩니다.
-      </p>
-
-      <div class="character-tray" id="character-tray" role="radiogroup" aria-label="트롯 왕자 캐릭터 선택 목록">
-        <button type="button" class="character-select-btn active" data-character-id="hwang_young_woong" role="radio" aria-checked="true">
-          <img src="assets/characters/thumb_hwang_young_woong.png" alt="황영웅">
-          <span class="char-name">황영웅</span>
-          <span class="char-title">👑 감성 황태자</span>
-        </button>
-        <button type="button" class="character-select-btn" data-character-id="lim_young_woong" role="radio" aria-checked="false">
-          <img src="assets/characters/thumb_lim_young_woong.png" alt="임영웅">
-          <span class="char-name">임영웅</span>
-          <span class="char-title">🌟 별빛 황제</span>
-        </button>
-        <button type="button" class="character-select-btn" data-character-id="lee_chan_won" role="radio" aria-checked="false">
-          <img src="assets/characters/thumb_lee_chan_won.png" alt="이찬원">
-          <span class="char-name">이찬원</span>
-          <span class="char-title">🌸 찬또 브레인</span>
-        </button>
-        <button type="button" class="character-select-btn" data-character-id="young_tak" role="radio" aria-checked="false">
-          <img src="assets/characters/thumb_young_tak.png" alt="영탁">
-          <span class="char-name">영탁</span>
-          <span class="char-title">⚡ 청량 에너지</span>
-        </button>
-        <button type="button" class="character-select-btn" data-character-id="jeong_dong_won" role="radio" aria-checked="false">
-          <img src="assets/characters/thumb_jeong_dong_won.png" alt="정동원">
-          <span class="char-name">정동원</span>
-          <span class="char-title">🎷 음악 신동</span>
-        </button>
-        <button type="button" class="character-select-btn" data-character-id="kim_ho_joong" role="radio" aria-checked="false">
-          <img src="assets/characters/thumb_kim_ho_joong.png" alt="김호중">
-          <span class="char-name">김호중</span>
-          <span class="char-title">💜 트바로티</span>
-        </button>
-        <button type="button" class="character-select-btn" data-character-id="jang_min_ho" role="radio" aria-checked="false">
-          <img src="assets/characters/thumb_jang_min_ho.png" alt="장민호">
-          <span class="char-name">장민호</span>
-          <span class="char-title">🤵 로맨틱 신사</span>
-        </button>
-        <button type="button" class="character-select-btn" data-character-id="park_seo_jin" role="radio" aria-checked="false">
-          <img src="assets/characters/thumb_park_seo_jin.png" alt="박서진">
-          <span class="char-name">박서진</span>
-          <span class="char-title">🪘 열정 장구</span>
-        </button>
-        <button type="button" class="character-select-btn" data-character-id="son_tae_jin" role="radio" aria-checked="false">
-          <img src="assets/characters/thumb_son_tae_jin.png" alt="손태진">
-          <span class="char-name">손태진</span>
-          <span class="char-title">🍷 클래식 왕자</span>
-        </button>
-        <button type="button" class="character-select-btn" data-character-id="ahn_sung_hoon_jin_hae_seong" role="radio" aria-checked="false">
-          <img src="assets/characters/thumb_ahn_sung_hoon_jin_hae_seong.png" alt="안성훈/진해성">
-          <span class="char-name">안성훈/진해성</span>
-          <span class="char-title">🎙️ 정통 감성</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- 2단계: 프레임 선택 카드 -->
-    <section class="booth-step-card" aria-labelledby="step1-title">
-      <div class="booth-step-header">
-        <span class="booth-step-badge">2단계</span>
-        <h2 id="step1-title" class="booth-step-title">마음에 드는 기념 프레임을 골라주세요</h2>
-      </div>
-      <p style="font-size: 16px; color: #4B5563; margin-top: -6px; margin-bottom: 12px;">
-        아래 4가지 기념 프레임 중 마음에 드는 디자인을 누르시면 바로 적용됩니다.
-      </p>
-
-      <div class="frame-tray" role="radiogroup" aria-label="기념 프레임 선택 목록">
-        <button type="button" class="frame-select-btn active" data-frame-index="0" role="radio" aria-checked="true">
-          <img src="assets/frames/thumb_flower_path.png" alt="다정한 꽃길 프레임 미리보기">
-          <span class="frame-select-label">🌸 다정한 꽃길</span>
-        </button>
-        <button type="button" class="frame-select-btn" data-frame-index="1" role="radio" aria-checked="false">
-          <img src="assets/frames/thumb_golden_milestone.png" alt="63만장 골드 프레임 미리보기">
-          <span class="frame-select-label">👑 63만장 골드</span>
-        </button>
-        <button type="button" class="frame-select-btn" data-frame-index="2" role="radio" aria-checked="false">
-          <img src="assets/frames/thumb_paradise_4cut.png" alt="파라다이스 4컷 프레임 미리보기">
-          <span class="frame-select-label">🎞️ 인생 4컷</span>
-        </button>
-        <button type="button" class="frame-select-btn" data-frame-index="3" role="radio" aria-checked="false">
-          <img src="assets/frames/thumb_radio_studio.png" alt="명예 DJ 라디오 프레임 미리보기">
-          <span class="frame-select-label">📻 명예 DJ 라디오</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- 2단계: 캔버스 작업대 & 시니어 조작 툴바 -->
-    <section class="booth-step-card" aria-labelledby="step2-title">
-      <div class="booth-step-header">
-        <span class="booth-step-badge">2단계</span>
-        <h2 id="step2-title" class="booth-step-title">사진 위치와 크기를 알맞게 맞춰주세요</h2>
-      </div>
-      <p style="font-size: 16px; color: #4B5563; margin-top: -6px; margin-bottom: 8px;">
-        사진을 손가락으로 드래그하여 움직이시거나, 아래 큰 버튼을 눌러 쉽게 조절하실 수 있습니다.
-      </p>
-
-      <!-- 1080x1440 캔버스 뷰포트 -->
+      <!-- 1080x1440 캔버스 실시간 미리보기 뷰포트 -->
       <div class="canvas-workspace">
         <canvas id="booth-canvas" width="1080" height="1440" aria-label="기념사진 편집 캔버스 작업대"></canvas>
       </div>
 
-      <!-- 시니어 맞춤 왕버튼 조작 툴바 (56px+ 터치 타겟) -->
-      <div class="senior-toolbar" aria-label="사진 크기 및 위치 조절 버튼 모음">
+      <p style="text-align: center; font-size: 17px; font-weight: 800; color: var(--brand-emerald-dark); background-color: #FEF9C3; padding: 10px 14px; border-radius: 12px; margin: 12px 0;">
+        💡 사진 위를 손가락(또는 마우스)으로 끌면 위치를 자유롭게 움직일 수 있습니다!
+      </p>
+
+      <!-- 시니어 맞춤 4대 핵심 왕버튼 조작 툴바 (복잡한 화살표 제거) -->
+      <div class="senior-toolbar" aria-label="사진 크기 및 좌우반전 조절 버튼 모음">
         <div class="toolbar-row">
-          <button type="button" id="btn-zoom-in" class="btn-tool" aria-label="사진 10% 확대">
-            <span aria-hidden="true">🔍</span> 확대 (+)
+          <button type="button" id="btn-zoom-in" class="btn-tool" aria-label="사진 크게 확대">
+            <span aria-hidden="true">🔍</span> 크게 (+)
           </button>
-          <button type="button" id="btn-zoom-out" class="btn-tool" aria-label="사진 10% 축소">
-            <span aria-hidden="true">🔍</span> 축소 (-)
+          <button type="button" id="btn-zoom-out" class="btn-tool" aria-label="사진 작게 축소">
+            <span aria-hidden="true">🔉</span> 작게 (-)
           </button>
           <button type="button" id="btn-flip" class="btn-tool" aria-label="사진 좌우 뒤집기">
-            <span aria-hidden="true">↔</span> 좌우반전
-          </button>
-          <button type="button" id="btn-rotate" class="btn-tool" aria-label="사진 90도 회전">
-            <span aria-hidden="true">↷</span> 90° 회전
-          </button>
-        </div>
-
-        <div class="toolbar-row">
-          <button type="button" id="btn-pan-up" class="btn-tool" aria-label="사진 위로 이동">
-            <span aria-hidden="true">⬆</span> 위로
-          </button>
-          <button type="button" id="btn-pan-down" class="btn-tool" aria-label="사진 아래로 이동">
-            <span aria-hidden="true">⬇</span> 아래로
-          </button>
-          <button type="button" id="btn-pan-left" class="btn-tool" aria-label="사진 왼쪽으로 이동">
-            <span aria-hidden="true">⬅</span> 왼쪽
-          </button>
-          <button type="button" id="btn-pan-right" class="btn-tool" aria-label="사진 오른쪽으로 이동">
-            <span aria-hidden="true">➡</span> 오른쪽
+            <span aria-hidden="true">↔️</span> 좌우반전
           </button>
           <button type="button" id="btn-reset" class="btn-tool btn-tool-reset" aria-label="사진 크기 및 위치 원래대로 복구">
-            <span aria-hidden="true">↺</span> 원래대로
+            <span aria-hidden="true">🔄</span> 원래대로
           </button>
+        </div>
+        <!-- 호환성 유지용 보조 컨트롤 (화면 숨김 처리하여 시니어 혼란 방지) -->
+        <div class="sr-only" aria-hidden="true">
+          <button type="button" id="btn-rotate">90도 회전</button>
+          <button type="button" id="btn-pan-up">위로</button>
+          <button type="button" id="btn-pan-down">아래로</button>
+          <button type="button" id="btn-pan-left">왼쪽</button>
+          <button type="button" id="btn-pan-right">오른쪽</button>
         </div>
       </div>
     </section>
 
-    <!-- 3단계: 내 스마트폰에 저장 & 공유하기 -->
-    <section class="booth-step-card" aria-labelledby="step3-title">
+    <!-- 2단계: 함께 찍을 파트너 모습 & 예쁜 액자(프레임) 고르기 -->
+    <section class="booth-step-card" id="step-character-card" aria-labelledby="step2-title">
+      <div class="booth-step-header">
+        <span class="booth-step-badge">2단계</span>
+        <h2 id="step2-title" class="booth-step-title">함께 찍을 왕자님 모습과 예쁜 액자를 골라주세요</h2>
+      </div>
+      <p style="font-size: 17px; color: #4B5563; margin-top: -6px; margin-bottom: 14px;">
+        원하시는 순정만화 의상 스타일과 기념 액자를 누르시면 위 사진에 즉시 적용됩니다.
+      </p>
+
+      <h3 style="font-size: 19px; font-weight: 800; color: var(--brand-emerald-dark); margin: 8px 0 10px;">
+        👑 함께 서 있을 파트너 모습 선택
+      </h3>
+      <div class="character-tray" id="character-tray" role="radiogroup" aria-label="트롯 왕자 캐릭터 선택 목록">
+        <button type="button" class="character-select-btn active" data-character-id="hwang_young_woong" role="radio" aria-checked="true">
+          <img src="assets/characters/thumb_hwang_young_woong.png" alt="황영웅 화이트 수트">
+          <span class="char-name">황영웅 (화이트)</span>
+          <span class="char-title">감성 황태자</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="lim_young_woong" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_lim_young_woong.png" alt="에메랄드 왕자">
+          <span class="char-name">임영웅 (에메랄드)</span>
+          <span class="char-title">별빛 황제</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="lee_chan_won" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_lee_chan_won.png" alt="다정한 손하트">
+          <span class="char-name">이찬원 (손하트)</span>
+          <span class="char-title">찬또 브레인</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="young_tak" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_young_tak.png" alt="블랙 턱시도">
+          <span class="char-name">영탁 (턱시도)</span>
+          <span class="char-title">청량 에너지</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="jeong_dong_won" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_jeong_dong_won.png" alt="정동원">
+          <span class="char-name">정동원</span>
+          <span class="char-title">음악 신동</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="kim_ho_joong" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_kim_ho_joong.png" alt="김호중">
+          <span class="char-name">김호중</span>
+          <span class="char-title">트바로티</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="jang_min_ho" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_jang_min_ho.png" alt="장민호">
+          <span class="char-name">장민호</span>
+          <span class="char-title">로맨틱 신사</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="park_seo_jin" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_park_seo_jin.png" alt="박서진">
+          <span class="char-name">박서진</span>
+          <span class="char-title">열정 장구</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="son_tae_jin" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_son_tae_jin.png" alt="손태진">
+          <span class="char-name">손태진</span>
+          <span class="char-title">클래식 왕자</span>
+        </button>
+        <button type="button" class="character-select-btn" data-character-id="ahn_sung_hoon_jin_hae_seong" role="radio" aria-checked="false">
+          <img src="assets/characters/thumb_ahn_sung_hoon_jin_hae_seong.png" alt="안성훈/진해성">
+          <span class="char-name">안성훈/진해성</span>
+          <span class="char-title">정통 감성</span>
+        </button>
+      </div>
+
+      <h3 id="step1-title" style="font-size: 19px; font-weight: 800; color: var(--brand-emerald-dark); margin: 24px 0 10px;">
+        🖼️ 예쁜 기념 액자(프레임) 4종 선택
+      </h3>
+      <div class="frame-tray" role="radiogroup" aria-label="기념 프레임 선택 목록">
+        <button type="button" class="frame-select-btn active" data-frame-index="0" role="radio" aria-checked="true">
+          <img src="assets/frames/thumb_flower_path.png" alt="다정한 꽃길 프레임 미리보기">
+          <span class="frame-select-label">다정한 꽃길</span>
+        </button>
+        <button type="button" class="frame-select-btn" data-frame-index="1" role="radio" aria-checked="false">
+          <img src="assets/frames/thumb_golden_milestone.png" alt="63만장 골드 프레임 미리보기">
+          <span class="frame-select-label">63만장 골드</span>
+        </button>
+        <button type="button" class="frame-select-btn" data-frame-index="2" role="radio" aria-checked="false">
+          <img src="assets/frames/thumb_paradise_4cut.png" alt="파라다이스 4컷 프레임 미리보기">
+          <span class="frame-select-label">인생 4컷</span>
+        </button>
+        <button type="button" class="frame-select-btn" data-frame-index="3" role="radio" aria-checked="false">
+          <img src="assets/frames/thumb_radio_studio.png" alt="명예 DJ 라디오 프레임 미리보기">
+          <span class="frame-select-label">명예 DJ 라디오</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 3단계: 내 휴대폰에 사진 저장하기 & 카톡 자랑하기 -->
+    <section class="booth-step-card" aria-labelledby="step3-title" style="border: 3px solid var(--brand-emerald);">
       <div class="booth-step-header">
         <span class="booth-step-badge">3단계</span>
-        <h2 id="step3-title" class="booth-step-title">완성된 사진을 내 스마트폰에 저장하세요</h2>
+        <h2 id="step3-title" class="booth-step-title">완성된 사진을 내 휴대폰에 저장하세요</h2>
       </div>
 
       <div class="save-action-group">
-        <button type="button" id="btn-save-photo" class="btn-save-primary" aria-label="완성된 사진 스마트폰에 안심 저장하기">
-          <span aria-hidden="true">💾</span>
-          <span>스마트폰에 안심 저장하기 (무료)</span>
+        <button type="button" id="btn-save-photo" class="btn-save-primary" aria-label="완성된 사진 내 휴대폰에 저장하기">
+          <span aria-hidden="true">📱</span>
+          <span>내 휴대폰에 사진 저장하기 (무료)</span>
         </button>
 
         <button type="button" id="btn-share-photo" class="btn-share-secondary" aria-label="가족 및 친구 카카오톡으로 자랑하기">
-          <span aria-hidden="true">🌸</span>
-          <span>가족 · 친구 카톡으로 자랑하기</span>
+          <span aria-hidden="true">💬</span>
+          <span>카카오톡으로 친구들에게 자랑하기</span>
         </button>
       </div>
 
       <!-- 안심 안내 및 개인정보 보호 고지 -->
       <div class="senior-notice-box" style="margin-top: 20px;">
         <p style="margin: 0; font-size: 16px;">
-          🔒 <strong>100% 안심 개인정보 보호:</strong> 어머님의 소중한 사진은 외부 서버로 절대 전송되지 않으며, 고객님의 스마트폰 화면 안에서만 안전하게 완성됩니다. 안심하고 마음껏 이용하세요!
+          🔒 <strong>100% 안심 개인정보 보호:</strong> 어머님의 소중한 사진은 외부 서버로 절대 전송되지 않으며, 오직 어머님의 스마트폰 안에서만 안전하게 만들어집니다.
         </p>
       </div>
     </section>
+
+    <!-- 하단 실시간 황금 응원 전광판 -->
+    <aside class="billboard-banner" aria-label="실시간 응원 전광판" style="border-radius: 16px; margin-top: 16px;">
+      <span class="billboard-label">🌟 실시간 응원 전광판</span>
+      <div class="billboard-ticker">
+        <span class="billboard-text">
+          [대구 달서구 순자 어머니] "영웅님과 나란히 서서 사진 찍으니 평생 소원 풀었습니다!" 💚 &nbsp;&nbsp;&nbsp;&nbsp;
+          [서울 강서 영희맘] "카톡 프로필 사진으로 해두니 친구들이 어디서 찍었냐고 난리네요." 🌸
+        </span>
+      </div>
+      <a href="vip.html#billboard-support" class="btn-billboard-action">나도 응원 보내기 👉</a>
+    </aside>
   </main>
 
   <!-- 저장 완료 & 길게 누르기 축하 모달 -->
@@ -1047,13 +1018,19 @@
       const signupModal = document.getElementById('signup-modal');
       const paymentModal = document.getElementById('senior-payment-modal');
 
+      // 첫 방문 시 강제 모달 팝업 없이 즉시 무료 이용권(1장)을 자동 지급하여 누구나 바로 사진을 합성·저장할 수 있게 처리
       if (!currentUser || !currentUser.registered) {
-        // 첫 방문 시 1회 무료 이용권 가입 모달 자동 오픈
-        if (signupModal) signupModal.style.display = 'flex';
-        updateCreditBadgeUI(null);
-      } else {
-        updateCreditBadgeUI(currentUser);
+        currentUser = {
+          registered: true,
+          nickname: '사랑하는 어머님',
+          credits: 1,
+          freeCreditGranted: true,
+          totalGenerated: 0,
+          createdAt: new Date().toISOString()
+        };
+        saveStoredUser(currentUser);
       }
+      updateCreditBadgeUI(currentUser);
 
       // 첫 방문 가입 제출
       const inputNickname = document.getElementById('input-user-nickname');

@@ -133,10 +133,10 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
+  padding: 8px 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
 }
 
 .brand-logo {
@@ -193,31 +193,26 @@ img {
   transform: scale(0.96);
 }
 
-/* 상시 노출 5대 핵심 네비게이션 탭 (햄버거 메뉴 배제) */
+/* 상시 노출 5대 핵심 네비게이션 탭 (모바일 화면 100% 한눈에 노출, 잘림 없음) */
 .main-nav {
-  display: flex;
+  display: block;
   background-color: var(--brand-emerald);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.main-nav::-webkit-scrollbar {
-  display: none;
+  width: 100%;
 }
 
 .nav-list {
-  display: flex;
   list-style: none;
   width: 100%;
   margin: 0;
-  padding: 0;
-  justify-content: space-around;
-  min-width: 520px;
+  padding: 0 4px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
 }
 
 .nav-item {
-  flex: 1;
   text-align: center;
+  min-width: 0;
 }
 
 .nav-link {
@@ -226,10 +221,10 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 8px 12px;
+  padding: 6px 4px;
   color: #E2E8F0;
-  font-size: var(--font-base);
-  font-weight: 700;
+  font-size: clamp(14px, 3.6vw, 18px);
+  font-weight: 800;
   white-space: nowrap;
   border-bottom: 4px solid transparent;
   transition: all 0.2s ease;
@@ -247,6 +242,38 @@ img {
   color: var(--brand-gold);
   background-color: var(--brand-emerald-dark);
   border-bottom-color: var(--brand-gold);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.video-embed-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #0E2820;
+  border: 3px solid var(--brand-gold);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  margin: 16px 0;
+}
+.video-embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 /* ==========================================================================

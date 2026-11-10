@@ -195,20 +195,31 @@ async def synthesize_all_or_sample(manifest: Dict[str, Any], base_dir: str, samp
         selected_segments = segments
 
     print(f"[*] Starting Edge-TTS synthesis for {len(selected_segments)} segments...")
-    success_count = 0
+    sem = asyncio.Semaphore(4)
 
-    for seg in selected_segments:
+    async def _worker(seg: Dict[str, Any]) -> int:
         out_filename = os.path.basename(seg["audio_rel_path"])
         out_path = os.path.join(audio_dir, out_filename)
-        try:
-            print(f"    - Synthesizing [{seg['speaker']} / {seg['voice_id']}] {seg['segment_id']} -> {out_filename}")
-            await synthesize_segment(seg, out_path)
-            file_size = os.path.getsize(out_path)
-            print(f"      [OK] Saved {out_filename} ({file_size} bytes)")
-            success_count += 1
-        except Exception as e:
-            print(f"      [WARN] TTS Synthesis failed for {seg['segment_id']}: {e}")
+        if os.path.exists(out_path) and os.path.getsize(out_path) > 1000:
+            print(f"    - [CACHED] {out_filename} ({os.path.getsize(out_path)} bytes)")
+            return 1
+        async with sem:
+            for attempt in range(3):
+                try:
+                    print(f"    - Synthesizing [{seg['speaker']} / {seg['voice_id']}] {seg['segment_id']} -> {out_filename}")
+                    await synthesize_segment(seg, out_path)
+                    file_size = os.path.getsize(out_path)
+                    print(f"      [OK] Saved {out_filename} ({file_size} bytes)")
+                    return 1
+                except Exception as e:
+                    if attempt == 2:
+                        print(f"      [WARN] TTS Synthesis failed for {seg['segment_id']}: {e}")
+                    else:
+                        await asyncio.sleep(1.0)
+            return 0
 
+    results = await asyncio.gather(*[_worker(s) for s in selected_segments])
+    success_count = sum(results)
     print(f"[+] Edge-TTS synthesis finished: {success_count}/{len(selected_segments)} files generated in {audio_dir}")
 
 

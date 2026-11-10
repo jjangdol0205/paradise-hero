@@ -752,16 +752,16 @@
       ctx.setLineDash([16, 12]);
       ctx.strokeRect(100, 200, w - 200, h - 400);
 
-      // Senior welcoming text
+      // Senior welcoming text (emoji-free for 100% clean font rendering)
       ctx.fillStyle = '#1B4D3E';
-      ctx.font = 'bold 44px sans-serif';
+      ctx.font = 'bold 42px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('📸 영웅님과 함께 찍는 파라다이스 포토부스', w / 2, h / 2 - 60);
+      ctx.fillText('영웅님과 함께 찍는 파라다이스 기념사진관', w / 2, h / 2 - 60);
 
       ctx.fillStyle = '#4B5563';
       ctx.font = '28px sans-serif';
-      ctx.fillText('아래 [사진 찍기] 또는 [내 앨범에서 사진 고르기]를 눌러보세요', w / 2, h / 2 + 10);
-      ctx.fillText('영웅님과 다정하게 어깨동무한 멋진 사진이 완성됩니다 🌸', w / 2, h / 2 + 60);
+      ctx.fillText('위 [내 사진 찍기] 또는 [앨범에서 사진 고르기]를 눌러보세요', w / 2, h / 2 + 10);
+      ctx.fillText('영웅님과 다정하게 어깨동무한 멋진 사진이 완성됩니다', w / 2, h / 2 + 60);
       ctx.restore();
     }
 
@@ -772,20 +772,20 @@
 
       ctx.save();
 
-      // Character emotional catchphrase & singer credit
+      // Character emotional catchphrase & singer credit (strip emojis to avoid missing-glyph boxes)
       if (activeChar) {
         ctx.fillStyle = activeChar.theme_color || '#1B4D3E';
         ctx.font = 'bold 22px sans-serif';
         ctx.textAlign = 'left';
-        const catchphrase = activeChar.catchphrase || '';
-        ctx.fillText(`${activeChar.badge_emoji || '👑'} ${catchphrase} — 가수 ${activeChar.name_ko}`, 40, h - 55);
+        const catchphrase = (activeChar.catchphrase || '').replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '').trim();
+        ctx.fillText(`[${activeChar.title}] ${catchphrase} — 가수 ${activeChar.name_ko}`, 40, h - 55);
       }
 
       // Date stamp
       ctx.fillStyle = 'rgba(75, 85, 99, 0.85)';
       ctx.font = '600 18px sans-serif';
       ctx.textAlign = 'left';
-      ctx.fillText(`🗓️ ${dateStr} 파라다이스 투샷 촬영 기념`, 40, h - 22);
+      ctx.fillText(`${dateStr} 파라다이스 투샷 촬영 기념`, 40, h - 22);
 
       // Platform legal watermark (strictly preserving exact string required by tests)
       ctx.fillStyle = 'rgba(27, 77, 62, 0.75)';

@@ -209,39 +209,15 @@ async def synthesize_beat_tts(
 
     tight_pcm = tighten_pcm_silence(pcm_int16, SAMPLE_RATE)
 
-    # Time-stretch or pad to match target_duration (e.g. 1.8~2.2s for body, 2.8~3.2s for CTA)
-    target_samples = int(target_duration * SAMPLE_RATE)
+    # Common Directive #3: ZERO atempo double-speedup & ZERO audio truncation!
+    # Every beat plays its 100% natural TTS duration plus a 0.22s breathing margin
+    # so the final syllable of every subtitle is heard completely before the cut.
     cur_dur = len(tight_pcm) / float(SAMPLE_RATE)
-    if cur_dur > target_duration * 1.05 and cur_dur > 0.5:
-        # Accelerate with atempo
-        ratio = cur_dur / float(target_duration)
-        tmp_unscaled = cache_wav.with_suffix(".unscaled.wav")
-        tmp_scaled = cache_wav.with_suffix(".scaled.wav")
-        with wave.open(str(tmp_unscaled), "wb") as wf:
-            wf.setnchannels(1)
-            wf.setsampwidth(2)
-            wf.setframerate(SAMPLE_RATE)
-            wf.writeframes(tight_pcm.tobytes())
-        try:
-            # atempo supports up to 2.0 per filter instance
-            filter_str = f"atempo={ratio:.4f}" if ratio <= 2.0 else f"atempo=2.0,atempo={ratio/2.0:.4f}"
-            run_ffmpeg(["-i", str(tmp_unscaled), "-filter:a", filter_str, str(tmp_scaled)])
-            with wave.open(str(tmp_scaled), "rb") as wf:
-                tight_pcm = np.frombuffer(wf.readframes(wf.getnframes()), dtype=np.int16)
-        except Exception:
-            pass
-        finally:
-            if tmp_unscaled.exists():
-                tmp_unscaled.unlink()
-            if tmp_scaled.exists():
-                tmp_scaled.unlink()
-
-    # If slightly shorter than target_duration, pad to target_samples (with zero-silence bridge)
-    if len(tight_pcm) < target_samples:
-        pad_tail = np.zeros(target_samples - len(tight_pcm), dtype=np.int16)
-        tight_pcm = np.concatenate([tight_pcm, pad_tail])
-    elif len(tight_pcm) > target_samples + int(0.10 * SAMPLE_RATE):
-        tight_pcm = tight_pcm[:target_samples]
+    min_dur = max(2.30, target_duration)
+    desired_dur = max(min_dur, cur_dur + 0.22)
+    pad_samples = max(int(0.22 * SAMPLE_RATE), int((desired_dur - cur_dur) * SAMPLE_RATE))
+    if pad_samples > 0:
+        tight_pcm = np.concatenate([tight_pcm, np.zeros(pad_samples, dtype=np.int16)])
 
     # Cache tightly mastered beat audio
     cache_wav.parent.mkdir(parents=True, exist_ok=True)

@@ -102,11 +102,11 @@ def create_frame_flower_path():
     draw_stars(draw, sparkles, gold)
 
     # Top header text
-    header_title = "🌸 영웅님과 함께 걷는 다정한 꽃길 🌸"
+    header_title = "영웅님과 함께 걷는 다정한 꽃길"
     draw.text((WIDTH // 2, 45), header_title, font=font_subtitle, fill=(255, 255, 255, 255), anchor="mm")
 
     # Bottom commemorative banner
-    banner_main = "언제나 당신 편, 영원히 함께해요 💚"
+    banner_main = "언제나 당신 편, 영원히 함께해요"
     draw.text((WIDTH // 2, HEIGHT - 85), banner_main, font=font_title, fill=gold, anchor="mm")
 
     banner_sub = "파라다이스 공식 포토부스 | paradise-hero.com"
@@ -141,7 +141,7 @@ def create_frame_golden_milestone():
 
     # Top royal crown banner
     draw.rectangle([(70, 30), (WIDTH - 70, 150)], fill=royal_black, outline=gold, width=4)
-    draw.text((WIDTH // 2, 70), "👑 FIRST ALBUM [당신 편] 초동 63만 장 돌파 기념 👑", font=font_subtitle, fill=gold_light, anchor="mm")
+    draw.text((WIDTH // 2, 70), "FIRST ALBUM [당신 편] 초동 63만 장 돌파 기념", font=font_subtitle, fill=gold_light, anchor="mm")
     draw.text((WIDTH // 2, 115), "대한민국 가요계의 역사, 황영웅과 파라다이스 가족", font=font_small, fill=(255, 255, 255, 220), anchor="mm")
 
     # Bottom golden plaque
@@ -237,7 +237,7 @@ def create_frame_radio_studio():
 
     # Top Center/Right: Title
     draw.text((WIDTH // 2 + 60, 52), "유튜브 @김쌤의영웅라디오", font=font_subtitle, fill=studio_accent, anchor="mm")
-    draw.text((WIDTH // 2 + 60, 92), "오늘 하루 특별 명예 DJ 초대석 📻", font=font_title, fill=cream_text, anchor="mm")
+    draw.text((WIDTH // 2 + 60, 92), "오늘 하루 특별 명예 DJ 초대석", font=font_title, fill=cream_text, anchor="mm")
 
     # Bottom Desk Area: Vintage Microphone motif on bottom right
     mic_x, mic_y = WIDTH - 150, HEIGHT - 240
@@ -251,7 +251,7 @@ def create_frame_radio_studio():
     draw.ellipse([(mic_x - 35, mic_y + 40), (mic_x + 35, mic_y + 65)], fill=studio_accent)
 
     # Bottom Banner Text
-    draw.text((WIDTH // 2 - 40, HEIGHT - 130), "어머님, 오늘은 당신이 라디오의 주인공입니다 🎙️", font=font_title, fill=studio_accent, anchor="mm")
+    draw.text((WIDTH // 2 - 40, HEIGHT - 130), "어머님, 오늘은 당신이 라디오의 주인공입니다", font=font_title, fill=studio_accent, anchor="mm")
     draw.text((WIDTH // 2 - 40, HEIGHT - 70), "매일 저녁 7시 본방사수 | 유튜브 @김쌤의영웅라디오 & paradise-hero.com", font=font_subtitle, fill=cream_text, anchor="mm")
 
     return img

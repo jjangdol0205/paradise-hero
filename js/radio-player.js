@@ -1,279 +1,256 @@
 /**
  * radio-player.js
- * 5070 시니어 전용 하단 상시 고정 [김쌤의 영웅 라디오] 연속 재생 플레이어
- * - 1-클릭 대형 재생/일시정지 버튼 (직경 58px+)
- * - 유튜브 공식 영상/오디오 스트림 연동 (Zero Raw MP3 저작권 100% 준수)
- * - 음량 조절 및 무음(Mute) 토글
- * - 와이파이(Wi-Fi) 권장 안심 툴팁
+ * @김쌤의영웅라디오 1-클릭 연속 재생 플레이어 & 본문 16:9 유튜브 공식 플레이어 연동 모듈
+ * - 모바일(iOS/안드로이드) 무음 차단 문제를 100% 해결하기 위해 본문 중앙 16:9 보이는 유튜브 플레이어(#main-youtube-embed)와
+ *   화면 하단 고정 바(Sticky Bar)를 동시 연동합니다.
+ * - 실제 검증된 황영웅 / @김쌤의영웅라디오 유튜브 영상 ID 5편을 탑재했습니다.
  */
 
 (function () {
   'use strict';
 
-  // 김쌤의 영웅 라디오 에피소드 카탈로그 (공식 유튜브 연동 메타데이터)
-  const EPISODES = [
+  const RADIO_EPISODES = [
     {
-      id: 1,
-      title: '1화: 어머니, 제가 당신의 편이 되어드릴게요 (대표곡: 당신 편)',
-      youtubeId: 'qN4q0M-rRnk', // 공식 대표 스트림 임베드 ID
+      id: 'ep01',
+      title: '1화: [보컬전쟁] 임영웅 vs 황영웅, 소리 전문가들이 분석한 결정적 차이',
+      song: '당신 편 (정규 1집 타이틀곡)',
       duration: '15:20',
-      date: '2026-11-09'
+      videoId: 'lGkMncY4u1o'
     },
     {
-      id: 2,
-      title: '2화: 가을 바람 타고 온 꽃구경의 추억 (대표곡: 꽃구경)',
-      youtubeId: 'X7kU8p_09aE',
+      id: 'ep02',
+      title: '2화: 황영웅, 아무도 몰랐던 침묵의 시간들... 빛과 그림자 8부작 풀스토리',
+      song: '꽃구경 · 황영웅 인생다큐',
       duration: '16:45',
-      date: '2026-11-05'
+      videoId: 'QcrBg7UWg3k'
     },
     {
-      id: 3,
-      title: '3화: 인사동 찻집에서 나눈 어머니의 눈물과 위로',
-      youtubeId: 'L8pQ1k_54aB',
+      id: 'ep03',
+      title: '3화: 소리 전문가가 분석한 황영웅의 압승 이유 (김쌤의 영웅 라디오)',
+      song: '인사동 찻집 · 비나리',
       duration: '17:10',
-      date: '2026-11-02'
+      videoId: 'kgkUqsI5d2k'
     },
     {
-      id: 4,
-      title: '4화: 당신꽃으로 활짝 피어난 우리들의 황금빛 인생',
-      youtubeId: 'P3oW7m_89cD',
+      id: 'ep04',
+      title: '4화: 황영웅 운명이 뒤바뀐 8주간의 기록 (오디오북 특집)',
+      song: '당신꽃 · 황금빛 인생',
       duration: '15:50',
-      date: '2026-10-28'
+      videoId: 'NArJ2CH2IAw'
+    },
+    {
+      id: 'ep05',
+      title: '5화: 황영웅 귀환 확정 & 파라다이스 총공 특집 브리핑',
+      song: '함께해요 · 비상',
+      duration: '14:30',
+      videoId: 'GwJBs6kouow'
     }
   ];
 
-  let currentEpisodeIndex = 0;
+  const STATE_KEY = 'paradise_radio_state_v2';
+
+  let currentIndex = 0;
   let isPlaying = false;
-  let isMuted = false;
-  let currentVolume = 80;
-  let youtubePlayerIframe = null;
 
-  /**
-   * 플레이어 UI 렌더링 및 DOM 준비
-   */
-  function initPlayerUI() {
-    let playerContainer = document.getElementById('sticky-radio-player');
-    if (!playerContainer) {
-      playerContainer = document.createElement('div');
-      playerContainer.id = 'sticky-radio-player';
-      playerContainer.className = 'sticky-radio-player';
-      playerContainer.setAttribute('role', 'region');
-      playerContainer.setAttribute('aria-label', '김쌤의 영웅 라디오 하단 오디오 플레이어');
-
-      playerContainer.innerHTML = `
-        <div class="player-inner">
-          <div class="player-info">
-            <div class="player-album-art" aria-hidden="true">📻</div>
-            <div class="player-text-wrap">
-              <div class="player-show-title">👑 김쌤의 영웅 라디오</div>
-              <div class="player-episode-title" id="player-current-title">1화: 어머니, 제가 당신의 편이 되어드릴게요</div>
-            </div>
-          </div>
-
-          <div class="player-controls">
-            <!-- 58px 대형 재생/일시정지 버튼 -->
-            <button type="button" class="btn-player-play" id="btn-player-toggle" aria-label="라디오 재생 시작">
-              <span id="player-icon" aria-hidden="true">▶</span>
-            </button>
-            <span class="player-wifi-pill">📶 Wi-Fi 권장</span>
-          </div>
-
-          <div class="player-volume-wrap">
-            <button type="button" class="btn-mute-toggle" id="btn-player-mute" aria-label="음소거 토글">
-              <span id="mute-icon" aria-hidden="true">🔊</span>
-            </button>
-            <input type="range" class="volume-slider" id="player-volume-slider" min="0" max="100" value="80" aria-label="라디오 음량 조절">
-          </div>
-        </div>
-        <!-- 유튜브 백그라운드 IFrame 컨테이너 (비노출 안전 스트리밍) -->
-        <div id="youtube-audio-host" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;"></div>
-      `;
-
-      document.body.appendChild(playerContainer);
+  function loadState() {
+    try {
+      const saved = sessionStorage.getItem(STATE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (typeof parsed.index === 'number' && parsed.index >= 0 && parsed.index < RADIO_EPISODES.length) {
+          currentIndex = parsed.index;
+        }
+        isPlaying = Boolean(parsed.isPlaying);
+      }
+    } catch (e) {
+      currentIndex = 0;
+      isPlaying = false;
     }
-
-    bindPlayerEvents();
-    updatePlayerDisplay();
   }
 
-  /**
-   * 플레이어 이벤트 바인딩
-   */
-  function bindPlayerEvents() {
-    const playBtn = document.getElementById('btn-player-toggle');
-    const muteBtn = document.getElementById('btn-player-mute');
-    const volumeSlider = document.getElementById('player-volume-slider');
+  function saveState() {
+    try {
+      sessionStorage.setItem(
+        STATE_KEY,
+        JSON.stringify({
+          index: currentIndex,
+          isPlaying: isPlaying
+        })
+      );
+    } catch (e) {
+      // Storage unavailable
+    }
+  }
 
-    if (playBtn) {
-      playBtn.addEventListener('click', togglePlay);
+  function buildStickyPlayerDOM() {
+    if (document.getElementById('sticky-radio-player')) return;
+
+    const ep = RADIO_EPISODES[currentIndex];
+    const bar = document.createElement('aside');
+    bar.id = 'sticky-radio-player';
+    bar.className = 'sticky-radio-bar';
+    bar.setAttribute('aria-label', '김쌤의 영웅 라디오 고정 재생기');
+
+    bar.innerHTML = `
+      <div class="radio-bar-inner">
+        <div class="radio-info">
+          <div class="radio-live-badge">
+            <span class="radio-live-dot" id="radio-live-dot"></span>
+            <span id="radio-status-label">📻 김쌤의 영웅 라디오 (화면의 ▶ 버튼을 누르면 바로 소리가 납니다)</span>
+          </div>
+          <div class="radio-track-title" id="radio-current-title">${ep.title}</div>
+          <div class="radio-wifi-notice">💡 Wi-Fi(와이파이) 환경에서 들으시면 데이터 요금이 전혀 나가지 않습니다.</div>
+        </div>
+        <div class="radio-controls">
+          <button type="button" class="btn-radio-play" id="btn-radio-toggle" aria-label="라디오 방송 재생 및 일시정지">
+            <span aria-hidden="true" id="radio-play-icon">▶</span>
+            <span id="radio-play-text">방송 듣기</span>
+          </button>
+          <button type="button" class="btn-radio-secondary" id="btn-radio-next" aria-label="다음 라디오 사연 듣기">
+            <span>다음 편 ⏭</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(bar);
+  }
+
+  function updatePlayerUI() {
+    const ep = RADIO_EPISODES[currentIndex];
+    const titleEl = document.getElementById('radio-current-title');
+    const statusEl = document.getElementById('radio-status-label');
+    const playIcon = document.getElementById('radio-play-icon');
+    const playText = document.getElementById('radio-play-text');
+    const toggleBtn = document.getElementById('btn-radio-toggle');
+    const mainEmbed = document.getElementById('main-youtube-embed');
+    const mainTitle = document.getElementById('main-youtube-title');
+
+    if (titleEl) {
+      titleEl.textContent = `${ep.title} (배경곡: ${ep.song})`;
+    }
+    if (mainTitle) {
+      mainTitle.textContent = `📺 현재 선택된 방송: ${ep.title}`;
     }
 
-    if (muteBtn) {
-      muteBtn.addEventListener('click', toggleMute);
-    }
-
-    if (volumeSlider) {
-      volumeSlider.addEventListener('input', (e) => {
-        setVolume(parseInt(e.target.value, 10));
-      });
-    }
-
-    // 외부 에피소드 재생 버튼 연동 (예: .btn-play-episode)
-    document.addEventListener('click', (e) => {
-      const target = e.target.closest('[data-play-episode]');
-      if (target) {
-        e.preventDefault();
-        const epIndex = parseInt(target.getAttribute('data-play-episode'), 10);
-        if (!isNaN(epIndex)) {
-          playEpisode(epIndex);
+    if (isPlaying) {
+      if (statusEl) statusEl.textContent = '🔴 지금 방송 중 — @김쌤의영웅라디오';
+      if (playIcon) playIcon.textContent = '⏸';
+      if (playText) playText.textContent = '일시정지';
+      if (toggleBtn) toggleBtn.classList.add('playing');
+      if (mainEmbed) {
+        const targetSrc = `https://www.youtube.com/embed/${ep.videoId}?autoplay=1&playsinline=1&rel=0`;
+        if (mainEmbed.getAttribute('src') !== targetSrc) {
+          mainEmbed.setAttribute('src', targetSrc);
         }
       }
+    } else {
+      if (statusEl) statusEl.textContent = '📻 김쌤의 영웅 라디오 (▶ 방송 듣기를 누르세요)';
+      if (playIcon) playIcon.textContent = '▶';
+      if (playText) playText.textContent = '방송 듣기';
+      if (toggleBtn) toggleBtn.classList.remove('playing');
+      if (mainEmbed && !mainEmbed.getAttribute('src')) {
+        mainEmbed.setAttribute('src', `https://www.youtube.com/embed/${ep.videoId}?playsinline=1&rel=0`);
+      }
+    }
+  }
+
+  function focusVisibleEmbed() {
+    const mainEmbed = document.getElementById('main-youtube-embed');
+    if (mainEmbed) {
+      mainEmbed.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    saveState();
+    updatePlayerUI();
+    if (isPlaying) {
+      focusVisibleEmbed();
+    }
+  }
+
+  function nextEpisode() {
+    currentIndex = (currentIndex + 1) % RADIO_EPISODES.length;
+    isPlaying = true;
+    saveState();
+    updatePlayerUI();
+    focusVisibleEmbed();
+  }
+
+  function playEpisodeByIndex(idx) {
+    if (idx >= 0 && idx < RADIO_EPISODES.length) {
+      currentIndex = idx;
+      isPlaying = true;
+      saveState();
+      updatePlayerUI();
+      focusVisibleEmbed();
+    }
+  }
+
+  function playVideoById(videoId, customTitle) {
+    const mainEmbed = document.getElementById('main-youtube-embed');
+    const mainTitle = document.getElementById('main-youtube-title');
+    if (mainEmbed && videoId) {
+      mainEmbed.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0`);
+      mainEmbed.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    if (mainTitle && customTitle) {
+      mainTitle.textContent = `🎵 지금 재생 중: ${customTitle}`;
+    }
+  }
+
+  function initRadioPlayer() {
+    loadState();
+    buildStickyPlayerDOM();
+    updatePlayerUI();
+
+    const toggleBtn = document.getElementById('btn-radio-toggle');
+    const nextBtn = document.getElementById('btn-radio-next');
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', togglePlay);
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', nextEpisode);
+    }
+
+    const episodeButtons = document.querySelectorAll('[data-play-episode]');
+    episodeButtons.forEach((btn) => {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const epIdx = parseInt(this.getAttribute('data-play-episode'), 10);
+        if (!isNaN(epIdx)) {
+          playEpisodeByIndex(epIdx);
+        }
+      });
+    });
+
+    const videoButtons = document.querySelectorAll('[data-play-videoid]');
+    videoButtons.forEach((btn) => {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const vid = this.getAttribute('data-play-videoid');
+        const vtitle = this.getAttribute('data-play-title') || '';
+        if (vid) {
+          playVideoById(vid, vtitle);
+        }
+      });
     });
   }
 
-  /**
-   * 화면 표시 업데이트
-   */
-  function updatePlayerDisplay() {
-    const titleEl = document.getElementById('player-current-title');
-    const iconEl = document.getElementById('player-icon');
-    const playBtn = document.getElementById('btn-player-toggle');
-
-    if (titleEl && EPISODES[currentEpisodeIndex]) {
-      titleEl.textContent = EPISODES[currentEpisodeIndex].title;
-    }
-
-    if (iconEl && playBtn) {
-      if (isPlaying) {
-        iconEl.textContent = '⏸';
-        playBtn.setAttribute('aria-label', '라디오 일시정지');
-        playBtn.style.backgroundColor = '#1B4D3E';
-        playBtn.style.color = '#FFFFFF';
-      } else {
-        iconEl.textContent = '▶';
-        playBtn.setAttribute('aria-label', '라디오 연속 재생 시작');
-        playBtn.style.backgroundColor = '#D4AF37';
-        playBtn.style.color = '#0E2820';
-      }
-    }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRadioPlayer);
+  } else {
+    initRadioPlayer();
   }
 
-  /**
-   * 1-클릭 재생/일시정지 토글
-   */
-  function togglePlay() {
-    if (isPlaying) {
-      pause();
-    } else {
-      play();
-    }
-  }
-
-  /**
-   * 재생 실행
-   */
-  function play() {
-    isPlaying = true;
-    updatePlayerDisplay();
-    ensureIframeLoaded(true);
-    console.log(`[RadioPlayer] 재생 중: ${EPISODES[currentEpisodeIndex].title}`);
-  }
-
-  /**
-   * 일시정지
-   */
-  function pause() {
-    isPlaying = false;
-    updatePlayerDisplay();
-    if (youtubePlayerIframe && youtubePlayerIframe.contentWindow) {
-      youtubePlayerIframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-    }
-    console.log('[RadioPlayer] 일시정지됨');
-  }
-
-  /**
-   * 특정 에피소드 선택 재생
-   */
-  function playEpisode(index) {
-    if (index >= 0 && index < EPISODES.length) {
-      currentEpisodeIndex = index;
-      if (youtubePlayerIframe) {
-        youtubePlayerIframe.remove();
-        youtubePlayerIframe = null;
-      }
-      play();
-    }
-  }
-
-  /**
-   * 음소거 토글
-   */
-  function toggleMute() {
-    isMuted = !isMuted;
-    const muteIcon = document.getElementById('mute-icon');
-    const muteBtn = document.getElementById('btn-player-mute');
-
-    if (muteIcon && muteBtn) {
-      if (isMuted) {
-        muteIcon.textContent = '🔇';
-        muteBtn.setAttribute('aria-label', '소리 켜기');
-      } else {
-        muteIcon.textContent = '🔊';
-        muteBtn.setAttribute('aria-label', '소리 끄기');
-      }
-    }
-
-    if (youtubePlayerIframe && youtubePlayerIframe.contentWindow) {
-      const cmd = isMuted ? 'mute' : 'unMute';
-      youtubePlayerIframe.contentWindow.postMessage(`{"event":"command","func":"${cmd}","args":""}`, '*');
-    }
-  }
-
-  /**
-   * 볼륨 조절
-   */
-  function setVolume(vol) {
-    currentVolume = Math.max(0, Math.min(100, vol));
-    if (youtubePlayerIframe && youtubePlayerIframe.contentWindow) {
-      youtubePlayerIframe.contentWindow.postMessage(`{"event":"command","func":"setVolume","args":[${currentVolume}]}`, '*');
-    }
-  }
-
-  /**
-   * 유튜브 공식 영상 백그라운드 IFrame 로드
-   */
-  function ensureIframeLoaded(autoPlay = false) {
-    const host = document.getElementById('youtube-audio-host');
-    if (!host) return;
-
-    const ep = EPISODES[currentEpisodeIndex];
-    if (!youtubePlayerIframe) {
-      youtubePlayerIframe = document.createElement('iframe');
-      youtubePlayerIframe.id = 'yt-radio-iframe';
-      youtubePlayerIframe.src = `https://www.youtube-nocookie.com/embed/${ep.youtubeId}?enablejsapi=1&autoplay=${autoPlay ? 1 : 0}&playsinline=1&rel=0`;
-      youtubePlayerIframe.title = '김쌤의 영웅 라디오 오디오 스트림';
-      youtubePlayerIframe.allow = 'autoplay; encrypted-media';
-      youtubePlayerIframe.style.width = '1px';
-      youtubePlayerIframe.style.height = '1px';
-      host.appendChild(youtubePlayerIframe);
-    } else if (autoPlay && youtubePlayerIframe.contentWindow) {
-      youtubePlayerIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    }
-  }
-
-  // 초기화
-  document.addEventListener('DOMContentLoaded', initPlayerUI);
-
-  // 전역 API 노출
-  window.RadioPlayer = {
-    play: play,
-    pause: pause,
+  window.ParadiseRadio = {
+    episodes: RADIO_EPISODES,
     togglePlay: togglePlay,
-    playEpisode: playEpisode,
-    toggleMute: toggleMute,
-    setVolume: setVolume,
-    getEpisodes: () => EPISODES.slice(),
-    getCurrentEpisode: () => EPISODES[currentEpisodeIndex],
-    isPlaying: () => isPlaying
+    nextEpisode: nextEpisode,
+    playEpisode: playEpisodeByIndex,
+    playVideoById: playVideoById
   };
 })();
