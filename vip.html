@@ -162,14 +162,34 @@
       </div>
     </section>
 
-    <!-- 🎁 황영웅 5대 유료 디지털 굿즈 & 효도 아이템 즉석 제작소 -->
+    <!-- 🎁 황영웅 10대 유료 디지털 굿즈 & 어머님 참여 놀이터 즉석 제작소 -->
     <section id="vip-digital-studio" class="senior-card highlight-card" aria-labelledby="digital-studio-heading" style="border: 3px solid var(--brand-gold); background: linear-gradient(180deg, #FFFDF5 0%, #FFFFFF 100%);">
       <div class="section-title-wrap">
-        <span class="section-badge" style="background: var(--brand-emerald-dark); color: #FDE68A;">🎁 어머님 전용 5대 유료 디지털 제작소 (재고 0% 즉석 발급)</span>
-        <h2 id="digital-studio-heading" class="section-title">황영웅 5대 디지털 굿즈 &amp; 카톡 효도 아이템 제작소</h2>
+        <span class="section-badge" style="background: var(--brand-emerald-dark); color: #FDE68A;">🎁 어머님 전용 10대 유료 디지털 놀이터 (재고 0% 즉석 발급)</span>
+        <h2 id="digital-studio-heading" class="section-title">황영웅 10대 디지털 굿즈 &amp; 어머님 참여 제작소</h2>
         <p class="section-desc">
-          기념사진관 외에도 어머님들께서 카톡 단톡방에 매일 자랑하실 수 있는 <strong>5가지 맞춤형 황영웅 디지털 아이템</strong>을 즉석에서 만들어 저장하세요!
+          기념사진관 외에도 어머님들께서 매일 직접 참여하고 카톡 단톡방에 자랑하실 수 있는 <strong>10가지 맞춤형 황영웅 디지털 효도·행운 아이템</strong>을 즉석에서 만들어 저장하세요!
         </p>
+      </div>
+
+      <!-- 🔥 실시간 전국 어머님 참여 열기 전광판 & 지역별 응원 온도계 -->
+      <div id="live-participation-board" style="background: #FFFBEB; border: 2px solid #F59E0B; border-radius: 16px; padding: 18px 20px; margin-bottom: 20px;">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px;">
+          <strong style="font-size: 21px; color: #92400E;">
+            🔥 오늘 전국 어머님 실시간 참여 현황: 총 <span id="live-today-participation-count" style="color: #B91C1C; font-size: 25px; text-decoration: underline;">4,820</span>건 발급 돌파!
+          </strong>
+          <span style="background: #B91C1C; color: #FFFFFF; font-weight: 800; padding: 4px 12px; border-radius: 999px; font-size: 16px;">실시간 인기 폭발</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 12px; font-size: 17px; font-weight: 800;">
+          <div style="background: #FFFFFF; border: 1px solid #FCD34D; border-radius: 10px; padding: 10px 12px; color: #0E2820;">🥇 1위 대구·경북 본부: <span style="color:#DC2626;">99.4°C 🔥</span></div>
+          <div style="background: #FFFFFF; border: 1px solid #FCD34D; border-radius: 10px; padding: 10px 12px; color: #0E2820;">🥈 2위 부산·울산·경남: <span style="color:#DC2626;">98.9°C 🔥</span></div>
+          <div style="background: #FFFFFF; border: 1px solid #FCD34D; border-radius: 10px; padding: 10px 12px; color: #0E2820;">🥉 3위 서울·경기·인천: <span style="color:#DC2626;">98.6°C 🔥</span></div>
+        </div>
+        <div id="live-participation-feed" style="font-size: 17px; color: #4B5563; line-height: 1.6;">
+          <span style="display:inline-block; background:#FEF3C7; color:#92400E; font-weight:800; padding:4px 12px; border-radius:999px; margin-right:8px; font-size:16px;">[대구 이순자 어머니] 황금 행운 부적 뽑기 완료!</span>
+          <span style="display:inline-block; background:#D1FAE5; color:#065F46; font-weight:800; padding:4px 12px; border-radius:999px; margin-right:8px; font-size:16px;">[부산 박정숙 어머니] 가족 소원 등불 점등 완료!</span>
+          <span style="display:inline-block; background:#FCE7F3; color:#9D174D; font-weight:800; padding:4px 12px; border-radius:999px; font-size:16px;">[서울 김영희 어머니] 황금 꽃다발 &amp; 효자가수 상장 수여!</span>
+        </div>
       </div>
 
       <!-- 무료 체험권 & 이용권 잔여 표시 배너 -->
@@ -177,21 +197,26 @@
         <div style="font-size: 20px; font-weight: 800;">
           🎫 현재 보유 제작소 이용권: <span id="vip-studio-credit-count" style="color: #FDE68A; font-size: 24px;">2회 (무료 체험 포함)</span>
           <span style="display: block; font-size: 16px; color: #D1FAE5; font-weight: 500; margin-top: 4px;">
-            • 처음 오신 어머님께 <strong>2회 무료 제작권</strong>을 드립니다! (이후 1회당 1,000원꼴 / 골드 VIP 무제한)
+            • 처음 오신 어머님께 <strong>2회 무료 제작권</strong>을 드립니다! (이후 3회 충전 3,000원 / 골드 VIP 10종 전체 무제한)
           </span>
         </div>
-        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.openStudioPaywall('디지털 제작소 이용권 충전')" class="senior-btn btn-gold" style="width: auto; min-height: 54px; padding: 10px 22px; font-size: 18px;">
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.openStudioPaywall('10대 디지털 제작소 이용권 충전')" class="senior-btn btn-gold" style="width: auto; min-height: 54px; padding: 10px 22px; font-size: 18px;">
           <span>⚡ 이용권 충전 / VIP 무제한 열기 👉</span>
         </button>
       </div>
 
-      <!-- 5대 아이템 빠른 이동 탭 -->
+      <!-- 10대 아이템 빠른 이동 탭 -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin-bottom: 28px;">
         <a href="#studio-greeting-card" class="senior-btn btn-outline" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">💌 ① 카톡 안부·연하장</a>
         <a href="#studio-fan-id" class="senior-btn btn-outline" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">🪪 ② 황금 명예 팬증</a>
         <a href="#studio-wallpaper" class="senior-btn btn-outline" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">📱 ③ 큰글씨 달력 배경화면</a>
         <a href="#studio-voice-letter" class="senior-btn btn-outline" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">🎙️ ④ 내 이름 라디오 음성편지</a>
         <a href="#studio-lyric-book" class="senior-btn btn-outline" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">🎼 ⑤ 왕글씨 가사·노래비법서</a>
+        <a href="#studio-fortune-talisman" class="senior-btn btn-gold" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">🔮 ⑥ 황영웅 황금 행운부적</a>
+        <a href="#studio-wish-lantern" class="senior-btn btn-gold" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">🕯️ ⑦ 가족 소원 등불 달기</a>
+        <a href="#studio-flower-tribute" class="senior-btn btn-gold" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">💐 ⑧ 황금 꽃다발·사랑상장</a>
+        <a href="#studio-golden-ticket" class="senior-btn btn-gold" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">🎫 ⑨ VIP 콘서트 골든티켓</a>
+        <a href="#studio-fan-quiz" class="senior-btn btn-gold" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">🧠 ⑩ 찐팬 골든벨 &amp; 수료증</a>
       </div>
 
       <!-- ① 황영웅 카톡 아침 안부 카드 & 명절·생일 연하장 생성기 -->
@@ -402,6 +427,230 @@
         <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.printLyricGuide()" class="senior-btn btn-gold">
           <span aria-hidden="true">🖨️</span>
           <span>왕글씨 가사집 &amp; 노래교실 비법서 인쇄 / 파일 저장하기 👉</span>
+        </button>
+      </article>
+
+      <!-- 🔮 ⑥ 오늘의 황영웅 황금 행운 부적 & 띠별·생년별 대박 운세 뽑기 -->
+      <article id="studio-fortune-talisman" style="background: #FFFFFF; border: 3px solid #D97706; border-radius: 16px; padding: 24px; margin-top: 28px; margin-bottom: 28px;">
+        <span style="display: inline-block; background: #FEF3C7; color: #991B1B; font-weight: 800; padding: 4px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 8px;">어머님 매일 아침 참여율 1위 · 카톡 프로필 &amp; 지갑 속 행운 부적</span>
+        <h3 style="font-size: 24px; color: var(--brand-emerald-dark); margin-bottom: 8px;">🔮 ⑥ 오늘의 황영웅 황금 행운 부적 &amp; 생년별 대박 운세 뽑기</h3>
+        <p style="font-size: 19px; color: var(--text-muted); margin-bottom: 18px;">
+          어머님 태어나신 연도(띠)와 소원을 선택하시면, 황영웅 황금 한복 화보가 들어간 <strong>무병장수·재물대박·자녀성공 황금 부적</strong>과 오늘의 행운 명곡을 뽑아드립니다!
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px;">
+          <div>
+            <label for="ft-name" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">1. 부적 받으실 분 성함</label>
+            <input id="ft-name" type="text" value="이순자 어머니" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+          <div>
+            <label for="ft-birth-year" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">2. 태어나신 연도 (띠 선택)</label>
+            <select id="ft-birth-year" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="1958년생 (황금 개띠)">1958년생 (황금 개띠)</option>
+              <option value="1954년생 (말띠)">1954년생 (말띠)</option>
+              <option value="1955년생 (양띠)">1955년생 (양띠)</option>
+              <option value="1956년생 (원숭이띠)">1956년생 (원숭이띠)</option>
+              <option value="1957년생 (닭띠)">1957년생 (닭띠)</option>
+              <option value="1959년생 (돼지띠)">1959년생 (돼지띠)</option>
+              <option value="1960년생 (쥐띠)">1960년생 (쥐띠)</option>
+              <option value="1961년생 (소띠)">1961년생 (소띠)</option>
+              <option value="1962년생 (호랑이띠)">1962년생 (호랑이띠)</option>
+              <option value="1963년생 (토끼띠)">1963년생 (토끼띠)</option>
+              <option value="1964년생 (용띠)">1964년생 (용띠)</option>
+              <option value="1965년생 (뱀띠)">1965년생 (뱀띠)</option>
+              <option value="기타 연도 (만복 대길)">기타 연도 (만복 대길)</option>
+            </select>
+          </div>
+          <div>
+            <label for="ft-wish-type" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">3. 부적 기원 소원 선택</label>
+            <select id="ft-wish-type" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="health">🌿 무병장수 · 백세건강 대길 부적</option>
+              <option value="wealth">💰 가정만복 · 재물운 대박 황금 부적</option>
+              <option value="children">🎓 자녀성공 · 손주건강 만사형통 부적</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="text-align: center; background: #1C1917; padding: 16px; border-radius: 14px; margin-bottom: 16px;">
+          <canvas id="ft-canvas" width="1080" height="1350" style="width: 100%; max-width: 400px; height: auto; border-radius: 10px; border: 2px solid #FACC15;"></canvas>
+        </div>
+
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.downloadFortuneTalisman()" class="senior-btn btn-gold">
+          <span aria-hidden="true">🔮</span>
+          <span>내 이름 황영웅 황금 행운 부적 뽑고 폰에 저장하기 👉</span>
+        </button>
+      </article>
+
+      <!-- 🕯️ ⑦ 우리 가족 소원 등불(연등) 달기 & 황영웅 대박 기원탑 -->
+      <article id="studio-wish-lantern" style="background: #FFFFFF; border: 3px solid #D4AF37; border-radius: 16px; padding: 24px; margin-bottom: 28px;">
+        <span style="display: inline-block; background: #FEF9C3; color: #854D0E; font-weight: 800; padding: 4px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 8px;">실시간 소원 하늘 등재 · 가족 건강 &amp; 콘서트 대박 기원</span>
+        <h3 style="font-size: 24px; color: var(--brand-emerald-dark); margin-bottom: 8px;">🕯️ ⑦ 우리 가족 소원 등불(연등) 달기 &amp; 소원 성취 인증서</h3>
+        <p style="font-size: 19px; color: var(--text-muted); margin-bottom: 18px;">
+          정월대보름·초파일에 절에 연등을 달듯, 파라다이스 밤하늘에 <strong>우리 가족 건강과 황영웅 가수 대박 소원 등불</strong>을 환하게 밝히고 소원 성취 인증서를 저장하세요!
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px;">
+          <div>
+            <label for="wl-name" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">1. 등불 다는 어머님 성함</label>
+            <input id="wl-name" type="text" value="대구 이순자 어머니" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+          <div>
+            <label for="wl-color" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">2. 소원 등불 빛깔 선택</label>
+            <select id="wl-color" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="gold">🌕 황금 만복 연등 (재물·만사형통)</option>
+              <option value="emerald">💚 에메랄드 건강 연등 (무병장수·영웅님 응원)</option>
+              <option value="pink">🌸 분홍 사랑 연등 (가정화목·자녀축복)</option>
+            </select>
+          </div>
+          <div>
+            <label for="wl-wish" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">3. 간절한 소원 기도문 입력</label>
+            <input id="wl-wish" type="text" value="우리 가족 모두 아프지 말고 황영웅 콘서트 대박나게 해주세요!" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+        </div>
+
+        <div style="text-align: center; background: #040D1A; padding: 16px; border-radius: 14px; margin-bottom: 16px;">
+          <canvas id="wl-canvas" width="1080" height="1350" style="width: 100%; max-width: 400px; height: auto; border-radius: 10px; border: 2px solid #D4AF37;"></canvas>
+        </div>
+
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.downloadWishLantern()" class="senior-btn btn-primary" style="margin-bottom: 18px;">
+          <span aria-hidden="true">🕯️</span>
+          <span>소원 등불 환하게 점등하고 인증서 저장하기 👉</span>
+        </button>
+
+        <div style="background: #091914; border-radius: 14px; padding: 16px; border: 2px solid #D4AF37;">
+          <strong style="display: block; color: #FDE68A; font-size: 19px; margin-bottom: 10px;">🌟 현재 파라다이스 밤하늘에 켜진 어머님들의 실시간 소원 등불</strong>
+          <div id="wl-live-list" style="display: grid; gap: 10px;"></div>
+        </div>
+      </article>
+
+      <!-- 💐 ⑧ 황영웅에게 바치는 가상 황금 꽃다발 & 효자가수 대상 상장 수여식 -->
+      <article id="studio-flower-tribute" style="background: #FFFFFF; border: 3px solid #D4AF37; border-radius: 16px; padding: 24px; margin-bottom: 28px;">
+        <span style="display: inline-block; background: #FCE7F3; color: #9D174D; font-weight: 800; padding: 4px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 8px;">감동 100배 · 어머님 성함으로 황영웅님께 직접 상장 수여</span>
+        <h3 style="font-size: 24px; color: var(--brand-emerald-dark); margin-bottom: 8px;">💐 ⑧ 황영웅에게 바치는 황금 꽃다발 &amp; 사랑의 상장 수여식</h3>
+        <p style="font-size: 19px; color: var(--text-muted); margin-bottom: 18px;">
+          늘 어머님들께 큰 위로를 주는 황영웅 가수에게 어머님 성함으로 <strong>황금 장미 꽃다발과 '대한민국 최고 효자가수 대상' 황금 상장</strong>을 수여하고 기념 증서를 저장하세요!
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px;">
+          <div>
+            <label for="fl-name" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">1. 상장 주시는 어머님 성함</label>
+            <input id="fl-name" type="text" value="이순자 어머니" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+          <div>
+            <label for="fl-award-title" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">2. 수여할 황금 상장 이름</label>
+            <select id="fl-award-title" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="대한민국 최고 효자가수 대상">🏆 대한민국 최고 효자가수 대상</option>
+              <option value="내 인생 최고의 황금 중저음 대상">🎤 내 인생 최고의 황금 중저음 대상</option>
+              <option value="영원한 파라다이스 왕자님 대상">👑 영원한 파라다이스 왕자님 대상</option>
+            </select>
+          </div>
+          <div>
+            <label for="fl-bouquet" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">3. 함께 보낼 꽃다발 선택</label>
+            <select id="fl-bouquet" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="황금 장미 100송이 대왕 꽃다발">🌹 황금 장미 100송이 대왕 꽃다발</option>
+              <option value="에메랄드 수국 &amp; 해바라기 꽃바구니">🌻 에메랄드 수국 &amp; 해바라기 꽃바구니</option>
+              <option value="사랑의 카네이션 &amp; 백합 황실 화환">💐 사랑의 카네이션 &amp; 백합 황실 화환</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="text-align: center; background: #091914; padding: 16px; border-radius: 14px; margin-bottom: 16px;">
+          <canvas id="fl-canvas" width="1080" height="1080" style="width: 100%; max-width: 420px; height: auto; border-radius: 10px; border: 2px solid #D4AF37;"></canvas>
+        </div>
+
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.downloadFlowerTribute()" class="senior-btn btn-gold">
+          <span aria-hidden="true">💐</span>
+          <span>황영웅님께 꽃다발·황금상장 수여하고 증서 저장하기 👉</span>
+        </button>
+      </article>
+
+      <!-- 🎫 ⑨ 내 이름이 찍힌 황영웅 VIP 골든 콘서트 소장용 기념 티켓 발급기 -->
+      <article id="studio-golden-ticket" style="background: #FFFFFF; border: 3px solid #D4AF37; border-radius: 16px; padding: 24px; margin-bottom: 28px;">
+        <span style="display: inline-block; background: #FEF3C7; color: #92400E; font-weight: 800; padding: 4px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 8px;">지역 단톡방 자랑 1순위 · 황금 R석 1열 1번 명당 티켓</span>
+        <h3 style="font-size: 24px; color: var(--brand-emerald-dark); margin-bottom: 8px;">🎫 ⑨ 내 이름이 찍힌 황영웅 VIP 골든 콘서트 소장용 티켓</h3>
+        <p style="font-size: 19px; color: var(--text-muted); margin-bottom: 18px;">
+          어머님 성함과 희망 공연장이 황금빛으로 각인된 <strong>VIP R석 1열 1번 평생 소장용 골든 콘서트 기념 티켓</strong>을 발권해 보세요!
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px;">
+          <div>
+            <label for="gt-name" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">1. 초대석 어머님 성함</label>
+            <input id="gt-name" type="text" value="이순자 어머니" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+          <div>
+            <label for="gt-city" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">2. 희망 전국투어 공연장</label>
+            <select id="gt-city" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="서울 올림픽체조경기장 (KSPO DOME)">서울 올림픽체조경기장 (KSPO DOME)</option>
+              <option value="대구 엑스코 (EXCO) 특별 콘서트홀">대구 엑스코 (EXCO) 특별 콘서트홀</option>
+              <option value="부산 벡스코 (BEXCO) 오디토리움">부산 벡스코 (BEXCO) 오디토리움</option>
+              <option value="울산 동천체육관 고향 특별공연">울산 동천체육관 고향 특별공연</option>
+              <option value="광주 김대중컨벤션센터 대강당">광주 김대중컨벤션센터 대강당</option>
+              <option value="대전 컨벤션센터 그랜드볼룸">대전 컨벤션센터 그랜드볼룸</option>
+            </select>
+          </div>
+          <div>
+            <label for="gt-seat" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">3. VIP 명당 좌석 선택</label>
+            <select id="gt-seat" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="VIP 황금 R석 1열 1번 (영웅님 정면 명당)">VIP 황금 R석 1열 1번 (영웅님 정면 명당)</option>
+              <option value="로열 파라다이스석 1열 중앙 (아이컨택석)">로열 파라다이스석 1열 중앙 (아이컨택석)</option>
+              <option value="에메랄드 스위트박스 가족 초대석">에메랄드 스위트박스 가족 초대석</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="text-align: center; background: #091914; padding: 16px; border-radius: 14px; margin-bottom: 16px;">
+          <canvas id="gt-canvas" width="1080" height="560" style="width: 100%; max-width: 540px; height: auto; border-radius: 10px; border: 2px solid #FDE047;"></canvas>
+        </div>
+
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.downloadGoldenTicket()" class="senior-btn btn-primary">
+          <span aria-hidden="true">🎫</span>
+          <span>내 이름 VIP 골든 콘서트 기념 티켓 발권 및 저장하기 👉</span>
+        </button>
+      </article>
+
+      <!-- 🧠 ⑩ 치매 예방 & 팬심 테스트 '황영웅 찐팬 골든벨 퀴즈' & 장원급제 수료증 -->
+      <article id="studio-fan-quiz" style="background: #FFFFFF; border: 3px solid #D4AF37; border-radius: 16px; padding: 24px;">
+        <span style="display: inline-block; background: #D1FAE5; color: #065F46; font-weight: 800; padding: 4px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 8px;">두뇌 활력 쑥쑥 · 100점 맞고 '1등급 찐팬 장원급제 증서' 받기</span>
+        <h3 style="font-size: 24px; color: var(--brand-emerald-dark); margin-bottom: 8px;">🧠 ⑩ 황영웅 찐팬 골든벨 퀴즈 &amp; 1급 팬 장원급제 수료증</h3>
+        <p style="font-size: 19px; color: var(--text-muted); margin-bottom: 18px;">
+          재미있는 황영웅 노래 퀴즈 3문제를 풀고 어머님 성함이 적힌 <strong>1등급 찐팬 골든벨 장원급제 수료증</strong>을 발급받아 단톡방에 자랑해 보세요!
+        </p>
+
+        <div style="display: grid; gap: 14px; margin-bottom: 18px;">
+          <div>
+            <label for="fq-name" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">응시자 어머님 성함</label>
+            <input id="fq-name" type="text" value="이순자 어머니" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+          <div>
+            <label for="fq-q1" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">문제 1. 황영웅 정규 1집 타이틀곡으로 "세상이 등을 돌려도 내가 OO O이 되어줄게요"의 노래 제목은?</label>
+            <select id="fq-q1" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #0E2820; font-weight: 700;">
+              <option value="correct">⭕ 정답: 당신 편 (정규 1집 타이틀곡)</option>
+              <option value="wrong">❌ 오답: 남의 편</option>
+            </select>
+          </div>
+          <div>
+            <label for="fq-q2" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">문제 2. 가수 황영웅을 평생 응원하는 우리 공식 팬덤의 아름다운 이름은?</label>
+            <select id="fq-q2" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #0E2820; font-weight: 700;">
+              <option value="correct">⭕ 정답: 파라다이스 (PARADISE)</option>
+              <option value="wrong">❌ 오답: 오아시스</option>
+            </select>
+          </div>
+          <div>
+            <label for="fq-q3" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">문제 3. 황영웅 가수의 공식 상징 색상(응원봉 색깔)은 무엇일까요?</label>
+            <select id="fq-q3" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #0E2820; font-weight: 700;">
+              <option value="correct">⭕ 정답: 품격 있는 에메랄드 그린 &amp; 골드</option>
+              <option value="wrong">❌ 오답: 회색</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="text-align: center; background: #091914; padding: 16px; border-radius: 14px; margin-bottom: 16px;">
+          <canvas id="fq-canvas" width="1080" height="800" style="width: 100%; max-width: 500px; height: auto; border-radius: 10px; border: 2px solid #D4AF37;"></canvas>
+        </div>
+
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.downloadFanQuizCert()" class="senior-btn btn-gold">
+          <span aria-hidden="true">🎓</span>
+          <span>100점 만점! 1등급 찐팬 장원급제 수료증 저장하기 👉</span>
         </button>
       </article>
     </section>
