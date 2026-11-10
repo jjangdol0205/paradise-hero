@@ -162,6 +162,250 @@
       </div>
     </section>
 
+    <!-- 🎁 황영웅 5대 유료 디지털 굿즈 & 효도 아이템 즉석 제작소 -->
+    <section id="vip-digital-studio" class="senior-card highlight-card" aria-labelledby="digital-studio-heading" style="border: 3px solid var(--brand-gold); background: linear-gradient(180deg, #FFFDF5 0%, #FFFFFF 100%);">
+      <div class="section-title-wrap">
+        <span class="section-badge" style="background: var(--brand-emerald-dark); color: #FDE68A;">🎁 어머님 전용 5대 유료 디지털 제작소 (재고 0% 즉석 발급)</span>
+        <h2 id="digital-studio-heading" class="section-title">황영웅 5대 디지털 굿즈 &amp; 카톡 효도 아이템 제작소</h2>
+        <p class="section-desc">
+          기념사진관 외에도 어머님들께서 카톡 단톡방에 매일 자랑하실 수 있는 <strong>5가지 맞춤형 황영웅 디지털 아이템</strong>을 즉석에서 만들어 저장하세요!
+        </p>
+      </div>
+
+      <!-- 무료 체험권 & 이용권 잔여 표시 배너 -->
+      <div style="background: #0E2820; color: #FFFFFF; padding: 18px 22px; border-radius: 14px; border: 2px solid var(--brand-gold); margin-bottom: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
+        <div style="font-size: 20px; font-weight: 800;">
+          🎫 현재 보유 제작소 이용권: <span id="vip-studio-credit-count" style="color: #FDE68A; font-size: 24px;">2회 (무료 체험 포함)</span>
+          <span style="display: block; font-size: 16px; color: #D1FAE5; font-weight: 500; margin-top: 4px;">
+            • 처음 오신 어머님께 <strong>2회 무료 제작권</strong>을 드립니다! (이후 1회당 1,000원꼴 / 골드 VIP 무제한)
+          </span>
+        </div>
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.openStudioPaywall('디지털 제작소 이용권 충전')" class="senior-btn btn-gold" style="width: auto; min-height: 54px; padding: 10px 22px; font-size: 18px;">
+          <span>⚡ 이용권 충전 / VIP 무제한 열기 👉</span>
+        </button>
+      </div>
+
+      <!-- 5대 아이템 빠른 이동 탭 -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin-bottom: 28px;">
+        <a href="#studio-greeting-card" class="senior-btn btn-outline" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">💌 ① 카톡 안부·연하장</a>
+        <a href="#studio-fan-id" class="senior-btn btn-outline" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">🪪 ② 황금 명예 팬증</a>
+        <a href="#studio-wallpaper" class="senior-btn btn-outline" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">📱 ③ 큰글씨 달력 배경화면</a>
+        <a href="#studio-voice-letter" class="senior-btn btn-outline" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">🎙️ ④ 내 이름 라디오 음성편지</a>
+        <a href="#studio-lyric-book" class="senior-btn btn-outline" style="min-height: 56px; font-size: 18px; padding: 10px 14px;">🎼 ⑤ 왕글씨 가사·노래비법서</a>
+      </div>
+
+      <!-- ① 황영웅 카톡 아침 안부 카드 & 명절·생일 연하장 생성기 -->
+      <article id="studio-greeting-card" style="background: #FFFFFF; border: 2px solid #D4AF37; border-radius: 16px; padding: 24px; margin-bottom: 28px;">
+        <span style="display: inline-block; background: #FEF3C7; color: #92400E; font-weight: 800; padding: 4px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 8px;">인기 1위 · 매일 아침 단톡방 필수품</span>
+        <h3 style="font-size: 24px; color: var(--brand-emerald-dark); margin-bottom: 8px;">💌 ① 황영웅 카톡 아침 안부 카드 &amp; 연하장 만들기</h3>
+        <p style="font-size: 19px; color: var(--text-muted); margin-bottom: 18px;">
+          황영웅 가수의 멋진 일러스트 위에 어머님 성함이 적힌 아침 인사·주말 안부·생신 축하 카드를 만들어 친구분들께 카톡으로 보내보세요.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 18px;">
+          <div>
+            <label for="gc-template" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">1. 인사말 종류 선택</label>
+            <select id="gc-template" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="morning">🌸 꽃모닝 아침 안부 인사</option>
+              <option value="weekend">🍀 행복한 주말 보내세요</option>
+              <option value="birthday">🎂 생신 진심으로 축하드립니다</option>
+              <option value="health">🍵 환절기 건강 꼭 챙기세요</option>
+              <option value="holiday">🌕 명절 풍성한 한가위·설날 인사</option>
+              <option value="thankyou">💝 늘 고맙고 사랑합니다</option>
+            </select>
+          </div>
+          <div>
+            <label for="gc-look" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">2. 황영웅 화보 의상 선택 (10종)</label>
+            <select id="gc-look" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="assets/characters/sprite_1_hwang_young_woong.png">① 에메랄드 왕자님 수트</option>
+              <option value="assets/characters/sprite_2_lim_young_woong.png">② 순백의 화이트 턱시도</option>
+              <option value="assets/characters/sprite_3_lee_chan_won.png">③ 핑크 가디건 손하트</option>
+              <option value="assets/characters/sprite_4_young_tak.png">④ 올블랙 카리스마 수트</option>
+              <option value="assets/characters/sprite_5_jeong_dong_won.png">⑤ 로열 황금 제복 왕자님</option>
+              <option value="assets/characters/sprite_6_jin_haesung.png">⑥ 퍼플 벨벳 콘서트</option>
+              <option value="assets/characters/sprite_7_jang_min_ho.png">⑦ 가을 바바리 코트</option>
+              <option value="assets/characters/sprite_8_park_seo_jin.png">⑧ 명절 황금 도포 한복</option>
+              <option value="assets/characters/sprite_9_son_tae_jin.png">⑨ 와인빛 장미 꽃다발</option>
+              <option value="assets/characters/sprite_10_ahn_sung_hoon.png">⑩ 라디오 DJ 안경 스윗룩</option>
+            </select>
+          </div>
+          <div>
+            <label for="gc-sender" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">3. 보내는 분 성함 (하단 서명)</label>
+            <input id="gc-sender" type="text" placeholder="예: 대구 이순자 드림" value="파라다이스 팬 드림" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+          <div>
+            <label for="gc-custom-msg" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">4. 직접 문구 수정 (선택사항)</label>
+            <input id="gc-custom-msg" type="text" placeholder="비워두시면 기본 인사말이 들어갑니다" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF;">
+          </div>
+        </div>
+
+        <div style="text-align: center; background: #091914; padding: 16px; border-radius: 14px; margin-bottom: 16px;">
+          <canvas id="gc-canvas" width="1080" height="1350" style="width: 100%; max-width: 420px; height: auto; border-radius: 10px; border: 2px solid #D4AF37;"></canvas>
+        </div>
+
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.downloadGreetingCard()" class="senior-btn btn-gold">
+          <span aria-hidden="true">📥</span>
+          <span>고화질 카톡 안부 카드 저장하기 (카톡 전송용) 👉</span>
+        </button>
+      </article>
+
+      <!-- ② 파라다이스 공식 황금 명예 팬증(시민증) 발급기 -->
+      <article id="studio-fan-id" style="background: #FFFFFF; border: 2px solid #D4AF37; border-radius: 16px; padding: 24px; margin-bottom: 28px;">
+        <span style="display: inline-block; background: #D1FAE5; color: #065F46; font-weight: 800; padding: 4px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 8px;">소장 가치 100% · 콘서트장 &amp; 팬카페 인증용</span>
+        <h3 style="font-size: 24px; color: var(--brand-emerald-dark); margin-bottom: 8px;">🪪 ② 파라다이스 공식 황금 명예 팬증(시민증) 발급기</h3>
+        <p style="font-size: 19px; color: var(--text-muted); margin-bottom: 18px;">
+          어머님 성함, 지역 지부, 최애곡, 고유 일련번호와 황영웅 가수 공식 인장이 새겨진 <strong>황금 VIP 명예 팬증</strong>을 즉시 발급받으세요.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px;">
+          <div>
+            <label for="fid-name" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">1. 어머님 성함 (또는 닉네임)</label>
+            <input id="fid-name" type="text" value="이순자 어머니" placeholder="성함을 입력하세요" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+          <div>
+            <label for="fid-region" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">2. 소속 지역 지부 선택</label>
+            <select id="fid-region" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="대구·경북 본부">대구·경북 본부</option>
+              <option value="부산·울산·경남 본부">부산·울산·경남 본부</option>
+              <option value="서울·경기·인천 본부">서울·경기·인천 본부</option>
+              <option value="대전·충청·세종 본부">대전·충청·세종 본부</option>
+              <option value="광주·전라·제주 본부">광주·전라·제주 본부</option>
+              <option value="강원·해외 글로벌 본부">강원·해외 글로벌 본부</option>
+            </select>
+          </div>
+          <div>
+            <label for="fid-song" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">3. 평생 애창곡 선택</label>
+            <select id="fid-song" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="당신 편">당신 편 (정규 1집 타이틀)</option>
+              <option value="비상">비상 (감동 명곡)</option>
+              <option value="인생아 고마웠다">인생아 고마웠다</option>
+              <option value="해바라기">해바라기</option>
+              <option value="안 볼 때 없을 때">안 볼 때 없을 때</option>
+              <option value="미운 사랑">미운 사랑</option>
+            </select>
+          </div>
+          <div>
+            <label for="fid-look" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">4. 팬증 화보 사진 선택</label>
+            <select id="fid-look" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="assets/characters/sprite_1_hwang_young_woong.png">① 에메랄드 왕자님 수트</option>
+              <option value="assets/characters/sprite_5_jeong_dong_won.png">⑤ 로열 황금 제복 왕자님</option>
+              <option value="assets/characters/sprite_2_lim_young_woong.png">② 순백의 화이트 턱시도</option>
+              <option value="assets/characters/sprite_8_park_seo_jin.png">⑧ 명절 황금 도포 한복</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="text-align: center; background: #091914; padding: 16px; border-radius: 14px; margin-bottom: 16px;">
+          <canvas id="fid-canvas" width="1080" height="680" style="width: 100%; max-width: 520px; height: auto; border-radius: 10px; border: 2px solid #D4AF37;"></canvas>
+        </div>
+
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.downloadFanIdCard()" class="senior-btn btn-primary">
+          <span aria-hidden="true">🪪</span>
+          <span>내 이름 황금 명예 팬증 발급 및 저장하기 👉</span>
+        </button>
+      </article>
+
+      <!-- ③ 황영웅 큰글씨 달력·시계 핸드폰 잠금화면 생성기 -->
+      <article id="studio-wallpaper" style="background: #FFFFFF; border: 2px solid #D4AF37; border-radius: 16px; padding: 24px; margin-bottom: 28px;">
+        <span style="display: inline-block; background: #DBEAFE; color: #1E40AF; font-weight: 800; padding: 4px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 8px;">노안 걱정 끝 · 폰 켤 때마다 영웅님과 눈맞춤</span>
+        <h3 style="font-size: 24px; color: var(--brand-emerald-dark); margin-bottom: 8px;">📱 ③ 황영웅 핸드폰 잠금화면 (큰글씨 달력 배경화면) 제작</h3>
+        <p style="font-size: 19px; color: var(--text-muted); margin-bottom: 18px;">
+          핸드폰을 켤 때마다 영웅님 화보와 함께 <strong>큼직한 이번 달 달력</strong>과 내 다짐 문구가 한눈에 보이는 맞춤형 세로 배경화면입니다.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 18px;">
+          <div>
+            <label for="wp-look" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">1. 배경화면 영웅님 화보 선택</label>
+            <select id="wp-look" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="assets/characters/sprite_6_jin_haesung.png">⑥ 퍼플 벨벳 콘서트 무대</option>
+              <option value="assets/characters/sprite_1_hwang_young_woong.png">① 에메랄드 왕자님 수트</option>
+              <option value="assets/characters/sprite_3_lee_chan_won.png">③ 핑크 가디건 손하트</option>
+              <option value="assets/characters/sprite_7_jang_min_ho.png">⑦ 가을 바바리 코트</option>
+              <option value="assets/characters/sprite_9_son_tae_jin.png">⑨ 와인빛 장미 꽃다발</option>
+            </select>
+          </div>
+          <div>
+            <label for="wp-motto" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">2. 하단 응원 다짐 문구</label>
+            <input id="wp-motto" type="text" value="영웅님과 함께 오늘도 건강하고 행복하게!" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+        </div>
+
+        <div style="text-align: center; background: #091914; padding: 16px; border-radius: 14px; margin-bottom: 16px;">
+          <canvas id="wp-canvas" width="1080" height="1920" style="width: 100%; max-width: 340px; height: auto; border-radius: 10px; border: 2px solid #D4AF37;"></canvas>
+        </div>
+
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.downloadWallpaper()" class="senior-btn btn-gold">
+          <span aria-hidden="true">📱</span>
+          <span>핸드폰 큰글씨 달력 배경화면 고화질 저장하기 👉</span>
+        </button>
+      </article>
+
+      <!-- ④ 내 이름을 불러주는 라디오 DJ 생일축하·쾌유기원 맞춤 음성편지 -->
+      <article id="studio-voice-letter" style="background: #FFFFFF; border: 2px solid #D4AF37; border-radius: 16px; padding: 24px; margin-bottom: 28px;">
+        <span style="display: inline-block; background: #FCE7F3; color: #9D174D; font-weight: 800; padding: 4px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 8px;">감동 눈물 주의 · 자녀분 효도 선물 &amp; 생신 축하 1위</span>
+        <h3 style="font-size: 24px; color: var(--brand-emerald-dark); margin-bottom: 8px;">🎙️ ④ 내 이름을 불러주는 라디오 DJ 맞춤 음성편지</h3>
+        <p style="font-size: 19px; color: var(--text-muted); margin-bottom: 18px;">
+          어머님 성함과 기념일(생신 축하, 쾌유 기원, 오늘 하루 위로)을 입력하시면, 김쌤의 영웅라디오 DJ가 어머님 성함을 다정하게 불러드리며 낭독해 드립니다.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px;">
+          <div>
+            <label for="vl-name" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">1. 받으시는 어머님 성함</label>
+            <input id="vl-name" type="text" value="이순자 어머니" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+          <div>
+            <label for="vl-occasion" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">2. 음성편지 주제 선택</label>
+            <select id="vl-occasion" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+              <option value="birthday">🎂 생신 축하 특별 음성편지</option>
+              <option value="cheer">💚 오늘 하루 따뜻한 위로와 응원</option>
+              <option value="health">🌿 빠른 쾌유와 건강 기원</option>
+            </select>
+          </div>
+          <div>
+            <label for="vl-sender" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">3. 신청자 이름</label>
+            <input id="vl-sender" type="text" value="사랑하는 가족 &amp; 김쌤 라디오" style="width: 100%; min-height: 56px; font-size: 19px; padding: 10px 14px; border-radius: 10px; border: 2px solid #9CA3AF; font-weight: 700;">
+          </div>
+        </div>
+
+        <div id="vl-script-preview" style="background: #FFFBEB; border: 2px solid #F59E0B; border-radius: 14px; padding: 20px; font-size: 22px; font-weight: 700; line-height: 1.75; color: #1F2937; margin-bottom: 16px;">
+          이순자 어머니, 생신을 진심으로 축하드립니다!
+        </div>
+
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.playVoiceLetterAloud()" class="senior-btn btn-primary">
+          <span aria-hidden="true">🔊</span>
+          <span>내 이름 라디오 음성편지 지금 바로 듣기 👉</span>
+        </button>
+      </article>
+
+      <!-- ⑤ 황영웅 전곡 왕글씨(30px) 가사집 & 노래교실 부르기 비법서 -->
+      <article id="studio-lyric-book" style="background: #FFFFFF; border: 2px solid #D4AF37; border-radius: 16px; padding: 24px;">
+        <span style="display: inline-block; background: #EDE9FE; color: #5B21B6; font-weight: 800; padding: 4px 12px; border-radius: 8px; font-size: 16px; margin-bottom: 8px;">노래교실 여왕 등극 · 숨쉬기(∨) &amp; 감정 포인트 수록</span>
+        <h3 style="font-size: 24px; color: var(--brand-emerald-dark); margin-bottom: 8px;">🎼 ⑤ 황영웅 전곡 왕글씨(30px) 가사집 &amp; 노래교실 비법서</h3>
+        <p style="font-size: 19px; color: var(--text-muted); margin-bottom: 18px;">
+          돋보기 없이도 시원하게 보이는 <strong>30px 특대형 가사</strong>와 어디서 숨을 쉬고(∨) 어디서 감정을 실어야 하는지 알려주는 노래교실 강사 비법 노트입니다.
+        </p>
+
+        <div style="margin-bottom: 16px;">
+          <label for="lb-song-select" style="display: block; font-weight: 800; font-size: 18px; margin-bottom: 6px;">배워볼 황영웅 명곡 선택</label>
+          <select id="lb-song-select" style="width: 100%; min-height: 58px; font-size: 20px; padding: 10px 14px; border-radius: 10px; border: 2px solid var(--brand-emerald-dark); font-weight: 800;">
+            <option value="당신 편">🎵 당신 편 (정규 1집 타이틀곡)</option>
+            <option value="비상">🎵 비상 (가슴 뭉클한 역전 명곡)</option>
+            <option value="인생아 고마웠다">🎵 인생아 고마웠다 (어머님 애창 1위)</option>
+            <option value="해바라기">🎵 해바라기 (절절한 정통 트로트)</option>
+            <option value="안 볼 때 없을 때">🎵 안 볼 때 없을 때 (경쾌한 리듬)</option>
+            <option value="미운 사랑">🎵 미운 사랑 (중저음 감성 명곡)</option>
+          </select>
+        </div>
+
+        <div id="lb-guide-box" style="margin-bottom: 16px;"></div>
+
+        <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.printLyricGuide()" class="senior-btn btn-gold">
+          <span aria-hidden="true">🖨️</span>
+          <span>왕글씨 가사집 &amp; 노래교실 비법서 인쇄 / 파일 저장하기 👉</span>
+        </button>
+      </article>
+    </section>
+
     <!-- 3대 VIP 멤버십 구독 티어 (Pillar 1) -->
     <section aria-labelledby="pricing-heading">
       <div class="section-title-wrap">
@@ -547,5 +791,49 @@
       } catch (e) {}
     });
   </script>
+
+  <!-- 5대 유료 디지털 제작소 이용권 충전 / 골드 VIP 결제 모달 -->
+  <div id="vip-studio-paywall-modal" role="dialog" aria-modal="true" aria-labelledby="vip-studio-paywall-title" style="display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(9, 25, 20, 0.85); align-items: center; justify-content: center; padding: 16px;">
+    <div style="background: #FFFFFF; max-width: 580px; width: 100%; border-radius: 20px; border: 4px solid #D4AF37; padding: 28px; max-height: 92vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+      <h3 id="vip-studio-paywall-title" style="font-size: 24px; color: #0E2820; margin-bottom: 10px;">
+        👑 디지털 제작소 이용권 충전 안내
+      </h3>
+      <p style="font-size: 19px; color: #374151; line-height: 1.65; margin-bottom: 18px;">
+        무료 체험권(2회)을 모두 사용하셨거나 추가 이용권을 원하시는 어머님께서는 아래 <strong>3회 충전권(3,000원)</strong> 또는 <strong>골드 VIP 무제한 패스(월 9,900원)</strong>를 선택해 주세요!
+      </p>
+
+      <div style="display: grid; gap: 12px; margin-bottom: 18px;">
+        <a href="https://kidsfitglobal.lemonsqueezy.com/buy/00ba1a7a-5d22-49ef-8840-90b305638b6d?store=296100" target="_blank" rel="noopener noreferrer" class="senior-btn btn-gold" style="text-decoration: none;">
+          <span>🎫 5대 디지털 제작소 3회 이용권 결제 (3,000원) 👉</span>
+        </a>
+        <a href="https://kidsfitglobal.lemonsqueezy.com/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?store=296100" target="_blank" rel="noopener noreferrer" class="senior-btn btn-primary" style="text-decoration: none;">
+          <span>👑 골드 VIP 가입하고 전 아이템 무제한 만들기 (월 9,900원) 👉</span>
+        </a>
+      </div>
+
+      <div style="background: #F9FAFB; border: 2px dashed #D4AF37; border-radius: 14px; padding: 16px; text-align: center; margin-bottom: 18px;">
+        <p style="font-size: 17px; font-weight: 800; color: #0E2820; margin-bottom: 8px;">📱 스마트폰 카메라로 찍어서 간편 결제 (QR코드)</p>
+        <img src="assets/payments/qr_photobooth_3000.png" alt="3,000원 디지털 제작소 이용권 결제 QR코드" width="150" height="150" style="border-radius: 10px; border: 2px solid #E5E7EB;">
+      </div>
+
+      <div style="background: #FFFBEB; border: 2px solid #F59E0B; border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+        <label for="vip-studio-token-input" style="display: block; font-size: 18px; font-weight: 800; color: #92400E; margin-bottom: 8px;">
+          🔑 결제 완료 인증코드 입력 (예: HERO2026 또는 VIPGOLD)
+        </label>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <input id="vip-studio-token-input" type="text" placeholder="인증코드 입력 (HERO2026)" style="flex: 1; min-width: 180px; min-height: 54px; font-size: 19px; padding: 8px 14px; border-radius: 10px; border: 2px solid #D97706; font-weight: 800;">
+          <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.redeemStudioToken()" class="senior-btn btn-primary" style="width: auto; min-height: 54px; padding: 10px 20px;">
+            <span>충전 확인</span>
+          </button>
+        </div>
+      </div>
+
+      <button type="button" onclick="window.VIPDigitalStudio &amp;&amp; window.VIPDigitalStudio.closeStudioPaywall()" class="senior-btn btn-outline" style="min-height: 54px;">
+        <span>닫기</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="js/vip-digital-studio.js?v=20261110d"></script>
 </body>
 </html>
