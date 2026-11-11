@@ -1,82 +1,107 @@
 {
   "episode": 1,
-  "generated_at": "2026-11-09T22:36:37Z",
+  "generated_at": "2026-11-11T11:17:32Z",
   "selected_variant": "A_VS_CONTRAST",
-  "duration_sec": 36.967,
+  "duration_sec": 41.37,
+  "schedule_policy": {
+    "shorts_daily_kst": "19:30 KST",
+    "longform_tue_fri_kst": "18:00 KST",
+    "publishAt": "2026-11-12T19:30:00+09:00"
+  },
   "youtube_shorts": {
-    "title": "[김쌤의 영웅라디오] 황영웅과 트롯 10대 왕자들의 기적 같은 우정! #A안 #Shorts",
-    "description": "👑 김쌤의 영웅라디오 데일리 쇼츠 제01화\n\n어머님들의 영원한 감성 황태자 황영웅과 10대 트롯 왕자들의 찬란한 우정 이야기!\n\n🌟 [파라다이스히어로 공식 팬덤 플랫폼]\n👉 https://paradise-hero.com\n\n📸 [왕자님과 나의 2샷 포토부스]\n스마트폰으로 간편하게 1회 무료 촬영 체험하고 소장용 포토카드를 남겨보세요!\n👉 https://paradise-hero.com/booth.html\n\n타임스탬프:\n00:00 중저음 감성 보이스 대 별빛 가창력\n00:02 임영웅의 찬란한 별빛 고음이\n00:05 황영웅의 가슴 깊은 감성 중저음은\n00:08 여기에 영탁의 청량 쾌남 에너지와\n00:11 정동원 소년왕자의 바이올린 선율과\n00:14 장민호·박서진·손태진·안성훈\n00:16 경쟁을 넘어선 진정한 존중으로\n00:19 김쌤의 영웅라디오 · 파라다이스히어로\n\n#황영웅 #임영웅 #이찬원 #영탁 #정동원 #김호중 #장민호 #박서진 #손태진 #안성훈 #김쌤의영웅라디오 #파라다이스히어로 #Shorts #트로트",
+    "title": "[심야라디오] \"엄마 이제 제가 당신 편이오\" #황영웅 #파라다이스",
+    "title_length": 37,
+    "description": "📻 김쌤의 심야 영웅라디오 제01화\n가수 황영웅 님의 깊은 목소리와 파라다이스 어머님들의 따뜻한 인생 사연을 전해드립니다.\n\n💚 [황영웅 무료 화보 투샷 사진관 & 공식 팬 쉼터]\n👉 https://paradise-hero.com/booth.html\n\n💌 [김쌤 라디오에 내 사연 보내기]\n👉 https://paradise-hero.com/story.html\n\n🎬 [15분 풀버전 보이는 사연 라디오 본방송 듣기]\n👉 https://www.youtube.com/watch?v=lGkMncY4u1o\n\n타임스탬프:\n00:00 자식들 떠나고 텅 빈 거실\n00:04 대구 달서구 이순자께서 보내주신\n00:09 평생 가족만 챙기느라\n00:13 라디오에서 흐른 [당신 편]\n00:18 \"엄마 이제는 제가 끝까지\"\n00:22 따뜻한 중저음 한마디에\n00:27 얼어붙은 가슴이 녹아내리고\n00:31 영웅님과 파라다이스 가족이\n00:36 공식 쉼터 무료 투샷 사진관\n\n#황영웅 #파라다이스 #트로트 #감동사연 #시니어유튜브",
     "tags": [
-      "#Shorts",
       "#황영웅",
-      "#임영웅",
-      "#이찬원",
-      "#영탁",
-      "#정동원",
-      "#김호중",
-      "#장민호",
-      "#박서진",
-      "#손태진",
-      "#안성훈",
-      "#김쌤의영웅라디오",
-      "#파라다이스히어로",
-      "트로트쇼츠",
-      "영웅시대"
+      "#파라다이스",
+      "#트로트",
+      "#감동사연",
+      "#시니어유튜브"
     ],
     "category_id": "24",
-    "privacy_status": "public",
+    "privacy_status": "private",
+    "publishAt": "2026-11-12T19:30:00+09:00",
     "madeForKids": false,
+    "related_video_id": "lGkMncY4u1o",
+    "related_video_url": "https://www.youtube.com/watch?v=lGkMncY4u1o",
     "chapters": [
       {
         "timestamp": "00:00",
-        "title": "중저음 감성 보이스 대 별빛 가창력"
+        "title": "자식들 떠나고 텅 빈 거실"
       },
       {
-        "timestamp": "00:02",
-        "title": "임영웅의 찬란한 별빛 고음이"
+        "timestamp": "00:04",
+        "title": "대구 달서구 이순자께서 보내주신"
       },
       {
-        "timestamp": "00:05",
-        "title": "황영웅의 가슴 깊은 감성 중저음은"
+        "timestamp": "00:09",
+        "title": "평생 가족만 챙기느라"
       },
       {
-        "timestamp": "00:08",
-        "title": "여기에 영탁의 청량 쾌남 에너지와"
+        "timestamp": "00:13",
+        "title": "라디오에서 흐른 [당신 편]"
       },
       {
-        "timestamp": "00:11",
-        "title": "정동원 소년왕자의 바이올린 선율과"
+        "timestamp": "00:18",
+        "title": "\"엄마 이제는 제가 끝까지\""
       },
       {
-        "timestamp": "00:14",
-        "title": "장민호·박서진·손태진·안성훈"
+        "timestamp": "00:22",
+        "title": "따뜻한 중저음 한마디에"
       },
       {
-        "timestamp": "00:16",
-        "title": "경쟁을 넘어선 진정한 존중으로"
+        "timestamp": "00:27",
+        "title": "얼어붙은 가슴이 녹아내리고"
       },
       {
-        "timestamp": "00:19",
-        "title": "김쌤의 영웅라디오 · 파라다이스히어로"
+        "timestamp": "00:31",
+        "title": "영웅님과 파라다이스 가족이"
+      },
+      {
+        "timestamp": "00:36",
+        "title": "공식 쉼터 무료 투샷 사진관"
       }
     ]
   },
+  "naver_clip": {
+    "clean_video_file": "D:\\드림컴퍼니\\4사업부\\content\\shorts_daily\\ep_01\\shorts_ep01_naver_clip_clean.mp4",
+    "title": "[심야라디오] \"엄마 이제 제가 당신 편이오\" #황영웅 #파라다이스",
+    "caption": "[심야라디오] \"엄마 이제 제가 당신 편이오\" #황영웅 #파라다이스\n김쌤이 어머님들 눈·관절 건강과 콘서트 응원 필수품만 엄선한 공식 크리에이터샵도 함께 만나보세요 💚\n👉 https://cshop.naver.com/paradiseshop\n(네이버 쇼핑 커넥트 활동의 일환으로 판매 발생 시 소정의 수수료를 제공받습니다.)\n#황영웅 #파라다이스 #트로트 #감동사연 #시니어유튜브",
+    "creator_shop_url": "https://cshop.naver.com/paradiseshop",
+    "shopping_connect_disclosure": "네이버 쇼핑 커넥트 활동의 일환으로 판매 발생 시 소정의 수수료를 제공받습니다.",
+    "hashtags": [
+      "#황영웅",
+      "#파라다이스",
+      "#트로트",
+      "#감동사연",
+      "#시니어유튜브"
+    ]
+  },
   "instagram_reels": {
-    "caption": "👑 [김쌤의 영웅라디오] 감성 황태자 황영웅과 10대 왕자들의 눈부신 연대!\n\n어머님들의 희생과 눈물을 따스하게 안아주는 황영웅의 깊은 울림 💚\n서로를 격려하는 트롯 왕자들의 진정한 우정이 펼쳐집니다.\n\n📸 지금 프로필 링크(paradise-hero.com)에서 나만의 왕자님 투샷 사진을 무료로 촬영해보세요!\n\n@kimteacher_heroradio\n#황영웅 #임영웅 #이찬원 #영탁 #정동원 #김호중 #장민호 #박서진 #손태진 #안성훈 #김쌤의영웅라디오 #파라다이스히어로 #트로트왕자 #포토부스 #reels #trot",
+    "caption": "📻 [김쌤의 심야 영웅라디오] 어머님들의 마음을 따뜻하게 안아주는 가수 황영웅 이야기 💚\n\n지금 프로필 링크(paradise-hero.com)에서 영웅님 10종 의상 무료 화보 기념사진도 편하게 찍어보세요!\n\n@kimteacher_heroradio\n#황영웅 #파라다이스 #트로트 #감동사연 #시니어유튜브",
     "account_tag": "@kimteacher_heroradio",
     "domain_callout": "paradise-hero.com",
     "cover_timestamp_sec": 2.0
   },
   "audio_specs": {
     "sample_rate": 44100,
-    "peak_dbfs": -1.72,
+    "speech_rate": "+0%",
+    "peak_dbfs": -0.95,
     "clipped_samples": 0,
-    "max_internal_silence_sec": 0.0817
+    "max_internal_silence_sec": 0.0064,
+    "full_narration_completion_compliant": true
   },
   "video_specs": {
     "resolution": "1080x1920",
     "aspect_ratio": "9:16",
     "fps": 30,
-    "file_size_kb": 5430.9
+    "file_size_kb": 69775.0,
+    "naver_clip_size_kb": 69937.1,
+    "top_plaque_text": "📻 김쌤의 심야 영웅라디오",
+    "subtitle_center_y": 1005,
+    "subtitle_font_pt": 108,
+    "subtitle_stroke_px": 12,
+    "speech_bubbles_present": false
   }
 }

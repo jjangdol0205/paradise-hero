@@ -37,7 +37,7 @@ def publish_telegraph_hero_article(today_str: str) -> str:
             if not token:
                 return ""
 
-            title = f"[김쌤의 영웅라디오 {today_str}] 황영웅 정규 1집 '당신 편' 명곡 해설 & 트롯 10대 왕자님 투샷 포토부스 안내"
+            title = f"[김쌤의 영웅라디오 {today_str}] 가수 황영웅 정규 1집 '당신 편' 명곡 해설 & 10종 의상 무료 화보 기념사진관 안내"
             content_nodes = [
                 {
                     "tag": "h3",
@@ -46,25 +46,25 @@ def publish_telegraph_hero_article(today_str: str) -> str:
                 {
                     "tag": "p",
                     "children": [
-                        "전국과 해외에 계신 파라다이스 가족 여러분, 김쌤의 영웅라디오입니다. 황영웅 가수님의 깊은 중저음 보이스가 빛나는 대표곡 [당신 편]과 24시간 무인 연속 재생 라디오 플레이어는 공식 팬덤 사랑방 ",
+                        "전국과 해외에 계신 파라다이스 가족 여러분, 김쌤의 영웅라디오입니다. 가수 황영웅 님의 깊은 중저음 보이스가 빛나는 대표곡 [당신 편]과 24시간 무인 연속 재생 라디오 플레이어는 공식 팬덤 사랑방 ",
                         {"tag": "a", "attrs": {"href": "https://paradise-hero.com/radio.html"}, "children": ["paradise-hero.com/radio.html"]},
                         " 에서 큰 글씨(20px 이상)로 편안하게 감상하실 수 있습니다.",
                     ],
                 },
                 {
                     "tag": "h3",
-                    "children": ["2. 스마트폰 1회 무료 체험! 10대 트롯 왕자님 투샷 즉석 포토부스"],
+                    "children": ["2. 무제한 무료 개방! 가수 황영웅 10대 시그니처 의상 투샷 기념사진관"],
                 },
                 {
                     "tag": "p",
                     "children": [
-                        "황영웅, 임영웅, 이찬원, 영탁, 정동원, 김호중, 장민호, 박서진, 손태진, 안성훈·진해성 등 10대 트롯 왕자님 캐릭터와 함께 스마트폰으로 나만의 소장용 투샷 포토카드를 무료로 촬영해보세요: ",
+                        "에메랄드 벨벳 콘서트 수트, 순백 프린스 턱시도, 심야 라디오 DJ 안경룩 등 가수 황영웅 님의 10대 시그니처 의상 캐릭터와 함께 스마트폰으로 나만의 소장용 투샷 화보 포토카드를 횟수 제한 없이 무료로 촬영해보세요: ",
                         {"tag": "a", "attrs": {"href": "https://paradise-hero.com/booth.html"}, "children": ["https://paradise-hero.com/booth.html"]},
                     ],
                 },
                 {
                     "tag": "blockquote",
-                    "children": ["공식 팬덤 플랫폼 바로가기: https://paradise-hero.com"],
+                    "children": ["공식 팬 쉼터 바로가기: https://paradise-hero.com"],
                 },
             ]
             page = client.post(

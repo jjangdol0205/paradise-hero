@@ -2,18 +2,58 @@
   "channel_name": "@김쌤의영웅라디오",
   "channel_url": "https://www.youtube.com/@김쌤의영웅라디오",
   "platform_url": "https://paradise-hero.com",
+  "booth_url": "https://paradise-hero.com/booth.html",
   "story_funnel_url": "https://paradise-hero.com/story.html",
+  "news_funnel_url": "https://paradise-hero.com/news.html",
+  "creator_shop_url": "https://cshop.naver.com/paradiseshop",
   "support_email": "beable9489@gmail.com",
+  "fixed_hashtags": [
+    "#황영웅",
+    "#파라다이스",
+    "#트로트",
+    "#감동사연",
+    "#시니어유튜브"
+  ],
+  "publish_schedule_kst": "화·금 18:00 KST",
   "episode_number": 1,
-  "episode_title": "[제1화] '어머니, 제가 당신의 편이 되어드릴게요' — 황영웅 [당신 편]에 얽힌 눈물의 사연과 김쌤의 감동 해설",
+  "episode_title": "[제1화] '어머니, 제가 당신의 편이 되어드릴게요' — 황영웅 [당신 편] 사연 3편 & 주요 소식 특집 라디오",
   "featured_song": "당신 편 (황영웅 정규 1집 타이틀)",
-  "fan_story_origin": "대구 달서구 이순자 어머니 사연",
+  "fan_story_origin": "대구 달서구 이순자 어머니 외 사연 3편 & 주요 소식 2건",
+  "stories_featured_count": 3,
+  "news_featured_count": 2,
+  "stories_featured": [
+    {
+      "sender_name": "대구 달서구 이순자 어머니",
+      "story_title": "병실에서 손잡아준 당신 편, 영웅아 고맙다",
+      "song_title": "당신 편"
+    },
+    {
+      "sender_name": "전북 익산 박정옥 어머니",
+      "story_title": "어머니 손잡고 떠났던 그 시절 꽃구경을 떠올리며",
+      "song_title": "꽃구경"
+    },
+    {
+      "sender_name": "부산 해운대 김영희 님",
+      "story_title": "항암의 차가운 병상에서 다시 날아오르게 해준 비상",
+      "song_title": "비상"
+    }
+  ],
+  "news_featured": [
+    {
+      "title": "황영웅, 정규 1집 '당신 편' 초동 63만 장 대기록 돌파… 전국 파라다이스 팬심 감동",
+      "category": "신곡·음반"
+    },
+    {
+      "title": "황영웅 수록곡 '함께해요' · '황금빛 인생', 어머님들이 뽑은 아침 힐링송 1위 선정",
+      "category": "신곡·음반"
+    }
+  ],
   "dj_persona": "50대 전직 국어교사 김쌤 (다정하고 온화한 중저음)",
   "total_chapters": 6,
-  "total_segments": 32,
-  "total_characters": 3908,
-  "total_estimated_duration_sec": 746.8,
-  "target_pacing_window_min": "12~18 min (720s ~ 1080s)",
+  "total_segments": 36,
+  "total_characters": 4521,
+  "total_estimated_duration_sec": 859.5,
+  "target_pacing_window_min": "12~20 min (720s ~ 1200s)",
   "anti_ai_purity_score": "20/20 (0 AI Cliches Detected)",
   "voice_spec": {
     "dj_kim": {
@@ -157,10 +197,20 @@
           "emotion": "solemn_fellowship",
           "visual_hint": "두 손을 마주 잡은 따뜻한 온기 실루엣과 잔잔한 피아노 건반",
           "estimated_duration_sec": 21.5
+        },
+        {
+          "segment_id": "ep01_seg_12",
+          "speaker": "dj_kim",
+          "speaker_title": "DJ 김쌤",
+          "text": "오늘 공식 뉴스룸 첫 번째 반가운 소식도 전해드립니다. 황영웅, 정규 1집 '당신 편' 초동 63만 장 대기록 돌파… 전국 파라다이스 팬심 감동. 가수 황영웅의 첫 정규앨범 '당신 편'이 초동 63만 장 돌파라는 대기록을 세우며 뜨거운 사랑을 입증했다. 황영웅은 변함없이 곁을 지켜준 공식 팬덤 파라다이스 어머님들께 깊은 큰절과 진심 어린 감사의 인사를 전했다.",
+          "pacing_pause_sec": 1.4,
+          "emotion": "warm_news_brief",
+          "visual_hint": "진공관 라디오 부스 우측 큰글씨 뉴스 브리핑 카드",
+          "estimated_duration_sec": 36.5
         }
       ],
-      "total_characters": 730,
-      "total_estimated_sec": 137.1
+      "total_characters": 932,
+      "total_estimated_sec": 173.6
     },
     {
       "chapter_index": 3,
@@ -170,7 +220,7 @@
       "bgm_mood": "emotional_strings_piano",
       "segments": [
         {
-          "segment_id": "ep01_seg_12",
+          "segment_id": "ep01_seg_13",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "'세상이 다 등을 돌려도, 나는 언제나 당신 편입니다.' 이 짧고 투박한 노랫말 한 줄이 왜 이토록 우리 어머님들의 가슴을 먹먹하게 만들까요?",
@@ -180,7 +230,7 @@
           "estimated_duration_sec": 15.3
         },
         {
-          "segment_id": "ep01_seg_13",
+          "segment_id": "ep01_seg_14",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "평생을 자식 키우느라 청춘 다 바치고, 남편 뒷바라지하느라 정작 자신을 위한 인생은 한 번도 살아보지 못했던 우리 어머니들. 힘들다고 투정 한번 부릴 곳 없이, 속으로만 눈물을 삼키며 '엄마니까 참아야지', '아내니까 견뎌야지' 하며 살아오시지 않으셨습니까.",
@@ -190,7 +240,7 @@
           "estimated_duration_sec": 27.1
         },
         {
-          "segment_id": "ep01_seg_14",
+          "segment_id": "ep01_seg_15",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "그렇게 평생 내 편 하나 없이 외로운 섬처럼 버텨오셨던 우리네 어머니들에게, 영웅님의 묵직한 중저음은 '어머니, 이제 제가 어머니의 편이 되어드릴게요'라는 세상에서 가장 든든한 아들의 고백이었습니다.",
@@ -200,7 +250,7 @@
           "estimated_duration_sec": 20.9
         },
         {
-          "segment_id": "ep01_seg_15",
+          "segment_id": "ep01_seg_16",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "가사를 조금 더 들여다보겠습니다. '모진 비바람 불어와도 내 손을 놓지 마오.' 영웅님은 자기가 높은 곳에서 손을 내미는 것이 아니라, 가장 낮은 곳에서 어머니와 눈높이를 맞추며 손을 잡자고 말합니다. 이것이 바로 황영웅이라는 가수가 가진 진정성의 힘입니다.",
@@ -210,7 +260,7 @@
           "estimated_duration_sec": 27.5
         },
         {
-          "segment_id": "ep01_seg_16",
+          "segment_id": "ep01_seg_17",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "노래 후반부로 갈수록 감정이 터져 나오는 그 절정 대목을 가만히 들어보십시오. 억눌렸던 슬픔을 소리 질러 토해내는 것이 아니라, 상처투성이인 어머님의 등을 조용히 토닥여주는 따뜻한 체온이 그대로 전해져 옵니다.",
@@ -220,7 +270,7 @@
           "estimated_duration_sec": 21.9
         },
         {
-          "segment_id": "ep01_seg_17",
+          "segment_id": "ep01_seg_18",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "오늘 밤만큼은 다른 누구의 엄마도, 누구의 아내도 아닌, 오롯이 어머님 당신 자신만을 위해 이 노래의 한 소절 한 소절을 가슴에 담아보셨으면 좋겠습니다. 영웅님이 노래로 전하는 그 따뜻한 온기가 여러분의 마음속에 오래도록 머물기를 바랍니다.",
@@ -228,10 +278,20 @@
           "emotion": "healing_invitation",
           "visual_hint": "은은한 촛불 곁에 놓인 백합 꽃 한 송이, 서정적인 어쿠스틱 여운",
           "estimated_duration_sec": 25.6
+        },
+        {
+          "segment_id": "ep01_seg_19",
+          "speaker": "fan_letter_writer",
+          "speaker_title": "사연자 전북 익산 박정옥 어머니",
+          "text": "두 번째로 도착한 전북 익산 박정옥 어머니의 사연입니다. '어머니 손잡고 떠났던 그 시절 꽃구경을 떠올리며.' 영웅님의 [꽃구경]을 들으며 제 인생에도 다시 따뜻한 봄날이 찾아왔습니다.",
+          "pacing_pause_sec": 1.4,
+          "emotion": "second_story_reading",
+          "visual_hint": "사연 우체통 두 번째 한지 편지와 72pt 왕글씨 자막",
+          "estimated_duration_sec": 20.2
         }
       ],
-      "total_characters": 729,
-      "total_estimated_sec": 138.3
+      "total_characters": 832,
+      "total_estimated_sec": 158.5
     },
     {
       "chapter_index": 4,
@@ -241,7 +301,7 @@
       "bgm_mood": "tearful_nostalgia_cello",
       "segments": [
         {
-          "segment_id": "ep01_seg_18",
+          "segment_id": "ep01_seg_20",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "오늘 저희 파라다이스 사랑방 우체통에 도착한 사연 한 편을 조심스럽게 꺼내봅니다. 대구 달서구에서 일흔둘의 이순자 어머님께서 떨리는 손으로 정성껏 써 내려가신 편지글입니다.",
@@ -251,7 +311,7 @@
           "estimated_duration_sec": 18.2
         },
         {
-          "segment_id": "ep01_seg_19",
+          "segment_id": "ep01_seg_21",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "어머님께서 가슴에 묻어두셨던 애절한 사연을, 어머님의 고운 육성 그대로 대신 전해드립니다.",
@@ -261,7 +321,7 @@
           "estimated_duration_sec": 10.9
         },
         {
-          "segment_id": "ep01_seg_20",
+          "segment_id": "ep01_seg_22",
           "speaker": "fan_letter_writer",
           "speaker_title": "사연자 이순자 어머니",
           "text": "김쌤, 작년 가을에 40년을 한결같이 곁을 지키던 남편을 오랜 병간호 끝에 먼저 하늘나라로 떠나보냈습니다. 장례를 다 치르고 홀로 텅 빈 집에 돌아왔는데, 방안의 공기가 어찌나 시리고 차갑던지요. 남편이 벗어둔 외투를 부여잡고 며칠 동안 밥 한 숟갈 뜨지 못한 채 울기만 했습니다.",
@@ -271,7 +331,7 @@
           "estimated_duration_sec": 28.6
         },
         {
-          "segment_id": "ep01_seg_21",
+          "segment_id": "ep01_seg_23",
           "speaker": "fan_letter_writer",
           "speaker_title": "사연자 이순자 어머니",
           "text": "자식들도 제 가정이 있으니 매일 붙어있을 수는 없고, 혼자 우두커니 앉아있으면 '내가 살아서 뭐 하나, 나도 얼른 따라가야지' 하는 못된 생각만 가슴을 짓눌렀습니다. 그렇게 넋을 놓고 누워만 있던 저를 다시 일으켜 세운 건, 서울 사는 딸아이가 머리맡에 틀어주고 간 영웅님의 노래였습니다.",
@@ -281,7 +341,7 @@
           "estimated_duration_sec": 29.1
         },
         {
-          "segment_id": "ep01_seg_22",
+          "segment_id": "ep01_seg_24",
           "speaker": "fan_letter_writer",
           "speaker_title": "사연자 이순자 어머니",
           "text": "'세상이 다 등을 돌려도 내가 당신 편이 되겠소.' 그 묵직한 첫 소절이 귀를 때리는 순간, 온몸에 소름이 돋고 멈췄던 눈물이 왈칵 쏟아졌습니다. 마치 저세상에 간 남편이 하늘에서 영웅님의 목소리를 빌려, '여보, 울지 마. 내가 영웅이 노래로 당신 곁을 지켜줄게' 하고 속삭이는 것만 같았습니다.",
@@ -291,7 +351,7 @@
           "estimated_duration_sec": 31.1
         },
         {
-          "segment_id": "ep01_seg_23",
+          "segment_id": "ep01_seg_25",
           "speaker": "fan_letter_writer",
           "speaker_title": "사연자 이순자 어머니",
           "text": "그날 밤 밤새도록 목놓아 울고 났더니, 신기하게도 가슴을 짓누르던 돌덩이가 씻겨 내려간 듯 시원해졌습니다. 이튿날 아침 자리에서 일어나 밥을 안치고, 마당에 쌓인 낙엽을 쓸어냈습니다. 이제는 매일 아침 영웅님 노래를 들으며 활기차게 하루를 시작하고, 경로당에 가서도 다른 친구들에게 영웅님 자랑을 하느라 시간 가는 줄 모릅니다.",
@@ -301,7 +361,7 @@
           "estimated_duration_sec": 33.9
         },
         {
-          "segment_id": "ep01_seg_24",
+          "segment_id": "ep01_seg_26",
           "speaker": "fan_letter_writer",
           "speaker_title": "사연자 이순자 어머니",
           "text": "다음 달에 있을 대구 콘서트 티켓도 딸아이가 구해줘서, 요즘은 그날 입고 갈 예쁜 옷을 고르며 하루하루 설레는 마음으로 살아갑니다. 영웅님, 내 인생 가장 어두웠던 골짜기에서 내 손을 잡아줘서 참 고마워요. 부디 아프지 말고 오래오래 노래해 주세요.",
@@ -311,7 +371,7 @@
           "estimated_duration_sec": 26.6
         },
         {
-          "segment_id": "ep01_seg_25",
+          "segment_id": "ep01_seg_27",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "이순자 어머님... 사연을 읽는 내내 제 가슴도 먹먹해져서 목이 메어왔습니다. 40년을 함께했던 반쪽을 떠나보내고 홀로 마주하셨을 그 적막함과 슬픔을, 감히 제가 어찌 다 헤아릴 수 있겠습니까.",
@@ -321,7 +381,7 @@
           "estimated_duration_sec": 22.6
         },
         {
-          "segment_id": "ep01_seg_26",
+          "segment_id": "ep01_seg_28",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "하지만 어머님, 하늘에 계신 아버님께서도 영웅님의 노래를 통해 기운을 차리신 어머님의 모습을 보며 누구보다 안도하고 기뻐하고 계실 겁니다. 이제 어머님 곁에는 든든한 영웅님이 계시고, 전국에서 함께 손잡아 줄 수십만 파라다이스 가족들이 있습니다.",
@@ -342,7 +402,7 @@
       "bgm_mood": "triumphant_hopeful_strings",
       "segments": [
         {
-          "segment_id": "ep01_seg_27",
+          "segment_id": "ep01_seg_29",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "이순자 어머님뿐만 아니라, 오늘도 삶의 무게를 묵묵히 짊어지고 각자의 자리에서 버텨내고 계실 전국의 수많은 파라다이스 가족 여러분.",
@@ -352,7 +412,17 @@
           "estimated_duration_sec": 14.0
         },
         {
-          "segment_id": "ep01_seg_28",
+          "segment_id": "ep01_seg_30",
+          "speaker": "fan_letter_writer",
+          "speaker_title": "사연자 부산 해운대 김영희 님",
+          "text": "세 번째 사연 주인공 부산 해운대 김영희 님께서도 영웅님의 노래 [비상] 덕분에 힘겨웠던 시간을 이겨내고 다시 건강하게 일어설 수 있었다며 고마운 인사를 보내주셨습니다.",
+          "pacing_pause_sec": 1.3,
+          "emotion": "third_story_reading",
+          "visual_hint": "사연 우체통 세 번째 편지와 따뜻한 진공관 부스 조명",
+          "estimated_duration_sec": 17.0
+        },
+        {
+          "segment_id": "ep01_seg_31",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "이번 주에도 우리 파라다이스 가족들의 따뜻한 나눔과 기부 소식이 전국 곳곳에서 들려왔습니다. 소외된 독거 어르신들에게 따뜻한 밥 한 끼를 전하고, 어려운 청소년들을 위해 장학금을 모아주신 어머님들의 고운 손길... 그것이 바로 영웅님이 세상에서 가장 자랑스러워하는 파라다이스의 품격입니다.",
@@ -362,7 +432,7 @@
           "estimated_duration_sec": 31.4
         },
         {
-          "segment_id": "ep01_seg_29",
+          "segment_id": "ep01_seg_32",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "남을 비방하거나 시기하지 않고, 오직 진실한 노래와 선한 영향력으로 세상을 조금씩 밝혀나가는 여러분이 계시기에, 영웅님은 오늘도 흔들림 없이 노래할 수 있습니다. 우리가 함께 어깨를 겯고 걸어가는 이 길은 결코 외롭지 않습니다.",
@@ -370,10 +440,20 @@
           "emotion": "uplifting_hope",
           "visual_hint": "황금빛 들판과 탁 트인 새벽 능선, 희망찬 아침 햇살",
           "estimated_duration_sec": 24.2
+        },
+        {
+          "segment_id": "ep01_seg_33",
+          "speaker": "dj_kim",
+          "speaker_title": "DJ 김쌤",
+          "text": "이어서 오늘의 두 번째 주요 소식입니다. 황영웅 수록곡 '함께해요' · '황금빛 인생', 어머님들이 뽑은 아침 힐링송 1위 선정. 가수 황영웅의 따뜻한 희망가 '함께해요'가 시니어 팬들이 매일 아침 가장 먼저 재생하는 활력 응원곡으로 꼽혔다. 다정하게 손을 내미는 듯한 보이스 컬러가 하루의 든든한 시작을 열어준다는 호평이 이어진다.",
+          "pacing_pause_sec": 1.4,
+          "emotion": "second_news_brief",
+          "visual_hint": "파라다이스 뉴스룸 두 번째 소식 브리핑",
+          "estimated_duration_sec": 34.2
         }
       ],
-      "total_characters": 361,
-      "total_estimated_sec": 69.6
+      "total_characters": 641,
+      "total_estimated_sec": 120.8
     },
     {
       "chapter_index": 6,
@@ -383,7 +463,7 @@
       "bgm_mood": "peaceful_lullaby_piano",
       "segments": [
         {
-          "segment_id": "ep01_seg_30",
+          "segment_id": "ep01_seg_34",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
           "text": "오늘 방송에 소개해 드린 대구 이순자 어머님의 사연 전문과 영웅님을 향한 따뜻한 응원의 글들은, 저희 공식 커뮤니티 파라다이스 히어로 닷컴에서 언제든 다시 읽어보실 수 있습니다.",
@@ -393,28 +473,28 @@
           "estimated_duration_sec": 17.7
         },
         {
-          "segment_id": "ep01_seg_31",
+          "segment_id": "ep01_seg_35",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
-          "text": "가슴속에 담아둔 어머님의 소중한 삶의 이야기나 영웅님께 전하고 싶은 편지가 있으시다면, 공식 사랑방 사연 우체통에 편안히 남겨주세요. 김쌤의 영웅 라디오 사연 신청 및 황금빛 VIP 혜택은 공식 커뮤니티 https://paradise-hero.com 에서 확인하세요.",
+          "text": "가슴속에 담아둔 어머님의 소중한 삶의 이야기나 영웅님께 전하고 싶은 편지가 있으시다면, 공식 사랑방 사연 우체통에 편안히 남겨주세요. 김쌤의 영웅 라디오 사연 신청 및 무료 화보 기념사진관은 공식 팬 쉼터 https://paradise-hero.com 에서 언제든 무료로 만나보실 수 있습니다.",
           "pacing_pause_sec": 1.3,
           "emotion": "funnel_cta",
           "visual_hint": "사연 우체통 페이지 그래픽과 엔딩 크레딧 롤링",
-          "estimated_duration_sec": 28.6
+          "estimated_duration_sec": 30.7
         },
         {
-          "segment_id": "ep01_seg_32",
+          "segment_id": "ep01_seg_36",
           "speaker": "dj_kim",
           "speaker_title": "DJ 김쌤",
-          "text": "오늘 밤도 영웅님의 따뜻한 노래 귓가에 얹어두시고, 가슴속 응어리진 걱정일랑 모두 털어내신 채 달콤하고 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 건강하시고, 늘 행복하십시오. 건행!",
+          "text": "오늘 밤도 영웅님의 따뜻한 노래 귓가에 얹어두시고, 가슴속 응어리진 걱정일랑 모두 털어내신 채 달콤하고 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 항상 건강하시고, 늘 평안하십시오. 사랑합니다, 파라다이스!",
           "pacing_pause_sec": 2.5,
           "emotion": "gentle_signoff",
           "visual_hint": "스튜디오 조명이 은은히 페이드아웃되며 떠오르는 감성 로고 @김쌤의영웅라디오",
-          "estimated_duration_sec": 26.1
+          "estimated_duration_sec": 28.8
         }
       ],
-      "total_characters": 370,
-      "total_estimated_sec": 72.4
+      "total_characters": 398,
+      "total_estimated_sec": 77.2
     }
   ]
 }

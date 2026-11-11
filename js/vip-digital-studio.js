@@ -16,9 +16,9 @@
  * 9. 내 이름이 찍힌 황영웅 VIP 골든 콘서트 소장용 기념 티켓 발급기 (1080x560 Canvas)
  * 10. 치매 예방 & 팬심 테스트 '황영웅 찐팬 골든벨 퀴즈' & 장원급제 수료증 (1080x800 Canvas)
  *
- * [결제 연동]
- * - Lemon Squeezy Store #296100 (3회 충전권 3,000원 / 월 무제한 골드 VIP 9,900원)
- * - 첫 방문 시 무료 체험 이용권 2회 자동 지급 + 소진 시 시니어 안심 결제 모달 호출
+ * [100% 무제한 무료 개방]
+ * - 회원가입·결제 없이 전 아이템 평생 무제한 무료 (credits: 9999, unlimitedVip: true)
+ * - 카카오톡 인앱 브라우저(KAKAOTALK UA) 및 모바일 2초 꾹 저장 왕글씨(22px+) 안내 모달 자동 탑재
  * - ZERO Emojis on Canvas (맑은 고딕 두부 '□' 깨짐 0% 보장)
  * ==============================================================================
  */
@@ -26,22 +26,20 @@
 (function (global) {
   'use strict';
 
-  const STUDIO_STORAGE_KEY = 'paradise_vip_studio_state_v2';
+  const STUDIO_STORAGE_KEY = 'paradise_vip_studio_state_free_v3';
   const LANTERN_STORAGE_KEY = 'paradise_wish_lanterns_v1';
-  const SINGLE_CHECKOUT_URL = 'https://kidsfitglobal.lemonsqueezy.com/buy/00ba1a7a-5d22-49ef-8840-90b305638b6d?store=296100';
-  const VIP_CHECKOUT_URL = 'https://kidsfitglobal.lemonsqueezy.com/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?store=296100';
 
   const HWANG_PORTRAITS = [
-    { idx: 1, label: '에메랄드 수트 (감성 황태자)', src: 'assets/characters/sprite_hwang_young_woong.png?v=20261110c' },
-    { idx: 2, label: '화이트 턱시도 (순백의 프린스)', src: 'assets/characters/sprite_lim_young_woong.png?v=20261110c' },
-    { idx: 3, label: '핑크 가디건 (다정한 손하트)', src: 'assets/characters/sprite_lee_chan_won.png?v=20261110c' },
-    { idx: 4, label: '올블랙 수트 (카리스마 엄지척)', src: 'assets/characters/sprite_young_tak.png?v=20261110c' },
-    { idx: 5, label: '황실 왕자 제복 (파라다이스)', src: 'assets/characters/sprite_jeong_dong_won.png?v=20261110c' },
-    { idx: 6, label: '퍼플 벨벳 (단독 콘서트)', src: 'assets/characters/sprite_kim_ho_joong.png?v=20261110c' },
-    { idx: 7, label: '가을 트렌치코트 (낭만 산책)', src: 'assets/characters/sprite_jang_min_ho.png?v=20261110c' },
-    { idx: 8, label: '청록 금빛 한복 (효도 인사)', src: 'assets/characters/sprite_park_seo_jin.png?v=20261110c' },
-    { idx: 9, label: '버건디 수트 (장미 세레나데)', src: 'assets/characters/sprite_son_tae_jin.png?v=20261110c' },
-    { idx: 10, label: '금테 안경 (심야 라디오 DJ)', src: 'assets/characters/sprite_ahn_sung_hoon_jin_hae_seong.png?v=20261110c' }
+    { idx: 1, label: '에메랄드 벨벳 콘서트 수트', src: 'assets/characters/sprite_hwang_young_woong.png?v=20261110c' },
+    { idx: 2, label: '순백의 프린스 턱시도', src: 'assets/characters/sprite_lim_young_woong.png?v=20261110c' },
+    { idx: 3, label: '따뜻한 핑크 가디건 하트룩', src: 'assets/characters/sprite_lee_chan_won.png?v=20261110c' },
+    { idx: 4, label: '시크 올블랙 수트', src: 'assets/characters/sprite_young_tak.png?v=20261110c' },
+    { idx: 5, label: '로열 제복 스타일', src: 'assets/characters/sprite_jeong_dong_won.png?v=20261110c' },
+    { idx: 6, label: '퍼플 벨벳 디너쇼룩', src: 'assets/characters/sprite_kim_ho_joong.png?v=20261110c' },
+    { idx: 7, label: '가을 트렌치코트 산책룩', src: 'assets/characters/sprite_jang_min_ho.png?v=20261110c' },
+    { idx: 8, label: '황금빛 명절 한복룩', src: 'assets/characters/sprite_park_seo_jin.png?v=20261110c' },
+    { idx: 9, label: '버건디 장미 세레나데룩', src: 'assets/characters/sprite_son_tae_jin.png?v=20261110c' },
+    { idx: 10, label: '심야 라디오 DJ 안경룩', src: 'assets/characters/sprite_ahn_sung_hoon_jin_hae_seong.png?v=20261110c' }
   ];
 
   const GREETING_TEMPLATES = [
@@ -221,34 +219,35 @@
   }
 
   function getStudioState() {
+    let totalCreated = 0;
     try {
       const raw = localStorage.getItem(STUDIO_STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (typeof parsed.credits === 'number') return parsed;
+        totalCreated = Number(parsed.totalCreated) || 0;
       }
     } catch (e) {}
-    const initial = {
-      credits: 2,
-      unlimitedVip: false,
-      totalCreated: 0
+    return {
+      credits: 9999,
+      unlimitedVip: true,
+      totalCreated: totalCreated
     };
-    saveStudioState(initial);
-    return initial;
   }
 
   function saveStudioState(state) {
+    const normalized = {
+      credits: 9999,
+      unlimitedVip: true,
+      totalCreated: Number(state && state.totalCreated) || 0
+    };
     try {
-      localStorage.setItem(STUDIO_STORAGE_KEY, JSON.stringify(state));
+      localStorage.setItem(STUDIO_STORAGE_KEY, JSON.stringify(normalized));
     } catch (e) {}
     updateStudioCreditBadge();
   }
 
   function updateStudioCreditBadge() {
-    const state = getStudioState();
-    const text = state.unlimitedVip
-      ? '👑 골드 VIP 무제한 이용 중'
-      : `${state.credits}회 남음 (무료 체험 포함)`;
+    const text = '🎁 100% 평생 무제한 무료 개방';
     ['vip-studio-credit-count', 'studio-credit-badge'].forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.textContent = text;
@@ -257,32 +256,16 @@
 
   function consumeStudioCredit(itemLabel) {
     const state = getStudioState();
-    incrementParticipationTicker(itemLabel || '디지털 굿즈 발급');
-    if (state.unlimitedVip) {
-      state.totalCreated = (state.totalCreated || 0) + 1;
-      saveStudioState(state);
-      return true;
-    }
-    if (state.credits <= 0) {
-      openStudioPaywallModal(itemLabel);
-      return false;
-    }
-    state.credits -= 1;
+    incrementParticipationTicker(itemLabel || '디지털 선물 발급');
+    state.credits = 9999;
+    state.unlimitedVip = true;
     state.totalCreated = (state.totalCreated || 0) + 1;
     saveStudioState(state);
     return true;
   }
 
-  function openStudioPaywallModal(reasonLabel) {
-    const modal = document.getElementById('vip-studio-paywall-modal');
-    const titleEl = document.getElementById('vip-studio-paywall-title');
-    if (titleEl && reasonLabel) {
-      titleEl.textContent = `👑 [${reasonLabel}] 이용권 충전 안내`;
-    }
-    if (modal) {
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden', 'false');
-    }
+  function openStudioPaywallModal() {
+    // 100% 무료 전환 완료 — 결제 모달 미노출
   }
 
   function closeStudioPaywallModal() {
@@ -294,23 +277,8 @@
   }
 
   function redeemStudioToken() {
-    const inp = document.getElementById('vip-studio-token-input') || document.getElementById('input-studio-token');
-    const code = ((inp && inp.value) || '').trim().toUpperCase();
     const st = getStudioState();
-    if (code === 'VIPGOLD' || code === 'PARADISEVIP') {
-      st.unlimitedVip = true;
-      st.credits = 999;
-      saveStudioState(st);
-      closeStudioPaywallModal();
-      alert('👑 축하합니다! 골드 VIP 무제한 패스가 활성화되어 10대 유료 아이템을 무제한으로 만드실 수 있습니다!');
-    } else if (code === 'HERO2026' || code === 'VIP2026' || code === '3000') {
-      st.credits = (st.credits || 0) + 5;
-      saveStudioState(st);
-      closeStudioPaywallModal();
-      alert('🎉 축하합니다! 제작소 이용권 5회가 즉시 충전되었습니다.');
-    } else {
-      alert('인증코드를 다시 확인해 주세요. (3회권 코드: HERO2026 / 골드VIP 코드: VIPGOLD)');
-    }
+    saveStudioState(st);
   }
 
   function incrementParticipationTicker(actionLabel) {
@@ -1199,25 +1167,79 @@
     ctx.fillText(`${getTodayKoreanDateStr()} · PARADISE-HERO.COM`, W / 2, 695);
   }
 
-  function triggerDirectDownload(canvasId, filenamePrefix) {
+  function isKakaoInAppOrMobile() {
+    const ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
+    return /KAKAOTALK|NAVER|Instagram|FBAN|FBAV|Line|Android|iPhone|iPad|iPod/i.test(ua);
+  }
+
+  function openStudioLongPressSaveModal(dataUrl, itemLabel) {
+    if (typeof document === 'undefined') return;
+    if (typeof window !== 'undefined' && window.ParadiseKakaoBookmark && window.ParadiseKakaoBookmark.openLongPressPhotoSaveModal) {
+      window.ParadiseKakaoBookmark.openLongPressPhotoSaveModal(dataUrl, `🎁 [${itemLabel || '황영웅 기념 선물'}] 완성!`);
+      return;
+    }
+
+    let modal = document.getElementById('vip-kakao-longpress-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'vip-kakao-longpress-modal';
+      modal.style.cssText = 'display:flex; position:fixed; inset:0; background:rgba(14,40,32,0.88); z-index:10050; align-items:center; justify-content:center; padding:18px; overflow-y:auto;';
+      modal.innerHTML = `
+        <div style="background:#FAFAF8; border:4px solid #D4AF37; border-radius:24px; max-width:580px; width:100%; padding:26px 20px; text-align:center;">
+          <div id="vip-longpress-heading" style="font-size:26px; font-weight:900; color:#0E2820; margin-bottom:12px;">🎁 황영웅 기념 선물 완성!</div>
+          <div style="background:#FFFBEB; border:3px solid #F59E0B; border-radius:16px; padding:18px; font-size:23px; font-weight:900; color:#92400E; line-height:1.55; margin-bottom:16px;">
+            📱 손가락으로 그림을 <strong>2초간 꾹~ 눌러</strong><br>
+            <strong style="color:#B91C1C; text-decoration:underline;">[사진 저장]</strong>을 누르세요!
+          </div>
+          <img id="vip-longpress-preview-img" src="" alt="길게 눌러 저장할 완성 선물" style="width:100%; max-width:380px; margin:0 auto 16px; border-radius:14px; border:4px solid #D4AF37;">
+          <button type="button" id="btn-close-vip-longpress" class="btn btn-emerald btn-full" style="min-height:64px; font-size:22px; font-weight:900;">✅ 사진 저장 완료! (창 닫기)</button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', (ev) => {
+        if (ev.target === modal || ev.target.closest('#btn-close-vip-longpress')) {
+          modal.style.display = 'none';
+        }
+      });
+    }
+    const hEl = modal.querySelector('#vip-longpress-heading');
+    const imgEl = modal.querySelector('#vip-longpress-preview-img');
+    if (hEl) hEl.textContent = `🎁 [${itemLabel || '황영웅 기념 선물'}] 완성!`;
+    if (imgEl) imgEl.src = dataUrl;
+    modal.style.display = 'flex';
+  }
+
+  function triggerDirectDownload(canvasId, filenamePrefix, itemLabel) {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
     try {
       const dataUrl = canvas.toDataURL('image/png');
-      const a = document.createElement('a');
-      a.href = dataUrl;
-      a.download = `${filenamePrefix}_${Date.now()}.png`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      const ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
+      const isKakaoTalk = /KAKAOTALK/i.test(ua);
+
+      if (!isKakaoTalk) {
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `${filenamePrefix}_${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      // 카카오톡 인앱 브라우저 및 모바일(또는 저장 완료 안내용)에서 왕글씨 2초 꾹 저장 모달 자동 호출
+      if (isKakaoInAppOrMobile() || isKakaoTalk) {
+        openStudioLongPressSaveModal(dataUrl, itemLabel || filenamePrefix);
+      } else {
+        openStudioLongPressSaveModal(dataUrl, itemLabel || filenamePrefix);
+      }
     } catch (e) {
-      alert('내 휴대폰 앨범에 고화질 이미지가 저장되었습니다!');
+      alert('📱 완성된 그림을 2초간 꾹~ 눌러 [사진 저장]을 누르시면 내 사진첩에 바로 저장됩니다!');
     }
   }
 
   function downloadCanvasImage(canvasId, filenamePrefix, itemLabel) {
     if (!consumeStudioCredit(itemLabel || filenamePrefix)) return;
-    triggerDirectDownload(canvasId, filenamePrefix);
+    triggerDirectDownload(canvasId, filenamePrefix, itemLabel);
   }
 
   function initVipDigitalStudio() {
@@ -1299,8 +1321,8 @@
         HWANG_PORTRAITS,
         GREETING_TEMPLATES,
         SONG_GUIDES,
-        SINGLE_CHECKOUT_URL,
-        VIP_CHECKOUT_URL
+        getStudioState,
+        isKakaoInAppOrMobile
       },
       publicApi
     );

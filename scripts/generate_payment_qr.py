@@ -1,13 +1,7 @@
 """
 generate_payment_qr.py
-Lemon Squeezy Store #296100 Checkout QR Code Generator
+김쌤 공식 네이버 크리에이터샵(cshop.naver.com/paradiseshop) & 무료 기념사진관 안내 QR 생성기
 paradise-hero.com Division 4
-
-Generates scannable high-contrast QR code for senior users:
-- Item: 3,000 KRW (~$2.20 USD) Photo Booth Recharge Pass
-- Lemon Squeezy Checkout URL:
-  https://kidsfitglobal.lemonsqueezy.com/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?store=296100
-- Output: assets/payments/qr_photobooth_3000.png
 """
 
 import os
@@ -18,30 +12,27 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(ROOT_DIR, "assets", "payments")
 OUTPUT_PATH = os.path.join(OUTPUT_DIR, "qr_photobooth_3000.png")
 
-PAYMENT_CHECKOUT_URL = (
-    "https://kidsfitglobal.lemonsqueezy.com/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?store=296100"
-)
+CREATOR_SHOP_URL = "https://cshop.naver.com/paradiseshop"
 
 
 def generate_qr():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     qr = qrcode.QRCode(
-        version=None,  # Automatic sizing
-        error_correction=qrcode.constants.ERROR_CORRECT_H,  # High error correction for senior camera scanning
+        version=None,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
         box_size=12,
         border=4,
     )
-    qr.add_data(PAYMENT_CHECKOUT_URL)
+    qr.add_data(CREATOR_SHOP_URL)
     qr.make(fit=True)
 
-    # High-contrast deep brand emerald on pure white background
     img = qr.make_image(fill_color="#1B4D3E", back_color="#FFFFFF")
     img.save(OUTPUT_PATH)
 
     file_size = os.path.getsize(OUTPUT_PATH)
-    print(f"[OK] Generated payment QR code: {OUTPUT_PATH} ({file_size} bytes)")
-    print(f"     Target URL: {PAYMENT_CHECKOUT_URL}")
+    print(f"[OK] Generated Naver Creator Shop QR code: {OUTPUT_PATH} ({file_size} bytes)")
+    print(f"     Target URL: {CREATOR_SHOP_URL}")
     return OUTPUT_PATH
 
 

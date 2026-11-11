@@ -162,15 +162,22 @@ async def synthesize_beat_tts(
     rate: str,
     cache_wav: Path,
     offline: bool = False
-) -> np.ndarray:
+) -> Tuple[np.ndarray, float]:
     """
-    Synthesizes single beat voice audio using Edge-TTS (+20% speed) or synthetic fallback.
-    Caches audio to cache_wav for deterministic re-runs.
+    Synthesizes single beat voice audio using natural Edge-TTS rate (default +0%, zero atempo speedup)
+    or deterministic synthetic fallback, and guarantees seg_dur >= tts_dur + 0.22s.
+    Returns (mastered_beat_pcm, raw_tts_dur_sec).
     """
-    if cache_wav.exists() and cache_wav.stat().st_size > 500:
+    tts_meta_path = cache_wav.with_suffix(".meta.json")
+    if cache_wav.exists() and cache_wav.stat().st_size > 500 and tts_meta_path.exists():
         with wave.open(str(cache_wav), "rb") as wf:
-            raw_pcm = np.frombuffer(wf.readframes(wf.getnframes()), dtype=np.int16)
-        return tighten_pcm_silence(raw_pcm, SAMPLE_RATE)
+            cached_pcm = np.frombuffer(wf.readframes(wf.getnframes()), dtype=np.int16)
+        try:
+            t_meta = json.loads(tts_meta_path.read_text(encoding="utf-8"))
+            tts_dur = float(t_meta.get("tts_dur_sec", max(0.5, len(cached_pcm) / float(SAMPLE_RATE) - 0.24)))
+        except Exception:
+            tts_dur = max(0.5, len(cached_pcm) / float(SAMPLE_RATE) - 0.24)
+        return cached_pcm, tts_dur
 
     # Attempt Edge-TTS if not forced offline
     pcm_int16 = None
@@ -203,31 +210,31 @@ async def synthesize_beat_tts(
             pcm_int16 = None
 
     if pcm_int16 is None:
-        # Fallback to deterministic synthetic voice
-        synth_float = synthesize_synthetic_voice_beat(text, target_duration)
+        # Fallback to deterministic synthetic voice (leave 0.26s headroom for breathing margin)
+        speech_target = max(2.0, target_duration - 0.26)
+        synth_float = synthesize_synthetic_voice_beat(text, speech_target)
         pcm_int16 = (synth_float * 32767.0).astype(np.int16)
 
     tight_pcm = tighten_pcm_silence(pcm_int16, SAMPLE_RATE)
 
-    # Common Directive #3: ZERO atempo double-speedup & ZERO audio truncation!
-    # Every beat plays its 100% natural TTS duration plus a 0.22s breathing margin
-    # so the final syllable of every subtitle is heard completely before the cut.
-    cur_dur = len(tight_pcm) / float(SAMPLE_RATE)
-    min_dur = max(2.30, target_duration)
-    desired_dur = max(min_dur, cur_dur + 0.22)
-    pad_samples = max(int(0.22 * SAMPLE_RATE), int((desired_dur - cur_dur) * SAMPLE_RATE))
-    if pad_samples > 0:
-        tight_pcm = np.concatenate([tight_pcm, np.zeros(pad_samples, dtype=np.int16)])
+    # Common Directive #3 & GEMINI.md Sec 4: ZERO atempo speedup & 100% full subtitle reading!
+    # Every beat plays 100% natural TTS duration plus >= 0.24s (>= 0.22s) breathing margin.
+    tts_dur = len(tight_pcm) / float(SAMPLE_RATE)
+    min_dur = max(2.80, target_duration)
+    desired_dur = max(min_dur, tts_dur + 0.24)
+    pad_samples = max(int(math.ceil(0.24 * SAMPLE_RATE)), int(round((desired_dur - tts_dur) * SAMPLE_RATE)))
+    mastered_pcm = np.concatenate([tight_pcm, np.zeros(pad_samples, dtype=np.int16)])
 
-    # Cache tightly mastered beat audio
+    # Cache mastered beat audio + raw TTS duration metadata
     cache_wav.parent.mkdir(parents=True, exist_ok=True)
     with wave.open(str(cache_wav), "wb") as wf:
         wf.setnchannels(1)
         wf.setsampwidth(2)
         wf.setframerate(SAMPLE_RATE)
-        wf.writeframes(tight_pcm.tobytes())
+        wf.writeframes(mastered_pcm.tobytes())
+    tts_meta_path.write_text(json.dumps({"tts_dur_sec": round(tts_dur, 4)}), encoding="utf-8")
 
-    return tight_pcm
+    return mastered_pcm, tts_dur
 
 
 # ==============================================================================
@@ -334,22 +341,31 @@ async def synthesize_shorts_audio(
         raise ValueError("Script contains 0 beats!")
 
     voice = script_data.get("voice", "ko-KR-InJoonNeural")
-    rate = script_data.get("speech_rate", "+20%")
+    rate = script_data.get("speech_rate", "+0%")
     work_dir = out_wav.parent / "_audio_work"
     work_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. Synthesize individual tight beat audios
+    # Clear stale beat caches if script narration changed
+    sig_file = work_dir / "script_signature.txt"
+    cur_sig = "|".join(f"{b.get('narration','')}:{b.get('target_duration_sec',3.6)}:{rate}" for b in beats)
+    if not sig_file.exists() or sig_file.read_text(encoding="utf-8", errors="ignore") != cur_sig:
+        for old_w in work_dir.glob("beat_*.wav"):
+            old_w.unlink(missing_ok=True)
+        sig_file.write_text(cur_sig, encoding="utf-8")
+
+    # 1. Synthesize individual natural-paced beat audios
     beat_pcm_list: List[np.ndarray] = []
     beat_durations: List[float] = []
+    tts_durations: List[float] = []
     beat_cut_times: List[float] = []
     current_time = 0.0
 
-    print("🎵 Synthesizing Shorts narration beats (+20% rate, zero-silence)...")
+    print(f"🎵 Synthesizing 6070 Senior Shorts narration beats (natural rate {rate}, seg_dur >= tts_dur + 0.22s)...")
     for idx, beat in enumerate(beats):
         cache_wav = work_dir / f"beat_{idx:02d}.wav"
-        pcm = await synthesize_beat_tts(
+        pcm, raw_tts_dur = await synthesize_beat_tts(
             text=beat["narration"],
-            target_duration=beat.get("target_duration_sec", 2.0),
+            target_duration=beat.get("target_duration_sec", 3.6),
             voice=voice,
             rate=rate,
             cache_wav=cache_wav,
@@ -358,17 +374,17 @@ async def synthesize_shorts_audio(
         beat_pcm_list.append(pcm)
         dur = len(pcm) / float(SAMPLE_RATE)
         beat_durations.append(round(dur, 3))
+        tts_durations.append(round(raw_tts_dur, 3))
         current_time += dur
         beat_cut_times.append(round(current_time, 3))
-        print(f"   - Beat {idx:02d} [{beat['character_id']}]: {dur:.2f}s | SFX: {beat.get('sfx')}")
+        print(f"   - Beat {idx:02d} [{beat['character_id']}]: tts={raw_tts_dur:.2f}s -> seg={dur:.2f}s | SFX: {beat.get('sfx')}")
 
-    # 2. Assemble voice track with micro-crossfade bridging (<= 0.035s, strictly <= 0.05s dead air)
-    bridge_len = int(SAMPLE_RATE * 0.025)
+    # 2. Assemble voice track with smooth micro-bridging
+    bridge_len = int(SAMPLE_RATE * 0.020)
     voice_mono_parts = []
     for idx, pcm in enumerate(beat_pcm_list):
         voice_mono_parts.append(pcm.astype(np.float64) / 32768.0)
         if idx < len(beat_pcm_list) - 1:
-            # Subtle smooth pad (25ms <= 50ms)
             voice_mono_parts.append(np.zeros(bridge_len, dtype=np.float64))
 
     voice_full = np.concatenate(voice_mono_parts)
@@ -376,7 +392,7 @@ async def synthesize_shorts_audio(
     total_duration = total_samples / float(SAMPLE_RATE)
     t = np.linspace(0, total_duration, total_samples, endpoint=False)
 
-    # 3. Synthesize subtle background emotional bed (D Major chords: D, A, Bm, G)
+    # 3. Synthesize continuous warm radio BGM bed (overlapping crossfaded chords so bed never drops to zero)
     chords = [
         (146.83, 185.00, 220.00), # D3, F#3, A3
         (110.00, 164.81, 220.00), # A2, E3, A3
@@ -388,16 +404,22 @@ async def synthesize_shorts_audio(
     sec_per_chord = total_duration / len(chords)
 
     for c_idx, (f1, f2, f3) in enumerate(chords):
-        s_t = c_idx * sec_per_chord
-        e_t = (c_idx + 1) * sec_per_chord
-        chord_env = np.clip((t - s_t) / 0.35, 0, 1) * np.clip((e_t - t) / 0.35, 0, 1)
+        s_t = c_idx * sec_per_chord - (0.35 if c_idx > 0 else 0.0)
+        e_t = (c_idx + 1) * sec_per_chord + (0.35 if c_idx < len(chords) - 1 else 0.0)
+        fade_in = np.clip((t - s_t) / 0.35, 0, 1) if c_idx > 0 else np.ones_like(t)
+        fade_out = np.clip((e_t - t) / 0.35, 0, 1) if c_idx < len(chords) - 1 else np.ones_like(t)
+        chord_env = fade_in * fade_out
         pad = (
             0.45 * np.sin(2 * np.pi * f1 * t) +
             0.35 * np.sin(2 * np.pi * f2 * t) +
             0.20 * np.sin(2 * np.pi * f3 * t)
         )
-        bgm_left += 0.12 * pad * chord_env
-        bgm_right += 0.12 * pad * chord_env
+        bgm_left += 0.14 * pad * chord_env
+        bgm_right += 0.14 * pad * chord_env
+    # Gentle continuous warm vinyl/tube floor so pause transitions remain warm and alive
+    warm_drone = 0.032 * np.sin(2 * np.pi * 146.83 * t) + 0.022 * np.sin(2 * np.pi * 220.00 * t + 0.7)
+    bgm_left += warm_drone
+    bgm_right += warm_drone
 
     # 4. Inject Point SFX at beat starting timestamps
     sfx_left = np.zeros(total_samples, dtype=np.float64)
@@ -488,9 +510,14 @@ async def synthesize_shorts_audio(
         "audio_file": str(out_wav.name),
         "sample_rate": SAMPLE_RATE,
         "channels": 2,
+        "speech_rate": rate,
         "total_duration_sec": round(total_duration, 3),
         "beat_count": len(beats),
+        "tts_durations_sec": tts_durations,
         "beat_durations_sec": beat_durations,
+        "full_narration_completion_compliant": all(
+            seg_d + 1e-3 >= tts_d + 0.22 for seg_d, tts_d in zip(beat_durations, tts_durations)
+        ),
         "beat_start_times_sec": beat_starts,
         "peak_amplitude": round(final_peak, 4),
         "peak_dbfs": round(peak_dbfs, 2),

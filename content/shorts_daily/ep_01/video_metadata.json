@@ -1,0 +1,24 @@
+{
+  "video_file": "D:\\드림컴퍼니\\4사업부\\content\\shorts_daily\\ep_01\\shorts_ep01_1080x1920.mp4",
+  "naver_clip_clean_file": "D:\\드림컴퍼니\\4사업부\\content\\shorts_daily\\ep_01\\shorts_ep01_naver_clip_clean.mp4",
+  "resolution": "1080x1920",
+  "aspect_ratio": "9:16",
+  "fps": 30,
+  "total_frames": 1241,
+  "duration_sec": 41.37,
+  "file_size_kb": 69775.0,
+  "naver_clip_size_kb": 69937.1,
+  "render_time_sec": 430.59,
+  "top_plaque_text": "📻 김쌤의 심야 영웅라디오",
+  "top_plaque_y_range": [
+    186,
+    274
+  ],
+  "subtitle_center_y": 1005,
+  "subtitle_font_pt": 108,
+  "subtitle_stroke_px": 12,
+  "speech_bubbles_present": false,
+  "clean_body_compliant": true,
+  "subtitle_safe_zone_compliant": true,
+  "ending_slate_present": true
+}

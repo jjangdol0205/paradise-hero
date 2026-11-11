@@ -88,17 +88,18 @@ VIDEO_SPECS = {
         "ffmpeg_zoompan_filter": "zoompan=z='min(zoom+0.00008,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=900:s=1920x1080:fps=30"
     },
     "subtitles": {
-        "font_family": "Malgun Gothic Bold / NanumSquareRoundEB",
-        "font_size_pt": 54,
-        "font_size_range": "52~56pt",
+        "font_family": "Malgun Gothic Bold / Pretendard Black",
+        "font_size_pt": 74,
+        "font_size_range": "72~78pt",
+        "layout_zone": "right_panel_story_stage (X=564..1866, Y=560..960)",
         "text_color": "#FFFFFF",
         "highlight_color": "#FFE600",
-        "outline_color": "#1A1A1A",
-        "outline_width_px": 8,
-        "vertical_align_y": 910,
-        "safe_margin_bottom_px": 170,
+        "outline_color": "#0A0E14",
+        "outline_width_px": 10,
+        "vertical_align_y": 740,
+        "safe_margin_bottom_px": 120,
         "max_lines_per_cue": 2,
-        "max_chars_per_line": 25
+        "max_chars_per_line": 15
     }
 }
 
@@ -330,39 +331,47 @@ def create_studio_chapter_base(
     # Outer gold studio frame
     draw.rounded_rectangle([28, 24, W - 28, H - 24], radius=24, outline=(212, 175, 55, 220), width=4)
 
-    # Left Portrait Card (Hwang Young-woong Prince Portrait)
-    portrait_box = [64, 64, 520, 760]
-    draw.rounded_rectangle(portrait_box, radius=26, fill=(14, 24, 22, 230), outline=(212, 175, 55, 255), width=4)
+    # Left Vacuum-Tube Radio Booth Card (Hwang Young-woong Portrait + Glowing Amber Tubes)
+    portrait_box = [56, 64, 532, 1016]
+    draw.rounded_rectangle(portrait_box, radius=26, fill=(22, 16, 12, 238), outline=(212, 175, 55, 255), width=4)
     if sprite_path and sprite_path.exists():
         try:
             sp = Image.open(sprite_path).convert("RGBA")
-            sp_resized = sp.resize((440, 586), Image.Resampling.LANCZOS)
-            canvas.alpha_composite(sp_resized, (72, 80))
+            sp_resized = sp.resize((452, 602), Image.Resampling.LANCZOS)
+            canvas.alpha_composite(sp_resized, (68, 78))
         except Exception:
             pass
 
     f_badge = get_font(26)
     f_ch = get_font(30)
-    f_title = get_font(40)
-    f_meta = get_font(28)
+    f_title = get_font(38)
+    f_meta = get_font(27)
 
     # Portrait caption
-    draw.rounded_rectangle([84, 675, 500, 742], radius=14, fill=(22, 58, 44, 245), outline=(255, 215, 0, 220), width=2)
-    draw.text((112, 692), "👑 감성 황태자 황영웅 — [당신 편]", font=f_badge, fill=(255, 240, 150, 255))
+    draw.rounded_rectangle([76, 690, 512, 754], radius=14, fill=(22, 58, 44, 245), outline=(255, 215, 0, 220), width=2)
+    draw.text((98, 706), "가수 황영웅 · 심야 영웅라디오", font=f_badge, fill=(255, 240, 150, 255))
+
+    # Warm Vacuum-Tube Radio Dial Box (Left Bottom Y=772..994)
+    draw.rounded_rectangle([76, 772, 512, 994], radius=18, fill=(34, 22, 14, 248), outline=(232, 155, 83, 230), width=3)
+    draw.rounded_rectangle([96, 792, 492, 846], radius=10, fill=(58, 34, 16, 255), outline=(255, 200, 110, 210), width=2)
+    draw.text((116, 804), "ON AIR  |  FM 94.8 영웅라디오", font=get_font(24), fill=(255, 224, 130, 255))
+    # Three glowing amber vacuum tubes
+    for tx in (155, 294, 433):
+        draw.ellipse([tx - 34, 868, tx + 34, 956], fill=(255, 165, 62, 95), outline=(255, 212, 128, 220), width=2)
+        draw.ellipse([tx - 16, 888, tx + 16, 942], fill=(255, 218, 120, 235))
+    draw.text((126, 960), "따뜻한 진공관 사연 라디오 부스", font=get_font(21), fill=(245, 222, 185, 240))
 
     # Right Studio Header Panel
-    draw.rounded_rectangle([556, 64, 1856, 205], radius=22, fill=(16, 22, 34, 225), outline=accent_rgb + (240,), width=3)
-    draw.rounded_rectangle([580, 86, 835, 134], radius=12, fill=accent_rgb + (255,))
-    draw.text((602, 94), f"CHAPTER 0{ch_idx}", font=f_badge, fill=(15, 15, 15, 255))
-    draw.text((855, 92), "@김쌤의영웅라디오  |  공식 사랑방: paradise-hero.com", font=f_badge, fill=(255, 230, 120, 255))
-    draw.text((582, 146), ch_title, font=f_title, fill=title_rgb + (255,))
+    draw.rounded_rectangle([564, 64, 1864, 208], radius=22, fill=(22, 16, 14, 232), outline=accent_rgb + (240,), width=3)
+    draw.rounded_rectangle([588, 86, 842, 134], radius=12, fill=accent_rgb + (255,))
+    draw.text((610, 94), f"CHAPTER 0{ch_idx}", font=f_badge, fill=(15, 15, 15, 255))
+    draw.text((862, 92), "@김쌤의영웅라디오  |  공식 팬 쉼터: paradise-hero.com", font=f_badge, fill=(255, 230, 120, 255))
+    draw.text((590, 148), ch_title[:36], font=f_title, fill=title_rgb + (255,))
 
-    # Right Studio Main Storyboard Card
-    draw.rounded_rectangle([556, 228, 1856, 760], radius=24, fill=(14, 18, 28, 215), outline=(90, 105, 130, 190), width=2)
-    draw.text((595, 260), "🎵 오늘의 힐링 라디오 사연 & 명곡 해설", font=f_ch, fill=(255, 220, 110, 255))
-    draw.text((595, 315), "• 사연 주인공: 대구 달서구 이순자 어머니의 눈물과 위로의 편지", font=f_meta, fill=(235, 240, 245, 255))
-    draw.text((595, 362), "• 주제곡 해설: 황영웅 정규 1집 타이틀곡 [당신 편] ('내가 그대 편이 되겠소')", font=f_meta, fill=(235, 240, 245, 255))
-    draw.text((595, 409), f"• 스튜디오 무드: {', '.join(visual_elements)}", font=f_meta, fill=(180, 235, 200, 255))
+    # Right Studio Giant 72pt+ Senior Story Stage (X=564..1864, Y=228..1016)
+    draw.rounded_rectangle([564, 228, 1864, 1016], radius=26, fill=(14, 18, 26, 228), outline=(212, 175, 55, 235), width=3)
+    draw.text((602, 256), "📻 보이는 사연 라디오 · 사연 3편 & 황영웅 주요 소식 2건", font=f_ch, fill=(255, 224, 118, 255))
+    draw.text((602, 308), f"• 부스 분위기: {', '.join(visual_elements)}", font=f_meta, fill=(195, 235, 210, 255))
 
     return canvas
 
@@ -378,17 +387,31 @@ def generate_sample_scene_cards(plan: Dict[str, Any], output_dir: str):
         idx = ch["chapter_index"]
         base_img = create_studio_chapter_base(idx, ch["title"], ch["visual_elements"], sprite_path)
         draw = ImageDraw.Draw(base_img)
-        f_sub = get_font(48)
-        draw.rounded_rectangle([64, 795, 1856, 1025], radius=24, fill=(8, 12, 20, 235), outline=(212, 175, 55, 255), width=4)
-        sample_sub = f"어머님, 오늘 하루도 참 고생 많으셨습니다 — Chapter 0{idx}"
-        bbox = draw.textbbox((0, 0), sample_sub, font=f_sub)
-        tw = bbox[2] - bbox[0]
-        draw.text(((1920 - tw) // 2, 885), sample_sub, font=f_sub, fill=(255, 230, 0, 255), stroke_width=8, stroke_fill=(0, 0, 0, 255))
+        f_sub = get_font(74)
+        draw.rounded_rectangle([596, 540, 1832, 920], radius=24, fill=(8, 12, 20, 238), outline=(212, 175, 55, 255), width=4)
+        s1 = "어머님 오늘 하루도"
+        s2 = "참 고생 많으셨습니다"
+        b1 = draw.textbbox((0, 0), s1, font=f_sub, stroke_width=10)
+        b2 = draw.textbbox((0, 0), s2, font=f_sub, stroke_width=10)
+        cx_right = (596 + 1832) // 2
+        draw.text((cx_right - (b1[2] - b1[0]) // 2, 605), s1, font=f_sub, fill=(255, 255, 255, 255), stroke_width=10, stroke_fill=(0, 0, 0, 255))
+        draw.text((cx_right - (b2[2] - b2[0]) // 2, 725), s2, font=f_sub, fill=(255, 230, 0, 255), stroke_width=10, stroke_fill=(0, 0, 0, 255))
 
         card_filename = f"ch{idx}_scene_1080p.png"
         card_path = os.path.join(visuals_dir, card_filename)
         base_img.convert("RGB").save(card_path, "PNG")
         print(f"    - Rendered 1080p chapter card: {card_filename} ({os.path.getsize(card_path)} bytes)")
+
+
+def fit_right_stage_font(draw: ImageDraw.ImageDraw, text: str, preferred_pt: int = 74, min_pt: int = 52, max_w: int = 1170) -> ImageFont.FreeTypeFont:
+    pt = preferred_pt
+    while pt >= min_pt:
+        f = get_font(pt)
+        bbox = draw.textbbox((0, 0), text, font=f, stroke_width=10)
+        if (bbox[2] - bbox[0]) <= max_w:
+            return f
+        pt -= 4
+    return get_font(min_pt)
 
 
 def render_cue_slide(
@@ -400,66 +423,66 @@ def render_cue_slide(
     is_closing_chapter: bool
 ) -> Image.Image:
     """
-    Renders a single 1920x1080 broadcast frame with speaker indicator and 54pt senior-friendly subtitles.
+    Renders a 1920x1080 Vacuum-Tube Radio Booth frame with right-side 72pt+ giant senior subtitles.
     """
     frame = chapter_base.copy()
     draw = ImageDraw.Draw(frame)
 
     f_speaker = get_font(34)
-    f_quote = get_font(36)
-    f_sub1 = get_font(52)
-    f_sub2 = get_font(54)
+    f_quote = get_font(32)
 
-    # Speaker active badge inside right studio box (Y=485..565)
+    # Speaker active badge inside right studio box (Y=368..438)
     sp_bg = (145, 45, 55, 245) if speaker_is_fan else (22, 85, 62, 245)
-    draw.rounded_rectangle([595, 480, 1280, 552], radius=18, fill=sp_bg, outline=(255, 230, 120, 255), width=3)
-    draw.text((622, 497), speaker_label, font=f_speaker, fill=(255, 255, 255, 255))
+    draw.rounded_rectangle([602, 368, 1340, 438], radius=18, fill=sp_bg, outline=(255, 230, 120, 255), width=3)
+    draw.text((628, 384), speaker_label, font=f_speaker, fill=(255, 255, 255, 255))
 
-    # Warm lyric/cta highlight banner inside studio card (Y=585..725)
-    if is_closing_chapter:
-        draw.rounded_rectangle([595, 580, 1815, 725], radius=18, fill=(25, 42, 68, 240), outline=(255, 215, 0, 255), width=3)
-        draw.text((630, 602), "👑 파라다이스히어로 공식 사랑방: https://paradise-hero.com", font=f_quote, fill=(255, 235, 100, 255))
-        draw.text((630, 658), "📸 사연 접수 및 왕자님 2샷 포토부스 1회 무료 체험 진행 중!", font=f_speaker, fill=(255, 255, 255, 255))
-    else:
-        draw.rounded_rectangle([595, 580, 1815, 725], radius=18, fill=(22, 28, 40, 230), outline=(120, 140, 165, 200), width=2)
-        draw.text((630, 605), "“세상 모든 사람이 등을 돌려도, 나 하나만큼은 끝까지 당신 편이 되어드리겠습니다.”", font=f_speaker, fill=(255, 235, 165, 255))
-        draw.text((630, 662), "— 황영웅 [당신 편] 명곡 해설 & 파라다이스 사연 우체통", font=get_font(28), fill=(200, 220, 210, 255))
-
-    # Bottom Senior Subtitle Safe Box (Y=795..1025)
-    draw.rounded_rectangle([64, 795, 1856, 1025], radius=24, fill=(8, 12, 20, 238), outline=(212, 175, 55, 255), width=4)
+    # Right-Side Giant 72pt+ Senior Story Subtitle Box (X=596..1832, Y=468..860)
+    rx1, ry1, rx2, ry2 = 596, 468, 1832, 860
+    cx_right = (rx1 + rx2) // 2
+    draw.rounded_rectangle([rx1, ry1, rx2, ry2], radius=24, fill=(8, 12, 20, 242), outline=(212, 175, 55, 255), width=4)
 
     if cue_l1 and cue_l2:
-        bbox1 = draw.textbbox((0, 0), cue_l1, font=f_sub1)
-        tw1 = bbox1[2] - bbox1[0]
+        f1 = fit_right_stage_font(draw, cue_l1, preferred_pt=74)
+        f2 = fit_right_stage_font(draw, cue_l2, preferred_pt=74)
+        b1 = draw.textbbox((0, 0), cue_l1, font=f1, stroke_width=10)
+        b2 = draw.textbbox((0, 0), cue_l2, font=f2, stroke_width=10)
         draw.text(
-            ((1920 - tw1) // 2, 832),
+            (cx_right - (b1[2] - b1[0]) // 2, 548),
             cue_l1,
-            font=f_sub1,
+            font=f1,
             fill=(255, 255, 255, 255),
-            stroke_width=8,
-            stroke_fill=(0, 0, 0, 255)
+            stroke_width=10,
+            stroke_fill=(0, 0, 0, 255),
         )
-        bbox2 = draw.textbbox((0, 0), cue_l2, font=f_sub2)
-        tw2 = bbox2[2] - bbox2[0]
         draw.text(
-            ((1920 - tw2) // 2, 918),
+            (cx_right - (b2[2] - b2[0]) // 2, 682),
             cue_l2,
-            font=f_sub2,
+            font=f2,
             fill=(255, 230, 0, 255),
-            stroke_width=8,
-            stroke_fill=(0, 0, 0, 255)
+            stroke_width=10,
+            stroke_fill=(0, 0, 0, 255),
         )
     elif cue_l1:
-        bbox1 = draw.textbbox((0, 0), cue_l1, font=f_sub2)
-        tw1 = bbox1[2] - bbox1[0]
+        f1 = fit_right_stage_font(draw, cue_l1, preferred_pt=76)
+        b1 = draw.textbbox((0, 0), cue_l1, font=f1, stroke_width=10)
         draw.text(
-            ((1920 - tw1) // 2, 875),
+            (cx_right - (b1[2] - b1[0]) // 2, 616),
             cue_l1,
-            font=f_sub2,
+            font=f1,
             fill=(255, 230, 0, 255),
-            stroke_width=8,
-            stroke_fill=(0, 0, 0, 255)
+            stroke_width=10,
+            stroke_fill=(0, 0, 0, 255),
         )
+
+    # Bottom bridge guide inside right studio card (Y=882..992)
+    if is_closing_chapter:
+        draw.rounded_rectangle([596, 882, 1832, 992], radius=18, fill=(20, 52, 42, 242), outline=(255, 215, 0, 255), width=3)
+        draw.text((628, 898), "💚 무료 화보 기념사진관 & 사연 접수: https://paradise-hero.com/booth.html", font=f_quote, fill=(255, 238, 120, 255))
+        draw.text((628, 944), "👇 영상 아래 첫 번째 고정 댓글의 파란 주소를 누르시면 바로 열립니다!", font=get_font(27), fill=(255, 255, 255, 255))
+    else:
+        draw.rounded_rectangle([596, 882, 1832, 992], radius=18, fill=(22, 28, 40, 232), outline=(120, 140, 165, 200), width=2)
+        draw.text((628, 900), "“세상 모든 사람이 등을 돌려도, 나 하나만큼은 끝까지 당신 편이 되어드리겠습니다.”", font=get_font(29), fill=(255, 235, 165, 255))
+        draw.text((628, 944), "— 가수 황영웅 사연 3편 & 주요 소식 낭독 | 아래 고정 댓글에서 무료 기념사진관을 만나보세요", font=get_font(24), fill=(200, 220, 210, 255))
 
     return frame.convert("RGB")
 
@@ -540,8 +563,8 @@ def assemble_master_radio_mp4(script_data: Dict[str, Any], plan: Dict[str, Any],
             seg_total_dur = len(seg_full_audio) / float(SAMPLE_RATE)
             voice_parts.append(seg_full_audio)
 
-            # Split text into sentence-level 2-line cues timed proportionally to character length
-            cues = split_korean_text_into_cues(seg["text"], max_chars_per_line=24)
+            # Split text into sentence-level 2-line cues timed proportionally to character length (15 chars/line for 74pt right panel)
+            cues = split_korean_text_into_cues(seg["text"], max_chars_per_line=15)
             total_chars = max(1, sum(len(c[0]) + len(c[1]) for c in cues))
 
             accum_dur = 0.0
@@ -657,6 +680,7 @@ def main():
     parser.add_argument("--output-dir", type=str, default="", help="Directory to save video assembly plan")
     parser.add_argument("--render-visuals", action="store_true", default=True, help="Render 1080p visual storyboard cards")
     parser.add_argument("--render-mp4", action="store_true", default=True, help="Render full 1080p episode_XX_master.mp4")
+    parser.add_argument("--skip-mp4", action="store_true", default=False, help="Skip MP4 encoding during fast plan/visual dry-run")
     args = parser.parse_args()
 
     if not args.script_file:
@@ -692,7 +716,7 @@ def main():
     if args.render_visuals:
         generate_sample_scene_cards(plan, base_dir)
 
-    if args.render_mp4:
+    if args.render_mp4 and not args.skip_mp4:
         assemble_master_radio_mp4(script_data, plan, base_dir)
 
     print("[SUCCESS] Video assembly plan, visual assets, and master MP4 generation complete.")

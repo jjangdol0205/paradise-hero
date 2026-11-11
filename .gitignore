@@ -3,3 +3,10 @@ node_modules/
 __pycache__/
 *.pyc
 tests/visual_output/stress/
+tests/_tmp_m3_frames/
+.youtube_studio_chrome_profile/
+output/
+*.mp4
+*.wav
+*.webm
+

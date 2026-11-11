@@ -2,32 +2,47 @@
   "audio_file": "audio_ep01.wav",
   "sample_rate": 44100,
   "channels": 2,
-  "total_duration_sec": 36.967,
-  "beat_count": 8,
-  "beat_durations_sec": [
-    4.716,
-    3.864,
-    4.519,
-    4.583,
-    4.839,
-    4.641,
-    4.545,
-    5.084
+  "speech_rate": "+0%",
+  "total_duration_sec": 41.553,
+  "beat_count": 9,
+  "tts_durations_sec": [
+    3.932,
+    4.602,
+    4.043,
+    4.472,
+    4.569,
+    4.186,
+    4.247,
+    4.405,
+    4.777
   ],
+  "beat_durations_sec": [
+    4.172,
+    4.842,
+    4.283,
+    4.712,
+    4.809,
+    4.426,
+    4.487,
+    4.645,
+    5.017
+  ],
+  "full_narration_completion_compliant": true,
   "beat_start_times_sec": [
     0.0,
-    4.741,
-    8.63,
-    13.174,
-    17.782,
-    22.646,
-    27.312,
-    31.882
+    4.192,
+    9.054,
+    13.357,
+    18.089,
+    22.918,
+    27.364,
+    31.871,
+    36.536
   ],
-  "peak_amplitude": 0.8203,
-  "peak_dbfs": -1.72,
+  "peak_amplitude": 0.896,
+  "peak_dbfs": -0.95,
   "clipped_samples": 0,
-  "max_internal_silence_sec": 0.0817,
+  "max_internal_silence_sec": 0.0064,
   "zero_silence_compliant": true,
   "limiter_compliant": true,
   "sfx_markers": [
@@ -38,37 +53,42 @@
     },
     {
       "beat_idx": 1,
-      "time_sec": 4.741,
+      "time_sec": 4.192,
       "sfx_type": "cut_whoosh"
     },
     {
       "beat_idx": 2,
-      "time_sec": 8.63,
+      "time_sec": 9.054,
       "sfx_type": "cut_whoosh"
     },
     {
       "beat_idx": 3,
-      "time_sec": 13.174,
+      "time_sec": 13.357,
       "sfx_type": "metric_ping"
     },
     {
       "beat_idx": 4,
-      "time_sec": 17.782,
-      "sfx_type": "cut_whoosh"
+      "time_sec": 18.089,
+      "sfx_type": "metric_ping"
     },
     {
       "beat_idx": 5,
-      "time_sec": 22.646,
-      "sfx_type": "metric_ping"
+      "time_sec": 22.918,
+      "sfx_type": "cut_whoosh"
     },
     {
       "beat_idx": 6,
-      "time_sec": 27.312,
-      "sfx_type": "metric_ping"
+      "time_sec": 27.364,
+      "sfx_type": "cut_whoosh"
     },
     {
       "beat_idx": 7,
-      "time_sec": 31.882,
+      "time_sec": 31.871,
+      "sfx_type": "metric_ping"
+    },
+    {
+      "beat_idx": 8,
+      "time_sec": 36.536,
       "sfx_type": "outro_drop"
     }
   ]

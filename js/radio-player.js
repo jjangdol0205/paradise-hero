@@ -3,7 +3,7 @@
  * @김쌤의영웅라디오 1-클릭 연속 재생 플레이어 & 본문 16:9 유튜브 공식 플레이어 연동 모듈
  * - 모바일(iOS/안드로이드) 무음 차단 문제를 100% 해결하기 위해 본문 중앙 16:9 보이는 유튜브 플레이어(#main-youtube-embed)와
  *   화면 하단 고정 바(Sticky Bar)를 동시 연동합니다.
- * - 실제 검증된 황영웅 / @김쌤의영웅라디오 유튜브 영상 ID 5편을 탑재했습니다.
+ * - ?ep=1~5 딥링크 파라미터 자동 선택·재생을 지원합니다.
  */
 
 (function () {
@@ -12,7 +12,7 @@
   const RADIO_EPISODES = [
     {
       id: 'ep01',
-      title: '1화: [보컬전쟁] 임영웅 vs 황영웅, 소리 전문가들이 분석한 결정적 차이',
+      title: '1화: [보컬분석] 가수 황영웅, 소리 전문가들이 극찬한 명품 중저음의 비밀',
       song: '당신 편 (정규 1집 타이틀곡)',
       duration: '15:20',
       videoId: 'lGkMncY4u1o'
@@ -26,7 +26,7 @@
     },
     {
       id: 'ep03',
-      title: '3화: 소리 전문가가 분석한 황영웅의 압승 이유 (김쌤의 영웅 라디오)',
+      title: '3화: 소리 전문가가 분석한 황영웅의 압도적 감성 이유 (김쌤의 영웅 라디오)',
       song: '인사동 찻집 · 비나리',
       duration: '17:10',
       videoId: 'kgkUqsI5d2k'
@@ -42,7 +42,7 @@
       id: 'ep05',
       title: '5화: 황영웅 귀환 확정 & 파라다이스 총공 특집 브리핑',
       song: '함께해요 · 비상',
-      duration: '14:30',
+      duration: '0:45 (특집 속보 브리핑)',
       videoId: 'GwJBs6kouow'
     }
   ];
@@ -66,6 +66,26 @@
       currentIndex = 0;
       isPlaying = false;
     }
+  }
+
+  function applyQueryDeepLink() {
+    try {
+      if (typeof window === 'undefined' || !window.location) return false;
+      const params = new URLSearchParams(window.location.search || '');
+      const epParam = params.get('ep');
+      if (epParam) {
+        const epNum = parseInt(epParam, 10);
+        if (!isNaN(epNum) && epNum >= 1 && epNum <= RADIO_EPISODES.length) {
+          currentIndex = epNum - 1;
+          isPlaying = true;
+          saveState();
+          return true;
+        }
+      }
+    } catch (e) {
+      // Ignore malformed query
+    }
+    return false;
   }
 
   function saveState() {
@@ -127,10 +147,10 @@
     const mainTitle = document.getElementById('main-youtube-title');
 
     if (titleEl) {
-      titleEl.textContent = `${ep.title} (배경곡: ${ep.song})`;
+      titleEl.textContent = `${ep.title} (${ep.duration} · 배경곡: ${ep.song})`;
     }
     if (mainTitle) {
-      mainTitle.textContent = `📺 현재 선택된 방송: ${ep.title}`;
+      mainTitle.textContent = `📺 현재 선택된 방송: ${ep.title} (${ep.duration})`;
     }
 
     if (isPlaying) {
@@ -203,8 +223,12 @@
 
   function initRadioPlayer() {
     loadState();
+    const deepLinked = applyQueryDeepLink();
     buildStickyPlayerDOM();
     updatePlayerUI();
+    if (deepLinked) {
+      focusVisibleEmbed();
+    }
 
     const toggleBtn = document.getElementById('btn-radio-toggle');
     const nextBtn = document.getElementById('btn-radio-next');
@@ -240,17 +264,28 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initRadioPlayer);
-  } else {
-    initRadioPlayer();
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initRadioPlayer);
+    } else {
+      initRadioPlayer();
+    }
   }
 
-  window.ParadiseRadio = {
-    episodes: RADIO_EPISODES,
-    togglePlay: togglePlay,
-    nextEpisode: nextEpisode,
-    playEpisode: playEpisodeByIndex,
-    playVideoById: playVideoById
-  };
+  if (typeof window !== 'undefined') {
+    window.ParadiseRadio = {
+      episodes: RADIO_EPISODES,
+      togglePlay: togglePlay,
+      nextEpisode: nextEpisode,
+      playEpisode: playEpisodeByIndex,
+      playVideoById: playVideoById,
+      applyQueryDeepLink: applyQueryDeepLink
+    };
+  }
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+      RADIO_EPISODES
+    };
+  }
 })();
