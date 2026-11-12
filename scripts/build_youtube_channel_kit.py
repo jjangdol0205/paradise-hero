@@ -207,7 +207,7 @@ def main():
     print(f"Generated watermark: {p_watermark} ({p_watermark.stat().st_size} bytes)")
 
     env_path = DIV4_DIR / ".env"
-    bot_token = "8899653516:AAEr6ZWcfkXObdiU83o-LYaw3eHL9J0QbHU"
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip() if "os" in globals() else ""
     if env_path.exists():
         for line in env_path.read_text(encoding="utf-8", errors="ignore").splitlines():
             if line.startswith("TELEGRAM_BOT_TOKEN="):
