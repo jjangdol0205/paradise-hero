@@ -1242,6 +1242,21 @@
     triggerDirectDownload(canvasId, filenamePrefix, itemLabel);
   }
 
+  function shareCanvasImage(canvasId, itemLabel) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    try {
+      const dataUrl = canvas.toDataURL('image/png');
+      if (typeof window !== 'undefined' && window.ParadiseKakaoBookmark && typeof window.ParadiseKakaoBookmark.shareDataUrl === 'function') {
+        window.ParadiseKakaoBookmark.shareDataUrl(dataUrl, itemLabel || '황영웅 기념 선물');
+        return;
+      }
+      triggerDirectDownload(canvasId, '황영웅_카톡선물', itemLabel);
+    } catch (e) {
+      triggerDirectDownload(canvasId, '황영웅_카톡선물', itemLabel);
+    }
+  }
+
   function initVipDigitalStudio() {
     updateStudioCreditBadge();
     renderLiveLanternWall();
@@ -1286,6 +1301,7 @@
 
   const publicApi = {
     downloadGreetingCard: () => downloadCanvasImage('gc-canvas', '황영웅_카톡안부카드', '카톡 아침 안부카드'),
+    shareGreetingCard: () => shareCanvasImage('gc-canvas', '황영웅 카톡 아침 안부카드'),
     downloadFanIdCard: () => downloadCanvasImage('fid-canvas', '파라다이스_황금명예팬증', '황금 명예 팬증 발급'),
     downloadWallpaper: () => downloadCanvasImage('wp-canvas', '황영웅_큰글씨달력_배경화면', '큰글씨 달력 잠금화면'),
     playVoiceLetterAloud,

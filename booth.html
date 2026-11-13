@@ -68,7 +68,7 @@
   </script>
 
   <!-- 파라다이스 시니어 WCAG AAA 스타일시트 -->
-  <link rel="stylesheet" href="css/senior-style.css">
+  <link rel="stylesheet" href="css/senior-style.css?v=20261114a">
 
   <style>
     /* ==========================================================================
@@ -199,7 +199,7 @@
       align-items: center;
       gap: 8px;
       transition: all 0.2s ease;
-      min-height: 56px;
+      min-height: 60px;
     }
     .frame-select-btn:hover {
       border-color: var(--brand-gold);
@@ -264,7 +264,7 @@
       justify-content: center;
     }
     .btn-tool {
-      min-height: 56px;
+      min-height: 60px;
       min-width: 56px;
       flex: 1 1 calc(25% - 8px);
       background-color: #F8FAFC;
@@ -326,7 +326,7 @@
     }
 
     .btn-share-secondary {
-      min-height: 56px;
+      min-height: 60px;
       background-color: #FEE500;
       color: #191919;
       font-size: 19px;
@@ -491,7 +491,7 @@
         <div id="user-credit-badge-wrap" class="user-credit-badge-wrap">
           <span id="user-credit-badge" class="user-credit-badge" role="status" aria-live="polite">🎁 평생 무제한 무료 촬영</span>
         </div>
-        <a href="vip.html" class="btn-font-scaler" style="background-color: #0E2820; color: #D4AF37; border-color: #D4AF37; text-decoration: none;">
+        <a href="vip.html" class="btn-vip-header-link" style="background-color: #0E2820; color: #D4AF37; border-color: #D4AF37; text-decoration: none;">
           <span aria-hidden="true">🎁</span> 무료 선물제작소
         </a>
         <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 20px)">
@@ -804,9 +804,13 @@
       <img id="modal-preview-img" class="booth-modal-preview" style="max-width: 360px;" alt="완성된 가수 황영웅 기념사진">
 
       <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
-        <button type="button" id="btn-modal-share" class="btn-share-secondary" style="min-height: 62px; font-size: 21px;">
+        <button type="button" id="btn-modal-share" class="btn-share-secondary" style="min-height: 64px; font-size: 21px;">
           💬 카카오톡으로 사진 바로 보내기
         </button>
+        <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="senior-btn btn-gold" style="min-height: 64px; font-size: 20px; text-decoration: none;">
+          <span aria-hidden="true">👑</span>
+          <span>골드 VIP 응원·건강선물 네이버페이(Npay) 원탭 결제 👉</span>
+        </a>
         <button type="button" id="btn-modal-close" class="btn-tool" style="min-height: 60px; font-size: 20px; font-weight: 800;">
           ✕ 닫기 (다른 의상으로 또 찍기)
         </button>
@@ -898,8 +902,8 @@
   </footer>
 
   <!-- 스크립트 연결 -->
-  <script src="js/senior-accessibility.js"></script>
-  <script src="js/radio-player.js"></script>
+  <script src="js/senior-accessibility.js?v=20261114a"></script>
+  <script src="js/radio-player.js?v=20261114a"></script>
   <script src="js/character-catalog.js"></script>
   <script src="js/photo-booth.js"></script>
 

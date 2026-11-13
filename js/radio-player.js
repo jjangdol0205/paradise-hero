@@ -136,6 +136,57 @@
     document.body.appendChild(bar);
   }
 
+  function ensureMiniRadioDrawer() {
+    let drawer = document.getElementById('sticky-radio-mini-drawer');
+    if (!drawer) {
+      drawer = document.createElement('div');
+      drawer.id = 'sticky-radio-mini-drawer';
+      drawer.className = 'sticky-radio-mini-drawer';
+      drawer.setAttribute('aria-label', '김쌤의 영웅 라디오 미니 방송창');
+      drawer.innerHTML = `
+        <div class="sticky-radio-mini-head">
+          <span id="sticky-mini-drawer-label">🔴 김쌤의 영웅 라디오 방송 중</span>
+          <button type="button" class="btn-mini-drawer-collapse" id="btn-mini-drawer-collapse">화면 접기 ▾</button>
+        </div>
+        <div class="sticky-radio-mini-frame">
+          <iframe id="sticky-youtube-embed" title="김쌤의 영웅 라디오 실시간 재생기" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      `;
+      document.body.appendChild(drawer);
+
+      const collapseBtn = drawer.querySelector('#btn-mini-drawer-collapse');
+      if (collapseBtn) {
+        collapseBtn.addEventListener('click', () => {
+          const minimized = drawer.classList.toggle('minimized');
+          collapseBtn.textContent = minimized ? '화면 펴기 ▴' : '화면 접기 ▾';
+        });
+      }
+
+      const miniIframe = drawer.querySelector('#sticky-youtube-embed');
+      if (miniIframe) {
+        miniIframe.addEventListener('load', () => {
+          subscribeYoutubeEndedEvent(miniIframe);
+        });
+      }
+    }
+    return drawer;
+  }
+
+  function subscribeYoutubeEndedEvent(iframeEl) {
+    try {
+      if (!iframeEl || !iframeEl.contentWindow) return;
+      iframeEl.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: iframeEl.id || 'yt-radio' }), '*');
+      iframeEl.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'] }), '*');
+    } catch (e) {
+      // Ignore cross-origin handshake error
+    }
+  }
+
+  function buildYoutubeEmbedUrl(videoId, autoplay) {
+    const autoFlag = autoplay ? '1' : '0';
+    return `https://www.youtube.com/embed/${videoId}?autoplay=${autoFlag}&playsinline=1&rel=0&enablejsapi=1`;
+  }
+
   function updatePlayerUI() {
     const ep = RADIO_EPISODES[currentIndex];
     const titleEl = document.getElementById('radio-current-title');
@@ -159,9 +210,19 @@
       if (playText) playText.textContent = '일시정지';
       if (toggleBtn) toggleBtn.classList.add('playing');
       if (mainEmbed) {
-        const targetSrc = `https://www.youtube.com/embed/${ep.videoId}?autoplay=1&playsinline=1&rel=0`;
+        const targetSrc = buildYoutubeEmbedUrl(ep.videoId, true);
         if (mainEmbed.getAttribute('src') !== targetSrc) {
           mainEmbed.setAttribute('src', targetSrc);
+        }
+      } else if (typeof document !== 'undefined') {
+        const drawer = ensureMiniRadioDrawer();
+        drawer.classList.add('open');
+        const miniLabel = document.getElementById('sticky-mini-drawer-label');
+        if (miniLabel) miniLabel.textContent = `🔴 ${ep.id.toUpperCase()} 방송 중`;
+        const miniEmbed = document.getElementById('sticky-youtube-embed');
+        const targetSrc = buildYoutubeEmbedUrl(ep.videoId, true);
+        if (miniEmbed && miniEmbed.getAttribute('src') !== targetSrc) {
+          miniEmbed.setAttribute('src', targetSrc);
         }
       }
     } else {
@@ -169,8 +230,19 @@
       if (playIcon) playIcon.textContent = '▶';
       if (playText) playText.textContent = '방송 듣기';
       if (toggleBtn) toggleBtn.classList.remove('playing');
-      if (mainEmbed && !mainEmbed.getAttribute('src')) {
-        mainEmbed.setAttribute('src', `https://www.youtube.com/embed/${ep.videoId}?playsinline=1&rel=0`);
+      if (mainEmbed) {
+        const idleSrc = buildYoutubeEmbedUrl(ep.videoId, false);
+        if (!mainEmbed.getAttribute('src') || (mainEmbed.getAttribute('src') || '').includes('autoplay=1')) {
+          mainEmbed.setAttribute('src', idleSrc);
+        }
+      }
+      const drawer = typeof document !== 'undefined' ? document.getElementById('sticky-radio-mini-drawer') : null;
+      if (drawer) {
+        drawer.classList.remove('open');
+        const miniEmbed = document.getElementById('sticky-youtube-embed');
+        if (miniEmbed && miniEmbed.getAttribute('src')) {
+          miniEmbed.setAttribute('src', 'about:blank');
+        }
       }
     }
   }
@@ -213,8 +285,16 @@
     const mainEmbed = document.getElementById('main-youtube-embed');
     const mainTitle = document.getElementById('main-youtube-title');
     if (mainEmbed && videoId) {
-      mainEmbed.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0`);
+      mainEmbed.setAttribute('src', buildYoutubeEmbedUrl(videoId, true));
       mainEmbed.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (videoId && typeof document !== 'undefined') {
+      isPlaying = true;
+      const drawer = ensureMiniRadioDrawer();
+      drawer.classList.add('open');
+      const miniLabel = document.getElementById('sticky-mini-drawer-label');
+      if (miniLabel && customTitle) miniLabel.textContent = `🎵 ${customTitle}`;
+      const miniEmbed = document.getElementById('sticky-youtube-embed');
+      if (miniEmbed) miniEmbed.setAttribute('src', buildYoutubeEmbedUrl(videoId, true));
     }
     if (mainTitle && customTitle) {
       mainTitle.textContent = `🎵 지금 재생 중: ${customTitle}`;
@@ -225,6 +305,27 @@
     loadState();
     const deepLinked = applyQueryDeepLink();
     buildStickyPlayerDOM();
+    const mainEmbed = document.getElementById('main-youtube-embed');
+    if (mainEmbed) {
+      mainEmbed.addEventListener('load', () => subscribeYoutubeEndedEvent(mainEmbed));
+    }
+    if (typeof window !== 'undefined') {
+      window.addEventListener('message', (ev) => {
+        try {
+          if (!ev || typeof ev.data !== 'string') return;
+          if (!ev.origin || !/youtube\.com|youtube-nocookie\.com/i.test(ev.origin)) return;
+          const payload = JSON.parse(ev.data);
+          if (
+            (payload.event === 'onStateChange' && payload.info === 0) ||
+            (payload.event === 'infoDelivery' && payload.info && payload.info.playerState === 0)
+          ) {
+            nextEpisode();
+          }
+        } catch (e) {
+          // Ignore non-JSON messages
+        }
+      });
+    }
     updatePlayerUI();
     if (deepLinked) {
       focusVisibleEmbed();

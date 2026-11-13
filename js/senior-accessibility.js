@@ -45,7 +45,7 @@
       document.body.classList.add(current.className);
     }
 
-    const buttons = document.querySelectorAll('.btn-font-scaler');
+    const buttons = document.querySelectorAll('button.btn-font-scaler');
     buttons.forEach((btn) => {
       btn.innerHTML = `<span aria-hidden="true">🔍</span> ${current.label}`;
       btn.setAttribute('aria-label', `화면 글자 크기 조절 (현재: ${current.toast})`);
@@ -205,7 +205,86 @@
     return /KAKAOTALK|NAVER|Instagram|FBAN|FBAV|Line|Android|iPhone|iPad|iPod/i.test(ua);
   }
 
+  let latestModalDataUrl = '';
+  let latestModalTitle = '황영웅 기념 선물';
+
+  function dataUrlToPngFile(dataUrl, filename) {
+    try {
+      const parts = (dataUrl || '').split(',');
+      if (parts.length < 2) return null;
+      const mimeMatch = parts[0].match(/:(.*?);/);
+      const mime = (mimeMatch && mimeMatch[1]) || 'image/png';
+      const bstr = atob(parts[1]);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new File([u8arr], filename, { type: mime });
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function shareDataUrlViaKakaoOrSystem(dataUrl, titleText) {
+    const file = dataUrlToPngFile(dataUrl, `황영웅_기념선물_${Date.now()}.png`);
+    if (file && navigator.canShare && navigator.share) {
+      try {
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: titleText || '황영웅 무료 기념선물',
+            text: '어머님, 황영웅 무료 선물제작소에서 만든 카톡 선물입니다 💚 https://paradise-hero.com/vip.html'
+          });
+          return true;
+        }
+      } catch (err) {
+        if (err && err.name === 'AbortError') return false;
+      }
+    }
+    await shareOrBookmarkRoom('https://paradise-hero.com/vip.html');
+    return false;
+  }
+
+  function escapeBillboardHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function hydrateGlobalBillboardTicker() {
+    try {
+      const tickers = document.querySelectorAll('.billboard-text');
+      if (!tickers.length) return;
+      const existing = JSON.parse(localStorage.getItem('paradise_billboard_cheers') || '[]');
+      const prependText = Array.isArray(existing) && existing.length > 0
+        ? existing.slice(0, 5).map((item) => {
+            const tName = escapeBillboardHtml(item.tierName || '🌟 황금빛');
+            const nick = escapeBillboardHtml(item.nickname || '파라다이스 팬');
+            const msg = escapeBillboardHtml(item.message || '영웅님 응원합니다!');
+            return `[${tName} ${nick}] "${msg}" 🌟`;
+          }).join(' \u00A0\u00A0\u00A0\u00A0 ') + ' \u00A0\u00A0\u00A0\u00A0 '
+        : '';
+
+      tickers.forEach((ticker) => {
+        if (ticker.getAttribute('data-seamless-hydrated') === '1') return;
+        const baseText = (ticker.textContent || '').replace(/\s+/g, ' ').trim();
+        const combined = prependText + escapeBillboardHtml(baseText);
+        ticker.innerHTML = `${combined} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${combined}`;
+        ticker.setAttribute('data-seamless-hydrated', '1');
+      });
+    } catch (e) {
+      // Ignore storage error
+    }
+  }
+
   function openLongPressPhotoSaveModal(dataUrl, titleText) {
+    latestModalDataUrl = dataUrl || '';
+    latestModalTitle = titleText || '📸 황영웅 기념 선물 완성!';
+
     let modal = document.getElementById('kakao-photo-longpress-modal');
     if (!modal) {
       modal = document.createElement('div');
@@ -224,8 +303,11 @@
             <strong style="color:#B91C1C; text-decoration:underline;">[사진 저장]</strong> 또는 <strong style="color:#B91C1C; text-decoration:underline;">[이미지 저장]</strong>을 누르세요!
           </div>
           <img id="kakao-longpress-img" src="" alt="길게 눌러 저장할 완성 이미지" style="width:100%; max-width:380px; margin:0 auto 14px; border-radius:16px; border:4px solid #D4AF37; box-shadow:0 10px 26px rgba(0,0,0,0.22); -webkit-touch-callout:default !important; user-select:auto !important;">
-          <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:60px; margin-bottom:10px; padding:12px 16px; border-radius:12px; background:#03C75A; color:#FFFFFF; font-size:19px; font-weight:900; text-decoration:none; text-align:center;">
-            🟢 콘서트·노래교실 갈 때 어머님 목·무릎 건강템 보기 (Npay) 👉
+          <button type="button" id="btn-kakao-direct-file-share" style="display:flex; align-items:center; justify-content:center; width:100%; min-height:64px; margin-bottom:10px; padding:12px 16px; border-radius:14px; background:#FEE500; color:#191919; border:3px solid #D97706; font-size:20px; font-weight:900; cursor:pointer;">
+            💬 카카오톡 단톡방·친구에게 이 사진 바로 보내기 👉
+          </button>
+          <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:64px; margin-bottom:10px; padding:12px 16px; border-radius:14px; background:#03C75A; color:#FFFFFF; border:2px solid #065F46; font-size:20px; font-weight:900; text-decoration:none; text-align:center;">
+            🟢 네이버페이(Npay) 원탭 구매 — 콘서트·건강선물 &amp; 골드VIP 응원템 보기 👉
           </a>
           <button type="button" id="btn-close-kakao-longpress-modal" class="btn btn-emerald btn-full" style="min-height: 64px; font-size: 22px; font-weight: 900;">
             ✅ 사진 저장 완료! (창 닫기)
@@ -235,6 +317,11 @@
       document.body.appendChild(modal);
 
       modal.addEventListener('click', (ev) => {
+        if (ev.target.closest('#btn-kakao-direct-file-share')) {
+          ev.preventDefault();
+          shareDataUrlViaKakaoOrSystem(latestModalDataUrl, latestModalTitle);
+          return;
+        }
         if (ev.target === modal || ev.target.closest('#btn-close-kakao-longpress-modal')) {
           modal.classList.remove('open');
         }
@@ -251,9 +338,10 @@
   document.addEventListener('DOMContentLoaded', () => {
     const initialIndex = loadSavedLevel();
     applyLevel(initialIndex, false);
+    hydrateGlobalBillboardTicker();
 
     document.addEventListener('click', (e) => {
-      const fontBtn = e.target.closest('.btn-font-scaler');
+      const fontBtn = e.target.closest('button.btn-font-scaler');
       if (fontBtn) {
         e.preventDefault();
         toggleNextLevel();
@@ -277,6 +365,8 @@
 
   window.ParadiseKakaoBookmark = {
     shareRoom: shareOrBookmarkRoom,
+    shareDataUrl: shareDataUrlViaKakaoOrSystem,
+    escapeHtml: escapeBillboardHtml,
     isKakaoInAppOrMobile: isKakaoInAppOrMobile,
     openLongPressPhotoSaveModal: function (dataUrl, titleText) {
       if (typeof window.__hitParadiseHeroMetric === 'function') {
