@@ -55,23 +55,23 @@
       pubDate: '2026-11-09T11:10:00Z',
       source: 'K-트롯 데일리',
       summary: '황영웅의 짙은 사모곡 감성이 담긴 \'꽃구경\'과 \'인사동 찻집\' 공식 무대 영상이 누적 1,500만 회 재생을 돌파했다. 세월이 흘러도 질리지 않는 정통 동굴 중저음 보컬의 진가가 다시 한번 빛을 발했다.',
-      image_url: 'assets/characters/thumb_lim_young_woong.png',
+      image_url: 'assets/og_booth_share.jpg',
       singer_tag: '신곡·음반'
     },
     {
       id: 'hyw_news_album_004',
       title: '황영웅 수록곡 \'함께해요\' · \'황금빛 인생\', 어머님들이 뽑은 아침 힐링송 1위 선정',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%ED%95%A8%EA%BB%98%ED%95%B4%EC%9A%94&sort=1',
+      link: 'https://paradise-hero.com/columns/index.html',
       pubDate: '2026-11-07T08:40:00Z',
       source: '뮤직투데이',
       summary: '가수 황영웅의 따뜻한 희망가 \'함께해요\'가 시니어 팬들이 매일 아침 가장 먼저 재생하는 활력 응원곡으로 꼽혔다. 다정하게 손을 내미는 듯한 보이스 컬러가 하루의 든든한 시작을 열어준다는 호평이 이어진다.',
-      image_url: 'assets/characters/thumb_lee_chan_won.png',
+      image_url: 'assets/og_vip_gift.jpg',
       singer_tag: '신곡·음반'
     },
     {
       id: 'hyw_news_concert_001',
       title: '황영웅 전국 투어 콘서트 감동 후기 쇄도… 공연장 수놓은 \'에메랄드 응원 물결\'',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EC%BD%98%EC%84%9C%ED%8A%B8&sort=1',
+      link: 'https://paradise-hero.com/columns/index.html',
       pubDate: '2026-11-11T07:30:00Z',
       source: '스포츠한국',
       summary: '전국 각지에서 모인 파라다이스 팬들이 에메랄드빛 응원봉 물결로 객석을 가득 메우며 가수 황영웅과 하나 되는 명장면을 연출했다. 황영웅은 흔들림 없는 3시간 라이브 가창력과 다정한 눈맞춤으로 최고의 하루를 선물했다.',
@@ -81,37 +81,37 @@
     {
       id: 'hyw_news_concert_002',
       title: '황영웅 콘서트 현장 어머님 배려 서비스 화제… 큰 글씨 안내판부터 따뜻한 쉼터까지',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EA%B3%B5%EC%97%B0+%ED%9B%84%EA%B8%B0&sort=1',
+      link: 'https://paradise-hero.com/columns/index.html',
       pubDate: '2026-11-09T16:00:00Z',
       source: '문화포커스',
       summary: '가수 황영웅의 공연장이 중장년·시니어 관객들의 안전과 편의를 세심하게 배려한 운영으로 귀감이 되고 있다. 넉넉한 대기 좌석과 친절한 길 안내 요원 배치로 자녀들도 안심하고 부모님 효도 선물을 예매한다는 반응이다.',
-      image_url: 'assets/characters/thumb_young_tak.png',
+      image_url: 'assets/hero_main.png',
       singer_tag: '콘서트·공연'
     },
     {
       id: 'hyw_news_concert_003',
       title: '황영웅 앙코르 무대 \'비상\' 열창에 객석 눈물바다… 1만 관객 기립박수 장관',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EB%B9%84%EC%83%81+%EB%9D%BC%EC%9D%B4%EB%B8%8C&sort=1',
+      link: 'https://paradise-hero.com/columns/index.html',
       pubDate: '2026-11-08T13:15:00Z',
       source: '스타뉴스',
       summary: '황영웅이 콘서트 앙코르 곡으로 선보인 \'비상\' 라이브 무대가 관객들의 가슴에 잊지 못할 전율을 안겼다. 시련을 딛고 다시 날아오르는 가사 하나하나에 진심을 실어 부른 열창에 전 객석에서 뜨거운 기립박수가 터져 나왔다.',
-      image_url: 'assets/characters/thumb_jeong_dong_won.png',
+      image_url: 'assets/characters/thumb_hwang_young_woong.png',
       singer_tag: '콘서트·공연'
     },
     {
       id: 'hyw_news_concert_004',
       title: '황영웅 팬미팅 현장에서 전한 진심… \'어머님들 건강이 제게는 가장 큰 선물입니다\'',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%ED%8C%AC%EB%AF%B8%ED%8C%85&sort=1',
+      link: 'https://paradise-hero.com/columns/index.html',
       pubDate: '2026-11-06T10:30:00Z',
       source: '일간연예',
       summary: '가수 황영웅이 현장을 찾은 어머님 팬들의 환절기 건강을 살뜰히 챙기며 효자 가수다운 면모를 보였다. 공연이 끝난 뒤에도 한참 동안 무대 구석구석을 돌며 허리 숙여 인사하는 모습에 팬들의 감동이 이어졌다.',
-      image_url: 'assets/characters/thumb_kim_ho_joong.png',
+      image_url: 'assets/og_vip_gift.jpg',
       singer_tag: '콘서트·공연'
     },
     {
       id: 'hyw_news_charity_001',
       title: '황영웅, 공식 팬카페 \'파라다이스\'와 함께한 온기 나눔 성료… 선한 영향력 확산',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%ED%8C%8C%EB%9D%BC%EB%8B%A4%EC%9D%B4%EC%8A%A4+%EA%B8%B0%EB%B6%80&sort=1',
+      link: 'https://paradise-hero.com/columns/index.html',
       pubDate: '2026-11-10T18:30:00Z',
       source: '스타투데이',
       summary: '가수 황영웅과 공식 팬덤 \'파라다이스\'가 전국 홀몸 어르신 및 취약계층을 위한 따뜻한 나눔 봉사활동을 성공적으로 마쳤다. 황영웅은 팬 여러분의 사랑이 더 큰 온기로 번져나갈 수 있어 진심으로 감사드린다고 전했다.',
@@ -121,31 +121,31 @@
     {
       id: 'hyw_news_charity_002',
       title: '황영웅 팬덤 파라다이스 지역 모임, 겨울맞이 김장·연탄 나눔 릴레이 훈훈',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%ED%8C%AC%ED%81%B4%EB%9F%BD+%EB%B4%89%EC%82%AC&sort=1',
+      link: 'https://paradise-hero.com/columns/index.html',
       pubDate: '2026-11-09T09:50:00Z',
       source: '나눔경제',
       summary: '서울·경기부터 부산·대구·호남까지 전국의 황영웅 팬모임 회원들이 자발적인 김장 김치 및 방한용품 기탁을 이어가고 있다. 가수의 이름을 빛내는 성숙하고 품격 있는 기부 문화가 지역사회에 귀감이 되고 있다.',
-      image_url: 'assets/characters/thumb_jang_min_ho.png',
+      image_url: 'assets/hero_main.png',
       singer_tag: '나눔·선행'
     },
     {
       id: 'hyw_news_charity_003',
       title: '황영웅 데뷔 및 음반 발매 기념 성금 기탁… 소외 이웃에 전달된 희망의 손길',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EC%84%A0%ED%95%9C%EC%98%81%ED%96%A5%EB%A0%A5&sort=1',
+      link: 'https://paradise-hero.com/columns/index.html',
       pubDate: '2026-11-07T15:20:00Z',
       source: '복지타임즈',
       summary: '황영웅의 음악으로 위로를 받은 팬들이 십시일반 모은 성금과 생필품을 지역 복지관에 전달했다. 복지관 관계자는 매년 잊지 않고 따뜻한 손길을 내밀어 주시는 황영웅 가수와 파라다이스 팬분들께 깊이 감사드린다고 밝혔다.',
-      image_url: 'assets/characters/thumb_park_seo_jin.png',
+      image_url: 'assets/og_booth_share.jpg',
       singer_tag: '나눔·선행'
     },
     {
       id: 'hyw_news_charity_004',
       title: '황영웅 노래교실 재능기부 봉사단 화제… 어르신 경로당에 울려 퍼진 \'당신 편\'',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EB%85%B8%EB%9E%98%EA%B5%90%EC%8B%A4&sort=1',
+      link: 'https://paradise-hero.com/columns/index.html',
       pubDate: '2026-11-05T11:45:00Z',
       source: '시니어일보',
       summary: '황영웅을 사랑하는 팬들로 구성된 봉사단이 지역 경로당을 찾아 황영웅의 대표곡을 함께 부르고 다과를 나누는 뜻깊은 시간을 가졌다. 노래로 웃음꽃을 피우는 정겨운 현장이 큰 감동을 전하고 있다.',
-      image_url: 'assets/characters/thumb_son_tae_jin.png',
+      image_url: 'assets/characters/thumb_hwang_young_woong.png',
       singer_tag: '나눔·선행'
     },
     {
@@ -155,7 +155,7 @@
       pubDate: '2026-11-11T06:00:00Z',
       source: '김쌤의 영웅라디오',
       summary: '유튜브 \'@김쌤의영웅라디오\'와 파라다이스 사연 복덕방에 전국 어머님들의 진솔한 인생 사연이 줄을 잇고 있다. 병상에서, 혹은 외로운 저녁 시간에 황영웅의 목소리로 큰 위로를 받았다는 편지들이 깊은 공감을 자아낸다.',
-      image_url: 'assets/characters/thumb_ahn_sung_hoon_jin_hae_seong.png',
+      image_url: 'assets/og_vip_gift.jpg',
       singer_tag: '방송·라디오'
     },
     {
@@ -215,7 +215,7 @@
       pubDate: '2026-11-08T09:20:00Z',
       source: '라이프투데이',
       summary: '평생 가족 뒷바라지만 하며 살아온 6070 어머님들이 가수 황영웅을 응원하면서 음원 스트리밍과 팬 커뮤니티 소통을 배우며 제2의 청춘 활력을 되찾고 있다. 자녀들 역시 밝아진 어머니 모습에 함께 응원을 보태고 있다.',
-      image_url: 'assets/characters/thumb_lee_chan_won.png',
+      image_url: 'assets/hero_main.png',
       singer_tag: '팬덤·파라다이스'
     },
     {
@@ -225,7 +225,7 @@
       pubDate: '2026-11-05T17:00:00Z',
       source: '파라다이스 뉴스룸',
       summary: '복잡한 회원가입 없이 닉네임 하나로 매일 따뜻한 응원 한마디를 남기는 파라다이스 사랑방 출석 게시판이 전국 팬들의 다정한 안부 인사로 북적이고 있다. 서로의 건강을 챙기며 황영웅을 응원하는 성숙한 팬 문화가 빛난다.',
-      image_url: 'assets/characters/thumb_lim_young_woong.png',
+      image_url: 'assets/characters/thumb_hwang_young_woong.png',
       singer_tag: '팬덤·파라다이스'
     }
   ];

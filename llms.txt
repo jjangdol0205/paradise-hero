@@ -1,53 +1,24 @@
-# Paradise Hero (파라다이스 히어로) — paradise-hero.com
+# Paradise Hero · 파라다이스 히어로 · 김쌤의 영웅라디오 (https://paradise-hero.com)
 
-> 가수 황영웅(Hwang Young-woong) 단독 팬 쉼터 플랫폼 & YouTube @김쌤의영웅라디오 미디어 파이프라인.
-> 5070 시니어 어머님 친화적 고대비(WCAG AAA), 20px+ 대형 활자, 60px+ 터치 타깃, 무설치 브라우저 전용 웹 환경을 제공합니다.
+> 최종 업데이트: 2026-11-13 | 가수 황영웅 5070 시니어 팬덤 플랫폼 (WCAG AAA 20px+ 큰 글씨, 60px+ 터치 버튼, 글자 크기 3단계 조절).
 
-## Platform Identity & Core Mission
-- Domain: https://paradise-hero.com
-- Contact: beable9489@gmail.com
-- YouTube Channel: @김쌤의영웅라디오 (https://www.youtube.com/@김쌤의영웅라디오)
-- Primary Audience: 5070 시니어 팬덤 파라다이스 (고령자 접근성 최우선 보장)
-- Mission: 가수 황영웅 팬덤의 감동 사연을 나누고, 100% 무제한 무료 기념사진과 효도 선물을 만들며, 음악을 합법적으로 응원하는 안심 허브.
+## 1. 주요 팬 서비스 바로가기
+- 메인 홈: https://paradise-hero.com/
+- 24시간 연속 재생 영웅라디오: https://paradise-hero.com/radio.html
+- 10종 시그니처 의상 무제한 무료 기념사진관: https://paradise-hero.com/booth.html
+- 음성 받아쓰기 사연 접수 (사연 복덕방): https://paradise-hero.com/story.html
+- 골드 VIP 멤버십 & 무료 효도 달력/증서 제작소: https://paradise-hero.com/vip.html
+- 황금 응원 전광판 (사랑방 출석부): https://paradise-hero.com/community.html
+- 황영웅 전담 뉴스룸: https://paradise-hero.com/news.html
+- 큰 글씨 명곡 해설 · 건강 편지함: https://paradise-hero.com/columns/index.html
+- 공식 문의: mailto:beable9489@gmail.com
 
-## Indexed Endpoints
-
-### 1. 홈 포털 (Home Portal)
-- URL: https://paradise-hero.com/
-- Description: 일일 맞춤 인사말, 안심 네비게이션, 오늘의 감동 사연, 김쌤 라디오 최신 방송 및 어머님 콘서트·응원·건강 안심 특가관 제공.
-
-### 2. 사연 복덕방 (Senior Fan Story Hub)
-- URL: https://paradise-hero.com/story.html
-- Description: Web Speech API 기반 음성 받아쓰기와 60px+ 대형 터치 타겟을 갖춘 무인 사연 접수 창구. 김쌤의 영웅라디오 사연 낭독 연동.
-
-### 3. 영웅 포토부스 (Companion Photo Booth)
-- URL: https://paradise-hero.com/booth.html
-- Alias: https://paradise-hero.com/photobooth.html
-- Description: 회원가입·결제 없이 평생 100% 무제한 무료 HTML5 Canvas 포토부스. 가수 황영웅 10대 시그니처 무대·일상 의상 및 4종 기념 프레임과 1080x1440 고화질 즉석 저장·카카오톡 인앱 2초 꾹 저장 안내 지원.
-
-### 4. 김쌤의 영웅 라디오 전용관 (Radio Archive & Player)
-- URL: https://paradise-hero.com/radio.html
-- Description: @김쌤의영웅라디오 전편 다시듣기 플레이어(?ep=1~5 딥링크 자동 재생), 명곡 감동 해설 및 1-클릭 채널 구독 연동.
-
-### 5. 파라다이스 사랑방 (Community & Attendance)
-- URL: https://paradise-hero.com/community.html
-- Description: 복잡한 회원가입 없이 닉네임만으로 참여하는 일일 출석체크, 따뜻한 응원 한마디 나눔방.
-
-### 6. 1-클릭 음원 스트리밍 가이드 (Streaming Guide)
-- URL: https://paradise-hero.com/stream.html
-- Description: 돋보기 없는 대형 글씨로 안내하는 멜론, 지니, 유튜브뮤직 공식 스트리밍 3단계 가이드 및 어머님 콘서트·응원·건강 안심 특가관 안내.
-
-### 7. 무료 선물제작소 (Free Digital Gift Studio & Billboard)
-- URL: https://paradise-hero.com/vip.html
-- Description: 가수 황영웅 카톡 안부카드, 황금 명예 팬증, 큰글씨 달력 잠금화면, 행운 부적 등 10종 효도 디지털 선물을 100% 무제한 무료로 제작·저장하는 스튜디오 및 실시간 황금 응원 전광판.
-
-### 8. 황영웅 소식 포털 (Hwang Young-woong News Portal)
-- URL: https://paradise-hero.com/news.html
-- Description: 가수 황영웅 전용 6대 분야(전체, 신곡·음반, 콘서트·공연, 나눔·선행, 방송·라디오, 팬덤·파라다이스) 따뜻한 소식 피드 및 5070 시니어 맞춤 3단계 큰 글씨 모달 리더(WCAG AAA).
-
-## Technical & Accessibility Standards
-- Accessibility: WCAG AAA 준수 (다크 에메랄드 #1B4D3E, 골드 #D4AF37, 기본 폰트 >= 20px, 터치 타겟 >= 60px, 3단계 글자 크기 조절기).
-- SEO & Crawling: 100% indexable (STRICT ZERO noindex), canonical links, OpenGraph metadata, JSON-LD Schema.org graph.
-- Privacy: 포토부스 100% 브라우저 메모리 처리 (서버 업로드 및 개인 사진 저장 없음).
-- Copyright: 0 Raw MP3 무단 배포 금지, 100% 공식 스트리밍 플랫폼 및 유튜브 공식 임베드 준수.
-- Commercial Integrity: 공정위(FTC) 경제적 이해관계 고지 준수 (네이버 크리에이터샵 및 쿠팡 파트너스 AF7865143).
+## 2. 큰 글씨 명곡 해설 및 시니어 응원 칼럼 목록 (/columns/)
+- [가수 황영웅 정규 1집 '당신 편' 가사 해설 — 왜 첫 소절만 들어도 가슴이 먹먹해질까요](https://paradise-hero.com/columns/dangsin-pyeon-lyric-commentary.html)
+- ['해바라기'와 '인사동 찻집' — 세월이 깊어질수록 진가를 발하는 정통 중저음의 울림](https://paradise-hero.com/columns/haebaragi-insadong-song-story.html)
+- [어머님들을 위한 황영웅 전국투어 콘서트 100배 즐기기 큰 글씨 준비물 체크리스트](https://paradise-hero.com/columns/emerald-concert-senior-preparation-guide.html)
+- [앙코르 무대 '비상'이 객석을 눈물바다로 만든 이유 — 다시 날아오르는 우리의 인생가](https://paradise-hero.com/columns/bisang-live-encore-resonance.html)
+- [가수의 이름을 가장 아름답게 빛내는 법 — 공식 팬덤 '파라다이스'의 온기 나눔 이야기](https://paradise-hero.com/columns/paradise-fandom-warm-charity-culture.html)
+- [작은 휴대폰 자판 치기 힘드셨죠? 목소리로 편하게 '김쌤의 영웅라디오' 사연 보내는 법](https://paradise-hero.com/columns/radio-story-guide-voice-dictation.html)
+- [김쌤의 환절기 안부 편지 — 노래 부르실 때 목을 촉촉하게 지키는 차(茶)와 깊은 잠 습관](https://paradise-hero.com/columns/seasonal-senior-throat-and-sleep-letter.html)
+- [칠순에도 배우기 쉬운 3분 응원 가이드 — 자녀에게 미안해하지 않고 혼자서 척척 응원하기](https://paradise-hero.com/columns/streaming-and-cheering-easy-step-guide.html)

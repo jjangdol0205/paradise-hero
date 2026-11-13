@@ -148,7 +148,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-09T11:10:00Z",
             "source": "K-트롯 데일리",
             "summary": "황영웅의 짙은 사모곡 감성이 담긴 '꽃구경'과 '인사동 찻집' 공식 무대 영상이 누적 1,500만 회 재생을 돌파했다. 세월이 흘러도 질리지 않는 정통 동굴 중저음 보컬의 진가가 다시 한번 빛을 발했다.",
-            "image_url": "assets/characters/thumb_lim_young_woong.png",
+            "image_url": "assets/og_booth_share.jpg",
             "singer_tag": "신곡·음반"
         },
         {
@@ -158,7 +158,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-07T08:40:00Z",
             "source": "뮤직투데이",
             "summary": "가수 황영웅의 따뜻한 희망가 '함께해요'가 시니어 팬들이 매일 아침 가장 먼저 재생하는 활력 응원곡으로 꼽혔다. 다정하게 손을 내미는 듯한 보이스 컬러가 하루의 든든한 시작을 열어준다는 호평이 이어진다.",
-            "image_url": "assets/characters/thumb_lee_chan_won.png",
+            "image_url": "assets/og_vip_gift.jpg",
             "singer_tag": "신곡·음반"
         },
 
@@ -180,7 +180,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-09T16:00:00Z",
             "source": "문화포커스",
             "summary": "가수 황영웅의 공연장이 중장년·시니어 관객들의 안전과 편의를 세심하게 배려한 운영으로 귀감이 되고 있다. 넉넉한 대기 좌석과 친절한 길 안내 요원 배치로 자녀들도 안심하고 부모님 효도 선물을 예매한다는 반응이다.",
-            "image_url": "assets/characters/thumb_young_tak.png",
+            "image_url": "assets/hero_main.png",
             "singer_tag": "콘서트·공연"
         },
         {
@@ -190,7 +190,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-08T13:15:00Z",
             "source": "스타뉴스",
             "summary": "황영웅이 콘서트 앙코르 곡으로 선보인 '비상' 라이브 무대가 관객들의 가슴에 잊지 못할 전율을 안겼다. 시련을 딛고 다시 날아오르는 가사 하나하나에 진심을 실어 부른 열창에 전 객석에서 뜨거운 기립박수가 터져 나왔다.",
-            "image_url": "assets/characters/thumb_jeong_dong_won.png",
+            "image_url": "assets/characters/thumb_hwang_young_woong.png",
             "singer_tag": "콘서트·공연"
         },
         {
@@ -200,7 +200,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-06T10:30:00Z",
             "source": "일간연예",
             "summary": "가수 황영웅이 현장을 찾은 어머님 팬들의 환절기 건강을 살뜰히 챙기며 효자 가수다운 면모를 보였다. 공연이 끝난 뒤에도 한참 동안 무대 구석구석을 돌며 허리 숙여 인사하는 모습에 팬들의 감동이 이어졌다.",
-            "image_url": "assets/characters/thumb_kim_ho_joong.png",
+            "image_url": "assets/og_vip_gift.jpg",
             "singer_tag": "콘서트·공연"
         },
 
@@ -222,7 +222,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-09T09:50:00Z",
             "source": "나눔경제",
             "summary": "서울·경기부터 부산·대구·호남까지 전국의 황영웅 팬모임 회원들이 자발적인 김장 김치 및 방한용품 기탁을 이어가고 있다. 가수의 이름을 빛내는 성숙하고 품격 있는 기부 문화가 지역사회에 귀감이 되고 있다.",
-            "image_url": "assets/characters/thumb_jang_min_ho.png",
+            "image_url": "assets/hero_main.png",
             "singer_tag": "나눔·선행"
         },
         {
@@ -232,7 +232,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-07T15:20:00Z",
             "source": "복지타임즈",
             "summary": "황영웅의 음악으로 위로를 받은 팬들이 십시일반 모은 성금과 생필품을 지역 복지관에 전달했다. 복지관 관계자는 매년 잊지 않고 따뜻한 손길을 내밀어 주시는 황영웅 가수와 파라다이스 팬분들께 깊이 감사드린다고 밝혔다.",
-            "image_url": "assets/characters/thumb_park_seo_jin.png",
+            "image_url": "assets/og_booth_share.jpg",
             "singer_tag": "나눔·선행"
         },
         {
@@ -242,7 +242,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-05T11:45:00Z",
             "source": "시니어일보",
             "summary": "황영웅을 사랑하는 팬들로 구성된 봉사단이 지역 경로당을 찾아 황영웅의 대표곡을 함께 부르고 다과를 나누는 뜻깊은 시간을 가졌다. 노래로 웃음꽃을 피우는 정겨운 현장이 큰 감동을 전하고 있다.",
-            "image_url": "assets/characters/thumb_son_tae_jin.png",
+            "image_url": "assets/characters/thumb_hwang_young_woong.png",
             "singer_tag": "나눔·선행"
         },
 
@@ -254,7 +254,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-11T06:00:00Z",
             "source": "김쌤의 영웅라디오",
             "summary": "유튜브 '@김쌤의영웅라디오'와 파라다이스 사연 복덕방에 전국 어머님들의 진솔한 인생 사연이 줄을 잇고 있다. 병상에서, 혹은 외로운 저녁 시간에 황영웅의 목소리로 큰 위로를 받았다는 편지들이 깊은 공감을 자아낸다.",
-            "image_url": "assets/characters/thumb_ahn_sung_hoon_jin_hae_seong.png",
+            "image_url": "assets/og_vip_gift.jpg",
             "singer_tag": "방송·라디오"
         },
         {
@@ -316,7 +316,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-08T09:20:00Z",
             "source": "라이프투데이",
             "summary": "평생 가족 뒷바라지만 하며 살아온 6070 어머님들이 가수 황영웅을 응원하면서 음원 스트리밍과 팬 커뮤니티 소통을 배우며 제2의 청춘 활력을 되찾고 있다. 자녀들 역시 밝아진 어머니 모습에 함께 응원을 보태고 있다.",
-            "image_url": "assets/characters/thumb_lee_chan_won.png",
+            "image_url": "assets/og_vip_gift.jpg",
             "singer_tag": "팬덤·파라다이스"
         },
         {
@@ -326,7 +326,7 @@ def generate_seed_news() -> list:
             "pubDate": "2026-11-05T17:00:00Z",
             "source": "파라다이스 뉴스룸",
             "summary": "복잡한 회원가입 없이 닉네임 하나로 매일 따뜻한 응원 한마디를 남기는 파라다이스 사랑방 출석 게시판이 전국 팬들의 다정한 안부 인사로 북적이고 있다. 서로의 건강을 챙기며 황영웅을 응원하는 성숙한 팬 문화가 빛난다.",
-            "image_url": "assets/characters/thumb_lim_young_woong.png",
+            "image_url": "assets/og_booth_share.jpg",
             "singer_tag": "팬덤·파라다이스"
         }
     ]
@@ -481,10 +481,13 @@ def main():
             tag = s["tag"]
             assert tag in cat_tags, f"Missing coverage for category tag: {tag}"
 
+        rival_img_slugs = ("lim_young_woong", "lee_chan_won", "young_tak", "jeong_dong_won", "kim_ho_joong", "jang_min_ho", "park_seo_jin", "son_tae_jin", "ahn_sung_hoon", "jin_hae_seong")
         for item in data:
             for b in BANNED_WORDS + OTHER_SINGER_NAMES:
                 assert b not in item["title"], f"Disallowed term '{b}' found in title: {item['title']}"
                 assert b not in item["summary"], f"Disallowed term '{b}' found in summary: {item['summary']}"
+            for slug in rival_img_slugs:
+                assert slug not in item.get("image_url", ""), f"Rival thumbnail '{slug}' found in image_url: {item.get('image_url')}"
 
         print("[fetch_trot_news] Integrity check PASSED: All 5 Hwang Young-woong categories covered, 0 other singers, 0 prohibited words!")
 

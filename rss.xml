@@ -1,53 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>파라다이스 히어로 (paradise-hero.com) × 김쌤의 영웅라디오</title>
+    <title>파라다이스 히어로 · 김쌤의 영웅라디오 공식 새 소식 &amp; 큰 글씨 명곡 편지</title>
     <link>https://paradise-hero.com/</link>
     <atom:link href="https://paradise-hero.com/rss.xml" rel="self" type="application/rss+xml" />
-    <description>가수 황영웅 단독 팬 쉼터 &amp; @김쌤의영웅라디오 사연 복덕방·무료 포토부스·방송 피드</description>
+    <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />
+    <description>가수 황영웅 5070 시니어 팬덤 쉼터 — 24시간 연속 라디오, 10종 의상 무료 기념사진관, 큰 글씨 명곡 해설 및 건강 편지</description>
     <language>ko-KR</language>
-    <lastBuildDate>Wed, 11 Nov 2026 09:30:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 06:48:06 +0000</lastBuildDate>
     <item>
-      <title>[황영웅 소식] 가수 황영웅 음반·콘서트·나눔·파라다이스 따뜻한 소식 포털</title>
-      <link>https://paradise-hero.com/news.html</link>
-      <description>가수 황영웅 전용 6대 분야 소식 피드와 5070 시니어 맞춤형 큰 글씨 읽기 모드를 제공합니다.</description>
-      <pubDate>Wed, 11 Nov 2026 09:30:00 +0900</pubDate>
-      <guid isPermaLink="false">paradise-hero-hyw-news-20261111</guid>
+      <title><![CDATA[가수 황영웅 정규 1집 '당신 편' 가사 해설 — 왜 첫 소절만 들어도 가슴이 먹먹해질까요]]></title>
+      <link>https://paradise-hero.com/columns/dangsin-pyeon-lyric-commentary.html</link>
+      <guid isPermaLink="true">https://paradise-hero.com/columns/dangsin-pyeon-lyric-commentary.html</guid>
+      <pubDate>Fri, 13 Nov 2026 06:48:06 +0000</pubDate>
+      <description><![CDATA[어머님들의 고단했던 세월을 다정하게 안아주는 가수 황영웅 대표곡 '당신 편'의 노랫말 의미와 깊은 동굴 중저음 보이스의 치유력을 김쌤이 풀어드립니다.]]></description>
     </item>
     <item>
-      <title>[사연 복덕방] 어머님들의 눈물과 감동 삶의 사연 — 파라다이스 사연 복덕방</title>
-      <link>https://paradise-hero.com/story.html</link>
-      <description>유튜브 @김쌤의영웅라디오 연계 사연 접수 창구. 음성 받아쓰기와 큰 글씨로 편안하게 사연을 남기실 수 있습니다.</description>
-      <pubDate>Wed, 11 Nov 2026 09:00:00 +0900</pubDate>
-      <guid isPermaLink="false">paradise-hero-story-hub-20261111</guid>
+      <title><![CDATA['해바라기'와 '인사동 찻집' — 세월이 깊어질수록 진가를 발하는 정통 중저음의 울림]]></title>
+      <link>https://paradise-hero.com/columns/haebaragi-insadong-song-story.html</link>
+      <guid isPermaLink="true">https://paradise-hero.com/columns/haebaragi-insadong-song-story.html</guid>
+      <pubDate>Fri, 13 Nov 2026 06:48:06 +0000</pubDate>
+      <description><![CDATA[오직 한 사람만을 바라보는 해바라기 같은 팬심과 추억이 깃든 '인사동 찻집'의 정취를 큰 글씨 에세이로 만나보세요.]]></description>
     </item>
     <item>
-      <title>[영웅 포토부스] 황영웅 10대 시그니처 의상과 함께 찍는 100% 무제한 무료 기념사진관</title>
-      <link>https://paradise-hero.com/booth.html</link>
-      <description>회원가입·결제 없이 무료로 황영웅님과 다정하게 어깨동무한 기념사진을 만들고 카카오톡에 바로 저장하세요.</description>
-      <pubDate>Wed, 11 Nov 2026 09:00:00 +0900</pubDate>
-      <guid isPermaLink="false">paradise-hero-photo-booth-20261111</guid>
+      <title><![CDATA[어머님들을 위한 황영웅 전국투어 콘서트 100배 즐기기 큰 글씨 준비물 체크리스트]]></title>
+      <link>https://paradise-hero.com/columns/emerald-concert-senior-preparation-guide.html</link>
+      <guid isPermaLink="true">https://paradise-hero.com/columns/emerald-concert-senior-preparation-guide.html</guid>
+      <pubDate>Fri, 13 Nov 2026 06:48:06 +0000</pubDate>
+      <description><![CDATA[공연장 가실 때 꼭 챙기셔야 할 에메랄드 응원 준비물, 편안한 신발과 보온 숄, 목 보호용 따뜻한 물까지 한눈에 확인하세요.]]></description>
     </item>
     <item>
-      <title>[1회] 황영웅 노래로 다시 찾은 봄날 — 칠순 어머님의 눈물 사연</title>
-      <link>https://paradise-hero.com/radio.html?ep=1</link>
-      <description>김쌤의 영웅라디오 1회차 풀버전 다시듣기 및 사연 전문 (당신 편 감동 해설).</description>
-      <pubDate>Wed, 11 Nov 2026 08:00:00 +0900</pubDate>
-      <guid isPermaLink="false">paradise-hero-ep01</guid>
+      <title><![CDATA[앙코르 무대 '비상'이 객석을 눈물바다로 만든 이유 — 다시 날아오르는 우리의 인생가]]></title>
+      <link>https://paradise-hero.com/columns/bisang-live-encore-resonance.html</link>
+      <guid isPermaLink="true">https://paradise-hero.com/columns/bisang-live-encore-resonance.html</guid>
+      <pubDate>Fri, 13 Nov 2026 06:48:06 +0000</pubDate>
+      <description><![CDATA[시련의 계절을 지나 더 높이 날아오르는 명곡 '비상' 라이브 무대의 감동과 우리네 인생 이야기를 담았습니다.]]></description>
     </item>
     <item>
-      <title>[무료 선물제작소] 황영웅 카톡 안부카드·명예팬증·큰글씨 달력 무료 선물제작소</title>
-      <link>https://paradise-hero.com/vip.html</link>
-      <description>가수 황영웅을 응원하는 평생 무료 디지털 효도 선물 제작소 및 실시간 황금 응원 전광판.</description>
-      <pubDate>Wed, 11 Nov 2026 07:00:00 +0900</pubDate>
-      <guid isPermaLink="false">paradise-hero-free-gift-studio-20261111</guid>
+      <title><![CDATA[가수의 이름을 가장 아름답게 빛내는 법 — 공식 팬덤 '파라다이스'의 온기 나눔 이야기]]></title>
+      <link>https://paradise-hero.com/columns/paradise-fandom-warm-charity-culture.html</link>
+      <guid isPermaLink="true">https://paradise-hero.com/columns/paradise-fandom-warm-charity-culture.html</guid>
+      <pubDate>Fri, 13 Nov 2026 06:48:06 +0000</pubDate>
+      <description><![CDATA[전국 방방곡곡 소외된 이웃에게 따뜻한 김장과 성금을 전하는 파라다이스 가족분들의 품격 있는 응원 문화를 조명합니다.]]></description>
     </item>
     <item>
-      <title>[음원 가이드] 어머님들을 위한 돋보기 없는 1-클릭 합법 음원 스트리밍 가이드</title>
-      <link>https://paradise-hero.com/stream.html</link>
-      <description>멜론, 지니, 유튜브뮤직 1-클릭 스트리밍 및 황영웅 명곡 순위 올리기 안내.</description>
-      <pubDate>Wed, 11 Nov 2026 06:00:00 +0900</pubDate>
-      <guid isPermaLink="false">paradise-hero-stream-guide-20261111</guid>
+      <title><![CDATA[작은 휴대폰 자판 치기 힘드셨죠? 목소리로 편하게 '김쌤의 영웅라디오' 사연 보내는 법]]></title>
+      <link>https://paradise-hero.com/columns/radio-story-guide-voice-dictation.html</link>
+      <guid isPermaLink="true">https://paradise-hero.com/columns/radio-story-guide-voice-dictation.html</guid>
+      <pubDate>Fri, 13 Nov 2026 06:48:06 +0000</pubDate>
+      <description><![CDATA[손가락으로 작은 글자를 누르지 않아도 말만 하시면 글자로 척척 받아적어 주는 음성 사연 접수 기능을 쉽게 설명해 드립니다.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[김쌤의 환절기 안부 편지 — 노래 부르실 때 목을 촉촉하게 지키는 차(茶)와 깊은 잠 습관]]></title>
+      <link>https://paradise-hero.com/columns/seasonal-senior-throat-and-sleep-letter.html</link>
+      <guid isPermaLink="true">https://paradise-hero.com/columns/seasonal-senior-throat-and-sleep-letter.html</guid>
+      <pubDate>Fri, 13 Nov 2026 06:48:06 +0000</pubDate>
+      <description><![CDATA[황영웅 님이 늘 당부하는 '어머님들의 건강'! 아침저녁 일교차에 성대와 기관지를 지키는 생활 수칙을 큰 글씨로 정리했습니다.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[칠순에도 배우기 쉬운 3분 응원 가이드 — 자녀에게 미안해하지 않고 혼자서 척척 응원하기]]></title>
+      <link>https://paradise-hero.com/columns/streaming-and-cheering-easy-step-guide.html</link>
+      <guid isPermaLink="true">https://paradise-hero.com/columns/streaming-and-cheering-easy-step-guide.html</guid>
+      <pubDate>Fri, 13 Nov 2026 06:48:06 +0000</pubDate>
+      <description><![CDATA[바쁜 자녀들에게 매번 물어보기 미안하셨던 어머님들을 위해, 큰 버튼 하나로 매일 황영웅 님을 응원하는 가장 쉬운 방법을 알려드립니다.]]></description>
     </item>
   </channel>
 </rss>
