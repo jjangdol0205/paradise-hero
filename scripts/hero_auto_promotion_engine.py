@@ -40,7 +40,7 @@ from generate_senior_columns_and_feeds import (  # noqa: E402
 )
 
 HOST = "paradise-hero.com"
-KEY = "c75f10bb24814e518712613d9646bca3"
+KEY = "7d41a93e60b24f8c851924de3c90a628"
 TELEGRAPH_ACCT_PATH = DIV4_ROOT / "data" / "hero_telegraph_account.json"
 STATUS_LOG_PATH = DIV4_ROOT / "data" / "hero_promotion_status.json"
 
