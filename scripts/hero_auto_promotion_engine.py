@@ -111,15 +111,15 @@ def main() -> int:
 
     reply_link = (
         f"돋보기 없이 시원하게 읽는 큰 글씨 편지 전문 & 10종 의상 무료 기념사진관:\n"
-        f"{canonical_url}"
+        f"{canonical_url}?utm_source=social_thread&utm_medium=organic"
     )
 
     kakao_band_letter = (
         f"💌 [김쌤의 영웅라디오 아침 안부 편지 — {today_str}]\n\n"
         f"{col['kakao_quote']}\n\n"
         f"{col['body_paragraphs'][0]}\n\n"
-        f"📖 큰 글씨로 편지 끝까지 읽기:\n{canonical_url}\n\n"
-        f"📸 황영웅 님 10종 의상 무료 투샷 기념사진 찍기:\nhttps://{HOST}/booth.html\n"
+        f"📖 큰 글씨로 편지 끝까지 읽기:\n{canonical_url}?utm_source=kakao_band\n\n"
+        f"📸 황영웅 님 10종 의상 무료 투샷 기념사진 찍기:\nhttps://{HOST}/booth.html?utm_source=kakao_band\n"
     )
 
     longform_md = (
