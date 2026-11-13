@@ -25,7 +25,11 @@ const storePages = [
   { name: 'booth.html', content: fs.readFileSync(BOOTH_HTML, 'utf-8') },
   { name: 'vip.html', content: fs.readFileSync(VIP_HTML, 'utf-8') },
   { name: 'radio.html', content: fs.readFileSync(RADIO_HTML, 'utf-8') },
-  { name: 'stream.html', content: fs.readFileSync(STREAM_HTML, 'utf-8') }
+  { name: 'stream.html', content: fs.readFileSync(STREAM_HTML, 'utf-8') },
+  { name: 'news.html', content: fs.readFileSync(path.join(ROOT_DIR, 'news.html'), 'utf-8') },
+  { name: 'community.html', content: fs.readFileSync(path.join(ROOT_DIR, 'community.html'), 'utf-8') },
+  { name: 'lounge.html', content: fs.readFileSync(path.join(ROOT_DIR, 'lounge.html'), 'utf-8') },
+  { name: 'story.html', content: fs.readFileSync(path.join(ROOT_DIR, 'story.html'), 'utf-8') }
 ];
 
 const NAVER_CSHOP_URL = 'https://cshop.naver.com/paradiseshop';
@@ -41,19 +45,19 @@ storePages.forEach(({ name, content }) => {
     `${name} must contain top green king-button to ${NAVER_CSHOP_URL}`
   );
   assert.ok(
-    content.includes('https://www.coupang.com/np/search?q=') && content.includes('lptag=AF7865143&subid=paradisehero') ||
-    content.includes('lptag=AF7865143&amp;subid=paradisehero'),
-    `${name} must contain working Coupang search URLs with lptag=AF7865143&subid=paradisehero`
+    content.includes('https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero') ||
+    content.includes('https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero'),
+    `${name} must contain official Coupang Partners AFFSRP redirect URLs with lptag=AF7865143&subid=paradisehero`
   );
-  const coupangHits = (content.match(/www\.coupang\.com\/np\/search\?q=/g) || []).length;
-  assert.ok(coupangHits >= 6, `${name} must contain all 6 Coupang items (found ${coupangHits})`);
+  const coupangHits = (content.match(/link\.coupang\.com\/re\/AFFS(?:RP|DP)\?lptag=AF7865143/g) || []).length;
+  assert.ok(coupangHits >= 6, `${name} must contain at least 6 Coupang AF7865143 items (found ${coupangHits})`);
 
-  assert.ok(!content.includes('link.coupang.com'), `${name} must NOT contain broken fake shortlinks link.coupang.com`);
+  assert.ok(!content.includes('link.coupang.com/a/'), `${name} must NOT contain broken fake shortlinks link.coupang.com/a/`);
   assert.ok(!/lemonsqueezy/i.test(content), `${name} must NOT contain broken lemonsqueezy links`);
   assert.ok(!content.includes('296100'), `${name} must NOT contain Store #296100`);
   assert.ok(content.includes(FTC_DISCLOSURE), `${name} must contain exact FTC disclosure`);
   assert.ok(content.includes('beable9489@gmail.com'), `${name} must include unified support email`);
-  console.log(`  [PASS] ${name}: Naver Creator Shop + 6 Coupang AF7865143 items + FTC disclosure verified.`);
+  console.log(`  [PASS] ${name}: Naver Creator Shop + ${coupangHits} Coupang AFFSRP AF7865143 items + FTC disclosure verified.`);
 });
 
 const vipHtml = fs.readFileSync(VIP_HTML, 'utf-8');

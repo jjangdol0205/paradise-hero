@@ -229,6 +229,10 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     .funnel-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 32px 0; }}
     .funnel-btn {{ display: flex; align-items: center; justify-content: center; text-align: center; min-height: 68px; padding: 14px 18px; border-radius: 14px; font-size: 21px; font-weight: 800; background: var(--card); border: 2px solid #34d399; color: #ffffff; }}
     .funnel-btn.gold {{ border-color: var(--gold); background: linear-gradient(135deg, #422006, #1c1917); color: #fde68a; }}
+    .curation-box {{ background: #102a20; border: 2px solid var(--gold); border-radius: 18px; padding: 24px; margin: 32px 0; }}
+    .npay-btn {{ display: flex; align-items: center; justify-content: center; text-align: center; min-height: 68px; padding: 14px 18px; border-radius: 14px; font-size: 21px; font-weight: 900; background: #03c75a; color: #ffffff; margin-bottom: 14px; }}
+    .cp-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }}
+    .cp-btn {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 64px; padding: 12px 16px; border-radius: 12px; font-size: 20px; font-weight: 800; background: #081c15; border: 2px solid #6ee7b7; color: #ffffff; }}
     .faq-item {{ background: var(--card); border: 1px solid #2d6a4f; border-radius: 14px; padding: 20px; margin-bottom: 16px; }}
     .faq-item h3 {{ margin: 0 0 10px; color: var(--gold); font-size: 1.05em; }}
     .faq-item p {{ margin: 0; font-size: 0.98em; }}
@@ -268,11 +272,25 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
       </div>
     </section>
 
+    <section class="curation-box" aria-label="김쌤이 고른 어머님 콘서트 및 건강 안심 준비물">
+      <h2 style="font-size:1.22em;color:var(--gold);margin:0 0 8px;">💚 김쌤이 직접 고른 어머님 콘서트·목건강 안심 준비물</h2>
+      <p style="margin:0 0 16px;color:var(--muted);font-size:0.95em;">평소 쓰시는 네이버페이(Npay)와 쿠팡 로켓배송으로 콘서트 준비물과 환절기 건강템을 편하게 살펴보세요.</p>
+      <a class="npay-btn" href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored">🟢 네이버페이(Npay) 김쌤 공식 크리에이터샵 바로가기 👉</a>
+      <div class="cp-grid">
+        <a class="cp-btn" href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero_col&amp;pageKey=%EB%8F%84%EB%9D%BC%EC%A7%80%EB%B0%B0%EC%A6%99+%ED%99%8D%EC%82%BC%EC%8A%A4%ED%8B%B1" target="_blank" rel="noopener noreferrer sponsored"><span>🍯 도라지배즙·홍삼스틱 (목 건강)</span><span style="color:var(--gold);">보기 👉</span></a>
+        <a class="cp-btn" href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero_col&amp;pageKey=%EA%B4%80%EC%A0%88+MSM+%EC%BD%98%EB%93%9C%EB%A1%9C%EC%9D%B4%EC%B9%9C" target="_blank" rel="noopener noreferrer sponsored"><span>🦴 관절 MSM·콘드로이친 (무릎 안심)</span><span style="color:var(--gold);">보기 👉</span></a>
+        <a class="cp-btn" href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero_col&amp;pageKey=%EB%8C%80%EC%9A%A9%EB%9F%89+%EA%B3%A0%EC%86%8D+%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC" target="_blank" rel="noopener noreferrer sponsored"><span>🔋 대용량 보조배터리 (촬영·스밍)</span><span style="color:var(--gold);">보기 👉</span></a>
+        <a class="cp-btn" href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero_col&amp;pageKey=%EC%A0%91%EC%9D%B4%EC%8B%9D+%EB%A9%94%EB%AA%A8%EB%A6%AC%ED%8F%BC+%EB%B0%A9%EC%84%9D" target="_blank" rel="noopener noreferrer sponsored"><span>🪑 접이식 메모리폼 방석 (공연장)</span><span style="color:var(--gold);">보기 👉</span></a>
+      </div>
+      <p style="margin:14px 0 0;font-size:0.82em;color:#a7f3d0;">ℹ️ 공정거래위원회 심사지침 준수 안내: 본 안내관은 네이버 쇼핑 커넥트 및 쿠팡 파트너스(AF7865143) 활동의 일환으로 이에 따른 일정액의 수수료를 제공받습니다.</p>
+    </section>
+
     <section>
       <h2 style="font-size:1.2em;color:#ffffff;">자주 묻는 질문</h2>
       {faqs_html}
     </section>
   </main>
+  <script src="/js/senior-accessibility.js" defer></script>
   <script>
     function setFontSize(sz, btn) {{
       document.documentElement.style.setProperty('--base-font', sz);
@@ -352,7 +370,16 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
     <h1 style="font-size:1.5em;color:#fde68a;margin-bottom:8px;">💌 김쌤의 큰 글씨 명곡·응원 편지함</h1>
     <p style="color:#d1fae5;margin-top:0;margin-bottom:28px;">돋보기 없이 편안하게 읽으시고 카카오톡 단톡방 가족분들과 따뜻한 마음을 나눠보세요.</p>
     {cards_html}
+    <section class="card" style="border-color:#fbbf24;margin-top:28px;">
+      <span class="badge">💚 안심 효도 큐레이션</span>
+      <h2>김쌤이 직접 고른 어머님 콘서트·목건강 안심 준비물</h2>
+      <p>네이버페이(Npay) 공식 크리에이터샵과 쿠팡 로켓배송으로 편안하게 만나보세요.</p>
+      <a class="read-btn" href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="background:#03c75a;color:#ffffff;width:100%;margin-bottom:10px;">🟢 네이버페이(Npay) 김쌤 공식 크리에이터샵 바로가기 👉</a>
+      <a class="read-btn" href="/vip.html#gold-vip-membership" style="background:#fbbf24;color:#05130e;width:100%;">👑 골드 VIP 서포터즈(월 9,900원) &amp; 무료 선물제작소 보기 👉</a>
+      <p style="font-size:0.82em;color:#a7f3d0;margin:12px 0 0;">ℹ️ 본 안내관은 네이버 쇼핑 커넥트 및 쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 제공받습니다.</p>
+    </section>
   </main>
+  <script src="/js/senior-accessibility.js" defer></script>
 </body>
 </html>
 """

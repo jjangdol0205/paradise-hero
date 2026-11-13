@@ -223,7 +223,10 @@
             📱 손가락으로 아래 그림을 <strong>2초간 꾹~ 눌러</strong><br>
             <strong style="color:#B91C1C; text-decoration:underline;">[사진 저장]</strong> 또는 <strong style="color:#B91C1C; text-decoration:underline;">[이미지 저장]</strong>을 누르세요!
           </div>
-          <img id="kakao-longpress-img" src="" alt="길게 눌러 저장할 완성 이미지" style="width:100%; max-width:380px; margin:0 auto 18px; border-radius:16px; border:4px solid #D4AF37; box-shadow:0 10px 26px rgba(0,0,0,0.22); -webkit-touch-callout:default !important; user-select:auto !important;">
+          <img id="kakao-longpress-img" src="" alt="길게 눌러 저장할 완성 이미지" style="width:100%; max-width:380px; margin:0 auto 14px; border-radius:16px; border:4px solid #D4AF37; box-shadow:0 10px 26px rgba(0,0,0,0.22); -webkit-touch-callout:default !important; user-select:auto !important;">
+          <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:60px; margin-bottom:10px; padding:12px 16px; border-radius:12px; background:#03C75A; color:#FFFFFF; font-size:19px; font-weight:900; text-decoration:none; text-align:center;">
+            🟢 콘서트·노래교실 갈 때 어머님 목·무릎 건강템 보기 (Npay) 👉
+          </a>
           <button type="button" id="btn-close-kakao-longpress-modal" class="btn btn-emerald btn-full" style="min-height: 64px; font-size: 22px; font-weight: 900;">
             ✅ 사진 저장 완료! (창 닫기)
           </button>
@@ -275,6 +278,80 @@
   window.ParadiseKakaoBookmark = {
     shareRoom: shareOrBookmarkRoom,
     isKakaoInAppOrMobile: isKakaoInAppOrMobile,
-    openLongPressPhotoSaveModal: openLongPressPhotoSaveModal
+    openLongPressPhotoSaveModal: function (dataUrl, titleText) {
+      if (typeof window.__hitParadiseHeroMetric === 'function') {
+        window.__hitParadiseHeroMetric('gift_download');
+      }
+      return openLongPressPhotoSaveModal(dataUrl, titleText);
+    }
   };
+})();
+
+/* === HQ Edge Real-Human Visitor & Conversion KPI Tracker (hero_paradisekr) === */
+(function () {
+  'use strict';
+  try {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+    if (window.__HQ_BEACON_SENT_hero_paradisekr__) return;
+    window.__HQ_BEACON_SENT_hero_paradisekr__ = true;
+    var ua = navigator.userAgent || '';
+    if (navigator.webdriver || /jsdom|bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) return;
+    var host = (location && location.hostname) || '';
+    if (!host || host === 'localhost' || host === '127.0.0.1') return;
+    var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+    var ns = 'hero_paradisekr';
+    function hitMetric(key) {
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/' + key + '_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/' + key + '_total', { mode: 'cors', keepalive: true }).catch(function () {});
+    }
+    window.__hitParadiseHeroMetric = hitMetric;
+
+    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
+    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function () {});
+    if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
+      localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
+    }
+    if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {
+      localStorage.setItem('hq_uv_ever_' + ns, '1');
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', { mode: 'cors', keepalive: true }).catch(function () {});
+    }
+
+    // Normalize any legacy direct www.coupang.com search links to official AFFSRP redirect
+    document.addEventListener('DOMContentLoaded', function () {
+      var links = document.querySelectorAll('a[href*="coupang.com/np/search"]');
+      links.forEach(function (a) {
+        var raw = a.getAttribute('href') || '';
+        var qm = raw.replace(/&amp;/g, '&').match(/[?&]q=([^&]+)/i);
+        if (qm) {
+          a.setAttribute('href', 'https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero&pageKey=' + qm[1]);
+        }
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      var el = e.target && e.target.closest ? e.target.closest('a, button, [role="button"]') : null;
+      if (!el) return;
+      var href = (el.getAttribute('href') || '').toLowerCase();
+      var onclick = (el.getAttribute('onclick') || '').toLowerCase();
+      if (href.indexOf('cshop.naver.com/paradiseshop') !== -1) {
+        hitMetric('ref_click');
+        hitMetric('aff_naver_cshop');
+      } else if (href.indexOf('coupang.com') !== -1) {
+        hitMetric('ref_click');
+        hitMetric('aff_coupang');
+      } else if (href.indexOf('#gold-vip-membership') !== -1 || (href.indexOf('mailto:beable9489@gmail.com') !== -1 && href.indexOf('vip') !== -1)) {
+        hitMetric('vip_supporter_click');
+      } else if (onclick.indexOf('vipdigitalstudio.download') !== -1) {
+        hitMetric('gift_download');
+      }
+    }, true);
+
+    document.addEventListener('submit', function (e) {
+      var fid = e.target && e.target.id ? e.target.id : '';
+      if (fid === 'auto-billboard-form' || fid === 'cheer-form') {
+        hitMetric('billboard_cheer');
+      }
+    }, true);
+  } catch (err) {}
 })();

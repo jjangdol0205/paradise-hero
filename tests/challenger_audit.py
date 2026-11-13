@@ -67,11 +67,15 @@ for c in chars:
     check(f"R3.2 Asset {c['id']}", s_img.size == (1080, 1440) and t_img.size == (160, 160) and s_img.mode == "RGBA", "1080x1440 & 160x160 RGBA")
 
 # 4. Dual Safe Special Store & OG Images
-for page in ["index.html", "booth.html", "vip.html", "radio.html", "stream.html"]:
+for page in ["index.html", "booth.html", "vip.html", "radio.html", "stream.html", "news.html", "community.html", "lounge.html", "story.html"]:
     with open(os.path.join(ROOT, page), encoding="utf-8") as f:
         html = f.read()
     check(f"R4.1 Naver Creator Shop in {page}", "https://cshop.naver.com/paradiseshop" in html, "Present")
-    check(f"R4.2 Coupang AF7865143 Search URLs in {page}", html.count("www.coupang.com/np/search?q=") >= 6 and "link.coupang.com" not in html, "6 valid URLs")
+    check(
+        f"R4.2 Coupang AF7865143 AFFSRP URLs in {page}",
+        html.count("link.coupang.com/re/AFFSRP?lptag=AF7865143") >= 6 and "link.coupang.com/a/" not in html,
+        "6+ valid AFFSRP URLs",
+    )
 
 # 5. Local Link Integrity
 broken_refs = []
