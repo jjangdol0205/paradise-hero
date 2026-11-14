@@ -128,6 +128,19 @@ def main() -> int:
         + f"\n\n👉 [파라다이스 히어로 큰 글씨 원문 보기]({canonical_url})\n"
     )
 
+    yt_pinned_and_community = (
+        f"=== [@김쌤의영웅라디오 유튜브 고정 댓글 & 커뮤니티 큰 글씨 공지 · {today_str}] ===\n\n"
+        f"💚 {col['kakao_quote']}\n\n"
+        f"1️⃣ 돋보기 없이 읽는 큰 글씨 사연·건강 편지 전문 읽기:\n"
+        f"👉 {canonical_url}?utm_source=youtube_pinned\n\n"
+        f"2️⃣ 황영웅 님 10종 의상 무제한 무료 투샷 기념사진관:\n"
+        f"👉 https://{HOST}/booth.html?utm_source=youtube_pinned\n\n"
+        f"3️⃣ 매달 큰글씨 가사 엽서 & 방송 우선 호명 [골드 VIP 월 9,900원] 안내:\n"
+        f"👉 https://{HOST}/vip.html?utm_source=youtube_pinned\n\n"
+        f"4️⃣ 방송 속 건강·효도 선물 공식 라운지 (네이버페이 간편결제):\n"
+        f"👉 https://cshop.naver.com/paradiseshop\n"
+    )
+
     syn_res = dispatch_zero_ban_text_bundle(
         div_code="HERO",
         canonical_domain=HOST,
@@ -138,7 +151,10 @@ def main() -> int:
         reply_social_link=reply_link,
         longform_markdown=longform_md,
         tags=["황영웅", "파라다이스"],
-        platform_extras={"kakao_naver_band_senior_letter.md": kakao_band_letter},
+        platform_extras={
+            "kakao_naver_band_senior_letter.md": kakao_band_letter,
+            "youtube_pinned_comment_and_community_post.txt": yt_pinned_and_community,
+        },
         div_env_path=DIV4_ROOT / ".env",
         dry_run=dry_run,
     )
