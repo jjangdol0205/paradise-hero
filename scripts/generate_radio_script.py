@@ -78,9 +78,10 @@ def load_three_stories_and_two_news(episode: int = 1):
             with open(stories_path, "r", encoding="utf-8") as f:
                 raw_s = json.load(f)
             s_list = raw_s if isinstance(raw_s, list) else raw_s.get("stories", [])
-            for idx in range(3):
-                if s_list:
-                    stories.append(s_list[(episode - 1 + idx) % len(s_list)])
+            if s_list:
+                base_s_idx = (episode - 1) if episode < 6 else ((episode - 6) * 3 + 5)
+                for idx in range(3):
+                    stories.append(s_list[(base_s_idx + idx) % len(s_list)])
         except Exception:
             pass
 
@@ -90,9 +91,11 @@ def load_three_stories_and_two_news(episode: int = 1):
             with open(news_path, "r", encoding="utf-8") as f:
                 raw_n = json.load(f)
             n_list = raw_n if isinstance(raw_n, list) else raw_n.get("articles", raw_n.get("items", []))
-            for idx in range(2):
-                if n_list:
-                    news_items.append(n_list[(episode - 1 + idx * 3) % len(n_list)])
+            if n_list:
+                base_n_idx = (episode - 1) if episode < 6 else ((episode - 6) * 2)
+                for idx in range(2):
+                    step = idx * 3 if episode < 6 else idx
+                    news_items.append(n_list[(base_n_idx + step) % len(n_list)])
         except Exception:
             pass
 
@@ -642,6 +645,56 @@ def build_song_commentary_chapter(song_title: str, ep_prefix: str, base_seg_idx:
             ("노래의 한 소절 한 소절마다 배어 있는 팬들을 향한 깊은 고마움과 사랑이, 우리 어머님들의 삶을 황금빛으로 물들여주고 있습니다.", "musical_catharsis", 1.4),
             ("오늘 밤 [함께해요]를 함께 들으시며, 전국 수십만 파라다이스 가족들이 서로 마주 잡은 손의 따스한 온기를 가슴 가득 느껴보시길 바랍니다.", "healing_invitation", 2.2),
         ]
+    elif "해바라기" in song_title:
+        title = "명곡 해설 — '오직 한 사람만 바라보는 순정', [해바라기] 중저음 공명의 정수"
+        seg_texts = [
+            ("태양이 구름 뒤에 숨어도 끝내 고개를 돌리지 않는 꽃이 있습니다. 영웅님이 부르는 [해바라기]의 첫 숨소리가 바로 그 순정을 닮았습니다.", "questioning_heart", 1.2),
+            ("화려하게 기교를 부리지 않고 가슴 깊은 흉성으로 묵직하게 밀어 올리는 첫 구절은, 평생 가족만 바라보며 살아오신 우리 어머님들의 세월과 꼭 겹쳐집니다.", "mother_heartache", 1.4),
+            ("전직 국어교사였던 제 귀에 가장 먼저 들어오는 대목은 모음을 둥글고 깊게 감싸 안는 영웅님 특유의 발음입니다. 소리가 뾰족하게 찌르지 않고 포근한 담요처럼 귀를 감싸지요.", "tender_comfort", 1.3),
+            ("후렴구에서 감정이 북받쳐 오르다가도 끝음을 허투루 흘리지 않고 단단히 여미는 호흡 조절은, 듣는 이의 아픈 마음까지 차분히 다독여 주는 힘이 있습니다.", "lyric_analysis", 1.4),
+            ("비바람이 몰아쳐도 다시 고개를 들어 햇살을 맞이하는 해바라기처럼, 영웅님의 노래는 병상과 시련 앞에 선 분들께 다시 일어설 두 다리의 힘이 되어주었습니다.", "musical_catharsis", 1.4),
+            ("오늘 저녁은 영웅님의 [해바라기] 한 곡을 가슴에 품으시고, 변치 않는 우리의 따뜻한 동행을 조용히 되새겨 보시길 바랍니다.", "healing_invitation", 2.2),
+        ]
+    elif "비나리" in song_title:
+        title = "명곡 해설 — '당신의 앞날에 축복만을 비나이다', [비나리]에 담긴 어머니의 기도"
+        seg_texts = [
+            ("예로부터 우리 어머니들은 정화수 한 그릇 떠 놓고 자식과 사랑하는 사람의 평안을 두 손 모아 빌어오셨습니다. 그 간절한 기도의 이름이 바로 [비나리]입니다.", "questioning_heart", 1.2),
+            ("영웅님이 낮게 읊조리듯 시작하는 [비나리]를 듣고 있으면, 새벽녘 부엌 한구석에서 소리 죽여 기도하시던 우리네 어머니의 굽은 등이 눈앞에 어른거립니다.", "mother_heartache", 1.4),
+            ("슬픔을 겉으로 터뜨리기보다 속으로 삭이며 축원하는 곡이기에, 호흡 하나하나에 실린 진정성이 무엇보다 중요한 명곡입니다.", "tender_comfort", 1.3),
+            ("영웅님은 중저음의 따뜻한 배음으로 가사의 한 음절 한 음절을 정성스레 어루만지며, 듣는 이의 시린 가슴에 잔잔한 촛불 하나를 밝혀 줍니다.", "lyric_analysis", 1.4),
+            ("누군가의 행복을 진심으로 빌어줄 때 내 마음의 응어리도 함께 녹아내린다는 평범한 진리를, 이 노래는 몇 분 만에 온몸으로 느끼게 해줍니다.", "musical_catharsis", 1.4),
+            ("오늘 밤 영웅님의 [비나리] 선율에 여러분과 자녀분들, 그리고 우리 영웅님의 건강한 내일을 함께 실어 보내보시면 어떨까요.", "healing_invitation", 2.2),
+        ]
+    elif "당신꽃" in song_title:
+        title = "명곡 해설 — '거친 세월 끝에 피어난 내 인생의 꽃', [당신꽃] 노랫말 인문학"
+        seg_texts = [
+            ("'누구 엄마'로만 불리느라 정작 내 이름 석 자는 장롱 깊숙이 넣어두고 살아오신 어머님들께, 영웅님은 당신이야말로 가장 귀한 꽃이라고 노래합니다.", "questioning_heart", 1.2),
+            ("봄날 온실에서 곱게 자란 꽃보다 모진 서리와 비바람을 견디고 늦가을 들녘에 피어난 꽃이 훨씬 더 향기롭고 단단한 법이지요.", "mother_heartache", 1.4),
+            ("[당신꽃]의 노랫말을 천천히 곱씹어 보면, 평생 가족을 위해 청춘을 바친 어머니의 주름진 손등을 꽃잎이라 불러주는 다정한 시선이 담겨 있습니다.", "tender_comfort", 1.3),
+            ("영웅님의 포근한 중저음이 고음으로 부드럽게 이어지는 후렴구에서는, 굳게 닫혀 있던 마음의 꽃봉오리가 봄볕에 스르르 열리는 듯한 해방감이 찾아옵니다.", "lyric_analysis", 1.4),
+            ("세상 그 누구보다 귀하게 대접받아 마땅한 분이 바로 지금 이 방송을 듣고 계신 어머님 당신이라는 사실을 잊지 마셨으면 좋겠습니다.", "musical_catharsis", 1.4),
+            ("오늘 밤만큼은 거울 속 내 얼굴을 보며 '참 잘 버텨왔다, 고맙다' 하고 스스로에게 따뜻한 인사 한마디 건네보시길 바랍니다.", "healing_invitation", 2.2),
+        ]
+    elif "가을" in song_title or "그리움" in song_title:
+        title = "명곡 해설 — '낙엽 지는 길목에서 부르는 이름', [가을, 그리움]의 서정 미학"
+        seg_texts = [
+            ("찬 바람이 불어와 은행잎이 노랗게 물들기 시작하면, 평소에는 잘 참아오던 그리움도 문득 가슴 밑바닥에서 고개를 들곤 합니다.", "questioning_heart", 1.2),
+            ("영웅님의 [가을, 그리움]은 먼저 떠나보낸 부모님, 아련한 젊은 날의 인연, 그리고 돌아갈 수 없는 시절을 조용히 불러내는 한 편의 수채화 같은 곡입니다.", "mother_heartache", 1.4),
+            ("반주 악기가 과하게 나서지 않는 도입부에서 오직 영웅님의 숨결 섞인 중저음만으로 공간을 가득 채우는 도입부는 몇 번을 다시 들어도 백미입니다.", "tender_comfort", 1.3),
+            ("그리움이라는 감정을 마냥 슬프게만 그리지 않고, 살아온 날들을 따뜻하게 긍정하게 만드는 깊은 여운이 목소리 결마다 살아 숨 쉽니다.", "lyric_analysis", 1.4),
+            ("차창 밖으로 스쳐 가는 단풍길을 바라보며 이 노래를 들으실 때면, 지나온 세월이 결코 헛되지 않았음을 가슴 깊이 느끼실 수 있을 것입니다.", "musical_catharsis", 1.4),
+            ("깊어가는 계절의 길목에서 영웅님의 [가을, 그리움]과 함께 마음속 소중한 얼굴들을 따스하게 추억해 보시는 밤 되시길 바랍니다.", "healing_invitation", 2.2),
+        ]
+    elif "사랑한다면" in song_title:
+        title = "명곡 해설 — '듣기만 해도 어깨가 펴지는 설렘', [사랑한다면]의 경쾌한 활력"
+        seg_texts = [
+            ("영웅님의 노래가 눈물만 적시는 줄 알았다가도, [사랑한다면]의 첫 리듬이 흘러나오면 어느새 입가에 환한 미소가 번지곤 합니다.", "questioning_heart", 1.2),
+            ("무거운 발걸음으로 아침을 시작하던 어머님들의 어깨를 들썩이게 만들고, 집안일하는 시간마저 소녀 시절 소풍날처럼 설레게 바꾸어 놓는 곡이지요.", "mother_heartache", 1.4),
+            ("묵직한 정통 발라드뿐만 아니라 밝고 경쾌한 리듬 위에서도 흔들림 없이 또렷하게 가사를 전달하는 영웅님의 박자 감각이 돋보입니다.", "tender_comfort", 1.3),
+            ("특히 후렴구에서 시원하게 뻗어 나가는 발성은 답답했던 가슴을 뻥 뚫어주며 오늘 하루를 살아갈 기분 좋은 에너지를 선물합니다.", "lyric_analysis", 1.4),
+            ("손주 등원 길에도, 친구분들과 나들이 가는 차 안에서도 세대를 뛰어넘어 함께 따라 부를 수 있는 고마운 비타민 같은 노래입니다.", "musical_catharsis", 1.4),
+            ("오늘 저녁은 영웅님의 [사랑한다면]처럼 여러분의 얼굴에도 젊고 환한 웃음꽃이 활짝 피어나기를 진심으로 응원합니다.", "healing_invitation", 2.2),
+        ]
     else:
         # Default: [당신 편]
         title = "명곡 해설 — '내가 그대 편이 되겠소', [당신 편] 가사 속 눈물의 약속"
@@ -677,10 +730,61 @@ def build_song_commentary_chapter(song_title: str, ep_prefix: str, base_seg_idx:
     }
 
 
-def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any]) -> Dict[str, Any]:
+def resolve_biweekly_program_profile(episode: int, slot_day: str = "AUTO", song_title: str = "당신 편", sender_name: str = "파라다이스 어머님") -> Dict[str, str]:
+    """
+    Determines the twice-weekly (화·금 18:00 KST) broadcast slot and specialized format:
+    - Tuesday (TUE): 포맷 A — 보이는 심야 사연 드라마 라디오 (2인 성우 사연극 + Npay 건강·효도 큐레이션)
+    - Friday (FRI):
+        * 격주 1 (FRI_LYRIC_ANATOMY): 포맷 B-1 — 전직 국어교사 김쌤의 황영웅 명곡 1구절 해부학 & 발성 인문학 (+ 정품 음반·차량용 USB 큐레이션)
+        * 격주 2 (FRI_CONCERT_GUIDE): 포맷 B-2 — 자녀 눈치 안 보는 콘서트 필수 준비물 & 왕글씨 안심 스밍 친절 특집
+    """
+    norm_slot = (slot_day or "AUTO").strip().upper()
+    if norm_slot not in ("TUE", "FRI"):
+        norm_slot = "TUE" if (episode >= 6 and episode % 2 == 0) else ("FRI" if episode >= 7 else "TUE")
+
+    short_sender = sender_name.split()[-2] + " " + sender_name.split()[-1] if len(sender_name.split()) >= 2 else sender_name
+
+    if norm_slot == "TUE":
+        return {
+            "slot_day": "TUE",
+            "slot_day_ko": "화요일",
+            "program_format": "TUE_STORY_DRAMA",
+            "program_badge": f"화요 심야 사연 드라마 제{episode}화 · [{song_title}] 특집",
+            "episode_prefix_tag": f"[화요사연극 {episode}화]",
+            "thumbnail_headline_line1": f"\"{short_sender}의 눈물\"",
+            "thumbnail_headline_line2": f"영웅님 [{song_title}] 사연극",
+            "thumbnail_subline": f"화요 심야 라디오 제{episode}화 | 사연 3편 & 반가운 소식",
+        }
+
+    fri_cycle = max(0, (episode - 7) // 2) % 2
+    if fri_cycle == 0:
+        return {
+            "slot_day": "FRI",
+            "slot_day_ko": "금요일",
+            "program_format": "FRI_LYRIC_ANATOMY",
+            "program_badge": f"금요 명곡 해부학 제{episode}화 · 황영웅 [{song_title}] 집중해설",
+            "episode_prefix_tag": f"[금요명곡해설 {episode}화]",
+            "thumbnail_headline_line1": f"첫 소절 숨소리의 비밀",
+            "thumbnail_headline_line2": f"황영웅 [{song_title}] 해부학",
+            "thumbnail_subline": f"전직 국어교사 김쌤의 가사·중저음 인문학 제{episode}화",
+        }
+    return {
+        "slot_day": "FRI",
+        "slot_day_ko": "금요일",
+        "program_format": "FRI_CONCERT_GUIDE",
+        "program_badge": f"금요 친절 특집 제{episode}화 · 콘서트 준비물 & [{song_title}]",
+        "episode_prefix_tag": f"[금요친절특집 {episode}화]",
+        "thumbnail_headline_line1": f"자식 눈치 보지 마세요!",
+        "thumbnail_headline_line2": f"콘서트·스밍 왕글씨 비법",
+        "thumbnail_subline": f"금요 친절 라디오 제{episode}화 | [{song_title}] & 감동 사연",
+    }
+
+
+def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any], slot_day: str = "AUTO") -> Dict[str, Any]:
     """
     Constructs a full 6-chapter script dynamically embedding the top fan story.
     Injects story into Chapter 4 (fan letter reading) and aligns Chapter 3 song commentary.
+    Supports twice-weekly distinct programming (TUE Story Drama vs FRI Lyric Anatomy / Concert Guide).
     """
     ep_prefix = f"ep{episode:02d}"
     sender_name = story_payload.get("sender_name", "파라다이스 어머니")
@@ -688,6 +792,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any])
     song_title = story_payload.get("song_title", "당신 편")
     story_title = story_payload.get("story_title", "가슴속에 묻어둔 삶의 이야기")
     spoken_segs_raw = story_payload.get("spoken_segments", [])
+    prof = resolve_biweekly_program_profile(episode, slot_day=slot_day, song_title=song_title, sender_name=sender_name)
 
     # If spoken_segments not pre-split, extract or create
     if not spoken_segs_raw:
@@ -702,124 +807,113 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any])
                 from select_top_story import segment_story_for_radio
         spoken_segs_raw = segment_story_for_radio({"story_content": content})
 
-    # Chapter 1: Opening
+    # Chapter 1: Opening (tailored by Tue vs Fri regular broadcast)
+    if episode >= 6 and prof["program_format"] == "FRI_LYRIC_ANATOMY":
+        ch1_title = f"오프닝 — 금요일 저녁 제{episode}화, 영웅님 [{song_title}] 한 소절에 기대어 쉬어가세요"
+        ch1_texts = [
+            ("전국과 해외에 계신 사랑하는 파라다이스 가족 여러분, 한 주 동안 정말 애 많이 쓰셨습니다. 금요일 저녁 6시, 김쌤의 영웅 라디오 문을 활짝 엽니다.", 1.2, "warm_greeting"),
+            ("월요일부터 금요일까지 손주 챙기랴, 집안 살림 돌보랴 바쁘게 달려오신 어머님들의 어깨를 오늘만큼은 토닥여 드리고 싶은 저녁입니다.", 1.2, "tender_care"),
+            (f"매주 금요일 저녁 시간에는 전직 국어교사였던 저 김쌤이 영웅님의 명곡 가사 한 줄과 중저음 발성의 비밀을 깊이 있게 풀어드리는 명곡 해부학 특집으로 찾아뵙고 있습니다.", 1.3, "empathic_resonance"),
+            (f"오늘 우리가 함께 가슴에 새겨볼 주인공 노래는 바로 들을수록 눈시울이 뜨거워지는 영웅님의 명곡 [{song_title}]입니다.", 1.4, "deep_comfort"),
+            ("따뜻한 차 한 잔 곁에 두시고, 거실 스피커나 이어폰 볼륨을 편안하게 맞추신 채 오늘 밤 명곡 산책을 함께 시작해 보시지요.", 2.0, "invitation_to_rest"),
+        ]
+    elif episode >= 6 and prof["program_format"] == "FRI_CONCERT_GUIDE":
+        ch1_title = f"오프닝 — 금요일 저녁 제{episode}화, 자식 눈치 안 보고 당당하게 응원하는 주말 특집"
+        ch1_texts = [
+            ("전국과 해외에 계신 파라다이스 가족 여러분, 반가운 금요일 저녁 6시입니다. 저녁 진지는 든든하고 따뜻하게 챙겨 드셨는지요.", 1.2, "warm_greeting"),
+            ("콘서트 소식이나 투표, 음원 스밍 이야기가 나올 때마다 혹시 자식들에게 물어보기 미안해서 혼자 속앓이해 보신 적 없으십니까.", 1.2, "tender_care"),
+            ("그래서 오늘 금요 특집 방송에서는 우리 어머님들이 누구 눈치도 보지 않고 혼자서도 당당하게 공연장과 스밍을 즐기실 수 있는 알짜배기 친절 비법을 준비했습니다.", 1.3, "empathic_resonance"),
+            (f"물론 가슴 뭉클한 파라다이스 가족 사연 세 편과 영웅님의 명곡 [{song_title}] 이야기도 알차게 담아두었습니다.", 1.4, "deep_comfort"),
+            ("돋보기안경 쓰실 필요 없이 큰 글씨 자막과 제 목소리만 편안히 따라오시면 됩니다. 지금 바로 출발합니다.", 2.0, "invitation_to_rest"),
+        ]
+    elif episode >= 6:
+        ch1_title = f"오프닝 — 화요일 저녁 제{episode}화, 사연 우체통에 도착한 눈물의 편지 세 통"
+        ch1_texts = [
+            ("전국과 해외에 계신 사랑하는 파라다이스 가족 여러분, 화요일 저녁 6시 약속드린 시간에 찾아온 김쌤의 영웅 라디오입니다. 저녁 진지는 따뜻하게 드셨습니까.", 1.2, "warm_greeting"),
+            ("해가 짧아지고 저녁 바람이 선선해질수록, 설거지를 마치고 돌아선 부엌 창가에서 문득 밀려오는 적적함을 느끼시는 어머님들이 참 많으십니다.", 1.2, "tender_care"),
+            ("매주 화요일 저녁 정규 방송은 어머님들께서 직접 보내주신 실제 삶의 편지를 두 명의 목소리로 생생하게 읽어드리는 심야 사연 드라마 시간으로 꾸며드리고 있습니다.", 1.3, "empathic_resonance"),
+            (f"오늘은 {sender_name}께서 보내주신 가슴 먹먹한 편지를 비롯해 세 분의 소중한 사연과 영웅님의 반가운 소식 두 가지를 정성껏 준비했습니다.", 1.5, "deep_comfort"),
+            ("오늘 밤만큼은 무거운 집안 걱정일랑 잠시 현관 밖에 내려놓으시고, 영웅님을 사랑하는 우리 자매님들의 따뜻한 이야기 속에 포근히 기대어 쉬어가시길 바랍니다.", 2.0, "invitation_to_rest"),
+        ]
+    else:
+        ch1_title = f"오프닝 — 제{episode}화 파라다이스 어머님들, 저녁 진지 드셨습니까?"
+        ch1_texts = [
+            ("전국과 해외에 계신 사랑하는 파라다이스 가족 여러분, 그리고 우리 어머님들, 안녕하셨습니까. 저녁 진지는 따뜻하게 챙겨 드셨는지요.", 1.2, "warm_greeting"),
+            ("바람이 옷깃을 여미게 만드는 저녁입니다. 문득 붉게 물든 창밖을 바라보다가, 오늘 하루도 가족들 뒷바라지하랴, 무거운 장바구니 들고 오가랴 애쓰셨을 우리 어머님들의 거친 손이 떠올랐습니다.", 1.2, "tender_care"),
+            ("세상은 늘 어머니들에게 이것저것 해달라며 보채기만 하지, 정작 오늘 어머니 당신의 마음은 어떠했는지 따뜻하게 물어봐 주는 사람은 참 드물지요. 그 고요함과 쓸쓸함을 저 김쌤은 잘 알고 있습니다.", 1.2, "empathic_resonance"),
+            ("오늘 하루도 참 고생 많으셨습니다. 여러분의 고단했던 하루 끝자락에 작지만 결코 꺼지지 않는 따스한 모닥불을 지펴드리는 곳, 김쌤의 영웅 라디오입니다.", 1.5, "deep_comfort"),
+            ("오늘 밤만큼은 세상의 모든 근심과 무거운 짐일랑 잠시 내려놓으시고, 세상에서 가장 따뜻한 목소리에 온전히 기대어 편안히 쉬어가시길 바랍니다.", 2.0, "invitation_to_rest"),
+        ]
+
     ch1 = {
         "chapter_index": 1,
         "chapter_id": "ch1_opening",
-        "title": f"오프닝 — 제{episode}화 파라다이스 어머님들, 저녁 진지 드셨습니까?",
+        "title": ch1_title,
         "target_duration_sec": 110,
         "bgm_mood": "warm_acoustic_guitar_soft",
         "segments": [
             {
-                "segment_id": f"{ep_prefix}_seg_01",
+                "segment_id": f"{ep_prefix}_seg_{idx + 1:02d}",
                 "speaker": "dj_kim",
                 "speaker_title": "DJ 김쌤",
-                "text": "전국과 해외에 계신 사랑하는 파라다이스 가족 여러분, 그리고 우리 어머님들, 안녕하셨습니까. 저녁 진지는 따뜻하게 챙겨 드셨는지요.",
-                "pacing_pause_sec": 1.2,
-                "emotion": "warm_greeting",
-                "visual_hint": "원목 라디오 스튜디오 창가, 부드럽게 스며드는 따스한 노을빛 켄 번스 슬로우 줌인"
-            },
-            {
-                "segment_id": f"{ep_prefix}_seg_02",
-                "speaker": "dj_kim",
-                "speaker_title": "DJ 김쌤",
-                "text": "바람이 옷깃을 여미게 만드는 저녁입니다. 문득 붉게 물든 창밖을 바라보다가, 오늘 하루도 가족들 뒷바라지하랴, 무거운 장바구니 들고 오가랴 애쓰셨을 우리 어머님들의 거친 손이 떠올랐습니다.",
-                "pacing_pause_sec": 1.2,
-                "emotion": "tender_care",
-                "visual_hint": "따스한 김이 피어오르는 도자기 찻잔과 엔틱 라디오 다이얼"
-            },
-            {
-                "segment_id": f"{ep_prefix}_seg_03",
-                "speaker": "dj_kim",
-                "speaker_title": "DJ 김쌤",
-                "text": "세상은 늘 어머니들에게 이것저것 해달라며 보채기만 하지, 정작 오늘 어머니 당신의 마음은 어떠했는지 따뜻하게 물어봐 주는 사람은 참 드물지요. 그 고요함과 쓸쓸함을 저 김쌤은 잘 알고 있습니다.",
-                "pacing_pause_sec": 1.2,
-                "emotion": "empathic_resonance",
-                "visual_hint": "조용히 내려앉은 저녁 거실, 창문 너머로 비치는 주황빛 가로등"
-            },
-            {
-                "segment_id": f"{ep_prefix}_seg_04",
-                "speaker": "dj_kim",
-                "speaker_title": "DJ 김쌤",
-                "text": "오늘 하루도 참 고생 많으셨습니다. 여러분의 고단했던 하루 끝자락에 작지만 결코 꺼지지 않는 따스한 모닥불을 지펴드리는 곳, 김쌤의 영웅 라디오입니다.",
-                "pacing_pause_sec": 1.5,
-                "emotion": "deep_comfort",
-                "visual_hint": "라디오 진공관 불빛 클로즈업, 아늑한 밤하늘 별빛 오버레이"
-            },
-            {
-                "segment_id": f"{ep_prefix}_seg_05",
-                "speaker": "dj_kim",
-                "speaker_title": "DJ 김쌤",
-                "text": "오늘 밤만큼은 세상의 모든 근심과 무거운 짐일랑 잠시 내려놓으시고, 세상에서 가장 따뜻한 목소리에 온전히 기대어 편안히 쉬어가시길 바랍니다.",
-                "pacing_pause_sec": 2.0,
-                "emotion": "invitation_to_rest",
-                "visual_hint": "머리맡에 놓인 은은한 취침등과 감성 어쿠스틱 기타 실루엣"
+                "text": txt,
+                "pacing_pause_sec": p_sec,
+                "emotion": emo,
+                "visual_hint": "원목 진공관 라디오 스튜디오와 따뜻한 저녁 창가 조명"
             }
+            for idx, (txt, p_sec, emo) in enumerate(ch1_texts)
         ]
     }
 
-    # Chapter 2: Hero Story
+    # Chapter 2: Hero Story / Format Special Feature
+    if episode >= 6 and prof["program_format"] == "FRI_LYRIC_ANATOMY":
+        ch2_title = f"발성 인문학 — 왜 황영웅 [{song_title}]의 첫 소절만 들어도 눈물이 날까요?"
+        ch2_texts = [
+            (f"영웅님이 부르는 [{song_title}]의 첫 구절이 스피커를 타고 흐르는 순간, 왜 우리 어머님들은 약속이나 한 듯 하던 일을 멈추고 가슴을 쓸어내리실까요.", 1.2, "solemn_memory"),
+            ("전직 국어교사로서 수많은 시와 노랫말을 읽어보았지만, 좋은 가사란 어려운 한자어가 아니라 듣는 사람의 지난 세월을 거울처럼 비추어 주는 투명한 문장입니다.", 1.4, "deep_respect"),
+            ("여기에 영웅님 특유의 깊고 넓은 흉성 공명이 더해지면 이야기가 달라집니다. 목 끝으로만 쥐어짜는 소리가 아니라 가슴 통 전체를 울려 내보내는 중저음이기 때문에 귀가 전혀 피로하지 않습니다.", 1.4, "unwavering_bond"),
+            ("마치 추운 겨울날 아랫목에 손을 넣었을 때 손끝부터 서서히 퍼져 올라오는 구들장 온기처럼, 영웅님의 호흡은 듣는 분의 굳은 어깨 근육부터 먼저 풀어줍니다.", 1.4, "analytical_admiration"),
+            ("특히 자음과 모음 사이에서 아주 짧게 쉬어 가는 그 숨소리에는, 말로 다 하지 못한 그리움과 어머님들을 향한 고마움이 고스란히 실려 있습니다.", 1.5, "profound_sympathy"),
+            (f"그래서 오늘 금요 명곡 해부학 시간에는 [{song_title}]의 노랫말 한 구절 한 구절을 돋보기로 들여다보듯 천천히 음미해 보려 합니다.", 2.0, "solemn_fellowship"),
+        ]
+    elif episode >= 6 and prof["program_format"] == "FRI_CONCERT_GUIDE":
+        ch2_title = "친절 가이드 — 자녀 눈치 보지 않고 당당하게 챙기는 콘서트·응원 필수 준비물"
+        ch2_texts = [
+            ("공연장에 처음 가시거나 오랜만에 먼 길 나들이를 앞두신 어머님들께서 저 김쌤에게 가장 많이 물어보시는 질문이 있습니다. 대체 가방에 무엇을 챙겨 가야 고생을 덜 하냐는 질문이지요.", 1.2, "solemn_memory"),
+            ("첫째로 가장 중요한 것은 가벼운 접이식 에어방석입니다. 두 시간 넘게 박수 치고 응원하시다 보면 허리와 무릎이 뻐근해지기 쉬운데, 푹신한 방석 하나만 깔아두셔도 피로가 절반으로 줄어듭니다.", 1.4, "deep_respect"),
+            ("둘째는 목을 촉촉하게 지켜주는 프로폴리스 목 스프레이와 미지근한 생수 한 병입니다. 반가운 마음에 함성을 지르고 따라 부르시다 보면 다음 날 목이 잠기기 쉽기 때문입니다.", 1.4, "unwavering_bond"),
+            ("셋째는 휴대폰 배터리가 꺼지지 않도록 지켜주는 대용량 보조배터리입니다. 공연 끝나고 자녀분께 연락드리거나 기념사진을 남기실 때 배터리가 넉넉해야 마음이 든든합니다.", 1.4, "analytical_admiration"),
+            ("그리고 집에서 음원 스밍을 돌리실 때도 한 가지만 꼭 기억해 주세요. 휴대폰 소리를 완전히 영으로 꺼두시면 집계에서 빠질 수 있으니, 이어폰을 꽂거나 작은 소리로라도 볼륨을 조금 남겨두시는 것이 핵심입니다.", 1.5, "profound_sympathy"),
+            ("우리 어머님들, 이제 누구 눈치도 보실 필요 없습니다. 하나씩 천천히 챙기시면 칠십 대, 팔십 대에도 얼마든지 가장 멋진 청춘으로 응원하실 수 있습니다.", 2.0, "solemn_fellowship"),
+        ]
+    else:
+        ch2_title = "영웅 이야기 — 모진 비바람을 견뎌낸 그 깊은 목소리의 울림"
+        ch2_texts = [
+            (f"우리 영웅님이 처음 이 노래 [{song_title}]을 세상에 선보였을 때, 수많은 팬분들이 가슴을 부여잡고 함께 눈물 흘렸던 그 벅찬 순간을 기억하십니까.", 1.2, "solemn_memory"),
+            ("화려한 무대 뒤 좁은 대기실에서, 묵묵히 기타 줄을 고르며 객석을 가득 채운 어머님들의 눈망울 하나하나를 마음에 새겼다는 영웅님. 세상의 모진 비바람 속에서도 그가 다시 마이크를 굳게 잡을 수 있었던 단 하나의 이유는 바로 파라다이스 여러분이었습니다.", 1.4, "deep_respect"),
+            (f"'파라다이스 여러분이 내 곁에 계시기에 나는 결코 쓰러질 수 없다.' 그 절박하고도 단단한 약속 하나로 빚어낸 노래가 바로 오늘 우리가 함께 마음에 새길 [{song_title}]입니다.", 1.4, "unwavering_bond"),
+            ("노래를 듣다 보면 문득 궁금해집니다. 왜 영웅님의 목소리는 이토록 가슴을 깊게 파고들까요? 기교나 화려한 고음으로 귀를 자극하는 가수는 세상에 많습니다. 하지만 눈물과 고난, 그리고 세월의 인내로 빚어낸 목소리는 차원이 다릅니다.", 1.4, "analytical_admiration"),
+            ("영웅님의 중저음 배음에는 세월의 모진 풍파를 홀로 견뎌낸 사람만이 간직할 수 있는 깊은 울림이 배어 있습니다. 가슴 밑바닥에서 길어 올린 그 진솔함이, 춥고 외로웠던 우리 어머님들의 마음에 한 겹 따뜻한 털 스웨터를 입혀주는 것입니다.", 1.5, "profound_sympathy"),
+            ("가수와 팬의 관계를 넘어 서로의 상처를 보듬고 함께 울고 웃어온 시간들. 오늘 밤 우리가 나누는 이야기는 우리네 삶을 함께 지켜낸 거룩한 동행의 기록입니다.", 2.2, "solemn_fellowship"),
+        ]
+
     ch2 = {
         "chapter_index": 2,
         "chapter_id": "ch2_hero_story",
-        "title": f"영웅 이야기 — 모진 비바람을 견뎌낸 그 깊은 목소리의 울림",
+        "title": ch2_title,
         "target_duration_sec": 225,
         "bgm_mood": "gentle_piano_reflective",
         "segments": [
             {
-                "segment_id": f"{ep_prefix}_seg_06",
+                "segment_id": f"{ep_prefix}_seg_{6 + idx:02d}",
                 "speaker": "dj_kim",
                 "speaker_title": "DJ 김쌤",
-                "text": f"우리 영웅님이 처음 이 노래 [{song_title}]을 세상에 선보였을 때, 수많은 팬분들이 가슴을 부여잡고 함께 눈물 흘렸던 그 벅찬 순간을 기억하십니까.",
-                "pacing_pause_sec": 1.2,
-                "emotion": "solemn_memory",
-                "visual_hint": "무대 위 스포트라이트와 마이크, 차분하고 깊은 에메랄드빛 조명"
-            },
-            {
-                "segment_id": f"{ep_prefix}_seg_07",
-                "speaker": "dj_kim",
-                "speaker_title": "DJ 김쌤",
-                "text": "화려한 무대 뒤 좁은 대기실에서, 묵묵히 기타 줄을 고르며 객석을 가득 채운 어머님들의 눈망울 하나하나를 마음에 새겼다는 영웅님. 세상의 모진 비바람 속에서도 그가 다시 마이크를 굳게 잡을 수 있었던 단 하나의 이유는 바로 파라다이스 여러분이었습니다.",
-                "pacing_pause_sec": 1.4,
-                "emotion": "deep_respect",
-                "visual_hint": "콘서트 현장 객석을 가득 채운 따스한 황금빛 불빛 물결"
-            },
-            {
-                "segment_id": f"{ep_prefix}_seg_08",
-                "speaker": "dj_kim",
-                "speaker_title": "DJ 김쌤",
-                "text": f"'파라다이스 여러분이 내 곁에 계시기에 나는 결코 쓰러질 수 없다.' 그 절박하고도 단단한 약속 하나로 빚어낸 노래가 바로 오늘 우리가 함께 마음에 새길 [{song_title}]입니다.",
-                "pacing_pause_sec": 1.4,
-                "emotion": "unwavering_bond",
-                "visual_hint": "영웅님의 앨범 커버 자켓과 서정적인 캘리그라피"
-            },
-            {
-                "segment_id": f"{ep_prefix}_seg_09",
-                "speaker": "dj_kim",
-                "speaker_title": "DJ 김쌤",
-                "text": "노래를 듣다 보면 문득 궁금해집니다. 왜 영웅님의 목소리는 이토록 가슴을 깊게 파고들까요? 기교나 화려한 고음으로 귀를 자극하는 가수는 세상에 많습니다. 하지만 눈물과 고난, 그리고 세월의 인내로 빚어낸 목소리는 차원이 다릅니다.",
-                "pacing_pause_sec": 1.4,
-                "emotion": "analytical_admiration",
-                "visual_hint": "아날로그 음파 파형과 클래식 콘덴서 마이크 클로즈업"
-            },
-            {
-                "segment_id": f"{ep_prefix}_seg_10",
-                "speaker": "dj_kim",
-                "speaker_title": "DJ 김쌤",
-                "text": "영웅님의 중저음 배음에는 세월의 모진 풍파를 홀로 견뎌낸 사람만이 간직할 수 있는 깊은 울림이 배어 있습니다. 가슴 밑바닥에서 길어 올린 그 진솔함이, 춥고 외로웠던 우리 어머님들의 마음에 한 겹 따뜻한 털 스웨터를 입혀주는 것입니다.",
-                "pacing_pause_sec": 1.5,
-                "emotion": "profound_sympathy",
-                "visual_hint": "가을 들판의 억새풀 사이로 불어오는 따뜻한 저녁 바람"
-            },
-            {
-                "segment_id": f"{ep_prefix}_seg_11",
-                "speaker": "dj_kim",
-                "speaker_title": "DJ 김쌤",
-                "text": "가수와 팬의 관계를 넘어 서로의 상처를 보듬고 함께 울고 웃어온 시간들. 오늘 밤 우리가 나누는 이야기는 우리네 삶을 함께 지켜낸 거룩한 동행의 기록입니다.",
-                "pacing_pause_sec": 2.2,
-                "emotion": "solemn_fellowship",
-                "visual_hint": "두 손을 마주 잡은 따뜻한 온기 실루엣과 잔잔한 피아노 건반"
+                "text": txt,
+                "pacing_pause_sec": p_sec,
+                "emotion": emo,
+                "visual_hint": "무대 위 에메랄드 스포트라이트와 아날로그 콘덴서 마이크"
             }
+            for idx, (txt, p_sec, emo) in enumerate(ch2_texts)
         ]
     }
 
@@ -878,10 +972,32 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any])
         "speaker": "dj_kim",
         "speaker_title": "DJ 김쌤",
         "text": f"어머님, 이제 어머님 곁에는 든든한 영웅님이 계시고, 전국에서 함께 손잡아 줄 수십만 파라다이스 가족들이 있습니다. 신청해주신 영웅님의 노래 [{song_title}]을 가슴으로 함께 들으며 힘내시길 바랍니다.",
-        "pacing_pause_sec": 2.0,
+        "pacing_pause_sec": 1.8,
         "emotion": "warm_reassurance",
         "visual_hint": "따스한 햇살이 비치는 푸른 하늘과 평화로운 들판"
     })
+
+    if episode >= 6:
+        if prof["slot_day"] == "TUE":
+            bridge_text = (
+                "그리고 사연 보내주신 어머님처럼 환절기에 무릎이나 어깨가 시큰거리시고 눈이 침침하실 때는 절대 참지 마시고 몸부터 따뜻하게 챙기셔야 합니다. "
+                "복잡한 카드 번호 입력 없이 평소 쓰시던 네이버페이로 편하게 보실 수 있도록 발효홍삼과 목 어깨 마사지기, 눈 건강 루테인을 아래 고정댓글 김쌤 공식 크리에이터샵에 큰 글씨로 정리해 두었습니다."
+            )
+        else:
+            bridge_text = (
+                f"오늘 함께 나눈 [{song_title}]을 비롯해 영웅님의 정품 음반과 차 안에서 꽂기만 하면 바로 나오는 효도 유에스비, 그리고 공연장 필수 준비물들은 "
+                "아래 고정댓글 영웅라디오 쿠팡 인플루언서 공식관과 네이버 크리에이터샵에 큰 글씨로 모아두었으니 필요하실 때 편하게 둘러보시길 바랍니다."
+            )
+        ch4_segments.append({
+            "segment_id": f"{ep_prefix}_seg_{next_seg + 2:02d}",
+            "speaker": "dj_kim",
+            "speaker_title": "DJ 김쌤",
+            "text": bridge_text,
+            "pacing_pause_sec": 1.8,
+            "emotion": "son_like_care_bridge",
+            "visual_hint": "하단 고정댓글 큰글씨 안내 카드와 따뜻한 찻잔"
+        })
+        next_seg += 1
 
     ch4 = {
         "chapter_index": 4,
@@ -1134,6 +1250,16 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any])
                     if bad_word in seg["text"]:
                         raise ValueError(f"AI Blacklist violation '{bad_word}' found in DJ segment {seg['segment_id']}")
 
+    if episode >= 6:
+        if prof["program_format"] == "FRI_LYRIC_ANATOMY":
+            ep_title_str = f"{prof['episode_prefix_tag']} 황영웅 [{song_title}] 첫 소절에 숨겨진 눈물의 비밀 — 가사 해부학 & 사연 3편"
+        elif prof["program_format"] == "FRI_CONCERT_GUIDE":
+            ep_title_str = f"{prof['episode_prefix_tag']} 자식 눈치 안 보는 콘서트 필수 준비물 & 황영웅 [{song_title}] 감동 사연"
+        else:
+            ep_title_str = f"{prof['episode_prefix_tag']} '{story_title}' — 황영웅 [{song_title}] 사연 드라마 & 반가운 소식"
+    else:
+        ep_title_str = f"[제{episode}화] '{story_title}' — 황영웅 [{song_title}] 사연 3편 & 주요 소식 특집 라디오"
+
     script_meta = {
         "channel_name": "@김쌤의영웅라디오",
         "channel_url": "https://www.youtube.com/@김쌤의영웅라디오",
@@ -1142,11 +1268,18 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any])
         "story_funnel_url": "https://paradise-hero.com/story.html",
         "news_funnel_url": "https://paradise-hero.com/news.html",
         "creator_shop_url": "https://cshop.naver.com/paradiseshop",
+        "coupang_influencer_url": "https://influencers.coupang.com/s/paradisehero",
         "support_email": "beable9489@gmail.com",
         "fixed_hashtags": ["#황영웅", "#파라다이스", "#트로트", "#감동사연", "#시니어유튜브"],
         "publish_schedule_kst": "화·금 18:00 KST",
+        "broadcast_slot_day": prof["slot_day"],
+        "program_format": prof["program_format"],
+        "program_badge": prof["program_badge"],
+        "thumbnail_headline_line1": prof["thumbnail_headline_line1"],
+        "thumbnail_headline_line2": prof["thumbnail_headline_line2"],
+        "thumbnail_subline": prof["thumbnail_subline"],
         "episode_number": episode,
-        "episode_title": f"[제{episode}화] '{story_title}' — 황영웅 [{song_title}] 사연 3편 & 주요 소식 특집 라디오",
+        "episode_title": ep_title_str,
         "featured_song": f"{song_title} (황영웅)",
         "fan_story_origin": f"{sender_name} 외 사연 3편 & 주요 소식 2건",
         "stories_featured_count": 3,
@@ -1230,6 +1363,7 @@ def script_to_markdown(script_data: Dict[str, Any]) -> str:
 def main():
     parser = argparse.ArgumentParser(description="@김쌤의영웅라디오 Long-Form Script Generator")
     parser.add_argument("--episode", type=int, default=1, help="Episode number (default: 1)")
+    parser.add_argument("--slot-day", type=str, default="AUTO", choices=["AUTO", "TUE", "FRI"], help="Regular broadcast slot day (TUE/FRI/AUTO)")
     parser.add_argument("--story-file", type=str, default="", help="Path to selected story payload JSON")
     parser.add_argument("--output-dir", type=str, default="", help="Directory to save generated script artifacts")
     args = parser.parse_args()
@@ -1242,15 +1376,20 @@ def main():
 
     os.makedirs(base_dir, exist_ok=True)
 
-    print(f"[*] Generating @김쌤의영웅라디오 Episode {args.episode} script...")
+    print(f"[*] Generating @김쌤의영웅라디오 Episode {args.episode} script (slot={args.slot_day})...")
 
     if args.story_file and os.path.exists(args.story_file):
         print(f"[*] Ingesting top story from: {args.story_file}")
         with open(args.story_file, "r", encoding="utf-8") as f:
             story_payload = json.load(f)
-        script_data = build_episode_script_from_story(args.episode, story_payload)
+        script_data = build_episode_script_from_story(args.episode, story_payload, slot_day=args.slot_day)
     elif args.episode == 1:
         script_data = build_episode_01_script()
+    elif args.episode >= 6:
+        stories_3, _ = load_three_stories_and_two_news(args.episode)
+        story_payload = stories_3[0]
+        print(f"[*] Rotating regular broadcast story for Ep {args.episode}: {story_payload.get('sender_name')} / [{story_payload.get('song_title')}]")
+        script_data = build_episode_script_from_story(args.episode, story_payload, slot_day=args.slot_day)
     else:
         # Check if default selected_story.json or data/stories.json exists
         default_story_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "content", "selected_story.json"))
@@ -1258,7 +1397,7 @@ def main():
             print(f"[*] Ingesting default selected story from: {default_story_path}")
             with open(default_story_path, "r", encoding="utf-8") as f:
                 story_payload = json.load(f)
-            script_data = build_episode_script_from_story(args.episode, story_payload)
+            script_data = build_episode_script_from_story(args.episode, story_payload, slot_day=args.slot_day)
         else:
             # Fallback to episode 01 script format
             script_data = build_episode_01_script()

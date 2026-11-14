@@ -25,14 +25,21 @@ if sys.platform == "win32":
         pass
 
 
-def run_pipeline(episode_num: int, sample_audio: bool = False, skip_mp4: bool = False, no_tts: bool = False):
+def run_pipeline(
+    episode_num: int,
+    sample_audio: bool = False,
+    skip_mp4: bool = False,
+    no_tts: bool = False,
+    slot_day: str = "AUTO",
+    publish_at: str = "",
+):
     base_dir = os.path.dirname(os.path.abspath(__file__))
     content_dir = os.path.abspath(os.path.join(base_dir, "..", "content", f"episode_{episode_num:02d}"))
     os.makedirs(content_dir, exist_ok=True)
 
     print("==================================================================")
-    print(f"[*] Starting @김쌤의영웅라디오 1920x1080 Visible Story Radio Pipeline (Episode {episode_num})")
-    print(f"[*] Schedule Policy: 화·금 18:00 KST | Output: {content_dir}")
+    print(f"[*] Starting @김쌤의영웅라디오 1920x1080 Visible Story Radio Pipeline (Episode {episode_num} / Slot {slot_day})")
+    print(f"[*] Schedule Policy: 매주 화·금 18:00 KST 정규 편성 | Output: {content_dir}")
     print("==================================================================\n")
 
     python_exe = sys.executable
@@ -40,7 +47,7 @@ def run_pipeline(episode_num: int, sample_audio: bool = False, skip_mp4: bool = 
     # Step 1: Script Generation (3 Stories + 2 News)
     print(">>> [Step 1/4] Generating 12~20min Radio Script (3 Stories + 2 News)...")
     script_gen = os.path.join(base_dir, "generate_radio_script.py")
-    cmd1 = [python_exe, script_gen, "--episode", str(episode_num), "--output-dir", content_dir]
+    cmd1 = [python_exe, script_gen, "--episode", str(episode_num), "--slot-day", slot_day, "--output-dir", content_dir]
     res1 = subprocess.run(cmd1, capture_output=True, text=True, encoding="utf-8")
     print(res1.stdout)
     if res1.returncode != 0:
@@ -81,6 +88,8 @@ def run_pipeline(episode_num: int, sample_audio: bool = False, skip_mp4: bool = 
     print(">>> [Step 4/4] Packaging Metadata, Tue/Fri 18:00 KST Schedule & Pinned Comment...")
     pkg_meta = os.path.join(base_dir, "package_youtube_metadata.py")
     cmd4 = [python_exe, pkg_meta, "--script-file", script_json, "--video-plan", video_plan_json, "--output-dir", content_dir]
+    if publish_at:
+        cmd4.extend(["--publish-at", publish_at])
     res4 = subprocess.run(cmd4, capture_output=True, text=True, encoding="utf-8")
     print(res4.stdout)
     if res4.returncode != 0:
@@ -95,6 +104,7 @@ def run_pipeline(episode_num: int, sample_audio: bool = False, skip_mp4: bool = 
         print(f"[+] Fixed Hashtags      : {', '.join(meta.get('tags', []))}")
         print(f"[+] Pinned Booth Link   : {meta.get('pinned_comment_booth_url')}")
         print(f"[+] Pinned C-Shop Link  : {meta.get('pinned_comment_creator_shop_url')}")
+        print(f"[+] Pinned Coupang Link : {meta.get('pinned_comment_coupang_influencer_url')}")
 
     print("==================================================================")
     print(f"[SUCCESS] All 4 Longform Radio stages completed for Episode {episode_num}!")
@@ -106,9 +116,17 @@ def run_pipeline(episode_num: int, sample_audio: bool = False, skip_mp4: bool = 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="@김쌤의영웅라디오 Master Longform Radio Runner")
     parser.add_argument("--episode", type=int, default=1, help="Episode number (default: 1)")
+    parser.add_argument("--slot-day", type=str, default="AUTO", choices=["AUTO", "TUE", "FRI"], help="Broadcast slot day (TUE/FRI/AUTO)")
+    parser.add_argument("--publish-at", type=str, default="", help="Explicit ISO-8601 publishAt timestamp")
     parser.add_argument("--full-audio", action="store_true", default=False, help="Synthesize all audio segments rather than sample")
     parser.add_argument("--skip-mp4", action="store_true", default=False, help="Generate script, plan, 1080p cards & metadata without MP4 encode")
     args = parser.parse_args()
 
-    success = run_pipeline(args.episode, sample_audio=not args.full_audio, skip_mp4=args.skip_mp4)
+    success = run_pipeline(
+        args.episode,
+        sample_audio=not args.full_audio,
+        skip_mp4=args.skip_mp4,
+        slot_day=args.slot_day,
+        publish_at=args.publish_at,
+    )
     sys.exit(0 if success else 1)

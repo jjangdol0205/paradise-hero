@@ -50,6 +50,7 @@ except Exception:
     FFMPEG_EXE = "ffmpeg"
 
 SAMPLE_RATE = 44100
+FLOW_RADIO_16X9_VAULT_DIR = Path(r"D:\드림컴퍼니\flow_clip_vault\HERO_RADIO_16x9")
 
 FONT_CANDIDATES = [
     r"C:\Windows\Fonts\malgunbd.ttf",
@@ -287,10 +288,13 @@ def create_studio_chapter_base(
     ch_idx: int,
     ch_title: str,
     visual_elements: List[str],
-    sprite_path: Path
+    sprite_path: Path,
+    transparent_for_flow: bool = False,
 ) -> Image.Image:
     """
     Renders a rich 1920x1080 Senior Broadcast Studio background canvas for a chapter.
+    When `transparent_for_flow=True`, uses smoked cinema glass alpha so live 16:9 Google Flow
+    `Veo 3.1` radio footage moves smoothly behind the studio cards and 74pt senior subtitles.
     """
     palettes = [
         ((38, 22, 16), (232, 155, 83), (255, 236, 209)),   # Ch1: Warm twilight radio studio
@@ -303,17 +307,20 @@ def create_studio_chapter_base(
     bg_rgb, accent_rgb, title_rgb = palettes[(ch_idx - 1) % len(palettes)]
 
     W, H = 1920, 1080
-    y = np.linspace(0, 1, H)[:, None]
-    x = np.linspace(0, 1, W)[None, :]
-    dx = (x - 0.62) * 1.1
-    dy = (y - 0.42) * 1.3
-    spot = np.clip(1.0 - np.sqrt(dx ** 2 + dy ** 2), 0.0, 1.0) ** 1.6
+    if transparent_for_flow:
+        canvas = Image.new("RGBA", (W, H), (8, 10, 16, 108))
+    else:
+        y = np.linspace(0, 1, H)[:, None]
+        x = np.linspace(0, 1, W)[None, :]
+        dx = (x - 0.62) * 1.1
+        dy = (y - 0.42) * 1.3
+        spot = np.clip(1.0 - np.sqrt(dx ** 2 + dy ** 2), 0.0, 1.0) ** 1.6
 
-    r = np.clip(10 + bg_rgb[0] * (1.0 - y * 0.45) + spot * accent_rgb[0] * 0.32, 0, 255)
-    g = np.clip(12 + bg_rgb[1] * (1.0 - y * 0.45) + spot * accent_rgb[1] * 0.32, 0, 255)
-    b = np.clip(18 + bg_rgb[2] * (1.0 - y * 0.45) + spot * accent_rgb[2] * 0.32, 0, 255)
-    arr = np.stack([r, g, b], axis=-1).astype(np.uint8)
-    canvas = Image.fromarray(arr, "RGB").convert("RGBA")
+        r = np.clip(10 + bg_rgb[0] * (1.0 - y * 0.45) + spot * accent_rgb[0] * 0.32, 0, 255)
+        g = np.clip(12 + bg_rgb[1] * (1.0 - y * 0.45) + spot * accent_rgb[1] * 0.32, 0, 255)
+        b = np.clip(18 + bg_rgb[2] * (1.0 - y * 0.45) + spot * accent_rgb[2] * 0.32, 0, 255)
+        arr = np.stack([r, g, b], axis=-1).astype(np.uint8)
+        canvas = Image.fromarray(arr, "RGB").convert("RGBA")
     draw = ImageDraw.Draw(canvas)
 
     # Golden bokeh particles
@@ -369,7 +376,8 @@ def create_studio_chapter_base(
     draw.text((590, 148), ch_title[:36], font=f_title, fill=title_rgb + (255,))
 
     # Right Studio Giant 72pt+ Senior Story Stage (X=564..1864, Y=228..1016)
-    draw.rounded_rectangle([564, 228, 1864, 1016], radius=26, fill=(14, 18, 26, 228), outline=(212, 175, 55, 235), width=3)
+    stage_alpha = 148 if transparent_for_flow else 228
+    draw.rounded_rectangle([564, 228, 1864, 1016], radius=26, fill=(14, 18, 26, stage_alpha), outline=(212, 175, 55, 235), width=3)
     draw.text((602, 256), "📻 보이는 사연 라디오 · 사연 3편 & 황영웅 주요 소식 2건", font=f_ch, fill=(255, 224, 118, 255))
     draw.text((602, 308), f"• 부스 분위기: {', '.join(visual_elements)}", font=f_meta, fill=(195, 235, 210, 255))
 
@@ -420,7 +428,8 @@ def render_cue_slide(
     speaker_is_fan: bool,
     cue_l1: str,
     cue_l2: str,
-    is_closing_chapter: bool
+    is_closing_chapter: bool,
+    keep_rgba: bool = False,
 ) -> Image.Image:
     """
     Renders a 1920x1080 Vacuum-Tube Radio Booth frame with right-side 72pt+ giant senior subtitles.
@@ -484,13 +493,15 @@ def render_cue_slide(
         draw.text((628, 900), "“세상 모든 사람이 등을 돌려도, 나 하나만큼은 끝까지 당신 편이 되어드리겠습니다.”", font=get_font(29), fill=(255, 235, 165, 255))
         draw.text((628, 944), "— 가수 황영웅 사연 3편 & 주요 소식 낭독 | 아래 고정 댓글에서 무료 기념사진관을 만나보세요", font=get_font(24), fill=(200, 220, 210, 255))
 
-    return frame.convert("RGB")
+    return frame if keep_rgba else frame.convert("RGB")
 
 
 def assemble_master_radio_mp4(script_data: Dict[str, Any], plan: Dict[str, Any], base_dir: str) -> str:
     """
     Synthesizes the full broadcast audio track (with warm acoustic BGM ducking) and encodes
     episode_XX_master.mp4 (1920x1080 16:9 H.264 + AAC) with 100% full subtitle reading.
+    When `HERO_RADIO_16x9` Google Flow Veo 3.1 clips exist, composites the studio glass &
+    74pt senior subtitles over a continuous looping 1920x1080 Google Flow cinema backdrop!
     """
     t0 = time.time()
     ep_num = script_data.get("episode_number", 1)
@@ -499,12 +510,21 @@ def assemble_master_radio_mp4(script_data: Dict[str, Any], plan: Dict[str, Any],
     slides_dir.mkdir(parents=True, exist_ok=True)
     sprite_path = Path(base_dir).resolve().parent.parent / "assets" / "characters" / "sprite_hwang_young_woong.png"
 
+    flow_16x9_mp4s = (
+        sorted(p for p in FLOW_RADIO_16X9_VAULT_DIR.glob("*.mp4") if p.stat().st_size > 120_000)
+        if FLOW_RADIO_16X9_VAULT_DIR.exists()
+        else []
+    )
+    use_flow_bg = len(flow_16x9_mp4s) > 0
+    if use_flow_bg:
+        print(f"[*] Google Flow Veo 3.1 16:9 Radio Cinema Vault Active ({len(flow_16x9_mp4s)} landscape clips)!")
+
     # Pre-build chapter base canvases
     chapter_bases: Dict[int, Image.Image] = {}
     for ch_plan in plan["chapters"]:
         c_idx = ch_plan["chapter_index"]
         chapter_bases[c_idx] = create_studio_chapter_base(
-            c_idx, ch_plan["title"], ch_plan["visual_elements"], sprite_path
+            c_idx, ch_plan["title"], ch_plan["visual_elements"], sprite_path, transparent_for_flow=use_flow_bg
         )
 
     voice_parts: List[np.ndarray] = []
@@ -523,13 +543,16 @@ def assemble_master_radio_mp4(script_data: Dict[str, Any], plan: Dict[str, Any],
 
         slide_counter += 1
         ch_intro_png = slides_dir / f"slide_{slide_counter:04d}.png"
+        ep_song_short = (script_data.get("featured_song") or "당신 편").split(" (")[0].strip()
+        ch_intro_subline = script_data.get("program_badge") or f"황영웅 [{ep_song_short}] 특집 라디오 방송"
         intro_img = render_cue_slide(
             ch_base,
-            "📻 @김쌤의영웅라디오 — 챕터 오프닝",
+            "📻 @김쌤의영웅라디오 — 정규 본방송",
             False,
-            f"제{c_idx}장. {ch['title'][:24]}",
-            "황영웅 [당신 편] 특집 라디오 방송",
-            is_closing
+            f"제{c_idx}장. {ch['title'][:22]}",
+            ch_intro_subline[:26],
+            is_closing,
+            keep_rgba=use_flow_bg,
         )
         intro_img.save(ch_intro_png, "PNG")
         slide_entries.append((ch_intro_png, bridge_sec))
@@ -538,7 +561,12 @@ def assemble_master_radio_mp4(script_data: Dict[str, Any], plan: Dict[str, Any],
             seg_id = seg["segment_id"]
             speaker = seg["speaker"]
             is_fan = (speaker == "fan_letter_writer")
-            speaker_label = "💌 사연 낭독: 대구 이순자 어머니" if is_fan else "🎙️ 진행: DJ 김쌤 (영웅라디오)"
+            raw_spk_title = (seg.get("speaker_title") or "").strip()
+            if is_fan:
+                clean_mother = raw_spk_title.replace("사연자 ", "").strip() or "대구 이순자 어머니"
+                speaker_label = f"💌 사연 낭독: {clean_mother}"
+            else:
+                speaker_label = "🎙️ 진행: DJ 김쌤 (영웅라디오)"
             mp3_path = audio_dir / f"{seg_id}_{speaker}.mp3"
             wav_tmp = slides_dir / f"{seg_id}.wav"
 
@@ -579,7 +607,7 @@ def assemble_master_radio_mp4(script_data: Dict[str, Any], plan: Dict[str, Any],
 
                 slide_counter += 1
                 cue_png = slides_dir / f"slide_{slide_counter:04d}.png"
-                cue_img = render_cue_slide(ch_base, speaker_label, is_fan, l1, l2, is_closing)
+                cue_img = render_cue_slide(ch_base, speaker_label, is_fan, l1, l2, is_closing, keep_rgba=use_flow_bg)
                 cue_img.save(cue_png, "PNG")
                 slide_entries.append((cue_png, c_dur))
 
@@ -640,24 +668,57 @@ def assemble_master_radio_mp4(script_data: Dict[str, Any], plan: Dict[str, Any],
         f.write(f"file '{last_p}'\n")
 
     master_mp4 = Path(base_dir) / f"episode_{ep_num:02d}_master.mp4"
-    ffmpeg_cmd = [
-        FFMPEG_EXE, "-y",
-        "-f", "concat",
-        "-safe", "0",
-        "-i", str(concat_txt),
-        "-i", str(master_wav),
-        "-c:v", "libx264",
-        "-preset", "ultrafast",
-        "-tune", "stillimage",
-        "-crf", "23",
-        "-r", "15",
-        "-pix_fmt", "yuv420p",
-        "-c:a", "aac",
-        "-b:a", "192k",
-        "-shortest",
-        "-movflags", "+faststart",
-        str(master_mp4)
-    ]
+    if use_flow_bg:
+        rot = (ep_num - 1) % len(flow_16x9_mp4s)
+        rotated_flow_mp4s = flow_16x9_mp4s[rot:] + flow_16x9_mp4s[:rot]
+        flow_concat_txt = slides_dir / "flow_bg_concat.txt"
+        with open(flow_concat_txt, "w", encoding="utf-8") as ff:
+            for fp in rotated_flow_mp4s:
+                ff.write(f"file '{str(fp.resolve()).replace(chr(92), '/')}'\n")
+        flow_loop_mp4 = slides_dir / "flow_bg_loop_16x9.mp4"
+        subprocess.run(
+            [FFMPEG_EXE, "-y", "-f", "concat", "-safe", "0", "-i", str(flow_concat_txt), "-c", "copy", str(flow_loop_mp4)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=True,
+        )
+        ffmpeg_cmd = [
+            FFMPEG_EXE, "-y",
+            "-stream_loop", "-1", "-i", str(flow_loop_mp4),
+            "-f", "concat", "-safe", "0", "-i", str(concat_txt),
+            "-i", str(master_wav),
+            "-filter_complex",
+            "[0:v]fps=24,scale=1920:1080:flags=lanczos,setsar=1[bg];[1:v]fps=24,format=rgba[ov];[bg][ov]overlay=0:0:shortest=1,format=yuv420p[v]",
+            "-map", "[v]",
+            "-map", "2:a",
+            "-c:v", "libx264",
+            "-preset", "veryfast",
+            "-crf", "21",
+            "-c:a", "aac",
+            "-b:a", "192k",
+            "-shortest",
+            "-movflags", "+faststart",
+            str(master_mp4),
+        ]
+    else:
+        ffmpeg_cmd = [
+            FFMPEG_EXE, "-y",
+            "-f", "concat",
+            "-safe", "0",
+            "-i", str(concat_txt),
+            "-i", str(master_wav),
+            "-c:v", "libx264",
+            "-preset", "ultrafast",
+            "-tune", "stillimage",
+            "-crf", "23",
+            "-r", "15",
+            "-pix_fmt", "yuv420p",
+            "-c:a", "aac",
+            "-b:a", "192k",
+            "-shortest",
+            "-movflags", "+faststart",
+            str(master_mp4)
+        ]
     print(f"[*] Encoding 16:9 1080p Master Radio Broadcast MP4 ({len(slide_entries)} subtitle slides, {total_duration:.1f}s)...")
     res = subprocess.run(ffmpeg_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8", errors="ignore")
     if res.returncode != 0:
