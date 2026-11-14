@@ -173,6 +173,25 @@
     modal.classList.add('open');
   }
 
+  function showSeniorToast(message, durationMs) {
+    if (typeof document === 'undefined' || !document.body) return;
+    let toast = document.getElementById('senior-global-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'senior-global-toast';
+      toast.className = 'senior-toast-banner';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.style.display = 'block';
+    if (toast.__hideTimer) clearTimeout(toast.__hideTimer);
+    toast.__hideTimer = setTimeout(() => {
+      toast.style.display = 'none';
+    }, durationMs || 3800);
+  }
+
   async function shareOrBookmarkRoom(customUrl) {
     const targetUrl = customUrl || window.location.href.split('#')[0] || 'https://paradise-hero.com/';
     const shareData = {
@@ -189,11 +208,13 @@
         return;
       } catch (err) {
         if (err && err.name === 'AbortError') {
+          showSeniorToast('✅ 주소가 복사되었습니다! 카카오톡 대화창에 붙여넣기 해주세요 💚');
           openKakaoBookmarkGuideModal(targetUrl);
           return;
         }
       }
     }
+    showSeniorToast('✅ 주소가 복사되었습니다! 카카오톡 대화창에 붙여넣기 해주세요 💚');
     openKakaoBookmarkGuideModal(targetUrl);
   }
 
@@ -363,12 +384,14 @@
   window.SeniorAccessibility = {
     getCurrentLevel: () => currentLevelIndex,
     setLevel: (idx) => applyLevel(idx, false),
-    toggleNext: toggleNextLevel
+    toggleNext: toggleNextLevel,
+    showToast: showSeniorToast
   };
 
   window.ParadiseKakaoBookmark = {
     shareRoom: shareOrBookmarkRoom,
     shareDataUrl: shareDataUrlViaKakaoOrSystem,
+    showToast: showSeniorToast,
     escapeHtml: escapeBillboardHtml,
     isKakaoInAppOrMobile: isKakaoInAppOrMobile,
     openLongPressPhotoSaveModal: function (dataUrl, titleText) {

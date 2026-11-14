@@ -68,7 +68,7 @@
   </script>
 
   <!-- 파라다이스 시니어 WCAG AAA 스타일시트 -->
-  <link rel="stylesheet" href="css/senior-style.css?v=20261114c">
+  <link rel="stylesheet" href="css/senior-style.css?v=20261114d">
 
   <style>
     /* ==========================================================================
@@ -129,13 +129,14 @@
     }
 
     .btn-camera-capture {
-      min-height: 60px;
+      min-height: 64px;
+      padding: 12px 16px;
       background: linear-gradient(135deg, var(--brand-emerald) 0%, var(--brand-emerald-dark) 100%);
       color: #FFFFFF;
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 800;
       border: 2px solid var(--brand-gold);
-      border-radius: 16px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -152,13 +153,14 @@
     }
 
     .btn-album-upload {
-      min-height: 60px;
+      min-height: 64px;
+      padding: 12px 16px;
       background-color: #F8FAFC;
       color: var(--brand-emerald-dark);
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 800;
       border: 2px solid #CBD5E1;
-      border-radius: 16px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -250,27 +252,21 @@
       cursor: grabbing;
     }
 
-    /* 시니어 조작 툴바 (최소 56px 터치 타겟) */
+    /* 시니어 조작 패드 (최소 60px 터치 타겟 & 20px 고대비) */
     .senior-toolbar {
       display: flex;
       flex-direction: column;
       gap: 10px;
       margin-top: 16px;
     }
-    .toolbar-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-    }
     .btn-tool {
       min-height: 60px;
-      min-width: 56px;
-      flex: 1 1 calc(25% - 8px);
-      background-color: #F8FAFC;
-      border: 2px solid #CBD5E1;
+      min-width: 0;
+      width: 100%;
+      background-color: #FFFFFF;
+      border: 2.5px solid var(--brand-emerald);
       border-radius: 14px;
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--brand-emerald-dark);
       cursor: pointer;
@@ -278,16 +274,16 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 8px 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      padding: 12px 10px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
       transition: transform 0.1s ease, background-color 0.2s ease;
     }
     .btn-tool:hover {
-      background-color: #E2E8F0;
-      border-color: var(--brand-emerald);
+      background-color: #ECFDF5;
+      border-color: var(--brand-gold);
     }
     .btn-tool:active {
-      transform: scale(0.95);
+      transform: scale(0.96);
     }
     .btn-tool-reset {
       background-color: #FEF3C7;
@@ -303,13 +299,14 @@
       margin-top: 20px;
     }
     .btn-save-primary {
-      min-height: 64px;
+      min-height: 68px;
+      padding: 14px 18px;
       background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
       color: #FFFFFF;
       font-size: 22px;
       font-weight: 900;
       border: 2px solid #FFFFFF;
-      border-radius: 20px;
+      border-radius: 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -326,13 +323,14 @@
     }
 
     .btn-share-secondary {
-      min-height: 60px;
+      min-height: 64px;
+      padding: 12px 16px;
       background-color: #FEE500;
       color: #191919;
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 800;
       border: 2px solid #E5CE00;
-      border-radius: 16px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -576,29 +574,36 @@
         💡 사진 위를 손가락(또는 마우스)으로 끌면 위치를 자유롭게 움직일 수 있습니다!
       </p>
 
-      <!-- 시니어 맞춤 4대 핵심 왕버튼 조작 툴바 (복잡한 화살표 제거) -->
-      <div class="senior-toolbar" aria-label="사진 크기 및 좌우반전 조절 버튼 모음">
-        <div class="toolbar-row">
-          <button type="button" id="btn-zoom-in" class="btn-tool" aria-label="사진 크게 확대">
+      <!-- 시니어 맞춤 9종 왕버튼 조작 패드 (모든 조작 버튼 60px+ 고대비 보장) -->
+      <div class="senior-toolbar senior-control-pad-wrap" aria-label="사진 크기·회전·위치 조절 큰 버튼 모음">
+        <div class="senior-control-pad">
+          <button type="button" id="btn-zoom-in" class="btn-tool btn-booth-pad" aria-label="사진 크게 확대">
             <span aria-hidden="true">🔍</span> 크게 (+)
           </button>
-          <button type="button" id="btn-zoom-out" class="btn-tool" aria-label="사진 작게 축소">
+          <button type="button" id="btn-zoom-out" class="btn-tool btn-booth-pad" aria-label="사진 작게 축소">
             <span aria-hidden="true">🔉</span> 작게 (-)
           </button>
-          <button type="button" id="btn-flip" class="btn-tool" aria-label="사진 좌우 뒤집기">
+          <button type="button" id="btn-rotate" class="btn-tool btn-booth-pad" aria-label="사진 90도 회전">
+            <span aria-hidden="true">🔄</span> 90도 회전
+          </button>
+          <button type="button" id="btn-flip" class="btn-tool btn-booth-pad" aria-label="사진 좌우 뒤집기">
             <span aria-hidden="true">↔️</span> 좌우반전
           </button>
-          <button type="button" id="btn-reset" class="btn-tool btn-tool-reset" aria-label="사진 크기 및 위치 원래대로 복구">
-            <span aria-hidden="true">🔄</span> 원래대로
+          <button type="button" id="btn-pan-up" class="btn-tool btn-booth-pad" aria-label="사진 위로 이동">
+            <span aria-hidden="true">⬆️</span> 위로
           </button>
-        </div>
-        <!-- 호환성 유지용 보조 컨트롤 (화면 숨김 처리하여 시니어 혼란 방지) -->
-        <div class="sr-only" aria-hidden="true">
-          <button type="button" id="btn-rotate">90도 회전</button>
-          <button type="button" id="btn-pan-up">위로</button>
-          <button type="button" id="btn-pan-down">아래로</button>
-          <button type="button" id="btn-pan-left">왼쪽</button>
-          <button type="button" id="btn-pan-right">오른쪽</button>
+          <button type="button" id="btn-pan-down" class="btn-tool btn-booth-pad" aria-label="사진 아래로 이동">
+            <span aria-hidden="true">⬇️</span> 아래로
+          </button>
+          <button type="button" id="btn-pan-left" class="btn-tool btn-booth-pad" aria-label="사진 왼쪽으로 이동">
+            <span aria-hidden="true">⬅️</span> 왼쪽
+          </button>
+          <button type="button" id="btn-pan-right" class="btn-tool btn-booth-pad" aria-label="사진 오른쪽으로 이동">
+            <span aria-hidden="true">➡️</span> 오른쪽
+          </button>
+          <button type="button" id="btn-reset" class="btn-tool btn-booth-pad btn-tool-reset btn-booth-pad-full" aria-label="사진 크기 및 위치 원래대로 복구">
+            <span aria-hidden="true">✨</span> 원래대로 복구
+          </button>
         </div>
       </div>
     </section>
@@ -725,11 +730,11 @@
 
     <!-- 김쌤이 직접 고른 어머님 콘서트·응원·건강 안심 특가관 (네이버 크리에이터샵 + 쿠팡 AF7865143) -->
         <!-- 김쌤이 직접 고른 어머님 콘서트·응원·건강 안심 특가관 (네이버 크리에이터샵 + 쿠팡 AFFSRP AF7865143) -->
-    <section id="senior-curation-market" class="safe-special-store-section" aria-labelledby="safe-store-heading-photobooth" style="margin-top: 28px;">
+        <section id="senior-curation-market" class="safe-special-store-section" aria-labelledby="safe-store-heading-booth" style="margin-top: 28px;">
       <div class="safe-special-store-header">
-        <span class="safe-special-store-badge">💚 안심 효도 큐레이션</span>
-        <h2 id="safe-store-heading-photobooth" class="safe-special-store-title">💚 김쌤이 직접 고른 어머님 콘서트·응원·건강 안심 특가관</h2>
-        <p class="safe-special-store-desc">콘서트장 필수 준비물, 황영웅 정품 음반·응원굿즈, 어머님 일일 건강템을 평소 쓰시던 네이버페이·쿠팡 로켓배송으로 편하게 만나보세요.</p>
+        <span class="safe-special-store-badge">💚 6대 공식 안심 효도 큐레이션</span>
+        <h2 id="safe-store-heading-booth" class="safe-special-store-title">💚 김쌤이 직접 고른 어머님 콘서트·응원·건강 안심 특가관</h2>
+        <p class="safe-special-store-desc">평소 쓰시던 네이버페이·쿠팡 로켓배송은 물론, YES24 차트반영 정품 음반·홈쇼핑 선물, 미국 직구 영양제(iHerb), 주말 효도·손주 나들이 입장권까지 큰 글씨 한곳에서 편하게 만나보세요.</p>
       </div>
 
       <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-cshop">
@@ -818,8 +823,98 @@
         </a>
       </div>
 
+      <div class="curation-subhead-pill linkprice-pill">
+        💿 YES24 차트반영 정품 음반·큰글씨책 &amp; 백화점·홈쇼핑 효도 선물관
+      </div>
+
+      <div class="linkprice-safe-grid">
+        <a href="https://click.linkprice.com/click.php?m=yes24&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2599%25A9%25EC%2598%2581%25EC%259B%2585" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
+          <span>💿 ① 황영웅 정품 음반·포토북 (YES24 한터·써클차트 반영)</span>
+          <span class="btn-linkprice-safe-cta">YES24 보기 👉</span>
+        </a>
+        <a href="https://click.linkprice.com/click.php?m=yes24&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2581%25B0%25EA%25B8%2580%25EC%259E%2590%25EB%258F%2584%25EC%2584%259C%2B%25EC%258B%259C%25EC%25A7%2591" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
+          <span>📖 ② 돋보기 필요 없는 큰글씨 도서·시집·노래 악보집</span>
+          <span class="btn-linkprice-safe-cta">YES24 보기 👉</span>
+        </a>
+        <a href="https://click.linkprice.com/click.php?m=hmall&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.hmall.com%2Fmd%2Fpde%2Fsearch.do%3FsearchTerm%3D%25EC%25A0%2595%25EA%25B4%2580%25EC%259E%25A5%2B%25ED%2599%258D%25EC%2582%25BC%2B%25EC%2584%25A0%25EB%25AC%25BC%25EC%2584%25B8%25ED%258A%25B8" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
+          <span>🎁 ③ 정관장 홍삼·보양 건강선물세트 (현대Hmall 홈쇼핑)</span>
+          <span class="btn-linkprice-safe-cta">현대Hmall 👉</span>
+        </a>
+        <a href="https://click.linkprice.com/click.php?m=lotteon&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.lotteon.com%2Fsearch%2Fsearch%2Fsearch.ecn%3Frender%3Dsearch%26platform%3Dpc%26q%3D%25EC%2597%25AC%25EC%2584%25B1%2B%25EA%25B2%25BD%25EB%259F%2589%25ED%258C%25A8%25EB%2594%25A9%2B%25EC%258A%25A4%25EC%25B9%25B4%25ED%2594%2584" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
+          <span>🧣 ④ 백화점 경량패딩·스카프 나들이 패션 (롯데ON)</span>
+          <span class="btn-linkprice-safe-cta">롯데ON 👉</span>
+        </a>
+        <a href="https://click.linkprice.com/click.php?m=gmarket&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fbrowse.gmarket.co.kr%2Fsearch%3Fkeyword%3D%25EC%2597%25AC%25EC%2584%25B1%2B%25ED%258E%25B8%25EC%2595%2588%25ED%2595%259C%2B%25EC%259B%258C%25ED%2582%25B9%25ED%2599%2594%2B%25ED%259A%25A8%25EB%258F%2584%25ED%2599%2594" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
+          <span>👟 ⑤ 콘서트장 발 편한 쿠션 워킹화·효도화 (G마켓)</span>
+          <span class="btn-linkprice-safe-cta">G마켓 👉</span>
+        </a>
+        <a href="https://click.linkprice.com/click.php?m=11st&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fsearch.11st.co.kr%2Fpc%2Ftotal-search%3Fkwd%3D%25EC%25A2%2585%25EA%25B7%25BC%25EB%258B%25B9%25EA%25B1%25B4%25EA%25B0%2595%2B%25EB%259D%25BD%25ED%2586%25A0%25ED%2595%258F%2B%25EA%25B4%2580%25EC%25A0%2588" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
+          <span>💊 ⑥ 종근당건강 락토핏·관절 유산균 선물세트 (11번가)</span>
+          <span class="btn-linkprice-safe-cta">11번가 👉</span>
+        </a>
+      </div>
+
+      <div class="curation-subhead-pill iherb-pill">
+        🌿 네이버페이·카카오페이 결제 가능! iHerb 한국어 공식 미국 직구 영양제관
+      </div>
+
+      <div class="iherb-safe-grid">
+        <a href="https://kr.iherb.com/search?kw=California%20Gold%20Nutrition%20Omega-3&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" class="btn-iherb-safe">
+          <span>🐟 ① 혈행·기억력 안심 — 알래스카 고순도 오메가-3</span>
+          <span class="btn-iherb-safe-cta">iHerb 직구 👉</span>
+        </a>
+        <a href="https://kr.iherb.com/search?kw=Doctor%27s%20Best%20High%20Absorption%20Magnesium&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" class="btn-iherb-safe">
+          <span>🌙 ② 밤중 다리 쥐·편안한 잠 — 닥터스베스트 고흡수 마그네슘</span>
+          <span class="btn-iherb-safe-cta">iHerb 직구 👉</span>
+        </a>
+        <a href="https://kr.iherb.com/search?kw=California%20Gold%20Nutrition%20CoQ10%20100mg&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" class="btn-iherb-safe">
+          <span>❤️ ③ 중장년 일일 활력·항산화 — 코엔자임 Q10 100mg</span>
+          <span class="btn-iherb-safe-cta">iHerb 직구 👉</span>
+        </a>
+        <a href="https://kr.iherb.com/search?kw=California%20Gold%20Nutrition%20Lutein%20Zeaxanthin&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" class="btn-iherb-safe">
+          <span>👁️ ④ 침침한 눈·스마트폰 보호 — 고함량 루테인·지아잔틴</span>
+          <span class="btn-iherb-safe-cta">iHerb 직구 👉</span>
+        </a>
+      </div>
+
+      <div class="curation-subhead-pill tour-pill">
+        🎟️ 전국 콘서트 원정 겸 주말 효도여행 · 손주 동반 나들이 입장권 혜택관
+      </div>
+
+      <a href="https://naver.me/xJcOADhA" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-tour-king">
+        <span>🚌 네이버페이(Npay) 적립! 전국 주말 효도여행·온천·나들이 공식 혜택 라운지 전체보기 👉</span>
+      </a>
+
+      <div class="tour-safe-grid">
+        <a href="https://myrealt.rip/xc4hf6" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
+          <span>🍊 ① 제주 투어패스 — 온 가족 식물원·전망대 힐링 이용권</span>
+          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
+        </a>
+        <a href="https://myrealt.rip/xwYU1a" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
+          <span>🌊 ② 제주 아쿠아플라넷 — 바다 대수조 가족·손주 입장권</span>
+          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
+        </a>
+        <a href="https://myrealt.rip/xc4Y3a" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
+          <span>🌿 ③ 강원 홍천 알파카월드 — 푸른 초원 산책·손주 나들이</span>
+          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
+        </a>
+        <a href="https://myrealt.rip/xc4b13" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
+          <span>🏯 ④ 경주 신라천년 여행 — 첨성대·대릉원 가족 해설 투어</span>
+          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
+        </a>
+        <a href="https://myrealt.rip/xc4f7a" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
+          <span>👑 ⑤ 서울 경복궁 산책 — 품격 있는 고궁 역사 가족투어</span>
+          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
+        </a>
+        <a href="https://myrealt.rip/xc4wa0" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
+          <span>🐾 ⑥ 주렁주렁 실내 동물원 — 날씨 걱정 없는 주말 손주 나들이</span>
+          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
+        </a>
+      </div>
+
       <p class="ftc-safe-notice">
-        본 특가관은 네이버 쇼핑 커넥트 및 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
+        본 특가관은 네이버 쇼핑 커넥트 및 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.<br>
+        또한 링크프라이스(YES24·현대Hmall·롯데ON·G마켓·11번가), 아이허브(iHerb), 마이리얼트립 제휴 활동으로 구매자 추가 부담 없이 소정의 수수료를 제공받을 수 있습니다.
       </p>
     </section>
 
@@ -930,29 +1025,37 @@
       <h2 class="footer-title">👑 파라다이스 · 가수 황영웅 팬 쉼터</h2>
       <p>
         본 플랫폼은 가수 황영웅님을 사랑하는 5070 어머님 팬들을 위한 100% 무료 응원 커뮤니티 공간입니다.<br>
-        유튜브 <a href="https://www.youtube.com/@김쌤의영웅라디오?sub_confirmation=1" target="_blank" rel="noopener noreferrer" style="color: var(--brand-gold); text-decoration: underline;">@김쌤의영웅라디오</a> 채널과 함께하며, 모든 저작권 및 초상권은 원저작권자에게 있습니다.
+        유튜브 @김쌤의영웅라디오 채널과 함께하며, 모든 저작권 및 초상권은 원저작권자에게 있습니다.
       </p>
 
-      <p style="margin: 14px 0; font-size: 18px;">
-        <a href="index.html" style="color: var(--brand-gold);">홈</a> ·
-        <a href="radio.html" style="color: var(--brand-gold);">영웅라디오</a> ·
-        <a href="booth.html" style="color: var(--brand-gold);">기념사진관</a> ·
-        <a href="vip.html" style="color: var(--brand-gold);">🎁 무료 선물제작소</a> ·
-        <a href="news.html" style="color: var(--brand-gold);">황영웅소식</a>
-      </p>
+      <div class="footer-contact-box">
+        <p><strong>공식 지원 및 사연 문의 창구:</strong></p>
+        <a href="mailto:beable9489@gmail.com" class="footer-contact-email">beable9489@gmail.com</a>
+      </div>
+
+      <nav class="footer-nav" aria-label="하단 바로가기 메뉴">
+        <a href="index.html">🏠 홈</a>
+        <a href="radio.html">📻 영웅라디오</a>
+        <a href="booth.html">📸 기념사진관</a>
+        <a href="stream.html">🎵 노래듣기</a>
+        <a href="community.html">💬 사랑방</a>
+        <a href="story.html">💌 사연우체통</a>
+        <a href="news.html">📰 황영웅소식</a>
+        <a href="vip.html">🎁 무료선물제작소</a>
+        <a href="https://www.youtube.com/@김쌤의영웅라디오?sub_confirmation=1" target="_blank" rel="noopener noreferrer">📺 @김쌤의영웅라디오</a>
+      </nav>
 
       <div class="footer-copyright">
-        공식 지원 및 문의: <a href="mailto:beable9489@gmail.com" style="color: var(--brand-gold);">beable9489@gmail.com</a><br>
         © 2026 파라다이스 (paradise-hero.com) &amp; Dream Company 제4사업부. All rights reserved.
       </div>
     </div>
   </footer>
 
   <!-- 스크립트 연결 -->
-  <script src="js/senior-accessibility.js?v=20261114b"></script>
-  <script src="js/radio-player.js?v=20261114a"></script>
-  <script src="js/character-catalog.js"></script>
-  <script src="js/photo-booth.js"></script>
+  <script src="js/senior-accessibility.js?v=20261114d"></script>
+  <script src="js/radio-player.js?v=20261114d"></script>
+  <script src="js/character-catalog.js?v=20261114d"></script>
+  <script src="js/photo-booth.js?v=20261114d"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {

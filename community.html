@@ -67,7 +67,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/senior-style.css?v=20261114c">
+  <link rel="stylesheet" href="css/senior-style.css?v=20261114d">
 </head>
 <body>
   <!-- 스킵 네비게이션 -->
@@ -156,6 +156,15 @@
         </p>
       </div>
 
+      <div style="margin-bottom: 18px;">
+        <button type="button" id="btn-quick-attendance" onclick="stampQuickAttendance()" class="senior-btn btn-gold" style="width: 100%; min-height: 64px; font-size: 21px;">
+          <span aria-hidden="true">💮</span>
+          <span>1초 원탭 오늘 출석 도장 먼저 찍기 👉</span>
+        </button>
+      </div>
+
+      <div id="cheer-confirm-banner" role="status" aria-live="polite" style="display: none; background-color: #ECFDF5; border: 3px solid var(--brand-emerald); border-radius: 14px; padding: 16px 18px; margin-bottom: 18px; font-size: 20px; font-weight: 800; color: var(--brand-emerald-dark); text-align: center;"></div>
+
       <form id="cheer-form" onsubmit="event.preventDefault(); postCheerMessage();">
         <div class="form-group">
           <label for="cheer-nickname" class="form-label">
@@ -171,7 +180,7 @@
           <textarea id="cheer-content" class="form-textarea" placeholder="오늘 하루 어떤 노래를 들으셨나요? 영웅이에게 힘이 되는 따뜻한 글을 남겨주세요." required></textarea>
         </div>
 
-        <button type="submit" class="senior-btn btn-primary" style="width: 100%;">
+        <button type="submit" id="btn-submit-cheer" class="senior-btn btn-primary" style="width: 100%; min-height: 64px; font-size: 21px;">
           <span aria-hidden="true">🌟</span>
           <span>응원 글 등록 &amp; 출석 도장 찍기</span>
         </button>
@@ -449,6 +458,18 @@
         </p>
       </div>
 
+      <nav class="footer-nav" aria-label="하단 바로가기 메뉴">
+        <a href="index.html">🏠 홈</a>
+        <a href="radio.html">📻 영웅라디오</a>
+        <a href="booth.html">📸 기념사진관</a>
+        <a href="stream.html">🎵 노래듣기</a>
+        <a href="community.html">💬 사랑방</a>
+        <a href="lounge.html">💮 출석방</a>
+        <a href="story.html">💌 사연우체통</a>
+        <a href="news.html">📰 황영웅소식</a>
+        <a href="vip.html">🎁 무료선물제작소</a>
+      </nav>
+
       <div class="footer-notice">
         <p>• <strong>100% 무료 팬 쉼터:</strong> 사랑방·기념사진관·선물제작소의 모든 기능은 회원가입·결제 없이 무제한 무료로 제공됩니다.</p>
         <p>• <strong>저작권 및 공정 이용:</strong> 모든 팬 활동은 가수의 공식 권익 보호 및 건전한 팬 문화 조성을 최우선으로 합니다.</p>
@@ -460,19 +481,23 @@
     </div>
   </footer>
 
-  <script src="js/senior-accessibility.js?v=20261114b"></script>
-  <script src="js/radio-player.js?v=20261114a"></script>
+  <script src="js/senior-accessibility.js?v=20261114d"></script>
+  <script src="js/radio-player.js?v=20261114d"></script>
   <script>
-    // 간단한 프론트엔드 출석 및 응원글 등록 로직 (새로고침 전까지 DOM 즉시 반영)
-    function postCheerMessage() {
-      const nameInput = document.getElementById('cheer-nickname');
-      const contentInput = document.getElementById('cheer-content');
+    const CHEER_STORAGE_KEY = 'paradise_community_cheers_v1';
+
+    function escapeCheerText(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function prependCheerCard(name, content, saveToStorage) {
       const feedList = document.getElementById('cheer-feed-list');
-
-      const name = nameInput.value.trim();
-      const content = contentInput.value.trim();
-
-      if (!name || !content) return;
+      if (!feedList) return;
 
       const newArticle = document.createElement('article');
       newArticle.className = 'senior-card';
@@ -481,23 +506,75 @@
       newArticle.style.backgroundColor = '#F0FDF4';
 
       newArticle.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="background-color: var(--brand-emerald); color: #FFFFFF; font-size: 13px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">🌟 방금 등록</span>
-            <strong style="color: var(--brand-emerald-dark); font-size: 19px;">${name}</strong>
+            <span style="background-color: var(--brand-emerald); color: #FFFFFF; font-size: 14px; font-weight: 800; padding: 3px 10px; border-radius: 6px;">🌟 방금 등록</span>
+            <strong style="color: var(--brand-emerald-dark); font-size: 20px;">${escapeCheerText(name)}</strong>
           </div>
-          <span style="font-size: 14px; color: var(--brand-emerald); font-weight: 700;">출석 완료!</span>
+          <span style="font-size: 16px; color: var(--brand-emerald); font-weight: 800;">💮 출석 완료!</span>
         </div>
         <p style="font-size: var(--font-base); line-height: 1.8;">
-          ${content.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+          ${escapeCheerText(content)}
         </p>
       `;
 
       feedList.insertBefore(newArticle, feedList.firstChild);
-      nameInput.value = '';
-      contentInput.value = '';
-      alert('🌟 응원 글이 사랑방에 따뜻하게 등록되었습니다! 감사합니다.');
+
+      if (saveToStorage) {
+        try {
+          const saved = JSON.parse(localStorage.getItem(CHEER_STORAGE_KEY) || '[]');
+          saved.unshift({ name: name, content: content, ts: Date.now() });
+          localStorage.setItem(CHEER_STORAGE_KEY, JSON.stringify(saved.slice(0, 15)));
+        } catch (e) {}
+      }
     }
+
+    function showCheerFeedback(msg) {
+      const banner = document.getElementById('cheer-confirm-banner');
+      if (banner) {
+        banner.textContent = msg;
+        banner.style.display = 'block';
+      }
+      if (window.SeniorAccessibility && typeof window.SeniorAccessibility.showToast === 'function') {
+        window.SeniorAccessibility.showToast(msg);
+      }
+    }
+
+    function stampQuickAttendance() {
+      const nameInput = document.getElementById('cheer-nickname');
+      const name = (nameInput && nameInput.value.trim()) || '파라다이스 열혈 가족';
+      const content = '💮 오늘도 황영웅님 노래 들으며 힘차게 사랑방 출석 도장 찍습니다! 언제나 당신 편입니다 💚';
+      prependCheerCard(name, content, true);
+      showCheerFeedback('💮 출석 도장 쾅! [' + name + '] 님의 오늘 출석 인사가 사랑방 맨 위에 등록되었습니다!');
+    }
+
+    function postCheerMessage() {
+      const nameInput = document.getElementById('cheer-nickname');
+      const contentInput = document.getElementById('cheer-content');
+
+      const name = (nameInput && nameInput.value.trim()) || '파라다이스 팬';
+      const content = (contentInput && contentInput.value.trim()) || '';
+
+      if (!content) return;
+
+      prependCheerCard(name, content, true);
+      if (nameInput) nameInput.value = '';
+      if (contentInput) contentInput.value = '';
+      showCheerFeedback('🌟 감사합니다! [' + name + '] 님의 따뜻한 응원 글과 출석 도장이 등록되었습니다!');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      try {
+        const saved = JSON.parse(localStorage.getItem(CHEER_STORAGE_KEY) || '[]');
+        if (Array.isArray(saved) && saved.length > 0) {
+          saved.slice(0, 5).reverse().forEach(function (item) {
+            if (item && item.name && item.content) {
+              prependCheerCard(item.name, item.content, false);
+            }
+          });
+        }
+      } catch (e) {}
+    });
   </script>
 </body>
 </html>

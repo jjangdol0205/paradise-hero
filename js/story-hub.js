@@ -409,7 +409,7 @@
           <span style="font-size: 16px; color: var(--text-muted);">
             따뜻한 공감 응원 <strong class="cheer-count-val" style="color: var(--brand-emerald); font-size: 20px;">${topStory.cheer_count || 0}</strong>명
           </span>
-          <button type="button" class="senior-btn btn-cheer ${hasCheered ? 'cheered' : 'btn-primary'}" data-story-id="${topStory.story_id}" style="min-height: 56px; font-size: 18px; padding: 0 24px;">
+          <button type="button" class="senior-btn btn-cheer ${hasCheered ? 'cheered' : 'btn-primary'}" data-story-id="${topStory.story_id}" style="min-height: 60px; font-size: 20px; font-weight: 800; padding: 12px 24px;">
             <span aria-hidden="true">👏</span>
             <span>${hasCheered ? '따뜻한 응원 완료 💚' : '박수와 응원 보내기 👏'}</span>
           </button>
@@ -467,7 +467,7 @@
             <span style="font-size: 16px; color: var(--text-muted);">
               함께 울고 웃은 팬 <strong><span class="cheer-count-val">${story.cheer_count || 0}</span></strong>명
             </span>
-            <button type="button" class="senior-btn btn-cheer ${hasCheered ? 'cheered' : 'btn-primary'}" data-story-id="${story.story_id}" style="min-height: 56px; font-size: 18px; padding: 0 20px;">
+            <button type="button" class="senior-btn btn-cheer ${hasCheered ? 'cheered' : 'btn-primary'}" data-story-id="${story.story_id}" style="min-height: 60px; font-size: 20px; font-weight: 800; padding: 12px 20px;">
               <span aria-hidden="true">👏</span>
               <span>${hasCheered ? '따뜻한 응원 완료 💚' : '박수와 응원 보내기 👏'}</span>
             </button>

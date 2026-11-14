@@ -684,15 +684,19 @@
     const text = generateVoiceLetterText();
     playWarmBackgroundChord();
 
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'ko-KR';
-      utter.rate = 0.92;
-      utter.pitch = 1.0;
-      window.speechSynthesis.speak(utter);
-    } else {
-      alert('음성 편지 대본이 생성되었습니다:\n\n' + text);
+    if (typeof window !== 'undefined' && window.SeniorAccessibility && typeof window.SeniorAccessibility.showToast === 'function') {
+      window.SeniorAccessibility.showToast('🔊 김쌤 DJ 맞춤 음성편지 낭독을 시작합니다! 볼륨을 키워 들어보세요 💚');
+    }
+
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'ko-KR';
+        utter.rate = 0.92;
+        utter.pitch = 1.0;
+        window.speechSynthesis.speak(utter);
+      } catch (e) {}
     }
   }
 
@@ -1307,7 +1311,14 @@
     playVoiceLetterAloud,
     printLyricGuide: () => {
       if (!consumeStudioCredit('왕글씨 노래교실 비법서')) return;
-      window.print();
+      if (typeof window !== 'undefined' && window.SeniorAccessibility && typeof window.SeniorAccessibility.showToast === 'function') {
+        window.SeniorAccessibility.showToast('🖨️ 왕글씨 가사·비법서 인쇄 창을 준비했습니다! 화면을 캡처해 보셔도 좋습니다 💚');
+      }
+      try {
+        if (typeof window !== 'undefined' && typeof window.print === 'function') {
+          window.print();
+        }
+      } catch (e) {}
     },
     downloadFortuneTalisman: () => downloadCanvasImage('ft-canvas', '황영웅_황금행운부적', '황영웅 행운 부적 뽑기'),
     downloadWishLantern: lightUpWishLanternAndDownload,

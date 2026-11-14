@@ -68,7 +68,7 @@
   </script>
 
   <!-- 파라다이스 시니어 WCAG AAA 스타일시트 -->
-  <link rel="stylesheet" href="css/senior-style.css?v=20261114c">
+  <link rel="stylesheet" href="css/senior-style.css?v=20261114d">
 
   <style>
     /* ==========================================================================
@@ -129,13 +129,14 @@
     }
 
     .btn-camera-capture {
-      min-height: 60px;
+      min-height: 64px;
+      padding: 12px 16px;
       background: linear-gradient(135deg, var(--brand-emerald) 0%, var(--brand-emerald-dark) 100%);
       color: #FFFFFF;
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 800;
       border: 2px solid var(--brand-gold);
-      border-radius: 16px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -152,13 +153,14 @@
     }
 
     .btn-album-upload {
-      min-height: 60px;
+      min-height: 64px;
+      padding: 12px 16px;
       background-color: #F8FAFC;
       color: var(--brand-emerald-dark);
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 800;
       border: 2px solid #CBD5E1;
-      border-radius: 16px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -250,27 +252,21 @@
       cursor: grabbing;
     }
 
-    /* 시니어 조작 툴바 (최소 56px 터치 타겟) */
+    /* 시니어 조작 패드 (최소 60px 터치 타겟 & 20px 고대비) */
     .senior-toolbar {
       display: flex;
       flex-direction: column;
       gap: 10px;
       margin-top: 16px;
     }
-    .toolbar-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-    }
     .btn-tool {
       min-height: 60px;
-      min-width: 56px;
-      flex: 1 1 calc(25% - 8px);
-      background-color: #F8FAFC;
-      border: 2px solid #CBD5E1;
+      min-width: 0;
+      width: 100%;
+      background-color: #FFFFFF;
+      border: 2.5px solid var(--brand-emerald);
       border-radius: 14px;
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--brand-emerald-dark);
       cursor: pointer;
@@ -278,16 +274,16 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 8px 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      padding: 12px 10px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
       transition: transform 0.1s ease, background-color 0.2s ease;
     }
     .btn-tool:hover {
-      background-color: #E2E8F0;
-      border-color: var(--brand-emerald);
+      background-color: #ECFDF5;
+      border-color: var(--brand-gold);
     }
     .btn-tool:active {
-      transform: scale(0.95);
+      transform: scale(0.96);
     }
     .btn-tool-reset {
       background-color: #FEF3C7;
@@ -303,13 +299,14 @@
       margin-top: 20px;
     }
     .btn-save-primary {
-      min-height: 64px;
+      min-height: 68px;
+      padding: 14px 18px;
       background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
       color: #FFFFFF;
       font-size: 22px;
       font-weight: 900;
       border: 2px solid #FFFFFF;
-      border-radius: 20px;
+      border-radius: 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -326,13 +323,14 @@
     }
 
     .btn-share-secondary {
-      min-height: 60px;
+      min-height: 64px;
+      padding: 12px 16px;
       background-color: #FEE500;
       color: #191919;
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 800;
       border: 2px solid #E5CE00;
-      border-radius: 16px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -576,29 +574,36 @@
         💡 사진 위를 손가락(또는 마우스)으로 끌면 위치를 자유롭게 움직일 수 있습니다!
       </p>
 
-      <!-- 시니어 맞춤 4대 핵심 왕버튼 조작 툴바 (복잡한 화살표 제거) -->
-      <div class="senior-toolbar" aria-label="사진 크기 및 좌우반전 조절 버튼 모음">
-        <div class="toolbar-row">
-          <button type="button" id="btn-zoom-in" class="btn-tool" aria-label="사진 크게 확대">
+      <!-- 시니어 맞춤 9종 왕버튼 조작 패드 (모든 조작 버튼 60px+ 고대비 보장) -->
+      <div class="senior-toolbar senior-control-pad-wrap" aria-label="사진 크기·회전·위치 조절 큰 버튼 모음">
+        <div class="senior-control-pad">
+          <button type="button" id="btn-zoom-in" class="btn-tool btn-booth-pad" aria-label="사진 크게 확대">
             <span aria-hidden="true">🔍</span> 크게 (+)
           </button>
-          <button type="button" id="btn-zoom-out" class="btn-tool" aria-label="사진 작게 축소">
+          <button type="button" id="btn-zoom-out" class="btn-tool btn-booth-pad" aria-label="사진 작게 축소">
             <span aria-hidden="true">🔉</span> 작게 (-)
           </button>
-          <button type="button" id="btn-flip" class="btn-tool" aria-label="사진 좌우 뒤집기">
+          <button type="button" id="btn-rotate" class="btn-tool btn-booth-pad" aria-label="사진 90도 회전">
+            <span aria-hidden="true">🔄</span> 90도 회전
+          </button>
+          <button type="button" id="btn-flip" class="btn-tool btn-booth-pad" aria-label="사진 좌우 뒤집기">
             <span aria-hidden="true">↔️</span> 좌우반전
           </button>
-          <button type="button" id="btn-reset" class="btn-tool btn-tool-reset" aria-label="사진 크기 및 위치 원래대로 복구">
-            <span aria-hidden="true">🔄</span> 원래대로
+          <button type="button" id="btn-pan-up" class="btn-tool btn-booth-pad" aria-label="사진 위로 이동">
+            <span aria-hidden="true">⬆️</span> 위로
           </button>
-        </div>
-        <!-- 호환성 유지용 보조 컨트롤 (화면 숨김 처리하여 시니어 혼란 방지) -->
-        <div class="sr-only" aria-hidden="true">
-          <button type="button" id="btn-rotate">90도 회전</button>
-          <button type="button" id="btn-pan-up">위로</button>
-          <button type="button" id="btn-pan-down">아래로</button>
-          <button type="button" id="btn-pan-left">왼쪽</button>
-          <button type="button" id="btn-pan-right">오른쪽</button>
+          <button type="button" id="btn-pan-down" class="btn-tool btn-booth-pad" aria-label="사진 아래로 이동">
+            <span aria-hidden="true">⬇️</span> 아래로
+          </button>
+          <button type="button" id="btn-pan-left" class="btn-tool btn-booth-pad" aria-label="사진 왼쪽으로 이동">
+            <span aria-hidden="true">⬅️</span> 왼쪽
+          </button>
+          <button type="button" id="btn-pan-right" class="btn-tool btn-booth-pad" aria-label="사진 오른쪽으로 이동">
+            <span aria-hidden="true">➡️</span> 오른쪽
+          </button>
+          <button type="button" id="btn-reset" class="btn-tool btn-booth-pad btn-tool-reset btn-booth-pad-full" aria-label="사진 크기 및 위치 원래대로 복구">
+            <span aria-hidden="true">✨</span> 원래대로 복구
+          </button>
         </div>
       </div>
     </section>
@@ -1020,29 +1025,37 @@
       <h2 class="footer-title">👑 파라다이스 · 가수 황영웅 팬 쉼터</h2>
       <p>
         본 플랫폼은 가수 황영웅님을 사랑하는 5070 어머님 팬들을 위한 100% 무료 응원 커뮤니티 공간입니다.<br>
-        유튜브 <a href="https://www.youtube.com/@김쌤의영웅라디오?sub_confirmation=1" target="_blank" rel="noopener noreferrer" style="color: var(--brand-gold); text-decoration: underline;">@김쌤의영웅라디오</a> 채널과 함께하며, 모든 저작권 및 초상권은 원저작권자에게 있습니다.
+        유튜브 @김쌤의영웅라디오 채널과 함께하며, 모든 저작권 및 초상권은 원저작권자에게 있습니다.
       </p>
 
-      <p style="margin: 14px 0; font-size: 18px;">
-        <a href="index.html" style="color: var(--brand-gold);">홈</a> ·
-        <a href="radio.html" style="color: var(--brand-gold);">영웅라디오</a> ·
-        <a href="booth.html" style="color: var(--brand-gold);">기념사진관</a> ·
-        <a href="vip.html" style="color: var(--brand-gold);">🎁 무료 선물제작소</a> ·
-        <a href="news.html" style="color: var(--brand-gold);">황영웅소식</a>
-      </p>
+      <div class="footer-contact-box">
+        <p><strong>공식 지원 및 사연 문의 창구:</strong></p>
+        <a href="mailto:beable9489@gmail.com" class="footer-contact-email">beable9489@gmail.com</a>
+      </div>
+
+      <nav class="footer-nav" aria-label="하단 바로가기 메뉴">
+        <a href="index.html">🏠 홈</a>
+        <a href="radio.html">📻 영웅라디오</a>
+        <a href="booth.html">📸 기념사진관</a>
+        <a href="stream.html">🎵 노래듣기</a>
+        <a href="community.html">💬 사랑방</a>
+        <a href="story.html">💌 사연우체통</a>
+        <a href="news.html">📰 황영웅소식</a>
+        <a href="vip.html">🎁 무료선물제작소</a>
+        <a href="https://www.youtube.com/@김쌤의영웅라디오?sub_confirmation=1" target="_blank" rel="noopener noreferrer">📺 @김쌤의영웅라디오</a>
+      </nav>
 
       <div class="footer-copyright">
-        공식 지원 및 문의: <a href="mailto:beable9489@gmail.com" style="color: var(--brand-gold);">beable9489@gmail.com</a><br>
         © 2026 파라다이스 (paradise-hero.com) &amp; Dream Company 제4사업부. All rights reserved.
       </div>
     </div>
   </footer>
 
   <!-- 스크립트 연결 -->
-  <script src="js/senior-accessibility.js?v=20261114b"></script>
-  <script src="js/radio-player.js?v=20261114a"></script>
-  <script src="js/character-catalog.js"></script>
-  <script src="js/photo-booth.js"></script>
+  <script src="js/senior-accessibility.js?v=20261114d"></script>
+  <script src="js/radio-player.js?v=20261114d"></script>
+  <script src="js/character-catalog.js?v=20261114d"></script>
+  <script src="js/photo-booth.js?v=20261114d"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {

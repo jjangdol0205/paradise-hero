@@ -102,7 +102,28 @@
     }
   }
 
+  function ensureStickyPlayerCriticalStyles() {
+    if (typeof document === 'undefined' || !document.head) return;
+    if (document.getElementById('paradise-radio-critical-css')) return;
+    const style = document.createElement('style');
+    style.id = 'paradise-radio-critical-css';
+    style.textContent = `
+      .sticky-radio-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; background: #0E2820; color: #FFFFFF; border-top: 3px solid #D4AF37; padding: 10px 16px; box-shadow: 0 -4px 20px rgba(0,0,0,0.35); }
+      .btn-radio-play, .btn-radio-secondary, #btn-radio-toggle, #btn-radio-next, #btn-radio-prev, .btn-mini-drawer-collapse, #btn-mini-drawer-collapse {
+        min-height: 60px !important; padding: 12px 18px !important; font-size: 20px !important; font-weight: 800 !important; border-radius: 14px !important;
+        display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; cursor: pointer !important;
+      }
+      @media (max-width: 640px) {
+        .sticky-radio-bar { padding: 8px 12px 10px; }
+        .radio-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; }
+        #btn-radio-toggle, #btn-radio-next { width: 100%; min-width: 0; padding: 12px 10px !important; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   function buildStickyPlayerDOM() {
+    ensureStickyPlayerCriticalStyles();
     if (document.getElementById('sticky-radio-player')) return;
 
     const ep = RADIO_EPISODES[currentIndex];
@@ -155,6 +176,10 @@
       document.body.appendChild(drawer);
 
       const collapseBtn = drawer.querySelector('#btn-mini-drawer-collapse');
+      if (typeof window !== 'undefined' && window.innerWidth <= 640) {
+        drawer.classList.add('minimized');
+        if (collapseBtn) collapseBtn.textContent = '화면 펴기 ▴';
+      }
       if (collapseBtn) {
         collapseBtn.addEventListener('click', () => {
           const minimized = drawer.classList.toggle('minimized');
@@ -339,6 +364,22 @@
     }
     if (nextBtn) {
       nextBtn.addEventListener('click', nextEpisode);
+    }
+
+    const heroRadioCta = document.getElementById('btn-hero-radio-now');
+    if (heroRadioCta) {
+      heroRadioCta.addEventListener('click', function (e) {
+        const radioSection = document.getElementById('hero-radio-section');
+        if (radioSection) {
+          e.preventDefault();
+          playEpisodeByIndex(currentIndex || 0);
+          radioSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          radioSection.classList.add('radio-highlight-pulse');
+          setTimeout(function () {
+            radioSection.classList.remove('radio-highlight-pulse');
+          }, 2600);
+        }
+      });
     }
 
     const episodeButtons = document.querySelectorAll('[data-play-episode]');

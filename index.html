@@ -55,7 +55,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/senior-style.css?v=20261114c">
+  <link rel="stylesheet" href="css/senior-style.css?v=20261114d">
 </head>
 <body>
   <!-- 스킵 네비게이션 -->
@@ -120,31 +120,32 @@
 
   <!-- 메인 본문 영역 -->
   <main id="main-content" class="container">
-    <!-- 1. 히어로 메인 일러스트 & 환영 인사 -->
-    <section class="senior-card highlight-card" aria-labelledby="hero-heading">
+    <!-- 1. 히어로 메인 원탭 액션 버튼 & 환영 일러스트 (모바일 첫 화면 즉시 노출) -->
+    <section class="senior-card highlight-card hero-atf-card" aria-labelledby="hero-heading">
       <div class="section-title-wrap">
         <span class="section-badge">💚 언제나 당신 편 · 공식 팬 쉼터</span>
-        <h1 id="hero-heading" class="section-title">
-          "어머님, 오늘도 영웅님과 함께 꽃길만 걸으세요!"
+        <h1 id="hero-heading" class="section-title hero-atf-title">
+          "어머님, 큰 버튼 하나로 영웅님 노래·라디오와 기념사진을 즐기세요!"
         </h1>
-        <p class="section-desc">
-          복잡한 회원가입이나 작은 글씨 걱정 없이, 큰 버튼 하나로 영웅님 라디오와 노래를 듣고 다정한 기념사진도 바로 찍으실 수 있습니다.
-        </p>
       </div>
 
-      <div style="border-radius: 16px; overflow: hidden; border: 3px solid var(--brand-gold); margin-bottom: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
+      <div class="hero-atf-actions" role="group" aria-label="어머님 원탭 바로가기 큰 버튼">
+        <a href="#hero-radio-section" id="btn-hero-radio-now" class="senior-btn btn-primary btn-hero-atf">
+          <span>📻 영웅님 라디오 · 노래 바로 듣기 👉</span>
+        </a>
+        <a href="booth.html" id="btn-hero-booth-now" class="senior-btn btn-gold btn-hero-atf">
+          <span>📸 내 사진으로 무료 기념사진 찍기 👉</span>
+        </a>
+        <a href="vip.html" id="btn-hero-vip-now" class="senior-btn btn-outline btn-hero-atf">
+          <span>🎁 내 이름 황금팬증 · 안부카드 무료 만들기 👉</span>
+        </a>
+      </div>
+
+      <div style="border-radius: 16px; overflow: hidden; border: 3px solid var(--brand-gold); margin-bottom: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
         <img src="assets/hero_main.png?v=20261110c" alt="에메랄드 응원봉 물결 속에서 노래하는 가수 황영웅 무대 일러스트" style="width: 100%; height: auto; display: block;">
       </div>
 
-      <div class="btn-block-group">
-        <a href="booth.html" class="senior-btn btn-gold">
-          <span aria-hidden="true">📸</span>
-          <span>황영웅 10대 시그니처 의상과 무료 기념사진 찍기 👉</span>
-        </a>
-        <a href="vip.html" class="senior-btn btn-primary">
-          <span aria-hidden="true">🎁</span>
-          <span>카톡 안부카드·명예팬증·달력 무료 선물제작소 👉</span>
-        </a>
+      <div class="btn-block-group" style="margin-bottom: 0;">
         <a href="news.html" class="senior-btn btn-outline">
           <span aria-hidden="true">📰</span>
           <span>오늘의 황영웅 최신 소식 크게 보기 👉</span>
@@ -156,7 +157,7 @@
     </section>
 
     <!-- 2. 김쌤의 영웅 라디오 16:9 보이는 유튜브 플레이어 (모바일 무음 해결) -->
-    <section class="senior-card" aria-labelledby="radio-player-heading">
+    <section id="hero-radio-section" class="senior-card" aria-labelledby="radio-player-heading">
       <div class="section-title-wrap">
         <span class="section-badge">📻 화면을 누르면 바로 소리가 나옵니다</span>
         <h2 id="radio-player-heading" class="section-title">김쌤의 영웅 라디오 바로듣기</h2>
@@ -577,17 +578,17 @@
         </p>
       </div>
 
-      <p style="margin: 16px 0; font-size: 16px;">
-        <a href="index.html" style="color: var(--brand-gold);">홈</a> ·
-        <a href="radio.html" style="color: var(--brand-gold);">영웅라디오</a> ·
-        <a href="booth.html" style="color: var(--brand-gold);">기념사진관</a> ·
-        <a href="stream.html" style="color: var(--brand-gold);">노래듣기</a> ·
-        <a href="community.html" style="color: var(--brand-gold);">사랑방</a> ·
-        <a href="lounge.html" style="color: var(--brand-gold);">출석방</a> ·
-        <a href="story.html" style="color: var(--brand-gold);">사연우체통</a> ·
-        <a href="news.html" style="color: var(--brand-gold);">황영웅소식</a> ·
-        <a href="vip.html" style="color: var(--brand-gold);">무료선물제작소</a>
-      </p>
+      <nav class="footer-nav" aria-label="하단 바로가기 메뉴">
+        <a href="index.html">🏠 홈</a>
+        <a href="radio.html">📻 영웅라디오</a>
+        <a href="booth.html">📸 기념사진관</a>
+        <a href="stream.html">🎵 노래듣기</a>
+        <a href="community.html">💬 사랑방</a>
+        <a href="lounge.html">💮 출석방</a>
+        <a href="story.html">💌 사연우체통</a>
+        <a href="news.html">📰 황영웅소식</a>
+        <a href="vip.html">🎁 무료선물제작소</a>
+      </nav>
 
       <div class="footer-notice">
         <p>• <strong>무료 팬 쉼터 안내:</strong> 본 플랫폼의 투샷 기념사진관 및 디지털 선물제작소는 어머님 팬들을 위해 조건 없이 100% 무제한 무료로 운영됩니다.</p>
@@ -601,7 +602,7 @@
   </footer>
 
   <!-- 스크립트 로드 -->
-  <script src="js/senior-accessibility.js?v=20261114b"></script>
-  <script src="js/radio-player.js?v=20261114a"></script>
+  <script src="js/senior-accessibility.js?v=20261114d"></script>
+  <script src="js/radio-player.js?v=20261114d"></script>
 </body>
 </html>

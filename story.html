@@ -67,7 +67,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/senior-style.css?v=20261114c">
+  <link rel="stylesheet" href="css/senior-style.css?v=20261114d">
   <style>
     /* 사연 복덕방 전용 듀얼 탭 & 인터랙션 스타일 (WCAG AAA 준수) */
     .story-tabs-container {
@@ -78,7 +78,7 @@
     }
     .story-tab-btn {
       flex: 1;
-      min-width: 200px;
+      min-width: min(100%, 200px);
       min-height: 64px;
       font-size: 20px;
       font-weight: 800;
@@ -105,13 +105,14 @@
     }
     .btn-voice {
       width: 100%;
-      min-height: 56px;
-      font-size: 18px;
-      font-weight: 700;
+      min-height: 60px;
+      padding: 12px 18px;
+      font-size: 20px;
+      font-weight: 800;
       background-color: #F3F4F6;
       color: var(--brand-emerald-dark);
       border: 2px dashed var(--brand-emerald);
-      border-radius: 12px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -147,11 +148,16 @@
       gap: 6px;
     }
     .btn-cheer {
-      min-height: 56px;
-      padding: 0 20px;
-      border-radius: 12px;
+      min-height: 60px !important;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-size: 20px;
       font-weight: 800;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       transition: transform 0.15s ease, background-color 0.2s ease;
     }
     .btn-cheer.cheered {
@@ -228,7 +234,7 @@
     <div class="billboard-ticker">
       <span class="billboard-text">
         [김쌤의 영웅 라디오] "어머님들이 보내주신 사연 하나하나가 우리 모두의 살아있는 역사입니다." 💚 &nbsp;&nbsp;&nbsp;&nbsp;
-        [매주 화/금 저녁 7시 정기 방송] 유튜브 @김쌤의영웅라디오에서 감동의 낭독이 펼쳐집니다! 🌟
+        [매주 화요일 · 금요일 저녁 6시 정기 방송] 유튜브 @김쌤의영웅라디오에서 감동의 낭독이 펼쳐집니다! 🌟
       </span>
     </div>
     <a href="vip.html#billboard-support" class="btn-billboard-action">나도 황금 응원 보내기 👉</a>
@@ -357,10 +363,10 @@
         방송 일정은 유튜브 <strong>@김쌤의영웅라디오</strong> 및 이곳 <strong>김쌤 라디오관</strong>에서 확인하실 수 있습니다.
       </p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-        <button type="button" class="senior-btn btn-primary" onclick="window.ParadiseStoryHub && window.ParadiseStoryHub.switchTab('browse');" style="min-width: 220px; min-height: 56px;">
+        <button type="button" class="senior-btn btn-primary" onclick="window.ParadiseStoryHub && window.ParadiseStoryHub.switchTab('browse');" style="min-width: min(100%, 220px); min-height: 60px;">
           <span>🏮 감동 사연 복덕방 보러가기</span>
         </button>
-        <a href="radio.html" class="senior-btn btn-gold" style="min-width: 220px; min-height: 56px; display: inline-flex; align-items: center; justify-content: center;">
+        <a href="radio.html" class="senior-btn btn-gold" style="min-width: min(100%, 220px); min-height: 60px; display: inline-flex; align-items: center; justify-content: center;">
           <span>📻 라디오 방송 목록 듣기</span>
         </a>
       </div>
@@ -589,6 +595,18 @@
         </p>
       </div>
 
+      <nav class="footer-nav" aria-label="하단 바로가기 메뉴">
+        <a href="index.html">🏠 홈</a>
+        <a href="radio.html">📻 영웅라디오</a>
+        <a href="booth.html">📸 기념사진관</a>
+        <a href="stream.html">🎵 노래듣기</a>
+        <a href="community.html">💬 사랑방</a>
+        <a href="lounge.html">💮 출석방</a>
+        <a href="story.html">💌 사연우체통</a>
+        <a href="news.html">📰 황영웅소식</a>
+        <a href="vip.html">🎁 무료선물제작소</a>
+      </nav>
+
       <div class="footer-notice">
         <p>• <strong>100% 무료 팬 쉼터:</strong> 사연 복덕방·기념사진관·선물제작소의 모든 기능은 회원가입·결제 없이 무제한 무료로 제공됩니다.</p>
         <p>• <strong>개인정보 보호 준수:</strong> 보내주신 연락처와 개인정보는 방송 확인 및 선물 배송 목적 이외에는 절대 사용되지 않습니다.</p>
@@ -600,8 +618,8 @@
     </div>
   </footer>
 
-  <script src="js/senior-accessibility.js?v=20261114b"></script>
-  <script src="js/radio-player.js?v=20261114a"></script>
-  <script src="js/story-hub.js"></script>
+  <script src="js/senior-accessibility.js?v=20261114d"></script>
+  <script src="js/radio-player.js?v=20261114d"></script>
+  <script src="js/story-hub.js?v=20261114d"></script>
 </body>
 </html>
