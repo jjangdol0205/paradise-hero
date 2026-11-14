@@ -434,6 +434,7 @@
     }
 
     // Normalize any legacy direct www.coupang.com search links to official AFFSRP redirect
+    // + Hydrate Morning Briefing KST Date & 4-Theme Safe Market Tabs
     document.addEventListener('DOMContentLoaded', function () {
       var links = document.querySelectorAll('a[href*="coupang.com/np/search"]');
       links.forEach(function (a) {
@@ -443,7 +444,66 @@
           a.setAttribute('href', 'https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero&pageKey=' + qm[1]);
         }
       });
+
+      var dateBadges = document.querySelectorAll('.js-kst-today-label');
+      if (dateBadges.length) {
+        var dNow = new Date(Date.now() + 9 * 3600 * 1000);
+        var mNum = dNow.getUTCMonth() + 1;
+        var dNum = dNow.getUTCDate();
+        var wkNames = ['일', '월', '화', '수', '목', '금', '토'];
+        var wk = wkNames[dNow.getUTCDay()];
+        dateBadges.forEach(function (el) {
+          el.textContent = mNum + '월 ' + dNum + '일(' + wk + ') 오늘의 브리핑';
+        });
+      }
+
+      function activateSafeMarketTab(tabKey, scrollToMarket) {
+        var btns = document.querySelectorAll('.safe-theme-tab-btn[data-market-tab]');
+        var panels = document.querySelectorAll('.safe-theme-panel[data-market-panel]');
+        if (!btns.length || !panels.length) return;
+        btns.forEach(function (b) {
+          var isAct = b.getAttribute('data-market-tab') === tabKey;
+          b.classList.toggle('active', isAct);
+          b.setAttribute('aria-selected', isAct ? 'true' : 'false');
+        });
+        panels.forEach(function (p) {
+          var isAct = p.getAttribute('data-market-panel') === tabKey;
+          p.classList.toggle('active', isAct);
+        });
+        if (scrollToMarket) {
+          var sec = document.getElementById('senior-curation-market');
+          if (sec && sec.scrollIntoView) {
+            sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }
+
+      document.addEventListener('click', function (ev) {
+        var tabBtn = ev.target && ev.target.closest ? ev.target.closest('.safe-theme-tab-btn[data-market-tab]') : null;
+        if (tabBtn) {
+          ev.preventDefault();
+          activateSafeMarketTab(tabBtn.getAttribute('data-market-tab'), false);
+          return;
+        }
+        var jumpBtn = ev.target && ev.target.closest ? ev.target.closest('[data-open-market-tab]') : null;
+        if (jumpBtn) {
+          var targetTab = jumpBtn.getAttribute('data-open-market-tab');
+          if (document.getElementById('senior-curation-market')) {
+            ev.preventDefault();
+            activateSafeMarketTab(targetTab, true);
+          }
+        }
+      });
     });
+
+    function hitShopAndReferral(extraKey) {
+      hitMetric('ref_click');
+      hitMetric('shop_click');
+      if (extraKey) hitMetric(extraKey);
+      // Mirror to hero_paradisehero namespace for HQ visitor ledger continuity
+      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisehero/ref_click_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
+      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisehero/shop_click_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
+    }
 
     document.addEventListener('click', function (e) {
       var el = e.target && e.target.closest ? e.target.closest('a, button, [role="button"]') : null;
@@ -451,15 +511,14 @@
       var href = (el.getAttribute('href') || '').toLowerCase();
       var onclick = (el.getAttribute('onclick') || '').toLowerCase();
       if (href.indexOf('cshop.naver.com/paradiseshop') !== -1 || href.indexOf('brandconnect.naver.com/affiliates/') !== -1) {
-        hitMetric('ref_click');
-        hitMetric('aff_naver_cshop');
+        hitShopAndReferral('aff_naver_cshop');
       } else if (href.indexOf('influencers.coupang.com/s/paradisehero') !== -1) {
-        hitMetric('ref_click');
+        hitShopAndReferral('aff_coupang_influencer');
         hitMetric('aff_coupang');
-        hitMetric('aff_coupang_influencer');
       } else if (href.indexOf('coupang.com') !== -1) {
-        hitMetric('ref_click');
-        hitMetric('aff_coupang');
+        hitShopAndReferral('aff_coupang');
+      } else if (href.indexOf('linkprice.com') !== -1 || href.indexOf('kr.iherb.com') !== -1 || href.indexOf('myrealt.rip') !== -1 || href.indexOf('naver.me/') !== -1) {
+        hitShopAndReferral('aff_partner_store');
       } else if (href.indexOf('#gold-vip-membership') !== -1 || (href.indexOf('mailto:beable9489@gmail.com') !== -1 && href.indexOf('vip') !== -1)) {
         hitMetric('vip_supporter_click');
       } else if (onclick.indexOf('vipdigitalstudio.download') !== -1) {

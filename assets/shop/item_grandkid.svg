@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="280" viewBox="0 0 480 280" role="img" aria-label="손주 사랑 키성장 영양제">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FEF3C7"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="472" height="272" rx="24" fill="url(#bg)" stroke="#FBBF24" stroke-width="6"/>
+  <rect x="24" y="22" width="188" height="38" rx="19" fill="#B45309"/>
+  <text x="118" y="47" text-anchor="middle" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">김쌤 엄선 베스트</text>
+  <circle cx="110" cy="154" r="68" fill="#FFFFFF" stroke="#FBBF24" stroke-width="4"/>
+  <text x="110" y="176" text-anchor="middle" font-size="68">👶</text>
+  <text x="204" y="138" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="27" font-weight="900" fill="#111827">손주 사랑 키성장 영양제</text>
+  <rect x="204" y="158" width="246" height="44" rx="12" fill="#B45309" opacity="0.1"/>
+  <text x="327" y="187" text-anchor="middle" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="20" font-weight="800" fill="#B45309">✓ 명절·생일 손주 최고 인기</text>
+</svg>

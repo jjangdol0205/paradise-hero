@@ -55,7 +55,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/senior-style.css?v=20261114d">
+  <link rel="stylesheet" href="css/senior-style.css?v=20261115a">
 </head>
 <body>
   <!-- 스킵 네비게이션 -->
@@ -120,44 +120,361 @@
 
   <!-- 메인 본문 영역 -->
   <main id="main-content" class="container">
-    <!-- 1. 히어로 메인 원탭 액션 버튼 & 환영 일러스트 (모바일 첫 화면 즉시 노출) -->
+    <!-- 1. 첫 화면: 오늘의 황영웅 소식 브리핑 + 라디오 청취 2분할 최전면 배치 (20px+ 초대형 글씨 · 64px+ 터치) -->
     <section class="senior-card highlight-card hero-atf-card" aria-labelledby="hero-heading">
       <div class="section-title-wrap">
-        <span class="section-badge">💚 언제나 당신 편 · 공식 팬 쉼터</span>
+        <span class="section-badge">💚 언제나 당신 편 · 5070 어머님 공식 팬 쉼터</span>
         <h1 id="hero-heading" class="section-title hero-atf-title">
-          "어머님, 큰 버튼 하나로 영웅님 노래·라디오와 기념사진을 즐기세요!"
+          매일 아침 확인하는 황영웅 새 소식·공연 일정과 어머님 맞춤 안심 장터
         </h1>
       </div>
 
-      <div class="hero-atf-actions" role="group" aria-label="어머님 원탭 바로가기 큰 버튼">
-        <a href="#hero-radio-section" id="btn-hero-radio-now" class="senior-btn btn-primary btn-hero-atf">
-          <span>📻 영웅님 라디오 · 노래 바로 듣기 👉</span>
-        </a>
-        <a href="booth.html" id="btn-hero-booth-now" class="senior-btn btn-gold btn-hero-atf">
-          <span>📸 내 사진으로 무료 기념사진 찍기 👉</span>
-        </a>
-        <a href="vip.html" id="btn-hero-vip-now" class="senior-btn btn-outline btn-hero-atf">
-          <span>🎁 내 이름 황금팬증 · 안부카드 무료 만들기 👉</span>
-        </a>
-      </div>
+      <div class="hero-morning-dual-grid">
+        <!-- 좌측 핵심 카드 1: 오늘의 황영웅 소식 & 콘서트·방송 일정 -->
+        <div class="morning-brief-panel" aria-label="오늘의 황영웅 소식 및 일정 브리핑">
+          <div>
+            <div class="morning-panel-head">
+              <span class="morning-panel-badge">📅 <span class="js-kst-today-label">오늘의 황영웅 브리핑</span></span>
+              <a href="news.html" style="font-size: 18px; font-weight: 900; color: var(--brand-emerald); text-decoration: underline;">전체 소식 보기 👉</a>
+            </div>
+            <ul class="morning-news-list" style="margin-top: 12px;">
+              <li>
+                <a href="news.html" class="morning-news-item">
+                  <span class="morning-news-tag">음반 대기록</span>
+                  황영웅 정규 1집 〈당신 편〉 63만 장 돌파 &amp; 오늘의 차트 스밍 안내 👉
+                </a>
+              </li>
+              <li>
+                <a href="news.html" class="morning-news-item">
+                  <span class="morning-news-tag">콘서트·공연</span>
+                  전국 에메랄드 응원봉 물결 감동 후기 &amp; 공연장 필수 준비물 체크 👉
+                </a>
+              </li>
+              <li>
+                <a href="#hero-radio-section" class="morning-news-item">
+                  <span class="morning-news-tag">정규 방송일정</span>
+                  매주 화·금 저녁 6시 유튜브 @김쌤의영웅라디오 본방송 편성 안내 👉
+                </a>
+              </li>
+            </ul>
+          </div>
 
-      <div style="border-radius: 16px; overflow: hidden; border: 3px solid var(--brand-gold); margin-bottom: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
-        <img src="assets/hero_main.png?v=20261110c" alt="에메랄드 응원봉 물결 속에서 노래하는 가수 황영웅 무대 일러스트" style="width: 100%; height: auto; display: block;">
-      </div>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 6px;">
+            <a href="#senior-curation-market" data-open-market-tab="concert" class="senior-btn btn-gold btn-senior-64">
+              <span>🎤 공연 일정 맞춤 콘서트·응원 필수품 바로 보기 👉</span>
+            </a>
+            <a href="news.html" class="senior-btn btn-outline btn-senior-64">
+              <span>📰 돋보기 없는 큰글씨(24px) 황영웅 뉴스룸 열기 👉</span>
+            </a>
+          </div>
+        </div>
 
-      <div class="btn-block-group" style="margin-bottom: 0;">
-        <a href="news.html" class="senior-btn btn-outline">
-          <span aria-hidden="true">📰</span>
-          <span>오늘의 황영웅 최신 소식 크게 보기 👉</span>
-        </a>
-        <button type="button" class="btn-kakao-bookmark js-kakao-bookmark-btn" data-share-url="https://paradise-hero.com/">
-          <span>💛 카카오톡 '나와의 채팅'이나 팬 친구에게 이 응원방 보내두기</span>
-        </button>
+        <!-- 우측 핵심 카드 2: 김쌤의 영웅라디오 연속 듣기 & 무료 사진관 -->
+        <div class="morning-radio-panel" aria-label="김쌤의 영웅라디오 연속 듣기 및 무료 기념사진">
+          <div>
+            <div class="morning-panel-head">
+              <span class="morning-panel-badge" style="background: var(--brand-emerald); color: #FFFFFF;">📻 라디오 켜두고 편하게 둘러보세요</span>
+            </div>
+            <div style="border-radius: 14px; overflow: hidden; border: 3px solid var(--brand-gold); margin: 12px 0; box-shadow: 0 6px 18px rgba(0,0,0,0.14);">
+              <img src="assets/hero_main.png?v=20261110c" alt="에메랄드 응원봉 물결 속에서 노래하는 가수 황영웅 무대 일러스트" style="width: 100%; height: auto; display: block;">
+            </div>
+          </div>
+
+          <div class="hero-atf-actions" role="group" aria-label="어머님 원탭 바로가기 큰 버튼" style="margin: 0;">
+            <a href="#hero-radio-section" id="btn-hero-radio-now" class="senior-btn btn-primary btn-senior-64">
+              <span>📻 김쌤의 영웅라디오 큰버튼 연속 듣기 👉</span>
+            </a>
+            <a href="booth.html" id="btn-hero-booth-now" class="senior-btn btn-gold btn-senior-64">
+              <span>📸 내 사진으로 무료 투샷 기념사진 찍기 👉</span>
+            </a>
+            <a href="vip.html" id="btn-hero-vip-now" class="senior-btn btn-outline btn-senior-64">
+              <span>🎁 황금팬증 · 카톡 안부카드 무료 만들기 👉</span>
+            </a>
+            <button type="button" class="btn-kakao-bookmark js-kakao-bookmark-btn btn-senior-64" data-share-url="https://paradise-hero.com/">
+              <span>💛 카카오톡 '나와의 채팅'이나 팬 친구에게 이 응원방 보내두기</span>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- 2. 김쌤의 영웅 라디오 16:9 보이는 유튜브 플레이어 (모바일 무음 해결) -->
-    <section id="hero-radio-section" class="senior-card" aria-labelledby="radio-player-heading">
+    <!-- 2. 소식 문맥 결합형 4대 테마 안심 장터 (큰 상품사진 + 한줄 추천이유 + 터치 1번 공식 판매처 바로가기) -->
+    <section id="senior-curation-market" class="safe-special-store-section" aria-labelledby="safe-store-heading-index" style="margin-top: 24px;">
+      <div class="safe-special-store-header">
+        <span class="safe-special-store-badge">💚 카드번호 입력 없이 터치 1번 안심 쇼핑</span>
+        <h2 id="safe-store-heading-index" class="safe-special-store-title">💚 김쌤이 직접 고른 어머님 콘서트·응원·건강 안심 특가관</h2>
+        <p class="safe-special-store-desc" style="font-size: 20px; font-weight: 700;">
+          복잡한 목록 없이 <strong>원하시는 코너 버튼 하나</strong>만 누르시면, 어머님들이 가장 만족하신 <strong>베스트 3가지</strong>를 큰 사진과 함께 바로 확인하실 수 있습니다.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 12px; margin-bottom: 14px;">
+        <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-cshop" style="margin: 0; min-height: 68px; font-size: 20px;">
+          <span>🟢 네이버페이로 1초 구매하기 (공식 크리에이터샵) 👉</span>
+        </a>
+        <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-influencer" style="margin: 0; min-height: 68px; font-size: 20px;">
+          <span>🚀 쿠팡 내일 도착 보러가기 (정품음반·효도USB·응원관) 👉</span>
+        </a>
+      </div>
+
+      <!-- 4대 테마 큰 버튼 탭 (탭당 엄선 베스트 3종만 크게 노출) -->
+      <div class="safe-theme-tabs" role="tablist" aria-label="어머님 맞춤 4대 테마 안심 장터 선택">
+        <button type="button" role="tab" aria-selected="true" class="safe-theme-tab-btn active" data-market-tab="concert">
+          <span style="font-size: 26px;">🎤</span>
+          <span>콘서트·응원 필수품관</span>
+        </button>
+        <button type="button" role="tab" aria-selected="false" class="safe-theme-tab-btn" data-market-tab="album">
+          <span style="font-size: 26px;">💿</span>
+          <span>정품 음반·효도 음악관</span>
+        </button>
+        <button type="button" role="tab" aria-selected="false" class="safe-theme-tab-btn" data-market-tab="health">
+          <span style="font-size: 26px;">🍯</span>
+          <span>관절·면역·활력 건강관</span>
+        </button>
+        <button type="button" role="tab" aria-selected="false" class="safe-theme-tab-btn" data-market-tab="family">
+          <span style="font-size: 26px;">👶</span>
+          <span>손주·가족 사랑 선물관</span>
+        </button>
+      </div>
+
+      <!-- 테마 1: 콘서트·현장 응원 필수품관 -->
+      <div class="safe-theme-panel active" data-market-panel="concert" role="tabpanel">
+        <div class="safe-visual-cards-grid">
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_cushion.svg" alt="공연장 무하중 접이식 방석 일러스트" class="safe-visual-thumb" loading="eager">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">🪑 무하중 에어셀 휴대용 접이식 방석</h3>
+              <p class="safe-visual-reason">김쌤 추천: "3시간 콘서트 내내 딱딱한 의자에서도 허리와 무릎이 편안한 1순위 필수품입니다."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://brandconnect.naver.com/affiliates/1016189312116327?channelProductNo=13398073355&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이로 1초 구매하기 👉</a>
+                <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EC%A0%91%EC%9D%B4%EC%8B%9D+%EB%A9%94%EB%AA%A8%EB%A6%AC%ED%8F%BC+%EB%B0%A9%EC%84%9D" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 내일 도착 보러가기 👉</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_battery.svg" alt="일체형 고속충전 보조배터리 일러스트" class="safe-visual-thumb" loading="eager">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">🔋 선 없는 일체형 고속충전 보조배터리</h3>
+              <p class="safe-visual-reason">김쌤 추천: "공연장 영웅님 영상 촬영과 하루 종일 음원 스밍에도 배터리 걱정이 사라집니다."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://brandconnect.naver.com/affiliates/1016189312116331?channelProductNo=12310241816&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이로 1초 구매하기 👉</a>
+                <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EB%8C%80%EC%9A%A9%EB%9F%89+%EA%B3%A0%EC%86%8D+%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 내일 도착 보러가기 👉</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_tumbler.svg" alt="가벼운 보온 텀블러 및 프로폴리스 목케어 일러스트" class="safe-visual-thumb" loading="eager">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">🍵 가벼운 보온 텀블러 &amp; 프로폴리스 목케어</h3>
+              <p class="safe-visual-reason">김쌤 추천: "열띤 응원 뒤 칼칼해진 목을 적셔줄 따뜻한 차 보온병과 목 보호 스프레이입니다."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://brandconnect.naver.com/affiliates/1016189312116332?channelProductNo=7861770419&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이로 1초 구매하기 👉</a>
+                <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EB%B3%B4%EC%98%A8+%EB%B3%B4%EB%83%89+%EC%8A%A4%ED%85%90+%ED%85%80%EB%B8%94%EB%9F%AC" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 내일 도착 보러가기 👉</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- 테마 2: 정품 음반·차량용 효도 음악관 -->
+      <div class="safe-theme-panel" data-market-panel="album" role="tabpanel">
+        <div class="safe-visual-cards-grid">
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_album.svg" alt="황영웅 정품 음반 및 포토북 일러스트" class="safe-visual-thumb" loading="lazy">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">💿 황영웅 정품 앨범·포토북 (차트 100% 반영)</h3>
+              <p class="safe-visual-reason">김쌤 추천: "한터·써클차트 공식 판매량에 즉시 집계되는 〈당신 편〉·〈가을, 그리움〉 정품 음반입니다."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://click.linkprice.com/click.php?m=yes24&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2599%25A9%25EC%2598%2581%25EC%259B%2585" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay" style="background: #92400E; border-color: #78350F;">💿 YES24 차트반영 정품 구매하기 👉</a>
+                <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 내일 도착 보러가기 👉</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_usb.svg" alt="차량용 효도 음악 USB 및 스피커 일러스트" class="safe-visual-thumb" loading="lazy">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">📻 꽂기만 하면 나오는 차량용·효도 음악 USB</h3>
+              <p class="safe-visual-reason">김쌤 추천: "운전하실 때나 거실에서 복잡한 앱 조작 없이 버튼 하나로 감동 명곡을 즐기세요."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이로 1초 구매하기 👉</a>
+                <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 내일 도착 보러가기 👉</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_book.svg" alt="왕글씨 도서 시집 및 에메랄드 보온 스카프 일러스트" class="safe-visual-thumb" loading="lazy">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">📖 큰글씨 시집·노래 악보집 &amp; 에메랄드 보온숄</h3>
+              <p class="safe-visual-reason">김쌤 추천: "돋보기 없이 술술 읽히는 왕글씨 도서와 콘서트장 체온을 지키는 에메랄드 스카프입니다."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://click.linkprice.com/click.php?m=yes24&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2581%25B0%25EA%25B8%2580%25EC%259E%2590%25EB%258F%2584%25EC%2584%259C%2B%25EC%258B%259C%25EC%25A7%2591" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay" style="background: #92400E; border-color: #78350F;">📖 YES24 큰글씨 도서 보기 👉</a>
+                <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EC%97%90%EB%A9%94%EB%9E%84%EB%93%9C+%EB%B3%B4%EC%98%A8+%EC%8A%A4%EC%B9%B4%ED%94%84+%EC%88%84" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 내일 도착 보러가기 👉</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- 테마 3: 내 몸 지키는 관절·면역·활력 건강관 -->
+      <div class="safe-theme-panel" data-market-panel="health" role="tabpanel">
+        <div class="safe-visual-cards-grid">
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_joint.svg" alt="관절 콘드로이친 MSM 영양 케어 일러스트" class="safe-visual-thumb" loading="lazy">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">🦴 무릎·관절 안심 콘드로이친·MSM 케어</h3>
+              <p class="safe-visual-reason">김쌤 추천: "계단 오르내릴 때나 공연장 나들이에서도 무릎이 가뿐하도록 미리 챙기시는 인기 제품입니다."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://brandconnect.naver.com/affiliates/1016189312116330?channelProductNo=12922907625&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이로 1초 구매하기 👉</a>
+                <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EA%B4%80%EC%A0%88+MSM+%EC%BD%98%EB%93%9C%EB%A1%9C%EC%9D%B4%EC%B9%9C" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 내일 도착 보러가기 👉</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_ginseng.svg" alt="한삼인 발효홍삼정 스틱 선물세트 일러스트" class="safe-visual-thumb" loading="lazy">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">🍯 한삼인 발효홍삼정 스틱 30포 선물세트</h3>
+              <p class="safe-visual-reason">김쌤 추천: "아침 기운이 확 달라지는 진한 발효홍삼 1포로 환절기 면역력과 활력을 든든히 채우세요."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://brandconnect.naver.com/affiliates/1016189312116336?channelProductNo=13738983225&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이로 1초 구매하기 👉</a>
+                <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EB%8F%84%EB%9D%BC%EC%A7%80%EB%B0%B0%EC%A6%99+%ED%99%8D%EC%82%BC%EC%8A%A4%ED%8B%B1" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 내일 도착 보러가기 👉</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_lutein.svg" alt="안국건강 루테인 지아잔틴 눈 건강 일러스트" class="safe-visual-thumb" loading="lazy">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">👁️ 안국건강 아이원 루테인지아잔틴 (눈 건강)</h3>
+              <p class="safe-visual-reason">김쌤 추천: "유튜브 방송과 가사를 스마트폰으로 자주 보시는 어머님들의 침침한 눈을 선명하게 지켜줍니다."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://brandconnect.naver.com/affiliates/1016189312116335?channelProductNo=13702186002&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이로 1초 구매하기 👉</a>
+                <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EB%A3%A8%ED%85%8C%EC%9D%B8+%EC%A7%80%EC%95%84%EC%9E%94%ED%8B%B4" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 내일 도착 보러가기 👉</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- 테마 4: 손주·가족 사랑 선물관 -->
+      <div class="safe-theme-panel" data-market-panel="family" role="tabpanel">
+        <div class="safe-visual-cards-grid">
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_grandkid.svg" alt="손주 사랑 키성장 영양제 아이클타임 일러스트" class="safe-visual-thumb" loading="lazy">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">👶 손주 사랑 키성장 선물 — 두드림 아이클타임</h3>
+              <p class="safe-visual-reason">김쌤 추천: "생일이나 주말 방문 때 손주에게 건네면 아들·며느리가 제일 기뻐하는 1등 건강 선물입니다."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://brandconnect.naver.com/affiliates/1010075643260928?channelProductNo=12080461872&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이로 1초 구매하기 👉</a>
+                <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EC%96%B4%EB%A6%B0%EC%9D%B4+%ED%82%A4%EC%84%B1%EC%9E%A5+%EC%98%81%EC%96%91%EC%A0%9C" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 내일 도착 보러가기 👉</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_massager.svg" alt="제스파 4D 무선 목 어깨 마사지기 일러스트" class="safe-visual-thumb" loading="lazy">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">💆‍♀️ 제스파 4D 무선 목·어깨 안마기 (효도·부부 선물)</h3>
+              <p class="safe-visual-reason">김쌤 추천: "소파에서 김쌤 라디오 들으시며 하루 동안 뭉친 어깨와 뒷목을 손맛처럼 시원하게 풀어보세요."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://brandconnect.naver.com/affiliates/1016189312116321?channelProductNo=10325953523&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이로 1초 구매하기 👉</a>
+                <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EC%9D%91%EC%9B%90%EB%B4%89+AAA+%EC%95%8C%EC%B9%B4%EB%9D%BC%EC%9D%B8+%EA%B1%B4%EC%A0%84%EC%A7%80" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 응원봉 건전지 함께 보기 👉</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="safe-visual-product-card">
+            <img src="assets/shop/item_tour.svg" alt="주말 효도여행 및 손주 나들이 우대권 일러스트" class="safe-visual-thumb" loading="lazy">
+            <div class="safe-visual-body">
+              <h3 class="safe-visual-title">🎟️ 전국 주말 효도여행 · 손주 동반 나들이 우대권</h3>
+              <p class="safe-visual-reason">김쌤 추천: "콘서트 원정 겸 가족·손주와 함께 다녀오기 좋은 전국 수목원·온천·아쿠아리움 혜택입니다."</p>
+              <div class="safe-visual-cta-stack">
+                <a href="https://naver.me/xJcOADhA" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 여행 혜택 보기 👉</a>
+                <a href="https://myrealt.rip/xc4hf6" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🎟️ 가족 나들이 입장권 보기 👉</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- 백화점·홈쇼핑·iHerb·전국 나들이 추가 큐레이션 접이식 서랍 (선택 피로도 0% 유지) -->
+      <details class="safe-market-more-drawer">
+        <summary class="safe-market-more-summary">
+          📂 백화점 홈쇼핑 · 미국 직구 영양제(iHerb) · 전국 나들이 더 펼쳐보기 ▾
+        </summary>
+        <div style="padding: 12px 4px 8px;">
+          <div class="curation-subhead-pill linkprice-pill" style="margin-top: 6px;">
+            🎁 현대Hmall · 롯데ON · G마켓 · 11번가 공식 백화점 효도 선물관
+          </div>
+          <div class="linkprice-safe-grid">
+            <a href="https://click.linkprice.com/click.php?m=hmall&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.hmall.com%2Fmd%2Fpde%2Fsearch.do%3FsearchTerm%3D%25EC%25A0%2595%25EA%25B4%2580%25EC%259E%25A5%2B%25ED%2599%258D%25EC%2582%25BC%2B%25EC%2584%25A0%25EB%25AC%25BC%25EC%2584%25B8%25ED%258A%25B8" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
+              <span>🎁 정관장 홍삼·보양 건강선물세트 (현대Hmall)</span>
+              <span class="btn-linkprice-safe-cta">현대Hmall 👉</span>
+            </a>
+            <a href="https://click.linkprice.com/click.php?m=lotteon&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.lotteon.com%2Fsearch%2Fsearch%2Fsearch.ecn%3Frender%3Dsearch%26platform%3Dpc%26q%3D%25EC%2597%25AC%25EC%2584%25B1%2B%25EA%25B2%25BD%25EB%259F%2589%25ED%258C%25A8%25EB%2594%25A9%2B%25EC%258A%25A4%25EC%25B9%25B4%25ED%2594%2584" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
+              <span>🧣 백화점 경량패딩·스카프 나들이 패션 (롯데ON)</span>
+              <span class="btn-linkprice-safe-cta">롯데ON 👉</span>
+            </a>
+            <a href="https://click.linkprice.com/click.php?m=gmarket&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fbrowse.gmarket.co.kr%2Fsearch%3Fkeyword%3D%25EC%2597%25AC%25EC%2584%25B1%2B%25ED%258E%25B8%25EC%2595%2588%25ED%2595%259C%2B%25EC%259B%258C%25ED%2582%25B9%25ED%2599%2594%2B%25ED%259A%25A8%25EB%258F%2584%25ED%2599%2594" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
+              <span>👟 콘서트장 발 편한 쿠션 워킹화·효도화 (G마켓)</span>
+              <span class="btn-linkprice-safe-cta">G마켓 👉</span>
+            </a>
+            <a href="https://click.linkprice.com/click.php?m=11st&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fsearch.11st.co.kr%2Fpc%2Ftotal-search%3Fkwd%3D%25EC%25A2%2585%25EA%25B7%25BC%25EB%258B%25B9%25EA%25B1%25B4%25EA%25B0%2595%2B%25EB%259D%25BD%25ED%2586%25A0%25ED%2595%258F%2B%25EA%25B4%2580%25EC%25A0%2588" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
+              <span>💊 종근당건강 락토핏·관절 유산균 세트 (11번가)</span>
+              <span class="btn-linkprice-safe-cta">11번가 👉</span>
+            </a>
+          </div>
+
+          <div class="curation-subhead-pill iherb-pill">
+            🌿 네이버페이·카카오페이 결제 가능! iHerb 한국어 공식 직구 영양제관
+          </div>
+          <div class="iherb-safe-grid">
+            <a href="https://kr.iherb.com/search?kw=California%20Gold%20Nutrition%20Omega-3&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" class="btn-iherb-safe">
+              <span>🐟 혈행·기억력 안심 — 알래스카 고순도 오메가-3</span>
+              <span class="btn-iherb-safe-cta">iHerb 직구 👉</span>
+            </a>
+            <a href="https://kr.iherb.com/search?kw=Doctor%27s%20Best%20High%20Absorption%20Magnesium&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" class="btn-iherb-safe">
+              <span>🌙 밤중 다리 쥐·편안한 잠 — 고흡수 마그네슘</span>
+              <span class="btn-iherb-safe-cta">iHerb 직구 👉</span>
+            </a>
+          </div>
+
+          <div class="curation-subhead-pill tour-pill">
+            🎟️ 전국 주말 나들이 인기 명소 입장권 바로가기
+          </div>
+          <div class="tour-safe-grid">
+            <a href="https://myrealt.rip/xwYU1a" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
+              <span>🌊 제주 아쿠아플라넷 가족·손주 입장권</span>
+              <span class="btn-tour-safe-cta">티켓 보기 👉</span>
+            </a>
+            <a href="https://myrealt.rip/xc4Y3a" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
+              <span>🌿 강원 홍천 알파카월드 손주 나들이</span>
+              <span class="btn-tour-safe-cta">티켓 보기 👉</span>
+            </a>
+            <a href="https://myrealt.rip/xc4b13" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
+              <span>🏯 경주 신라천년 역사 가족 해설 투어</span>
+              <span class="btn-tour-safe-cta">티켓 보기 👉</span>
+            </a>
+            <a href="https://myrealt.rip/xc4wa0" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
+              <span>🐾 주렁주렁 실내 동물원 주말 손주 나들이</span>
+              <span class="btn-tour-safe-cta">티켓 보기 👉</span>
+            </a>
+          </div>
+        </div>
+      </details>
+
+      <p class="ftc-safe-notice">
+        본 특가관은 네이버 쇼핑 커넥트 및 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.<br>
+        또한 링크프라이스(YES24·현대Hmall·롯데ON·G마켓·11번가), 아이허브(iHerb), 마이리얼트립 제휴 활동으로 구매자 추가 부담 없이 소정의 수수료를 제공받을 수 있습니다.
+      </p>
+    </section>
+
+    <!-- 3. 김쌤의 영웅 라디오 16:9 보이는 유튜브 플레이어 (라디오 들으며 소식·장터 동시 이용) -->
+    <section id="hero-radio-section" class="senior-card" aria-labelledby="radio-player-heading" style="margin-top: 26px;">
       <div class="section-title-wrap">
         <span class="section-badge">📻 화면을 누르면 바로 소리가 나옵니다</span>
         <h2 id="radio-player-heading" class="section-title">김쌤의 영웅 라디오 바로듣기</h2>
@@ -166,7 +483,6 @@
         </p>
       </div>
 
-      <!-- 보이는 16:9 공식 유튜브 임베드 플레이어 -->
       <div class="video-embed-container">
         <iframe
           id="main-youtube-embed"
@@ -177,225 +493,35 @@
         </iframe>
       </div>
 
-      <p style="font-size: 19px; color: var(--brand-emerald-dark); font-weight: 700; margin: 12px 0 18px; text-align: center;">
+      <p style="font-size: 20px; color: var(--brand-emerald-dark); font-weight: 800; margin: 12px 0 18px; text-align: center;">
         👆 위 영상 한가운데 버튼을 누르시거나 아래 방송 목록을 누르시면 시원한 소리와 함께 바로 재생됩니다!
       </p>
 
       <div class="btn-block-group">
-        <button type="button" class="senior-btn btn-primary" data-play-episode="0">
+        <button type="button" class="senior-btn btn-primary btn-senior-64" data-play-episode="0">
           <span>▶ 1화: 가수 황영웅 명품 중저음 보컬 분석 듣기 (15:20)</span>
         </button>
-        <button type="button" class="senior-btn btn-outline" data-play-episode="1">
+        <button type="button" class="senior-btn btn-outline btn-senior-64" data-play-episode="1">
           <span>▶ 2화: 황영웅 침묵의 시간들 8부작 인생다큐 듣기 (16:45)</span>
         </button>
-        <button type="button" class="senior-btn btn-outline" data-play-episode="2">
+        <button type="button" class="senior-btn btn-outline btn-senior-64" data-play-episode="2">
           <span>▶ 3화: 소리 전문가가 분석한 황영웅의 압도적 감성 듣기 (17:10)</span>
         </button>
       </div>
 
       <div class="btn-block-group" style="margin-top: 14px;">
-        <a href="radio.html" class="senior-btn btn-gold">
+        <a href="radio.html" class="senior-btn btn-gold btn-senior-64">
           <span aria-hidden="true">📻</span>
           <span>라디오 전편(1~5화) 모두 보러가기 👉</span>
         </a>
-        <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-influencer" style="margin: 0;">
-          <span>💿 황영웅 정품 음반('당신 편'·'가을, 그리움')·차량용 효도USB·응원가방 보러가기 👉</span>
+        <a href="#senior-curation-market" data-open-market-tab="album" class="btn-coupang-influencer btn-senior-64" style="margin: 0;">
+          <span>💿 오늘 방송 소개 황영웅 정품 음반·효도USB·응원가방 보러가기 👉</span>
         </a>
-        <a href="https://www.youtube.com/@김쌤의영웅라디오?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="senior-btn btn-outline">
+        <a href="https://www.youtube.com/@김쌤의영웅라디오?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="senior-btn btn-outline btn-senior-64">
           <span aria-hidden="true">🔔</span>
           <span>유튜브 @김쌤의영웅라디오 무료 구독하기 (새창)</span>
         </a>
       </div>
-    </section>
-
-    <!-- 2-1. 김쌤이 직접 고른 어머님 콘서트·응원·건강 안심 특가관 (네이버 크리에이터샵 + 쿠팡 AF7865143) -->
-        <!-- 김쌤이 직접 고른 어머님 콘서트·응원·건강 안심 특가관 (네이버 크리에이터샵 + 쿠팡 AFFSRP AF7865143) -->
-        <section id="senior-curation-market" class="safe-special-store-section" aria-labelledby="safe-store-heading-index" style="margin-top: 28px;">
-      <div class="safe-special-store-header">
-        <span class="safe-special-store-badge">💚 6대 공식 안심 효도 큐레이션</span>
-        <h2 id="safe-store-heading-index" class="safe-special-store-title">💚 김쌤이 직접 고른 어머님 콘서트·응원·건강 안심 특가관</h2>
-        <p class="safe-special-store-desc">평소 쓰시던 네이버페이·쿠팡 로켓배송은 물론, YES24 차트반영 정품 음반·홈쇼핑 선물, 미국 직구 영양제(iHerb), 주말 효도·손주 나들이 입장권까지 큰 글씨 한곳에서 편하게 만나보세요.</p>
-      </div>
-
-      <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-cshop">
-        <span>🟢 네이버페이(Npay)로 편하게 구매하기 — 김쌤 공식 네이버 크리에이터샵 전체보기 👉</span>
-      </a>
-
-      <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-influencer">
-        <span>💿 황영웅 정품 음반·차량용 효도USB·응원가방·생필품 — 영웅라디오 쿠팡 인플루언서 공식관 👉</span>
-      </a>
-
-      <div class="curation-subhead-pill">
-        🟢 카드 입력 없이 1초 결제! 네이버페이(Npay) 베스트 건강·효도·손주 선물 바로가기
-      </div>
-
-      <div class="npay-direct-curation-grid">
-        <a href="https://brandconnect.naver.com/affiliates/1016189312116336?channelProductNo=13738983225&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-npay-direct-item">
-          <span>🍯 ① 한삼인 발효홍삼정 스틱 30포 선물세트 (활력 충전)</span>
-          <span class="btn-npay-direct-cta">Npay 원탭 👉</span>
-        </a>
-        <a href="https://brandconnect.naver.com/affiliates/1016189312116321?channelProductNo=10325953523&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-npay-direct-item">
-          <span>💆‍♀️ ② 제스파 4D 무선 목·어깨 마사지기 (피로 회복)</span>
-          <span class="btn-npay-direct-cta">Npay 원탭 👉</span>
-        </a>
-        <a href="https://brandconnect.naver.com/affiliates/1016189312116335?channelProductNo=13702186002&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-npay-direct-item">
-          <span>👁️ ③ 안국건강 아이원30 루테인지아잔틴 3개월 (눈 건강)</span>
-          <span class="btn-npay-direct-cta">Npay 원탭 👉</span>
-        </a>
-        <a href="https://brandconnect.naver.com/affiliates/1016189312116330?channelProductNo=12922907625&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-npay-direct-item">
-          <span>🦴 ④ 무브케어 콘드로이친·MSM 마그네슘 스프레이 (무릎 케어)</span>
-          <span class="btn-npay-direct-cta">Npay 원탭 👉</span>
-        </a>
-        <a href="https://brandconnect.naver.com/affiliates/1016189312116332?channelProductNo=7861770419&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-npay-direct-item">
-          <span>🎤 ⑤ 브라질 그린 프로폴리스 목 스프레이 (응원 목 건강)</span>
-          <span class="btn-npay-direct-cta">Npay 원탭 👉</span>
-        </a>
-        <a href="https://brandconnect.naver.com/affiliates/1016189312116327?channelProductNo=13398073355&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-npay-direct-item">
-          <span>🪑 ⑥ 무하중 에어셀 휴대용 접이식 방석 (공연장 허리 보호)</span>
-          <span class="btn-npay-direct-cta">Npay 원탭 👉</span>
-        </a>
-        <a href="https://brandconnect.naver.com/affiliates/1016189312116331?channelProductNo=12310241816&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-npay-direct-item">
-          <span>🔋 ⑦ 오아 퀵롤 고속충전 일체형 보조배터리 (스밍 필수)</span>
-          <span class="btn-npay-direct-cta">Npay 원탭 👉</span>
-        </a>
-        <a href="https://brandconnect.naver.com/affiliates/1010075643260928?channelProductNo=12080461872&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-npay-direct-item">
-          <span>👶 ⑧ 손주 사랑 키성장 선물 — 두드림 아이클타임 FGO</span>
-          <span class="btn-npay-direct-cta">Npay 원탭 👉</span>
-        </a>
-      </div>
-
-      <div class="curation-subhead-pill coupang-pill">
-        🚀 내일 바로 도착! 콘서트·일상 준비물 쿠팡 로켓배송 빠른 찾기
-      </div>
-
-      <div class="coupang-safe-grid">
-        <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EA%B4%80%EC%A0%88+MSM+%EC%BD%98%EB%93%9C%EB%A1%9C%EC%9D%B4%EC%B9%9C" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-safe">
-          <span>🦴 ① 관절 MSM·콘드로이친 (콘서트 무릎 안심)</span>
-          <span class="btn-coupang-safe-cta">쿠팡 보기 👉</span>
-        </a>
-        <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EB%A3%A8%ED%85%8C%EC%9D%B8+%EC%A7%80%EC%95%84%EC%9E%94%ED%8B%B4" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-safe">
-          <span>👁️ ② 루테인 지아잔틴 (유튜브·스밍 눈 건강)</span>
-          <span class="btn-coupang-safe-cta">쿠팡 보기 👉</span>
-        </a>
-        <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EB%8F%84%EB%9D%BC%EC%A7%80%EB%B0%B0%EC%A6%99+%ED%99%8D%EC%82%BC%EC%8A%A4%ED%8B%B1" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-safe">
-          <span>🍯 ③ 도라지배즙·홍삼스틱 (목 건강·활력 충전)</span>
-          <span class="btn-coupang-safe-cta">쿠팡 보기 👉</span>
-        </a>
-        <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EB%8C%80%EC%9A%A9%EB%9F%89+%EA%B3%A0%EC%86%8D+%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-safe">
-          <span>🔋 ④ 대용량 고속 보조배터리 (촬영·스밍 필수)</span>
-          <span class="btn-coupang-safe-cta">쿠팡 보기 👉</span>
-        </a>
-        <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EC%A0%91%EC%9D%B4%EC%8B%9D+%EB%A9%94%EB%AA%A8%EB%A6%AC%ED%8F%BC+%EB%B0%A9%EC%84%9D" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-safe">
-          <span>🪑 ⑤ 접이식 메모리폼 방석 (공연장 허리 보호)</span>
-          <span class="btn-coupang-safe-cta">쿠팡 보기 👉</span>
-        </a>
-        <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EB%B3%B4%EC%98%A8+%EB%B3%B4%EB%83%89+%EC%8A%A4%ED%85%90+%ED%85%80%EB%B8%94%EB%9F%AC" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-safe">
-          <span>🍵 ⑥ 가벼운 보온·보냉 스텐 텀블러 (따뜻한 차)</span>
-          <span class="btn-coupang-safe-cta">쿠팡 보기 👉</span>
-        </a>
-        <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EC%97%90%EB%A9%94%EB%9E%84%EB%93%9C+%EB%B3%B4%EC%98%A8+%EC%8A%A4%EC%B9%B4%ED%94%84+%EC%88%84" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-safe">
-          <span>🧣 ⑦ 에메랄드 보온 스카프·숄 (콘서트장 체온 보호)</span>
-          <span class="btn-coupang-safe-cta">쿠팡 보기 👉</span>
-        </a>
-        <a href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero&amp;pageKey=%EC%9D%91%EC%9B%90%EB%B4%89+AAA+%EC%95%8C%EC%B9%B4%EB%9D%BC%EC%9D%B8+%EA%B1%B4%EC%A0%84%EC%A7%80" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-safe">
-          <span>🔦 ⑧ 응원봉 교체용 AAA 알카라인 건전지 세트</span>
-          <span class="btn-coupang-safe-cta">쿠팡 보기 👉</span>
-        </a>
-      </div>
-
-      <div class="curation-subhead-pill linkprice-pill">
-        💿 YES24 차트반영 정품 음반·큰글씨책 &amp; 백화점·홈쇼핑 효도 선물관
-      </div>
-
-      <div class="linkprice-safe-grid">
-        <a href="https://click.linkprice.com/click.php?m=yes24&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2599%25A9%25EC%2598%2581%25EC%259B%2585" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
-          <span>💿 ① 황영웅 정품 음반·포토북 (YES24 한터·써클차트 반영)</span>
-          <span class="btn-linkprice-safe-cta">YES24 보기 👉</span>
-        </a>
-        <a href="https://click.linkprice.com/click.php?m=yes24&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2581%25B0%25EA%25B8%2580%25EC%259E%2590%25EB%258F%2584%25EC%2584%259C%2B%25EC%258B%259C%25EC%25A7%2591" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
-          <span>📖 ② 돋보기 필요 없는 큰글씨 도서·시집·노래 악보집</span>
-          <span class="btn-linkprice-safe-cta">YES24 보기 👉</span>
-        </a>
-        <a href="https://click.linkprice.com/click.php?m=hmall&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.hmall.com%2Fmd%2Fpde%2Fsearch.do%3FsearchTerm%3D%25EC%25A0%2595%25EA%25B4%2580%25EC%259E%25A5%2B%25ED%2599%258D%25EC%2582%25BC%2B%25EC%2584%25A0%25EB%25AC%25BC%25EC%2584%25B8%25ED%258A%25B8" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
-          <span>🎁 ③ 정관장 홍삼·보양 건강선물세트 (현대Hmall 홈쇼핑)</span>
-          <span class="btn-linkprice-safe-cta">현대Hmall 👉</span>
-        </a>
-        <a href="https://click.linkprice.com/click.php?m=lotteon&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.lotteon.com%2Fsearch%2Fsearch%2Fsearch.ecn%3Frender%3Dsearch%26platform%3Dpc%26q%3D%25EC%2597%25AC%25EC%2584%25B1%2B%25EA%25B2%25BD%25EB%259F%2589%25ED%258C%25A8%25EB%2594%25A9%2B%25EC%258A%25A4%25EC%25B9%25B4%25ED%2594%2584" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
-          <span>🧣 ④ 백화점 경량패딩·스카프 나들이 패션 (롯데ON)</span>
-          <span class="btn-linkprice-safe-cta">롯데ON 👉</span>
-        </a>
-        <a href="https://click.linkprice.com/click.php?m=gmarket&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fbrowse.gmarket.co.kr%2Fsearch%3Fkeyword%3D%25EC%2597%25AC%25EC%2584%25B1%2B%25ED%258E%25B8%25EC%2595%2588%25ED%2595%259C%2B%25EC%259B%258C%25ED%2582%25B9%25ED%2599%2594%2B%25ED%259A%25A8%25EB%258F%2584%25ED%2599%2594" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
-          <span>👟 ⑤ 콘서트장 발 편한 쿠션 워킹화·효도화 (G마켓)</span>
-          <span class="btn-linkprice-safe-cta">G마켓 👉</span>
-        </a>
-        <a href="https://click.linkprice.com/click.php?m=11st&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fsearch.11st.co.kr%2Fpc%2Ftotal-search%3Fkwd%3D%25EC%25A2%2585%25EA%25B7%25BC%25EB%258B%25B9%25EA%25B1%25B4%25EA%25B0%2595%2B%25EB%259D%25BD%25ED%2586%25A0%25ED%2595%258F%2B%25EA%25B4%2580%25EC%25A0%2588" target="_blank" rel="noopener noreferrer sponsored" class="btn-linkprice-safe">
-          <span>💊 ⑥ 종근당건강 락토핏·관절 유산균 선물세트 (11번가)</span>
-          <span class="btn-linkprice-safe-cta">11번가 👉</span>
-        </a>
-      </div>
-
-      <div class="curation-subhead-pill iherb-pill">
-        🌿 네이버페이·카카오페이 결제 가능! iHerb 한국어 공식 미국 직구 영양제관
-      </div>
-
-      <div class="iherb-safe-grid">
-        <a href="https://kr.iherb.com/search?kw=California%20Gold%20Nutrition%20Omega-3&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" class="btn-iherb-safe">
-          <span>🐟 ① 혈행·기억력 안심 — 알래스카 고순도 오메가-3</span>
-          <span class="btn-iherb-safe-cta">iHerb 직구 👉</span>
-        </a>
-        <a href="https://kr.iherb.com/search?kw=Doctor%27s%20Best%20High%20Absorption%20Magnesium&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" class="btn-iherb-safe">
-          <span>🌙 ② 밤중 다리 쥐·편안한 잠 — 닥터스베스트 고흡수 마그네슘</span>
-          <span class="btn-iherb-safe-cta">iHerb 직구 👉</span>
-        </a>
-        <a href="https://kr.iherb.com/search?kw=California%20Gold%20Nutrition%20CoQ10%20100mg&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" class="btn-iherb-safe">
-          <span>❤️ ③ 중장년 일일 활력·항산화 — 코엔자임 Q10 100mg</span>
-          <span class="btn-iherb-safe-cta">iHerb 직구 👉</span>
-        </a>
-        <a href="https://kr.iherb.com/search?kw=California%20Gold%20Nutrition%20Lutein%20Zeaxanthin&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" class="btn-iherb-safe">
-          <span>👁️ ④ 침침한 눈·스마트폰 보호 — 고함량 루테인·지아잔틴</span>
-          <span class="btn-iherb-safe-cta">iHerb 직구 👉</span>
-        </a>
-      </div>
-
-      <div class="curation-subhead-pill tour-pill">
-        🎟️ 전국 콘서트 원정 겸 주말 효도여행 · 손주 동반 나들이 입장권 혜택관
-      </div>
-
-      <a href="https://naver.me/xJcOADhA" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-tour-king">
-        <span>🚌 네이버페이(Npay) 적립! 전국 주말 효도여행·온천·나들이 공식 혜택 라운지 전체보기 👉</span>
-      </a>
-
-      <div class="tour-safe-grid">
-        <a href="https://myrealt.rip/xc4hf6" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
-          <span>🍊 ① 제주 투어패스 — 온 가족 식물원·전망대 힐링 이용권</span>
-          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
-        </a>
-        <a href="https://myrealt.rip/xwYU1a" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
-          <span>🌊 ② 제주 아쿠아플라넷 — 바다 대수조 가족·손주 입장권</span>
-          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
-        </a>
-        <a href="https://myrealt.rip/xc4Y3a" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
-          <span>🌿 ③ 강원 홍천 알파카월드 — 푸른 초원 산책·손주 나들이</span>
-          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
-        </a>
-        <a href="https://myrealt.rip/xc4b13" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
-          <span>🏯 ④ 경주 신라천년 여행 — 첨성대·대릉원 가족 해설 투어</span>
-          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
-        </a>
-        <a href="https://myrealt.rip/xc4f7a" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
-          <span>👑 ⑤ 서울 경복궁 산책 — 품격 있는 고궁 역사 가족투어</span>
-          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
-        </a>
-        <a href="https://myrealt.rip/xc4wa0" target="_blank" rel="noopener noreferrer sponsored" class="btn-tour-safe">
-          <span>🐾 ⑥ 주렁주렁 실내 동물원 — 날씨 걱정 없는 주말 손주 나들이</span>
-          <span class="btn-tour-safe-cta">티켓 보기 👉</span>
-        </a>
-      </div>
-
-      <p class="ftc-safe-notice">
-        본 특가관은 네이버 쇼핑 커넥트 및 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.<br>
-        또한 링크프라이스(YES24·현대Hmall·롯데ON·G마켓·11번가), 아이허브(iHerb), 마이리얼트립 제휴 활동으로 구매자 추가 부담 없이 소정의 수수료를 제공받을 수 있습니다.
-      </p>
     </section>
 
     <!-- 2-2. 오늘의 황영웅 실시간 뉴스 속보 & 활동 소식 (돋보기 없는 큰 글씨) -->
@@ -602,7 +728,7 @@
   </footer>
 
   <!-- 스크립트 로드 -->
-  <script src="js/senior-accessibility.js?v=20261114d"></script>
-  <script src="js/radio-player.js?v=20261114d"></script>
+  <script src="js/senior-accessibility.js?v=20261115a"></script>
+  <script src="js/radio-player.js?v=20261115a"></script>
 </body>
 </html>
