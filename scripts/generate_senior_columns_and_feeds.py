@@ -153,6 +153,101 @@ SENIOR_COLUMNS: List[Dict[str, Any]] = [
 ]
 
 
+def _select_best_two_shop_cards(col: Dict[str, Any]) -> List[Dict[str, str]]:
+    slug = str(col.get("slug") or "")
+    cat = str(col.get("category") or "")
+    if "concert" in slug or "콘서트" in cat or "cheering" in slug:
+        return [
+            {
+                "img": "/assets/shop/item_cushion.svg",
+                "tag": "콘서트 · 응원 필수 1위",
+                "name": "공연장 푹신 방석 · 보온 텀블러 안심관",
+                "reason": "3시간 공연 내내 허리·무릎이 편안하고 따뜻한 물을 챙기실 수 있습니다.",
+                "url": "https://cshop.naver.com/paradiseshop",
+                "btn_bg": "#03c75a",
+                "btn_label": "🟢 터치 1번으로 공식 판매처 바로가기 (네이버페이)",
+            },
+            {
+                "img": "/assets/shop/item_battery.svg",
+                "tag": "사진 촬영 · 라디오 연속재생",
+                "name": "대용량 고속 보조배터리 (쿠팡 로켓배송)",
+                "reason": "공연장 기념 촬영과 24시간 영웅라디오 청취에도 배터리 걱정이 없습니다.",
+                "url": "https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero_col&pageKey=%EB%8C%80%EC%9A%A9%EB%9F%89+%EA%B3%A0%EC%86%8D+%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC",
+                "btn_bg": "#dc2626",
+                "btn_label": "🚀 터치 1번으로 공식 판매처 바로가기 (내일 도착)",
+            },
+        ]
+    if "throat" in slug or "건강" in cat or "charity" in slug or "voice" in slug:
+        return [
+            {
+                "img": "/assets/shop/item_ginseng.svg",
+                "tag": "어머님 목건강 · 면역 1위",
+                "name": "따뜻한 도라지배즙 · 발효홍삼 선물관",
+                "reason": "노래 따라 부르실 때 칼칼한 목을 촉촉하고 든든하게 지켜드립니다.",
+                "url": "https://cshop.naver.com/paradiseshop",
+                "btn_bg": "#03c75a",
+                "btn_label": "🟢 터치 1번으로 공식 판매처 바로가기 (네이버페이)",
+            },
+            {
+                "img": "/assets/shop/item_joint.svg",
+                "tag": "무릎 안심 · 편안한 숙면",
+                "name": "관절 MSM · 콘드로이친 건강식품",
+                "reason": "계단 오르내리실 때와 콘서트 나들이 걸음걸이를 가볍게 도와드립니다.",
+                "url": "https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero_col&pageKey=%EA%B4%80%EC%A0%88+MSM+%EC%BD%98%EB%93%9C%EB%A1%9C%EC%9D%B4%EC%B9%9C",
+                "btn_bg": "#dc2626",
+                "btn_label": "🚀 터치 1번으로 공식 판매처 바로가기 (내일 도착)",
+            },
+        ]
+    return [
+        {
+            "img": "/assets/shop/item_album.svg",
+            "tag": "음반 차트 100% 공식 반영",
+            "name": "가수 황영웅 정품 음반 · 화보집 모음",
+            "reason": "구입하시는 즉시 공식 음반 판매량에 집계되어 가수님께 큰 힘이 됩니다.",
+            "url": "https://click.linkprice.com/click.php?m=yes24&a=A100708867&l=9999&l_cd1=3&l_cd2=0&tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2599%25A9%25EC%2598%2581%25EC%259B%2585",
+            "btn_bg": "#d97706",
+            "btn_label": "💿 터치 1번으로 공식 판매처 바로가기 (YES24)",
+        },
+        {
+            "img": "/assets/shop/item_usb.svg",
+            "tag": "전원만 켜면 바로 재생",
+            "name": "영웅라디오 효도 스피커 · 공식 추천관",
+            "reason": "작은 글씨 누를 필요 없이 거실·차 안에서 버튼 하나로 명곡을 듣습니다.",
+            "url": "https://influencers.coupang.com/s/paradisehero",
+            "btn_bg": "#03c75a",
+            "btn_label": "🚀 터치 1번으로 공식 판매처 바로가기 (쿠팡 공식관)",
+        },
+    ]
+
+
+def _render_two_card_shop_html(cards: List[Dict[str, str]], heading: str) -> str:
+    items_html = ""
+    for c in cards:
+        items_html += f"""
+        <div class="one-tap-shop-card">
+          <div class="one-tap-shop-top">
+            <img src="{c['img']}" alt="{html.escape(c['name'])}" width="92" height="92" class="one-tap-shop-img" />
+            <div>
+              <span class="one-tap-shop-tag">{html.escape(c['tag'])}</span>
+              <h3 class="one-tap-shop-title">{html.escape(c['name'])}</h3>
+              <p class="one-tap-shop-reason">{html.escape(c['reason'])}</p>
+            </div>
+          </div>
+          <a class="one-tap-shop-btn" style="background:{c['btn_bg']};" href="{html.escape(c['url'])}" target="_blank" rel="noopener noreferrer sponsored">
+            {html.escape(c['btn_label'])} 👉
+          </a>
+        </div>"""
+    return f"""
+    <section class="one-tap-shop-section" aria-label="이 글과 딱 맞는 어머님 원터치 안심 추천 준비물">
+      <div class="one-tap-shop-header">🛍️ {html.escape(heading)}</div>
+      <p class="one-tap-shop-sub">복잡한 가입이나 중간 창 없이, 아래 큰 버튼 한 번만 누르시면 공식 판매처로 바로 이동합니다.</p>
+      <div class="one-tap-shop-grid">
+        {items_html}
+      </div>
+      <p class="one-tap-ftc">ℹ️ 네이버 쇼핑 커넥트 · 쿠팡 파트너스(AF7865143) · 링크프라이스(A100708867) 제휴 활동으로 일정액의 수수료를 제공받으나 구매자 가격은 동일합니다.</p>
+    </section>"""
+
+
 def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     canonical_url = f"https://{HOST}/columns/{col['slug']}"
     faq_entities = [
@@ -187,7 +282,18 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
         ensure_ascii=False,
     )
 
-    paras_html = "\n".join(f"<p>{html.escape(p)}</p>" for p in col["body_paragraphs"])
+    best_two_cards = _select_best_two_shop_cards(col)
+    mid_shop_html = _render_two_card_shop_html(best_two_cards, "이 편지를 읽으신 어머님들이 가장 많이 찾으시는 베스트 2선")
+    paras = col["body_paragraphs"]
+    if len(paras) >= 2:
+        paras_html = (
+            f"<p>{html.escape(paras[0])}</p>\n"
+            f"<p>{html.escape(paras[1])}</p>\n"
+            f"{mid_shop_html}\n"
+            + "\n".join(f"<p>{html.escape(p)}</p>" for p in paras[2:])
+        )
+    else:
+        paras_html = "\n".join(f"<p>{html.escape(p)}</p>" for p in paras) + "\n" + mid_shop_html
     faqs_html = "\n".join(
         f'<div class="faq-item"><h3>Q. {html.escape(q)}</h3><p>{html.escape(a)}</p></div>'
         for q, a in col["faqs"]
@@ -224,6 +330,18 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     h1 {{ font-size: 1.45em; line-height: 1.4; color: #ffffff; margin: 16px 0 12px; }}
     .date-line {{ color: var(--muted); font-size: 0.92em; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #2d6a4f; }}
     article p {{ margin: 22px 0; font-size: 1em; color: #f1f5f9; word-keep: keep-all; }}
+    .one-tap-shop-section {{ background: #ffffff; color: #111827; border: 3px solid var(--gold); border-radius: 20px; padding: 24px 20px; margin: 28px 0; box-shadow: 0 12px 30px rgba(0,0,0,0.28); }}
+    .one-tap-shop-header {{ font-size: 24px; font-weight: 900; color: #0e2820; margin-bottom: 6px; line-height: 1.35; }}
+    .one-tap-shop-sub {{ margin: 0 0 18px !important; font-size: 20px !important; color: #374151 !important; font-weight: 700; line-height: 1.5; }}
+    .one-tap-shop-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }}
+    .one-tap-shop-card {{ background: #fafaf8; border: 2px solid #d1d5db; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px; }}
+    .one-tap-shop-top {{ display: flex; gap: 16px; align-items: center; }}
+    .one-tap-shop-img {{ width: 92px; height: 92px; flex-shrink: 0; border-radius: 14px; background: #ecfdf5; border: 2px solid #10b981; padding: 8px; object-fit: contain; }}
+    .one-tap-shop-tag {{ display: inline-block; background: #fef3c7; color: #92400e; font-size: 17px; font-weight: 900; padding: 3px 10px; border-radius: 999px; margin-bottom: 6px; }}
+    .one-tap-shop-title {{ margin: 0 0 6px; font-size: 22px; font-weight: 900; color: #111827; line-height: 1.35; }}
+    .one-tap-shop-reason {{ margin: 0 !important; font-size: 20px !important; color: #374151 !important; font-weight: 700; line-height: 1.45; }}
+    .one-tap-shop-btn {{ display: flex; align-items: center; justify-content: center; text-align: center; min-height: 68px; padding: 14px 18px; border-radius: 14px; font-size: 21px; font-weight: 900; color: #ffffff !important; text-decoration: none; box-shadow: 0 6px 16px rgba(0,0,0,0.16); }}
+    .one-tap-ftc {{ margin: 14px 0 0 !important; font-size: 17px !important; color: #4b5563 !important; line-height: 1.45; }}
     .share-box {{ background: #143628; border: 2px solid var(--gold); border-radius: 18px; padding: 24px; margin: 32px 0; text-align: center; }}
     .share-btn {{ width: 100%; min-height: 68px; font-size: 22px; font-weight: 900; border-radius: 14px; border: none; background: #fee500; color: #191919; cursor: pointer; padding: 14px 20px; }}
     .funnel-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 32px 0; }}
@@ -324,9 +442,9 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
 
 def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
     COLUMNS_DIR.mkdir(parents=True, exist_ok=True)
-    now_utc = datetime.datetime.now(datetime.timezone.utc)
     today_iso = datetime.date.today().isoformat()
-    rfc_now = format_datetime(now_utc)
+    day_utc = datetime.datetime.strptime(today_iso, "%Y-%m-%d").replace(tzinfo=datetime.timezone.utc)
+    rfc_now = format_datetime(day_utc)
 
     cards_html = ""
     for col in SENIOR_COLUMNS:

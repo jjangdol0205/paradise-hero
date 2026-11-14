@@ -474,6 +474,9 @@
       const displayList = articles.length > 1 ? articles.slice(1) : articles;
 
       displayList.forEach((article, idx) => {
+        if (idx === 1) {
+          feedContainer.appendChild(createOneTapShopBanner(engine.activeSinger || article.singer_tag));
+        }
         if (idx === 2) {
           feedContainer.appendChild(createPhotoBoothCTA());
         }
@@ -559,6 +562,109 @@
       return banner;
     }
 
+    function getContextShopItems(tag) {
+      const t = String(tag || '');
+      if (t.indexOf('콘서트') !== -1) {
+        return [
+          {
+            img: 'assets/shop/item_cushion.svg',
+            badge: '콘서트 필수 1위',
+            title: '공연장 푹신 방석 · 보온 텀블러 안심관',
+            reason: '3시간 공연 내내 허리·무릎이 편안하고 따뜻한 물을 챙기실 수 있습니다.',
+            url: 'https://cshop.naver.com/paradiseshop',
+            bg: '#03C75A',
+            cta: '🟢 터치 1번으로 공식 판매처 바로가기 (네이버페이) 👉'
+          },
+          {
+            img: 'assets/shop/item_battery.svg',
+            badge: '사진·라디오 연속재생',
+            title: '대용량 고속 보조배터리 (쿠팡 로켓배송)',
+            reason: '공연장 기념 촬영과 24시간 라디오 청취에도 배터리 걱정이 없습니다.',
+            url: 'https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero_news&pageKey=%EB%8C%80%EC%9A%A9%EB%9F%89+%EA%B3%A0%EC%86%8D+%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC',
+            bg: '#DC2626',
+            cta: '🚀 터치 1번으로 공식 판매처 바로가기 (내일 도착) 👉'
+          }
+        ];
+      }
+      if (t.indexOf('음반') !== -1 || t.indexOf('신곡') !== -1) {
+        return [
+          {
+            img: 'assets/shop/item_album.svg',
+            badge: '차트 100% 공식 반영',
+            title: '황영웅 정품 음반 · 포토북 모음 (YES24)',
+            reason: '구입 즉시 공식 음반 판매량에 집계되어 가수님께 큰 힘이 됩니다.',
+            url: 'https://click.linkprice.com/click.php?m=yes24&a=A100708867&l=9999&l_cd1=3&l_cd2=0&tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2599%25A9%25EC%2598%2581%25EC%259B%2585',
+            bg: '#D97706',
+            cta: '💿 터치 1번으로 공식 판매처 바로가기 (YES24) 👉'
+          },
+          {
+            img: 'assets/shop/item_usb.svg',
+            badge: '전원만 켜면 바로 재생',
+            title: '영웅라디오 효도 스피커 · 공식 추천관',
+            reason: '작은 글씨 누를 필요 없이 버튼 하나로 거실에서 명곡을 듣습니다.',
+            url: 'https://influencers.coupang.com/s/paradisehero',
+            bg: '#03C75A',
+            cta: '🚀 터치 1번으로 공식 판매처 바로가기 (쿠팡 공식관) 👉'
+          }
+        ];
+      }
+      return [
+        {
+          img: 'assets/shop/item_ginseng.svg',
+          badge: '어머님 목건강 · 면역 1위',
+          title: '따뜻한 도라지배즙 · 발효홍삼 안심관',
+          reason: '노래 따라 부르실 때 칼칼한 목을 촉촉하고 든든하게 지켜드립니다.',
+          url: 'https://cshop.naver.com/paradiseshop',
+          bg: '#03C75A',
+          cta: '🟢 터치 1번으로 공식 판매처 바로가기 (네이버페이) 👉'
+        },
+        {
+          img: 'assets/shop/item_usb.svg',
+          badge: '어머님 인기 베스트',
+          title: '황영웅 정품 음반 · 효도 스피커 공식관',
+          reason: '전국 파라다이스 어머님들이 가장 많이 찾으시는 응원 필수품입니다.',
+          url: 'https://influencers.coupang.com/s/paradisehero',
+          bg: '#B91C1C',
+          cta: '🚀 터치 1번으로 공식 판매처 바로가기 (쿠팡 공식관) 👉'
+        }
+      ];
+    }
+
+    function renderShopCardsInnerHtml(items) {
+      return items.map((it) => `
+        <div style="background:#FAFAF8;border:2px solid #D1D5DB;border-radius:16px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
+          <div style="display:flex;gap:14px;align-items:center;">
+            <img src="${it.img}" alt="${it.title}" width="88" height="88" style="width:88px;height:88px;flex-shrink:0;border-radius:14px;background:#ECFDF5;border:2px solid #10B981;padding:8px;object-fit:contain;">
+            <div>
+              <span style="display:inline-block;background:#FEF3C7;color:#92400E;font-size:16px;font-weight:900;padding:3px 10px;border-radius:999px;margin-bottom:4px;">${it.badge}</span>
+              <div style="font-size:21px;font-weight:900;color:#111827;line-height:1.35;margin-bottom:4px;">${it.title}</div>
+              <div style="font-size:19px;font-weight:700;color:#374151;line-height:1.45;">${it.reason}</div>
+            </div>
+          </div>
+          <a href="${it.url}" target="_blank" rel="noopener noreferrer sponsored" style="display:flex;align-items:center;justify-content:center;text-align:center;min-height:64px;padding:12px 16px;border-radius:14px;background:${it.bg};color:#FFFFFF;font-size:20px;font-weight:900;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+            ${it.cta}
+          </a>
+        </div>
+      `).join('');
+    }
+
+    function createOneTapShopBanner(tag) {
+      const items = getContextShopItems(tag);
+      const banner = document.createElement('aside');
+      banner.className = 'news-interstitial-cta senior-card';
+      banner.setAttribute('aria-label', '어머님 맞춤 원터치 공식 판매처 추천 준비물');
+      banner.style.cssText = 'background:#FFFFFF;border:3px solid #D4AF37;border-radius:18px;padding:22px;margin:20px 0;';
+      banner.innerHTML = `
+        <div style="font-size:23px;font-weight:900;color:#0E2820;margin-bottom:6px;">🛍️ 이 소식과 딱 맞는 어머님 베스트 추천 2선</div>
+        <p style="margin:0 0 16px;font-size:19px;color:#374151;font-weight:700;">중간 창이나 회원가입 없이, 아래 큰 버튼 한 번만 누르시면 공식 판매처로 바로 이동합니다.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;">
+          ${renderShopCardsInnerHtml(items)}
+        </div>
+        <p style="margin:12px 0 0;font-size:15px;color:#6B7280;">ℹ️ 네이버 쇼핑 커넥트 · 쿠팡 파트너스(AF7865143) · 링크프라이스(A100708867) 제휴 활동으로 일정액의 수수료를 제공받으나 구매자 가격은 동일합니다.</p>
+      `;
+      return banner;
+    }
+
     function showModalForArticle(id) {
       const article = engine.openModal(id);
       if (!article || !modalEl) return;
@@ -570,6 +676,24 @@
       if (modalBodyEl) {
         modalBodyEl.textContent = article.summary;
         modalBodyEl.style.fontSize = `${engine.getModalFontSizePx()}px`;
+        let shopSlot = document.getElementById('modal-context-shop-slot');
+        if (!shopSlot && modalBodyEl.parentNode) {
+          shopSlot = document.createElement('div');
+          shopSlot.id = 'modal-context-shop-slot';
+          shopSlot.style.marginTop = '20px';
+          modalBodyEl.parentNode.appendChild(shopSlot);
+        }
+        if (shopSlot) {
+          const items = getContextShopItems(article.singer_tag);
+          shopSlot.innerHTML = `
+            <div style="background:#FFFFFF;border:2.5px solid #D4AF37;border-radius:16px;padding:18px;">
+              <div style="font-size:21px;font-weight:900;color:#0E2820;margin-bottom:10px;">🛍️ 이 기사와 함께 많이 보시는 어머님 추천 준비물</div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;">
+                ${renderShopCardsInnerHtml(items)}
+              </div>
+            </div>
+          `;
+        }
       }
       if (modalLinkEl) {
         modalLinkEl.href = article.link;
