@@ -133,12 +133,12 @@ def main() -> int:
         f"💚 {col['kakao_quote']}\n\n"
         f"1️⃣ 돋보기 없이 읽는 큰 글씨 사연·건강 편지 전문 읽기:\n"
         f"👉 {canonical_url}?utm_source=youtube_pinned\n\n"
-        f"2️⃣ 황영웅 님 10종 의상 무제한 무료 투샷 기념사진관:\n"
+        f"2️⃣ 황영웅 님 10종 의상 무제한 무료 투샷 기념사진관 & 선물제작소:\n"
         f"👉 https://{HOST}/booth.html?utm_source=youtube_pinned\n\n"
-        f"3️⃣ 매달 큰글씨 가사 엽서 & 방송 우선 호명 [골드 VIP 월 9,900원] 안내:\n"
-        f"👉 https://{HOST}/vip.html?utm_source=youtube_pinned\n\n"
-        f"4️⃣ 방송 속 건강·효도 선물 공식 라운지 (네이버페이 간편결제):\n"
-        f"👉 https://cshop.naver.com/paradiseshop\n"
+        f"3️⃣ 네이버페이(Npay) 원탭 건강·효도 공식 크리에이터샵:\n"
+        f"👉 https://cshop.naver.com/paradiseshop\n\n"
+        f"4️⃣ YES24 차트반영 정품음반 · 쿠팡 · iHerb 직구 · 주말 나들이 티켓 통합 혜택관:\n"
+        f"👉 https://{HOST}/#senior-curation-market\n"
     )
 
     syn_res = dispatch_zero_ban_text_bundle(

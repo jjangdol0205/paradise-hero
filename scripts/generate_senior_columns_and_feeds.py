@@ -273,16 +273,23 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     </section>
 
     <section class="curation-box" aria-label="김쌤이 고른 어머님 콘서트 및 건강 안심 준비물">
-      <h2 style="font-size:1.22em;color:var(--gold);margin:0 0 8px;">💚 김쌤이 직접 고른 어머님 콘서트·목건강 안심 준비물</h2>
-      <p style="margin:0 0 16px;color:var(--muted);font-size:0.95em;">평소 쓰시는 네이버페이(Npay)와 쿠팡 로켓배송으로 콘서트 준비물과 환절기 건강템을 편하게 살펴보세요.</p>
+      <h2 style="font-size:1.22em;color:var(--gold);margin:0 0 8px;">💚 김쌤이 직접 고른 어머님 콘서트·목건강·나들이 안심 혜택관</h2>
+      <p style="margin:0 0 16px;color:var(--muted);font-size:0.95em;">네이버페이(Npay)·쿠팡 로켓배송은 물론, YES24 정품 음반, 미국 직구 영양제(iHerb), 주말 효도·손주 나들이 입장권까지 한곳에 모았습니다.</p>
       <a class="npay-btn" href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored">🟢 네이버페이(Npay) 김쌤 공식 크리에이터샵 바로가기 👉</a>
+      <a class="npay-btn" href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" style="background:#b91c1c;">💿 영웅라디오 쿠팡 인플루언서 공식관 (음반·효도USB·응원템) 👉</a>
       <div class="cp-grid">
-        <a class="cp-btn" href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero_col&amp;pageKey=%EB%8F%84%EB%9D%BC%EC%A7%80%EB%B0%B0%EC%A6%99+%ED%99%8D%EC%82%BC%EC%8A%A4%ED%8B%B1" target="_blank" rel="noopener noreferrer sponsored"><span>🍯 도라지배즙·홍삼스틱 (목 건강)</span><span style="color:var(--gold);">보기 👉</span></a>
+        <a class="cp-btn" href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero_col&amp;pageKey=%EB%8F%84%EB%9D%BC%EC%A7%80%EB%B0%B0%EC%A6%99+%ED%99%8D%EC%82%BC%EC%8A%A4%ED%8B%B1" target="_blank" rel="noopener noreferrer sponsored"><span>🍯 도라지배즙·홍삼스틱 (쿠팡 로켓)</span><span style="color:var(--gold);">보기 👉</span></a>
         <a class="cp-btn" href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero_col&amp;pageKey=%EA%B4%80%EC%A0%88+MSM+%EC%BD%98%EB%93%9C%EB%A1%9C%EC%9D%B4%EC%B9%9C" target="_blank" rel="noopener noreferrer sponsored"><span>🦴 관절 MSM·콘드로이친 (무릎 안심)</span><span style="color:var(--gold);">보기 👉</span></a>
         <a class="cp-btn" href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero_col&amp;pageKey=%EB%8C%80%EC%9A%A9%EB%9F%89+%EA%B3%A0%EC%86%8D+%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC" target="_blank" rel="noopener noreferrer sponsored"><span>🔋 대용량 보조배터리 (촬영·스밍)</span><span style="color:var(--gold);">보기 👉</span></a>
         <a class="cp-btn" href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero_col&amp;pageKey=%EC%A0%91%EC%9D%B4%EC%8B%9D+%EB%A9%94%EB%AA%A8%EB%A6%AC%ED%8F%BC+%EB%B0%A9%EC%84%9D" target="_blank" rel="noopener noreferrer sponsored"><span>🪑 접이식 메모리폼 방석 (공연장)</span><span style="color:var(--gold);">보기 👉</span></a>
+        <a class="cp-btn" href="https://click.linkprice.com/click.php?m=yes24&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2599%25A9%25EC%2598%2581%25EC%259B%2585" target="_blank" rel="noopener noreferrer sponsored" style="border-color:#fbbf24;"><span>💿 황영웅 정품 음반·포토북 (YES24)</span><span style="color:var(--gold);">차트반영 👉</span></a>
+        <a class="cp-btn" href="https://click.linkprice.com/click.php?m=hmall&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.hmall.com%2Fmd%2Fpde%2Fsearch.do%3FsearchTerm%3D%25EC%25A0%2595%25EA%25B4%2580%25EC%259E%25A5%2B%25ED%2599%258D%25EC%2582%25BC%2B%25EC%2584%25A0%25EB%25AC%25BC%25EC%2584%25B8%25ED%258A%25B8" target="_blank" rel="noopener noreferrer sponsored" style="border-color:#fbbf24;"><span>🎁 정관장 홍삼 효도선물 (현대Hmall)</span><span style="color:var(--gold);">홈쇼핑 👉</span></a>
+        <a class="cp-btn" href="https://kr.iherb.com/search?kw=California%20Gold%20Nutrition%20Omega-3&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" style="border-color:#34d399;"><span>🐟 알래스카 오메가-3 혈행 (iHerb 직구)</span><span style="color:#6ee7b7;">Npay결제 👉</span></a>
+        <a class="cp-btn" href="https://kr.iherb.com/search?kw=Doctor%27s%20Best%20High%20Absorption%20Magnesium&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" style="border-color:#34d399;"><span>🌙 고흡수 마그네슘 숙면·다리쥐 (iHerb)</span><span style="color:#6ee7b7;">Npay결제 👉</span></a>
+        <a class="cp-btn" href="https://naver.me/xJcOADhA" target="_blank" rel="noopener noreferrer sponsored" style="border-color:#38bdf8;"><span>🚌 Npay 주말 효도·전국 나들이 라운지</span><span style="color:#bae6fd;">티켓보기 👉</span></a>
+        <a class="cp-btn" href="https://myrealt.rip/xc4hf6" target="_blank" rel="noopener noreferrer sponsored" style="border-color:#38bdf8;"><span>🍊 제주·경주·아쿠아리움 가족 나들이권</span><span style="color:#bae6fd;">혜택확인 👉</span></a>
       </div>
-      <p style="margin:14px 0 0;font-size:0.82em;color:#a7f3d0;">ℹ️ 공정거래위원회 심사지침 준수 안내: 본 안내관은 네이버 쇼핑 커넥트 및 쿠팡 파트너스(AF7865143) 활동의 일환으로 이에 따른 일정액의 수수료를 제공받습니다.</p>
+      <p style="margin:14px 0 0;font-size:0.82em;color:#a7f3d0;">ℹ️ 공정거래위원회 심사지침 준수 안내: 본 안내관은 네이버 쇼핑 커넥트, 쿠팡 파트너스(AF7865143), 링크프라이스(YES24·현대Hmall), 아이허브(iHerb), 마이리얼트립 제휴 활동의 일환으로 이에 따른 일정액의 수수료를 제공받습니다.</p>
     </section>
 
     <section>
@@ -371,12 +378,16 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
     <p style="color:#d1fae5;margin-top:0;margin-bottom:28px;">돋보기 없이 편안하게 읽으시고 카카오톡 단톡방 가족분들과 따뜻한 마음을 나눠보세요.</p>
     {cards_html}
     <section class="card" style="border-color:#fbbf24;margin-top:28px;">
-      <span class="badge">💚 안심 효도 큐레이션</span>
-      <h2>김쌤이 직접 고른 어머님 콘서트·목건강 안심 준비물</h2>
-      <p>네이버페이(Npay) 공식 크리에이터샵과 쿠팡 로켓배송으로 편안하게 만나보세요.</p>
+      <span class="badge">💚 5대 공식 제휴 · 안심 효도 큐레이션</span>
+      <h2>김쌤이 직접 고른 어머님 콘서트·목건강·나들이 통합 혜택관</h2>
+      <p>네이버페이(Npay)·쿠팡 로켓배송·YES24 정품음반·iHerb 미국직구·주말 나들이 티켓을 큰 글씨로 편하게 만나보세요.</p>
       <a class="read-btn" href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="background:#03c75a;color:#ffffff;width:100%;margin-bottom:10px;">🟢 네이버페이(Npay) 김쌤 공식 크리에이터샵 바로가기 👉</a>
+      <a class="read-btn" href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" style="background:#b91c1c;color:#ffffff;width:100%;margin-bottom:10px;">💿 쿠팡 인플루언서 공식관 (황영웅 음반·효도USB·응원템) 👉</a>
+      <a class="read-btn" href="https://click.linkprice.com/click.php?m=yes24&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2599%25A9%25EC%2598%2581%25EC%259B%2585" target="_blank" rel="noopener noreferrer sponsored" style="background:#92400e;color:#fef3c7;width:100%;margin-bottom:10px;">📖 YES24 황영웅 정품 음반·포토북 (차트 공식 반영) 👉</a>
+      <a class="read-btn" href="https://kr.iherb.com/search?kw=California%20Gold%20Nutrition%20Omega-3&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" style="background:#047857;color:#ffffff;width:100%;margin-bottom:10px;">🌿 iHerb 한국어 공식 직구 건강관 (오메가3·마그네슘 Npay 결제) 👉</a>
+      <a class="read-btn" href="https://naver.me/xJcOADhA" target="_blank" rel="noopener noreferrer sponsored" style="background:#0369a1;color:#ffffff;width:100%;margin-bottom:10px;">🎟️ 주말 효도여행 · 손주 동반 전국 나들이 티켓 라운지 👉</a>
       <a class="read-btn" href="/vip.html#gold-vip-membership" style="background:#fbbf24;color:#05130e;width:100%;">👑 골드 VIP 서포터즈(월 9,900원) &amp; 무료 선물제작소 보기 👉</a>
-      <p style="font-size:0.82em;color:#a7f3d0;margin:12px 0 0;">ℹ️ 본 안내관은 네이버 쇼핑 커넥트 및 쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 제공받습니다.</p>
+      <p style="font-size:0.82em;color:#a7f3d0;margin:12px 0 0;">ℹ️ 본 안내관은 네이버 쇼핑 커넥트, 쿠팡 파트너스(AF7865143), 링크프라이스(A100708867), 아이허브(IPZ1547), 마이리얼트립 제휴 활동의 일환으로 일정액의 수수료를 제공받습니다.</p>
     </section>
   </main>
   <script src="/js/senior-accessibility.js" defer></script>
