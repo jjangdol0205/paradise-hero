@@ -309,6 +309,9 @@
           <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:64px; margin-bottom:10px; padding:12px 16px; border-radius:14px; background:#03C75A; color:#FFFFFF; border:2px solid #065F46; font-size:20px; font-weight:900; text-decoration:none; text-align:center;">
             🟢 네이버페이(Npay) 원탭 구매 — 콘서트·건강선물 &amp; 골드VIP 응원템 보기 👉
           </a>
+          <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:64px; margin-bottom:10px; padding:12px 16px; border-radius:14px; background:#B91C1C; color:#FFFFFF; border:2px solid #FDE68A; font-size:20px; font-weight:900; text-decoration:none; text-align:center;">
+            💿 황영웅 정품 음반·효도USB·응원굿즈 쿠팡 공식관 보기 👉
+          </a>
           <button type="button" id="btn-close-kakao-longpress-modal" class="btn btn-emerald btn-full" style="min-height: 64px; font-size: 22px; font-weight: 900;">
             ✅ 사진 저장 완료! (창 닫기)
           </button>
@@ -424,9 +427,13 @@
       if (!el) return;
       var href = (el.getAttribute('href') || '').toLowerCase();
       var onclick = (el.getAttribute('onclick') || '').toLowerCase();
-      if (href.indexOf('cshop.naver.com/paradiseshop') !== -1) {
+      if (href.indexOf('cshop.naver.com/paradiseshop') !== -1 || href.indexOf('brandconnect.naver.com/affiliates/') !== -1) {
         hitMetric('ref_click');
         hitMetric('aff_naver_cshop');
+      } else if (href.indexOf('influencers.coupang.com/s/paradisehero') !== -1) {
+        hitMetric('ref_click');
+        hitMetric('aff_coupang');
+        hitMetric('aff_coupang_influencer');
       } else if (href.indexOf('coupang.com') !== -1) {
         hitMetric('ref_click');
         hitMetric('aff_coupang');

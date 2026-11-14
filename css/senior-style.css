@@ -1102,6 +1102,93 @@ img {
   font-weight: 900;
 }
 
+/* 쿠팡 인플루언서 공식 스토어프론트(영웅라디오) 왕버튼 & 네이버 브랜드커넥트 단일 상품 직결 그리드 */
+.btn-coupang-influencer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 68px;
+  padding: 16px 20px;
+  margin: 12px 0 18px;
+  background: linear-gradient(135deg, #991B1B 0%, #DC2626 100%);
+  color: #FFFFFF;
+  border: 3px solid #FDE68A;
+  border-radius: 16px;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(185, 28, 28, 0.28);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-coupang-influencer:hover,
+.btn-coupang-influencer:focus {
+  background: linear-gradient(135deg, #7F1D1D 0%, #B91C1C 100%);
+  color: #FEF08A;
+  transform: translateY(-2px);
+}
+
+.curation-subhead-pill {
+  display: block;
+  background: #ECFDF5;
+  border: 2px solid #059669;
+  color: #065F46;
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin: 16px 0 12px;
+  font-size: 19px;
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.45;
+}
+.curation-subhead-pill.coupang-pill {
+  background: #EFF6FF;
+  border-color: #2563EB;
+  color: #1E3A8A;
+  margin-top: 22px;
+}
+
+.npay-direct-curation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.btn-npay-direct-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 66px;
+  padding: 14px 16px;
+  background: #FFFFFF;
+  border: 2.5px solid #03C75A;
+  border-radius: 14px;
+  color: #0E2820;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.4;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(3, 199, 90, 0.1);
+}
+.btn-npay-direct-item:hover,
+.btn-npay-direct-item:focus {
+  background: #F0FDF4;
+  border-color: #D4AF37;
+}
+.btn-npay-direct-cta {
+  flex-shrink: 0;
+  background: #03C75A;
+  color: #FFFFFF;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
 @media (max-width: 640px) {
   .btn-billboard-action {
     width: 100%;
