@@ -21,10 +21,17 @@ import datetime
 import html
 import json
 import pathlib
+import sys
 from email.utils import format_datetime
 from typing import Any, Dict, List, Tuple
 
 DIV4_ROOT = pathlib.Path(__file__).resolve().parent.parent
+HQ_TEXT_DIR = DIV4_ROOT.parent / "text_automation_hq"
+if str(HQ_TEXT_DIR) not in sys.path:
+    sys.path.insert(0, str(HQ_TEXT_DIR))
+
+from fandom_editor_letter_builder import build_html_morning_letter_and_stamp_card  # noqa: E402
+
 COLUMNS_DIR = DIV4_ROOT / "columns"
 HOST = "paradise-hero.com"
 
@@ -299,6 +306,13 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
         for q, a in col["faqs"]
     )
     share_msg_js = json.dumps(f"{col['kakao_quote']}\n👉 큰 글씨로 바로 읽기: {canonical_url}", ensure_ascii=False)
+    hero_letter_stamp_html = build_html_morning_letter_and_stamp_card(
+        div_code="HERO",
+        date_str=today_iso,
+        empathy_line_1="존경하는 파라다이스 어머님·아버님, 간밤에 주무시는 동안 어깨나 무릎은 시리지 않으셨는지요? 아침 창문을 열며 가장 먼저 가족분들의 평안과 건강부터 여쭙습니다.",
+        empathy_line_2="자식들 앞에서는 늘 괜찮다 웃어 보이시느라 삼켜 두셨던 속마음까지, 오늘도 김쌤과 황영웅 가족 사랑방이 언제나 어머님·아버님 편이 되어 다정하게 곁을 지키겠습니다.",
+        mission_text="편지를 읽으신 뒤 목을 적시는 따뜻한 물 한 잔을 천천히 드시고, 아래 초록색 '사랑방 출석 도장' 버튼을 한 번 눌러 오늘의 기분 좋은 동행을 남겨 보세요.",
+    )
 
     return f"""<!DOCTYPE html>
 <html lang="ko">
@@ -368,7 +382,8 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
   <main class="wrap">
     <span class="badge">{html.escape(col['category'])}</span>
     <h1>{html.escape(col['title'])}</h1>
-    <div class="date-line">발행일: {today_iso} · 글: 김쌤의 영웅라디오 편집실 · <a href="/columns/index.html">전체 편지 목록 보기 →</a></div>
+    <div class="date-line">발행일: {today_iso} · 글: 김쌤과 황영웅 가족 사랑방 편집실 · <a href="/columns/index.html">전체 편지 목록 보기 →</a></div>
+    {hero_letter_stamp_html}
 
     <article>
       {paras_html}

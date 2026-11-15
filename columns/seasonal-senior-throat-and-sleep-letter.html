@@ -66,7 +66,56 @@
   <main class="wrap">
     <span class="badge">김쌤의 건강 편지</span>
     <h1>김쌤의 환절기 안부 편지 — 노래 부르실 때 목을 촉촉하게 지키는 차(茶)와 깊은 잠 습관</h1>
-    <div class="date-line">발행일: 2026-11-15 · 글: 김쌤의 영웅라디오 편집실 · <a href="/columns/index.html">전체 편지 목록 보기 →</a></div>
+    <div class="date-line">발행일: 2026-11-15 · 글: 김쌤과 황영웅 가족 사랑방 편집실 · <a href="/columns/index.html">전체 편지 목록 보기 →</a></div>
+    
+    <section class="fandom-morning-letter-card" data-fandom-div="HERO" style="background:linear-gradient(145deg,#fffbeb,#fef3c7);border:2px solid #d97706;color:#1e293b;border-radius:16px;padding:1.35rem 1.4rem;margin:1.25rem 0 1.6rem;font-size:1.04em;line-height:1.82;">
+      <div style="font-weight:800;color:#78350f;margin-bottom:0.55rem;letter-spacing:0.01em;">
+        💚 김쌤과 황영웅 가족 사랑방 · 매일 아침 안부 출석장 · 2026-11-15
+      </div>
+      <p style="margin:0 0 0.55rem;font-weight:600;color:#1e293b !important;">존경하는 파라다이스 어머님·아버님, 간밤에 주무시는 동안 어깨나 무릎은 시리지 않으셨는지요? 아침 창문을 열며 가장 먼저 가족분들의 평안과 건강부터 여쭙습니다.</p>
+      <p style="margin:0 0 0.75rem;color:#1e293b !important;">자식들 앞에서는 늘 괜찮다 웃어 보이시느라 삼켜 두셨던 속마음까지, 오늘도 김쌤과 황영웅 가족 사랑방이 언제나 어머님·아버님 편이 되어 다정하게 곁을 지키겠습니다.</p>
+      <div style="font-size:0.94em;font-weight:700;color:#78350f;margin-bottom:0.9rem;">
+        — 김쌤과 황영웅 가족 사랑방 — DJ 김쌤 드림
+      </div>
+      <div style="background:#ffffff;border-left:4px solid #f59e0b;border-radius:10px;padding:0.85rem 1rem;margin-bottom:0.95rem;color:#1e293b !important;">
+        <strong>🌱 오늘 사랑방 작은 응원 미션:</strong> 편지를 읽으신 뒤 목을 적시는 따뜻한 물 한 잔을 천천히 드시고, 아래 초록색 &#x27;사랑방 출석 도장&#x27; 버튼을 한 번 눌러 오늘의 기분 좋은 동행을 남겨 보세요.
+      </div>
+      <button type="button" id="fandom-stamp-btn-hero" onclick="window.__dcStampMorningLetter('HERO', 'dc_fandom_letter_streak_hero', '🌺 오늘 사랑방 출석 완료! 연속 동행 기록:', '일째', 'fandom_stamp_hero')" style="width:100%;min-height:68px;padding:12px 18px;border:none;border-radius:12px;background:#047857;color:#ffffff;font-size:1.02em;font-weight:900;cursor:pointer;">
+        💚 오늘 김쌤 편지 읽고 사랑방 출석 도장 찍기 (터치 1번)
+      </button>
+      <script>
+      (function(){
+        window.__dcStampMorningLetter = window.__dcStampMorningLetter || function(div, key, donePrefix, unit, beaconPrefix) {
+          try {
+            var today = new Date().toISOString().slice(0, 10);
+            var raw = JSON.parse(localStorage.getItem(key) || '{}');
+            if (raw.lastDate !== today) {
+              var yest = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+              raw.streak = (raw.lastDate === yest) ? ((raw.streak || 0) + 1) : 1;
+              raw.lastDate = today;
+              localStorage.setItem(key, JSON.stringify(raw));
+              if (typeof fetch === 'function' && !navigator.webdriver) {
+                fetch('https://abacus.jasoncameron.dev/hit/dc_fandom_club/' + beaconPrefix + '_total', { mode: 'cors', keepalive: true }).catch(function(){});
+              }
+            }
+            var btn = document.getElementById('fandom-stamp-btn-' + div.toLowerCase());
+            if (btn) {
+              btn.textContent = donePrefix + ' ' + (raw.streak || 1) + ' ' + unit;
+            }
+          } catch (e) {}
+        };
+        try {
+          var saved = JSON.parse(localStorage.getItem('dc_fandom_letter_streak_hero') || '{}');
+          var todayInit = new Date().toISOString().slice(0, 10);
+          if (saved.lastDate === todayInit && saved.streak) {
+            var b = document.getElementById('fandom-stamp-btn-hero');
+            if (b) b.textContent = '🌺 오늘 사랑방 출석 완료! 연속 동행 기록: ' + saved.streak + ' 일째';
+          }
+        } catch (e) {}
+      })();
+      </script>
+    </section>
+
 
     <article>
       <p>무대 인사 때마다 가수 황영웅 님이 잊지 않고 꼭 챙기는 말씀이 있습니다. 바로 &#x27;어머님들 아프지 마시고 건강하셔야 저도 오래오래 노래합니다&#x27;라는 다정한 당부입니다.</p>

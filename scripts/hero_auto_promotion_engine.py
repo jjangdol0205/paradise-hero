@@ -27,6 +27,10 @@ HQ_TEXT_DIR = DIV4_ROOT.parent / "text_automation_hq"
 if str(HQ_TEXT_DIR) not in sys.path:
     sys.path.insert(0, str(HQ_TEXT_DIR))
 
+from fandom_editor_letter_builder import (  # noqa: E402
+    compose_fandom_editor_letter_md,
+    validate_fandom_editor_letter,
+)
 from indexnow_delta_gate import (  # noqa: E402
     ping_websub_if_feed_changed,
     publish_daily_unique_telegraph_summary,
@@ -47,6 +51,7 @@ STATUS_LOG_PATH = DIV4_ROOT / "data" / "hero_promotion_status.json"
 
 def main() -> int:
     dry_run = "--dry-run" in sys.argv
+    no_deploy = "--no-deploy" in sys.argv
     today_str = datetime.date.today().isoformat()
 
     # 1. Refresh clean Hwang Young-woong news dataset
@@ -56,36 +61,35 @@ def main() -> int:
 
     # 2. Generate WCAG AAA Senior Columns + dynamic RSS/Sitemap/llms.txt + deploy live
     url_map = generate_all_senior_columns_and_feeds()
-    deploy_res = deploy_division_live("HERO", dry_run=dry_run)
+    deploy_res = {"status": "SKIPPED_NO_DEPLOY"} if no_deploy else deploy_division_live("HERO", dry_run=dry_run)
 
     # 3. Rotate daily column for 1x/day Telegraph & Kakao/Band/Threads pack
     day_ord = datetime.date.today().toordinal()
     col = SENIOR_COLUMNS[day_ord % len(SENIOR_COLUMNS)]
     canonical_url = f"https://{HOST}/columns/{col['slug']}"
-    title = f"[김쌤의 영웅라디오 {today_str}] {col['title']}"
+    title = f"[김쌤의 사랑방 아침 편지 {today_str}] {col['title']}"
 
     nodes = [
+        {
+            "tag": "blockquote",
+            "children": [
+                f"💚 김쌤과 황영웅 가족 사랑방 ({today_str}): 존경하는 파라다이스 어머님·아버님, 간밤에 평안히 주무셨는지요? 자식들 앞에서는 늘 괜찮다 웃으시느라 삼켜 두셨던 마음까지, 오늘도 김쌤이 언제나 어머님·아버님 편이 되어 다정한 노래 이야기로 안아드리겠습니다."
+            ],
+        },
         {"tag": "h3", "children": [col["title"]]},
         {"tag": "p", "children": [col["body_paragraphs"][0]]},
         {"tag": "p", "children": [col["body_paragraphs"][1]]},
         {
             "tag": "p",
             "children": [
-                "돋보기 없이 시원한 큰 글씨(22px~30px) 편지 전문 읽기 & 24시간 영웅라디오 무료 감상: ",
+                "🌱 오늘 사랑방 작은 응원 미션: 따뜻한 물 한 잔을 천천히 드신 뒤, 돋보기 없이 시원한 큰 글씨(22px~30px) 편지 원문에서 오늘의 출석 도장을 꾹 눌러 보세요: ",
                 {"tag": "a", "attrs": {"href": canonical_url}, "children": [canonical_url]},
             ],
         },
         {
             "tag": "p",
             "children": [
-                "카드번호 입력 없는 네이버페이 1초 결제 공식 안심셀렉트샵: ",
-                {"tag": "a", "attrs": {"href": "https://cshop.naver.com/paradiseshop"}, "children": ["https://cshop.naver.com/paradiseshop"]},
-            ],
-        },
-        {
-            "tag": "p",
-            "children": [
-                "황영웅 님 10종 의상 무제한 무료 투샷 사진관 바로가기: ",
+                "황영웅 님 10종 의상 무제한 무료 투샷 기념사진관: ",
                 {"tag": "a", "attrs": {"href": f"https://{HOST}/booth.html"}, "children": [f"https://{HOST}/booth.html"]},
             ],
         },
@@ -95,7 +99,7 @@ def main() -> int:
         div_code="HERO",
         account_file=TELEGRAPH_ACCT_PATH,
         short_name="ParadiseHero",
-        author_name="김쌤의 영웅라디오 · 파라다이스히어로",
+        author_name="김쌤과 황영웅 가족 사랑방",
         author_url=f"https://{HOST}/",
         title=title,
         content_nodes=nodes,
@@ -128,37 +132,53 @@ def main() -> int:
         f"🚀 내일 도착 쿠팡 응원준비물·음반 공식관: https://influencers.coupang.com/s/paradisehero\n"
     )
 
+    p0 = col["body_paragraphs"][0]
+    p1 = col["body_paragraphs"][1] if len(col["body_paragraphs"]) > 1 else col["desc"]
+    p2 = col["body_paragraphs"][2] if len(col["body_paragraphs"]) > 2 else "매일 아침 7시 30분 문안 방송과 24시간 연속 영웅라디오에서 어머님·아버님 곁을 든든하게 지키겠습니다."
+
+    longform_md = compose_fandom_editor_letter_md(
+        div_code="HERO",
+        title=col["title"],
+        canonical_url=canonical_url,
+        empathy_two_lines=[
+            "존경하는 파라다이스 어머님·아버님, 간밤에 주무시는 동안 어깨나 무릎은 시리지 않으셨는지요? 아침 창문을 열며 가장 먼저 우리 사랑방 가족분들의 건강과 평안부터 여쭙습니다.",
+            "자식들 앞에서는 늘 괜찮다 웃으시느라 혼자 삼켜 두셨던 마음까지, 오늘도 김쌤과 황영웅 가족 사랑방이 언제나 어머님·아버님 편에 서서 따뜻한 노래 이야기로 다정하게 안아드리겠습니다.",
+        ],
+        three_insights=[
+            f"**마음을 적시는 첫 번째 이야기**: {p0}",
+            f"**깊은 중저음 보이스의 위로**: {p1}",
+            f"**일상 속 편안한 휴식 (22px~30px 큰 글씨 & 24시간 라디오)**: {p2}",
+        ],
+        daily_mission=(
+            "오늘 편지를 읽으신 뒤 목을 따뜻하게 적시는 미지근한 물 한 잔을 천천히 드시고, "
+            "사랑방 큰 글씨 편지 화면의 '초록색 출석 도장'을 한 번 눌러 오늘의 기분 좋은 동행을 기록해 보세요."
+        ),
+        gentle_bridge_lines=[
+            f"📖 **돋보기 없이 시원한 큰 글씨 편지 원문 & 사랑방 출석 도장 찍기**: [{canonical_url}]({canonical_url})",
+            f"📻 **24시간 연속 영웅라디오 무료 듣기**: [https://{HOST}/radio.html](https://{HOST}/radio.html) · 📸 **10종 의상 무제한 무료 투샷 기념사진관**: [https://{HOST}/booth.html](https://{HOST}/booth.html)",
+            f"💚 **필요하실 때 천천히 둘러보시는 공식 안심 매장**: 카드 입력 없는 네이버페이 공식샵(https://cshop.naver.com/paradiseshop) 및 정품 음반·응원준비물·건강선물 통합 혜택관(https://{HOST}/#senior-curation-market)",
+        ],
+        footer_disclaimer="※ 본 편지는 김쌤과 황영웅 가족 사랑방(`paradise-hero.com`)에서 시니어 팬 가족분들의 평안한 일상을 응원하기 위해 정성껏 작성한 문안 편지입니다.",
+    )
+    hero_letter_check = validate_fandom_editor_letter("HERO", longform_md)
+    if not hero_letter_check["passed"]:
+        raise RuntimeError(f"HERO Fandom Editor Letter validation failed: {hero_letter_check}")
+
     kakao_band_letter = (
-        f"💌 [김쌤의 영웅라디오 다정한 안부 편지 — {today_str}]\n\n"
-        f"존경하는 파라다이스 어머님·아버님, 오늘 하루도 평안하셨는지요?\n"
+        f"💌 [김쌤과 황영웅 가족 사랑방 아침 안부 편지 — {today_str}]\n\n"
+        f"존경하는 파라다이스 어머님·아버님, 간밤에 평안히 주무셨는지요?\n"
+        f"늘 가족을 먼저 챙기시느라 애쓰신 어머님·아버님 마음을 오늘도 김쌤이 다정하게 응원합니다.\n\n"
         f"{col['kakao_quote']}\n\n"
-        f"{col['body_paragraphs'][0]}\n\n"
-        f"📖 돋보기 없이 시원한 큰 글씨로 편지 끝까지 읽기:\n{canonical_url}?utm_source=kakao_band\n\n"
+        f"{p0}\n\n"
+        f"🌱 오늘 사랑방 작은 응원 미션:\n"
+        f"따뜻한 물 한 잔 천천히 드시고, 아래 큰 글씨 편지에서 오늘의 출석 도장을 꾹 찍어 보세요!\n\n"
+        f"📖 돋보기 없이 시원한 큰 글씨 편지 전문 & 출석 도장:\n{canonical_url}?utm_source=kakao_band\n\n"
         f"📸 황영웅 님 10종 의상 무료 투샷 기념사진 찍기:\nhttps://{HOST}/booth.html?utm_source=kakao_band\n\n"
-        f"🟢 복잡한 카드번호 입력 없이 1초 결제! 김쌤 네이버페이 안심셀렉트샵:\nhttps://cshop.naver.com/paradiseshop\n\n"
-        f"🚀 내일 문앞 도착! 정품 음반·에메랄드 응원준비물·건강선물 쿠팡 공식관:\nhttps://influencers.coupang.com/s/paradisehero\n"
+        f"🟢 필요하실 때 카드번호 입력 없이 편한 네이버페이 공식샵:\nhttps://cshop.naver.com/paradiseshop\n\n"
+        f"🚀 정품 음반·에메랄드 응원준비물·건강선물 쿠팡 공식관:\nhttps://influencers.coupang.com/s/paradisehero\n"
     )
 
-    naver_fancafe_greeting = (
-        f"# [큰 글씨 안부 편지] {col['title']}\n\n"
-        f"반갑습니다 파라다이스 가족 여러분! 언제나 어머님·아버님 편에 서서 따뜻한 노래 이야기를 전해드리는 김쌤입니다.\n\n"
-        + "\n\n".join(col["body_paragraphs"])
-        + "\n\n---\n"
-        + f"- 📻 **24시간 연속 영웅라디오 & 큰 글씨 원문 보기**: {canonical_url}?utm_source=fancafe\n"
-        + f"- 📸 **무료 10종 의상 투샷 기념사진관**: https://{HOST}/booth.html?utm_source=fancafe\n"
-        + "- 🟢 **김쌤 네이버페이 원터치 안심셀렉트샵**: https://cshop.naver.com/paradiseshop\n"
-        + f"- 🛍️ **YES24 차트반영 정품음반 · 건강효도선물 · 주말 나들이 통합 혜택관**: https://{HOST}/#senior-curation-market\n"
-    )
-
-    longform_md = (
-        f"# {col['title']}\n\n"
-        + "\n\n".join(col["body_paragraphs"])
-        + f"\n\n### 💚 어머님·아버님을 위한 큰 글씨 바로가기\n"
-        + f"- 📖 [돋보기 없이 시원한 큰 글씨 원문 & 24시간 라디오]({canonical_url})\n"
-        + f"- 📸 [10종 의상 무제한 무료 투샷 기념사진관](https://{HOST}/booth.html)\n"
-        + "- 🟢 [카드 입력 없는 네이버페이 1초 결제 공식샵](https://cshop.naver.com/paradiseshop)\n"
-        + f"- 🛍️ [정품 음반 · 콘서트 응원준비물 · 관절/목 건강 원터치 혜택관](https://{HOST}/#senior-curation-market)\n"
-    )
+    naver_fancafe_greeting = longform_md
 
     yt_pinned_and_community = (
         f"=== [@김쌤의영웅라디오 유튜브 고정 댓글 & 커뮤니티 큰 글씨 공지 · {today_str}] ===\n\n"
