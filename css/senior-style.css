@@ -2844,3 +2844,275 @@ body.font-xlarge {
     align-items: flex-start;
   }
 }
+
+/* ==========================================================================
+   19. 황영웅 최근 소식 & 영웅라디오 큰글씨 우편함 무료 정회원 등록
+       (#hero-passwordless-club-card · 비밀번호 없는 3초 등록 · WCAG AAA 20px+ / 64px+)
+   ========================================================================== */
+.hero-passwordless-club-card {
+  background: linear-gradient(180deg, #FFFDF2 0%, #F0FDF4 100%);
+  border: 3px solid var(--brand-emerald);
+  border-top: 8px solid var(--brand-gold);
+  border-radius: 20px;
+  padding: 24px 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(14, 40, 32, 0.12);
+}
+
+.hero-club-top-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.hero-club-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--brand-emerald-dark);
+  color: #FEF08A;
+  border: 2px solid var(--brand-gold);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: var(--font-base);
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.hero-club-member-status {
+  display: none;
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 14px 18px;
+  background: #ECFDF5;
+  color: #064E3B;
+  border: 3px solid #059669;
+  border-radius: 16px;
+  font-size: var(--font-base);
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.hero-club-member-status.visible {
+  display: block;
+}
+
+.hero-club-heading {
+  font-size: var(--font-subheading);
+  font-weight: 900;
+  color: var(--brand-emerald-dark);
+  line-height: 1.4;
+  margin: 0 0 10px 0;
+}
+
+.hero-club-subcopy {
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: #1F2937;
+  line-height: 1.6;
+  margin: 0 0 18px 0;
+}
+
+.hero-club-segment-label {
+  display: block;
+  font-size: calc(var(--font-base) + 1px);
+  font-weight: 900;
+  color: var(--brand-emerald-dark);
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.hero-club-segment-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.btn-hero-club-segment {
+  width: 100%;
+  min-height: 66px;
+  padding: 14px 18px;
+  background: #FFFFFF;
+  color: #0E2820;
+  border: 2.5px solid #64748B;
+  border-radius: 16px;
+  font-family: inherit;
+  font-size: var(--font-base);
+  font-weight: 800;
+  line-height: 1.45;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  box-shadow: 0 3px 10px rgba(14, 40, 32, 0.06);
+  transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.1s ease;
+}
+
+.btn-hero-club-segment:hover,
+.btn-hero-club-segment:focus {
+  background: #FFFBEB;
+  border-color: var(--brand-gold);
+  outline: 3px solid var(--brand-gold-glow);
+}
+
+.btn-hero-club-segment.active {
+  background: #0E2820;
+  color: #FEF08A;
+  border: 3px solid var(--brand-gold);
+  box-shadow: 0 6px 18px rgba(14, 40, 32, 0.25);
+}
+
+.hero-club-segment-check {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #F1F5F9;
+  color: #1E293B;
+  border: 1.5px solid #94A3B8;
+  font-size: var(--font-base);
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.btn-hero-club-segment.active .hero-club-segment-check {
+  background: var(--brand-gold);
+  color: #0E2820;
+  border-color: #FEF08A;
+}
+
+.hero-club-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 760px) {
+  .hero-club-fields-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero-club-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-club-label {
+  display: block;
+  font-size: calc(var(--font-base) + 1px);
+  font-weight: 900;
+  color: #111827;
+  line-height: 1.4;
+}
+
+.hero-club-input {
+  width: 100%;
+  max-width: 100%;
+  min-height: 64px;
+  padding: 14px 16px;
+  background: #FFFFFF;
+  color: #111827;
+  border: 2.5px solid #475569;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: calc(var(--font-base) + 1px);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.hero-club-input::placeholder {
+  color: #4B5563;
+  opacity: 1;
+}
+
+.hero-club-input:focus {
+  border-color: var(--brand-emerald);
+  outline: 4px solid var(--brand-gold-glow);
+}
+
+.btn-hero-club-submit {
+  width: 100%;
+  min-height: 70px;
+  padding: 16px 22px;
+  background: linear-gradient(135deg, #0E2820 0%, #1B4D3E 55%, #0E2820 100%);
+  color: #FEF08A;
+  border: 3.5px solid var(--brand-gold);
+  border-radius: 18px;
+  font-family: inherit;
+  font-size: calc(var(--font-base) + 2px);
+  font-weight: 900;
+  line-height: 1.35;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  box-shadow: 0 8px 22px rgba(14, 40, 32, 0.3);
+  transition: filter 0.16s ease, transform 0.1s ease;
+}
+
+.btn-hero-club-submit:hover,
+.btn-hero-club-submit:focus {
+  filter: brightness(1.08);
+  outline: 4px solid var(--brand-gold-glow);
+}
+
+.btn-hero-club-submit:active {
+  transform: scale(0.99);
+}
+
+.hero-club-feedback-banner {
+  display: none;
+  margin-top: 14px;
+  padding: 16px 18px;
+  background: #ECFDF5;
+  color: #064E3B;
+  border: 3px solid #10B981;
+  border-radius: 16px;
+  font-size: var(--font-base);
+  font-weight: 900;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.hero-club-feedback-banner.visible {
+  display: block;
+}
+
+.hero-club-feedback-banner.is-warning {
+  background: #FEF3C7;
+  color: #78350F;
+  border-color: #D97706;
+}
+
+.hero-club-safe-note {
+  margin-top: 12px;
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: #1F2937;
+  line-height: 1.55;
+}
+
+@media (max-width: 560px) {
+  .hero-passwordless-club-card {
+    padding: 18px 14px;
+  }
+  .btn-hero-club-segment {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

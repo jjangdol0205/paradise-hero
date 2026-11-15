@@ -12,6 +12,10 @@
 (function () {
   'use strict';
 
+  if (typeof window !== 'undefined' && !window.HQ_MAILING_CONFIG_PATH) {
+    window.HQ_MAILING_CONFIG_PATH = './hq-mailing-endpoint.json';
+  }
+
   var ATTENDANCE_STORAGE_KEY = 'hero_lounge_attendance_v1';
   var HEARTS_STORAGE_KEY = 'hero_lounge_hearts_v1';
   var LOVE_LETTERBOX_STORAGE_KEY = 'hero_love_letterbox_v1';
@@ -530,6 +534,206 @@
     }
   }
 
+  function isValidSeniorEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(email || '').trim());
+  }
+
+  function applySegmentSelection(cardRoot, segmentKey) {
+    if (!cardRoot) return;
+    var segBtns = cardRoot.querySelectorAll('.btn-hero-club-segment[data-club-segment]');
+    var hiddenSeg = document.getElementById('hero-club-segment');
+    var matched = false;
+    segBtns.forEach(function (btn) {
+      var val = btn.getAttribute('data-club-segment') || '';
+      var isTarget = val === segmentKey;
+      if (isTarget) matched = true;
+      btn.classList.toggle('active', isTarget);
+      btn.setAttribute('aria-checked', isTarget ? 'true' : 'false');
+      var checkSpan = btn.querySelector('.hero-club-segment-check');
+      if (checkSpan) {
+        checkSpan.textContent = isTarget ? '선택됨 ✓' : '선택하기';
+      }
+    });
+    if (matched && hiddenSeg) {
+      hiddenSeg.value = segmentKey;
+    }
+  }
+
+  function syncHeroMemberDisplay(overrideRecord) {
+    var record = overrideRecord || (
+      window.DreamCompanyCRM && typeof window.DreamCompanyCRM.getLocalMember === 'function'
+        ? window.DreamCompanyCRM.getLocalMember('HERO')
+        : null
+    );
+    if (!record || !record.email) return null;
+
+    var cleanEmail = String(record.email || '').trim().toLowerCase();
+    var cleanNick = String(record.nickname || '').trim();
+    var displayNick = cleanNick || '따뜻한 파라다이스 가족';
+
+    var statusBanner = document.getElementById('hero-club-member-status');
+    if (statusBanner) {
+      statusBanner.textContent = '🎉 환영합니다, ' + displayNick + ' 정회원님! (' + cleanEmail + ') 큰글씨 소식지 발송 대상입니다.';
+      statusBanner.classList.add('visible');
+    }
+
+    var clubNickInput = document.getElementById('hero-club-nickname');
+    if (clubNickInput && cleanNick && !clubNickInput.value) {
+      clubNickInput.value = cleanNick;
+    }
+
+    var clubEmailInput = document.getElementById('hero-club-email');
+    if (clubEmailInput && cleanEmail && !clubEmailInput.value) {
+      clubEmailInput.value = cleanEmail;
+    }
+
+    var loveEmailInput = document.getElementById('hero-love-email-input');
+    if (loveEmailInput && cleanEmail && !loveEmailInput.value) {
+      loveEmailInput.value = cleanEmail;
+    }
+
+    var loveAuthorInput = document.getElementById('hero-love-author-input');
+    if (loveAuthorInput && cleanNick && !loveAuthorInput.value) {
+      loveAuthorInput.value = cleanNick;
+    }
+
+    var cardRoot = document.getElementById('hero-passwordless-club-card');
+    if (cardRoot && record.segment) {
+      applySegmentSelection(cardRoot, record.segment);
+    }
+
+    return record;
+  }
+
+  function showClubFeedback(message, isWarning) {
+    var feedbackEl = document.getElementById('hero-club-feedback');
+    if (feedbackEl) {
+      feedbackEl.textContent = message;
+      feedbackEl.classList.toggle('is-warning', Boolean(isWarning));
+      feedbackEl.classList.add('visible');
+    }
+    if (window.SeniorAccessibility && typeof window.SeniorAccessibility.showToast === 'function') {
+      window.SeniorAccessibility.showToast(message);
+    }
+  }
+
+  function initPasswordlessClubCard(onBoostLoungeHeart) {
+    var cardRoot = document.getElementById('hero-passwordless-club-card');
+    if (!cardRoot) return;
+
+    var formEl = document.getElementById('hero-passwordless-club-form');
+    var nickInput = document.getElementById('hero-club-nickname');
+    var emailInput = document.getElementById('hero-club-email');
+    var hiddenSeg = document.getElementById('hero-club-segment');
+    var hpInput = cardRoot.querySelector('input[name="website_hp"]');
+    var submitBtn = document.getElementById('hero-club-submit-btn');
+    var segBtns = cardRoot.querySelectorAll('.btn-hero-club-segment[data-club-segment]');
+
+    // 1클릭 관심 소식 왕버튼 선택 핸들러
+    segBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var segVal = btn.getAttribute('data-club-segment') || 'hero_news_schedule';
+        applySegmentSelection(cardRoot, segVal);
+      });
+    });
+
+    // 기존 정회원 상태 자동 복원 (이메일·관심소식 변경도 언제든 가능)
+    syncHeroMemberDisplay(null);
+
+    try {
+      var savedAuthor = localStorage.getItem(LOVE_AUTHOR_STORAGE_KEY);
+      if (savedAuthor && nickInput && !nickInput.value) {
+        nickInput.value = savedAuthor;
+      }
+    } catch (e) {}
+
+    if (formEl) {
+      formEl.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var rawNick = nickInput ? String(nickInput.value || '').replace(/\s+/g, ' ').trim() : '';
+        var rawEmail = emailInput ? String(emailInput.value || '').trim().toLowerCase() : '';
+        var activeBtn = cardRoot.querySelector('.btn-hero-club-segment.active[data-club-segment]');
+        var activeSegment = activeBtn
+          ? (activeBtn.getAttribute('data-club-segment') || 'hero_news_schedule')
+          : ((hiddenSeg && hiddenSeg.value) || 'hero_news_schedule');
+        var websiteHp = hpInput ? String(hpInput.value || '').trim() : '';
+
+        if (!isValidSeniorEmail(rawEmail)) {
+          showClubFeedback('이메일 주소를 정확히 적어주세요 (예: hero@naver.com)', true);
+          if (emailInput) emailInput.focus();
+          return;
+        }
+
+        if (rawNick) {
+          try {
+            localStorage.setItem(LOVE_AUTHOR_STORAGE_KEY, rawNick.slice(0, 32));
+          } catch (e) {}
+        }
+
+        var displayNick = rawNick || '따뜻한 파라다이스 가족';
+        var defaultBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = '💌 정회원 우편함 등록 중입니다...';
+        }
+
+        var registerPromise = (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function')
+          ? window.DreamCompanyCRM.registerMember({
+              div: 'HERO',
+              email: rawEmail,
+              nickname: rawNick,
+              segment: activeSegment,
+              lang: 'ko-KR',
+              website_hp: websiteHp
+            })
+          : Promise.resolve({ ok: true, div: 'HERO', email: rawEmail, segment: activeSegment });
+
+        registerPromise.then(function (res) {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = defaultBtnHtml;
+          }
+          if (!res || res.ok === false) {
+            showClubFeedback('이메일 주소를 정확히 적어주세요 (예: hero@naver.com)', true);
+            if (emailInput) emailInput.focus();
+            return;
+          }
+
+          syncHeroMemberDisplay({
+            div: 'HERO',
+            email: rawEmail,
+            nickname: rawNick,
+            segment: activeSegment
+          });
+
+          if (typeof onBoostLoungeHeart === 'function') {
+            onBoostLoungeHeart(getKstInfo());
+          }
+
+          showClubFeedback(
+            '🎉 환영합니다, ' + displayNick + ' 정회원님! (' + rawEmail + ') 큰글씨 소식지 발송 대상입니다. 황영웅 최근 소식과 화·금 영웅라디오 편지를 정성껏 보내드리겠습니다!',
+            false
+          );
+        }).catch(function () {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = defaultBtnHtml;
+          }
+          syncHeroMemberDisplay({
+            div: 'HERO',
+            email: rawEmail,
+            nickname: rawNick,
+            segment: activeSegment
+          });
+          showClubFeedback(
+            '🎉 환영합니다, ' + displayNick + ' 정회원님! (' + rawEmail + ') 큰글씨 소식지 발송 대상입니다.',
+            false
+          );
+        });
+      });
+    }
+  }
+
   function initLoveLetterbox(onBoostLoungeHeart) {
     var boxRoot = document.getElementById('hero-love-letterbox');
     if (!boxRoot) return;
@@ -538,10 +742,11 @@
     var myLetters = loadSavedMyLoveLetters();
     var authorInput = document.getElementById('hero-love-author-input');
     var msgInput = document.getElementById('hero-love-message-input');
+    var loveEmailInput = document.getElementById('hero-love-email-input');
     var formEl = document.getElementById('hero-love-letter-form');
     var presetBtns = boxRoot.querySelectorAll('.btn-love-preset[data-love-preset]');
 
-    // 이전 방문에 입력하셨던 성함/지역 자동 복원 (재입력 수고 덜어드리기)
+    // 이전 방문에 입력하셨던 성함/지역 및 정회원 이메일 자동 복원 (재입력 수고 덜어드리기)
     try {
       var savedAuthor = localStorage.getItem(LOVE_AUTHOR_STORAGE_KEY);
       if (savedAuthor && authorInput && !authorInput.value) {
@@ -549,9 +754,38 @@
       }
     } catch (e) {}
 
+    syncHeroMemberDisplay(null);
     renderLoveWall(myLetters, kstInfo);
 
-    function commitLoveLetter(rawAuthor, rawMessage, sourceLabel) {
+    function archiveLoveLetterToCrmIfEmailValid(rawAuthor, rawMessage, rawEmail) {
+      var cleanEmail = String(rawEmail || '').trim().toLowerCase();
+      if (!isValidSeniorEmail(cleanEmail)) return false;
+      var cleanAuthor = String(rawAuthor || '').replace(/\s+/g, ' ').trim();
+      var cleanNotes = String(rawMessage || '').replace(/\s+/g, ' ').trim();
+
+      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+        window.DreamCompanyCRM.registerMember({
+          div: 'HERO',
+          email: cleanEmail,
+          nickname: cleanAuthor,
+          segment: 'hero_radio_letters',
+          notes: cleanNotes,
+          lang: 'ko-KR'
+        }).then(function (res) {
+          if (res && res.ok) {
+            syncHeroMemberDisplay({
+              div: 'HERO',
+              email: cleanEmail,
+              nickname: cleanAuthor,
+              segment: 'hero_radio_letters'
+            });
+          }
+        }).catch(function () {});
+      }
+      return true;
+    }
+
+    function commitLoveLetter(rawAuthor, rawMessage, sourceLabel, rawOptionalEmail) {
       var nowKst = getKstInfo();
       var cleanMsg = String(rawMessage || '').replace(/\s+/g, ' ').trim();
       if (!cleanMsg) {
@@ -589,7 +823,14 @@
       }
       hitAbacusLoveLetterNonBlocking(nowKst);
 
-      showLoveLetterConfirmation('💌 황영웅님을 향한 어머님·아버님의 따뜻한 사랑 편지가 담벼락 맨 위에 소중히 담겼습니다!');
+      var enrolledWithEmail = archiveLoveLetterToCrmIfEmailValid(cleanAuthor, cleanMsg, rawOptionalEmail);
+      if (enrolledWithEmail) {
+        showLoveLetterConfirmation(
+          '💌 황영웅님을 향한 따뜻한 사랑 편지가 담벼락 맨 위에 담겼으며, 큰글씨 우편함 무료 정회원(' + String(rawOptionalEmail).trim().toLowerCase() + ')으로도 함께 등록되었습니다!'
+        );
+      } else {
+        showLoveLetterConfirmation('💌 황영웅님을 향한 어머님·아버님의 따뜻한 사랑 편지가 담벼락 맨 위에 소중히 담겼습니다!');
+      }
       return true;
     }
 
@@ -601,7 +842,8 @@
         btn.classList.add('is-selected');
 
         var currentAuthor = authorInput ? authorInput.value : '';
-        commitLoveLetter(currentAuthor, presetText, '원터치 사랑 편지 등록 완료 💚');
+        var currentEmail = loveEmailInput ? loveEmailInput.value : '';
+        commitLoveLetter(currentAuthor, presetText, '원터치 사랑 편지 등록 완료 💚', currentEmail);
       });
     });
 
@@ -611,7 +853,8 @@
         ev.preventDefault();
         var currentAuthor = authorInput ? authorInput.value : '';
         var currentMsg = msgInput ? msgInput.value : '';
-        var ok = commitLoveLetter(currentAuthor, currentMsg, '내 사랑 편지 등록 완료 👑');
+        var currentEmail = loveEmailInput ? loveEmailInput.value : '';
+        var ok = commitLoveLetter(currentAuthor, currentMsg, '내 사랑 편지 등록 완료 👑', currentEmail);
         if (ok && msgInput) {
           msgInput.value = '';
         }
@@ -673,7 +916,11 @@
       });
     }
 
-    // (5) 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox) 초기화 및 온도계 연동
+    // (5) 황영웅 최근 소식 & 영웅라디오 큰글씨 우편함 무료 정회원 등록 (#hero-passwordless-club-card)
+    //     + 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox) 초기화 및 온도계 연동
+    initPasswordlessClubCard(function (nowKst) {
+      triggerLoungeHeartIncrement(nowKst, false);
+    });
     initLoveLetterbox(function (nowKst) {
       triggerLoungeHeartIncrement(nowKst, false);
     });

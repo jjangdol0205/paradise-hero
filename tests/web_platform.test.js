@@ -100,6 +100,49 @@ assert.ok(
 );
 console.log('  [PASS] Kakao bookmark king-button verified on index.html.');
 
+// Passwordless 3-Second Senior Big-Font Mailbox Membership (#hero-passwordless-club-card) & CRM wiring check
+const crmClientPath = path.join(ROOT_DIR, 'js', 'hq_member_crm_client.js');
+const loungeJsPath = path.join(ROOT_DIR, 'js', 'hero-family-lounge.js');
+const endpointJsonPath = path.join(ROOT_DIR, 'hq-mailing-endpoint.json');
+assert.ok(fs.existsSync(crmClientPath), 'js/hq_member_crm_client.js must exist');
+assert.ok(fs.existsSync(loungeJsPath), 'js/hero-family-lounge.js must exist');
+assert.ok(fs.existsSync(endpointJsonPath), 'hq-mailing-endpoint.json must exist');
+
+const crmScriptIdx = indexHtml.indexOf('js/hq_member_crm_client.js');
+const loungeScriptIdx = indexHtml.indexOf('js/hero-family-lounge.js');
+assert.ok(crmScriptIdx > 0 && loungeScriptIdx > crmScriptIdx, 'hq_member_crm_client.js must load right before hero-family-lounge.js');
+assert.ok(indexHtml.includes('id="hero-passwordless-club-card"'), 'index.html must contain #hero-passwordless-club-card');
+assert.ok(indexHtml.includes('무료 정회원 우편함 · 비밀번호 없음 (3초 등록)'), 'Badge text must match senior spec');
+assert.ok(indexHtml.includes('황영웅 반가운 최근 소식과 화·금 영웅라디오 편지를 큰글씨 이메일로 받아보세요'), '3-sec hook heading must match spec');
+assert.ok(indexHtml.includes('data-club-segment="hero_news_schedule"'), 'Must include hero_news_schedule segment');
+assert.ok(indexHtml.includes('data-club-segment="hero_radio_letters"'), 'Must include hero_radio_letters segment');
+assert.ok(indexHtml.includes('data-club-segment="senior_health_lounge"'), 'Must include senior_health_lounge segment');
+assert.ok(indexHtml.includes('id="hero-club-nickname"'), 'Must include #hero-club-nickname');
+assert.ok(indexHtml.includes('id="hero-club-email"'), 'Must include #hero-club-email');
+assert.ok(indexHtml.includes('name="website_hp"'), 'Must include hidden honeypot website_hp');
+assert.ok(indexHtml.includes('id="hero-club-submit-btn"'), 'Must include #hero-club-submit-btn');
+assert.ok(indexHtml.includes('id="hero-club-feedback"'), 'Must include #hero-club-feedback');
+assert.ok(indexHtml.includes('id="hero-love-email-input"'), 'Must include optional #hero-love-email-input in #hero-love-letter-form');
+
+// Zero type="password" & Zero U+FFFD broken encoding across HTML/CSS/JS
+[
+  ...CORE_PAGES.map((p) => path.join(ROOT_DIR, p)),
+  CSS_FILE,
+  crmClientPath,
+  loungeJsPath
+].forEach((filePath) => {
+  const txt = fs.readFileSync(filePath, 'utf-8');
+  assert.strictEqual(/type\s*=\s*["']password["']/i.test(txt), false, `Zero password input violated in ${path.basename(filePath)}`);
+  assert.strictEqual(txt.includes('\uFFFD'), false, `Broken character U+FFFD found in ${path.basename(filePath)}`);
+  assert.strictEqual(/lemonsqueezy/i.test(txt), false, `lemonsqueezy found in ${path.basename(filePath)}`);
+});
+
+const loungeJsContent = fs.readFileSync(loungeJsPath, 'utf-8');
+assert.ok(loungeJsContent.includes('DreamCompanyCRM') && loungeJsContent.includes('registerMember'), 'hero-family-lounge.js must wire DreamCompanyCRM.registerMember');
+assert.ok(loungeJsContent.includes('getLocalMember'), 'hero-family-lounge.js must check getLocalMember("HERO") on load');
+assert.ok(loungeJsContent.includes('이메일 주소를 정확히 적어주세요 (예: hero@naver.com)'), 'hero-family-lounge.js must include friendly senior email guidance');
+console.log('  [PASS] Passwordless 3-second HERO Big-Font Mailbox Membership & Zero-Password/Zero-FFFD verified.');
+
 console.log('\n===============================================================');
 console.log('SUCCESS: ALL PARADISE-HERO.COM WEB PLATFORM TESTS PASSED (100%)');
 console.log('===============================================================\n');

@@ -55,7 +55,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/senior-style.css?v=20261115c">
+  <link rel="stylesheet" href="css/senior-style.css?v=20261115d">
 </head>
 <body>
   <!-- 스킵 네비게이션 -->
@@ -327,6 +327,86 @@
 
       <!-- 💌 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox · 무로그인 원터치 & 직접 작성) -->
       <div id="hero-love-letterbox" class="hero-love-letterbox-section" role="region" aria-labelledby="hero-love-letterbox-heading">
+        <!-- 📮 황영웅 최근 소식 & 영웅라디오 큰글씨 우편함 무료 정회원 등록 (#hero-passwordless-club-card · 비밀번호 없는 3초 등록) -->
+        <div id="hero-passwordless-club-card" class="hero-passwordless-club-card" role="region" aria-labelledby="hero-passwordless-club-heading">
+          <div class="hero-club-top-row">
+            <span class="hero-club-badge">📮 무료 정회원 우편함 · 비밀번호 없음 (3초 등록)</span>
+          </div>
+
+          <div id="hero-club-member-status" class="hero-club-member-status" role="status" aria-live="polite"></div>
+
+          <h3 id="hero-passwordless-club-heading" class="hero-club-heading">
+            황영웅 반가운 최근 소식과 화·금 영웅라디오 편지를 큰글씨 이메일로 받아보세요
+          </h3>
+          <p class="hero-club-subcopy">
+            복잡한 비밀번호 없이 애칭과 이메일만 적으시면 정회원 등록이 바로 완료됩니다.
+          </p>
+
+          <form id="hero-passwordless-club-form" novalidate>
+            <span id="hero-club-segment-group-label" class="hero-club-segment-label">
+              👆 가장 먼저 받아보고 싶은 소식을 터치 1번으로 골라주세요
+            </span>
+            <div class="hero-club-segment-grid" role="radiogroup" aria-labelledby="hero-club-segment-group-label">
+              <button type="button" class="btn-hero-club-segment active" role="radio" aria-checked="true" data-club-segment="hero_news_schedule">
+                <span>🎤 황영웅 최근 방송·콘서트·신곡 소식</span>
+                <span class="hero-club-segment-check">선택됨 ✓</span>
+              </button>
+              <button type="button" class="btn-hero-club-segment" role="radio" aria-checked="false" data-club-segment="hero_radio_letters">
+                <span>📻 화·금 15분 영웅라디오 명곡·사연 편지</span>
+                <span class="hero-club-segment-check">선택하기</span>
+              </button>
+              <button type="button" class="btn-hero-club-segment" role="radio" aria-checked="false" data-club-segment="senior_health_lounge">
+                <span>💝 영웅 가족 사랑방 &amp; 활력 건강 소식</span>
+                <span class="hero-club-segment-check">선택하기</span>
+              </button>
+            </div>
+            <input type="hidden" id="hero-club-segment" name="segment" value="hero_news_schedule">
+
+            <div class="hero-club-fields-grid">
+              <div class="hero-club-field-group">
+                <label for="hero-club-nickname" class="hero-club-label">
+                  👤 정회원 애칭 (선택 입력)
+                </label>
+                <input
+                  type="text"
+                  id="hero-club-nickname"
+                  name="nickname"
+                  class="hero-club-input"
+                  maxlength="40"
+                  autocomplete="nickname"
+                  placeholder="애칭 입력 (예: 부산 파라다이스 순자)">
+              </div>
+
+              <div class="hero-club-field-group">
+                <label for="hero-club-email" class="hero-club-label">
+                  📧 큰글씨 소식지 받으실 이메일 주소 (필수)
+                </label>
+                <input
+                  type="email"
+                  id="hero-club-email"
+                  name="email"
+                  class="hero-club-input"
+                  required
+                  autocomplete="email"
+                  inputmode="email"
+                  placeholder="이메일 주소 입력 (예: hero@naver.com)">
+              </div>
+            </div>
+
+            <input type="text" name="website_hp" id="hero-club-website-hp" tabindex="-1" autocomplete="off" style="display:none">
+
+            <button type="submit" id="hero-club-submit-btn" class="btn-hero-club-submit">
+              <span>💌 비밀번호 없이 3초 무료 정회원 등록하기</span>
+            </button>
+
+            <div id="hero-club-feedback" class="hero-club-feedback-banner" role="status" aria-live="polite"></div>
+
+            <p class="hero-club-safe-note">
+              💚 평생 100% 무료이며 복잡한 아이디·비밀번호를 절대 묻지 않습니다. 원치 않으실 때 메일 하단 수신거부 버튼 한 번으로 언제든 편하게 멈추실 수 있습니다.
+            </p>
+          </form>
+        </div>
+
         <div class="love-letterbox-head">
           <h3 id="hero-love-letterbox-heading" class="love-letterbox-title">
             💌 황영웅님께 담는 오늘의 사랑 &amp; 응원 편지함
@@ -381,6 +461,19 @@
               class="love-input-textarea"
               maxlength="280"
               placeholder="예: 우리 영웅님 식사 꼭 든든히 챙겨 드시고 늘 꽃길만 걸으세요!"></textarea>
+          </div>
+
+          <div class="love-field-group">
+            <label for="hero-love-email-input" class="love-field-label">
+              📧 답장·소식지 받으실 이메일 (선택 · 안 적으셔도 사랑 편지는 바로 등록됩니다)
+            </label>
+            <input
+              type="email"
+              id="hero-love-email-input"
+              class="love-input-text"
+              autocomplete="email"
+              inputmode="email"
+              placeholder="답장·소식지 받으실 이메일 (선택 입력 — 안 적으셔도 사연 등록됩니다)">
           </div>
 
           <button type="submit" id="btn-hero-love-submit" class="btn-love-submit-king">
@@ -991,6 +1084,8 @@
   <!-- 스크립트 로드 -->
   <script src="js/senior-accessibility.js?v=20261115c"></script>
   <script src="js/radio-player.js?v=20261115c"></script>
-  <script src="js/hero-family-lounge.js?v=20261115c"></script>
+  <script>window.HQ_MAILING_CONFIG_PATH = './hq-mailing-endpoint.json';</script>
+  <script src="js/hq_member_crm_client.js"></script>
+  <script src="js/hero-family-lounge.js?v=20261115d"></script>
 </body>
 </html>
