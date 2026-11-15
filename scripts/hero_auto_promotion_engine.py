@@ -71,14 +71,21 @@ def main() -> int:
         {
             "tag": "p",
             "children": [
-                "돋보기 없이 편안한 큰 글씨(22px~30px) 전문 읽기 및 24시간 연속 라디오 감상: ",
+                "돋보기 없이 시원한 큰 글씨(22px~30px) 편지 전문 읽기 & 24시간 영웅라디오 무료 감상: ",
                 {"tag": "a", "attrs": {"href": canonical_url}, "children": [canonical_url]},
             ],
         },
         {
             "tag": "p",
             "children": [
-                "무제한 무료 10종 의상 기념사진관 바로가기: ",
+                "카드번호 입력 없는 네이버페이 1초 결제 공식 안심셀렉트샵: ",
+                {"tag": "a", "attrs": {"href": "https://cshop.naver.com/paradiseshop"}, "children": ["https://cshop.naver.com/paradiseshop"]},
+            ],
+        },
+        {
+            "tag": "p",
+            "children": [
+                "황영웅 님 10종 의상 무제한 무료 투샷 사진관 바로가기: ",
                 {"tag": "a", "attrs": {"href": f"https://{HOST}/booth.html"}, "children": [f"https://{HOST}/booth.html"]},
             ],
         },
@@ -106,38 +113,65 @@ def main() -> int:
 
     main_hook = (
         f"{col['kakao_quote']}\n\n"
-        f"유튜브 라디오와 24시간 음악 쉼터에서 매일 따뜻한 목소리와 사연으로 어머님들 곁을 지킵니다. #황영웅 #파라다이스"
+        f"유튜브 라디오와 24시간 음악 쉼터에서 매일 다정한 목소리와 사연으로 어머님·아버님 곁을 지킵니다. #황영웅 #파라다이스"
     )[:275]
 
     reply_link = (
-        f"돋보기 없이 시원하게 읽는 큰 글씨 편지 전문 & 10종 의상 무료 기념사진관:\n"
+        f"💚 돋보기 없이 시원한 큰 글씨 편지 전문 & 원터치 공식 쇼핑·무료 사진관 바로가기:\n"
         f"{canonical_url}?utm_source=social_thread&utm_medium=organic"
     )
 
+    kakao_groupchat_3line = (
+        f"{col['kakao_quote']}\n"
+        f"👉 큰 글씨 편지 & 24시간 영웅라디오: {canonical_url}?utm_source=kakao_3line\n"
+        f"🟢 카드 입력 없는 네이버페이 1초 공식샵: https://cshop.naver.com/paradiseshop\n"
+        f"🚀 내일 도착 쿠팡 응원준비물·음반 공식관: https://influencers.coupang.com/s/paradisehero\n"
+    )
+
     kakao_band_letter = (
-        f"💌 [김쌤의 영웅라디오 아침 안부 편지 — {today_str}]\n\n"
+        f"💌 [김쌤의 영웅라디오 다정한 안부 편지 — {today_str}]\n\n"
+        f"존경하는 파라다이스 어머님·아버님, 오늘 하루도 평안하셨는지요?\n"
         f"{col['kakao_quote']}\n\n"
         f"{col['body_paragraphs'][0]}\n\n"
-        f"📖 큰 글씨로 편지 끝까지 읽기:\n{canonical_url}?utm_source=kakao_band\n\n"
-        f"📸 황영웅 님 10종 의상 무료 투샷 기념사진 찍기:\nhttps://{HOST}/booth.html?utm_source=kakao_band\n"
+        f"📖 돋보기 없이 시원한 큰 글씨로 편지 끝까지 읽기:\n{canonical_url}?utm_source=kakao_band\n\n"
+        f"📸 황영웅 님 10종 의상 무료 투샷 기념사진 찍기:\nhttps://{HOST}/booth.html?utm_source=kakao_band\n\n"
+        f"🟢 복잡한 카드번호 입력 없이 1초 결제! 김쌤 네이버페이 안심셀렉트샵:\nhttps://cshop.naver.com/paradiseshop\n\n"
+        f"🚀 내일 문앞 도착! 정품 음반·에메랄드 응원준비물·건강선물 쿠팡 공식관:\nhttps://influencers.coupang.com/s/paradisehero\n"
+    )
+
+    naver_fancafe_greeting = (
+        f"# [큰 글씨 안부 편지] {col['title']}\n\n"
+        f"반갑습니다 파라다이스 가족 여러분! 언제나 어머님·아버님 편에 서서 따뜻한 노래 이야기를 전해드리는 김쌤입니다.\n\n"
+        + "\n\n".join(col["body_paragraphs"])
+        + "\n\n---\n"
+        + f"- 📻 **24시간 연속 영웅라디오 & 큰 글씨 원문 보기**: {canonical_url}?utm_source=fancafe\n"
+        + f"- 📸 **무료 10종 의상 투샷 기념사진관**: https://{HOST}/booth.html?utm_source=fancafe\n"
+        + "- 🟢 **김쌤 네이버페이 원터치 안심셀렉트샵**: https://cshop.naver.com/paradiseshop\n"
+        + f"- 🛍️ **YES24 차트반영 정품음반 · 건강효도선물 · 주말 나들이 통합 혜택관**: https://{HOST}/#senior-curation-market\n"
     )
 
     longform_md = (
         f"# {col['title']}\n\n"
         + "\n\n".join(col["body_paragraphs"])
-        + f"\n\n👉 [파라다이스 히어로 큰 글씨 원문 보기]({canonical_url})\n"
+        + f"\n\n### 💚 어머님·아버님을 위한 큰 글씨 바로가기\n"
+        + f"- 📖 [돋보기 없이 시원한 큰 글씨 원문 & 24시간 라디오]({canonical_url})\n"
+        + f"- 📸 [10종 의상 무제한 무료 투샷 기념사진관](https://{HOST}/booth.html)\n"
+        + "- 🟢 [카드 입력 없는 네이버페이 1초 결제 공식샵](https://cshop.naver.com/paradiseshop)\n"
+        + f"- 🛍️ [정품 음반 · 콘서트 응원준비물 · 관절/목 건강 원터치 혜택관](https://{HOST}/#senior-curation-market)\n"
     )
 
     yt_pinned_and_community = (
         f"=== [@김쌤의영웅라디오 유튜브 고정 댓글 & 커뮤니티 큰 글씨 공지 · {today_str}] ===\n\n"
         f"💚 {col['kakao_quote']}\n\n"
-        f"1️⃣ 돋보기 없이 읽는 큰 글씨 사연·건강 편지 전문 읽기:\n"
+        f"1️⃣ 돋보기 없이 시원하게 읽는 큰 글씨 사연·건강 편지 전문:\n"
         f"👉 {canonical_url}?utm_source=youtube_pinned\n\n"
-        f"2️⃣ 황영웅 님 10종 의상 무제한 무료 투샷 기념사진관 & 선물제작소:\n"
+        f"2️⃣ 황영웅 님 10종 의상 무제한 무료 투샷 사진관 & 효도 달력 제작소:\n"
         f"👉 https://{HOST}/booth.html?utm_source=youtube_pinned\n\n"
-        f"3️⃣ 네이버페이(Npay) 원탭 건강·효도 공식 크리에이터샵:\n"
+        f"3️⃣ 카드번호 입력 없는 1초 결제! 김쌤 네이버페이 공식 안심셀렉트샵:\n"
         f"👉 https://cshop.naver.com/paradiseshop\n\n"
-        f"4️⃣ YES24 차트반영 정품음반 · 쿠팡 · iHerb 직구 · 주말 나들이 티켓 통합 혜택관:\n"
+        f"4️⃣ 내일 바로 도착! 정품 음반·콘서트 응원준비물·건강선물 쿠팡 공식관:\n"
+        f"👉 https://influencers.coupang.com/s/paradisehero\n\n"
+        f"5️⃣ YES24 차트반영 정품음반 · iHerb 건강직구 · 주말 나들이 티켓 통합 혜택관:\n"
         f"👉 https://{HOST}/#senior-curation-market\n"
     )
 
@@ -152,7 +186,9 @@ def main() -> int:
         longform_markdown=longform_md,
         tags=["황영웅", "파라다이스"],
         platform_extras={
+            "kakao_groupchat_3line_share.txt": kakao_groupchat_3line,
             "kakao_naver_band_senior_letter.md": kakao_band_letter,
+            "naver_fancafe_warm_greeting.md": naver_fancafe_greeting,
             "youtube_pinned_comment_and_community_post.txt": yt_pinned_and_community,
         },
         div_env_path=DIV4_ROOT / ".env",
