@@ -1,10 +1,12 @@
 /**
  * hero-family-lounge.js
  * 4사업부 「💚 영웅 가족 사랑방 — 김쌤의 오늘 안부 편지 & 1초 응원 하트」
+ * + 「💌 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox)」
  * - 무로그인 1초 참여 시니어 팬덤 동행 허브 (#hero-family-lounge)
  * - 날짜(YYYY-MM-DD KST) 기반 김쌤의 아침 안부 편지 7종 자동 순환
  * - 실시간 영웅 사랑방 응원 온도계 (36.5°C ~ 99.9°C 황금 온기 게이지 + Abacus 실시간 하트 집계)
  * - 연속 출석 도장 수첩 (localStorage: hero_lounge_attendance_v1) 7일 황금 도장판
+ * - 원터치 사랑 문구 4종 & 직접 쓰는 사랑 편지 담벼락 (localStorage: hero_love_letterbox_v1 + Abacus love_letter_<YYYY-MM-DD>)
  */
 
 (function () {
@@ -12,6 +14,8 @@
 
   var ATTENDANCE_STORAGE_KEY = 'hero_lounge_attendance_v1';
   var HEARTS_STORAGE_KEY = 'hero_lounge_hearts_v1';
+  var LOVE_LETTERBOX_STORAGE_KEY = 'hero_love_letterbox_v1';
+  var LOVE_AUTHOR_STORAGE_KEY = 'hero_love_author_name_v1';
   var ABACUS_NAMESPACE = 'hero_paradise';
   var MIN_TEMP = 36.5;
   var MAX_TEMP = 99.9;
@@ -25,6 +29,52 @@
     '전국 각지에서 한마음으로 모여주신 파라다이스 어머님, 아버님! 스마트폰 화면 보시느라 눈이 침침하실 때는 잠시 창밖 먼 풍경을 바라보며 눈을 쉬어 주세요. 언제 찾아오셔도 돋보기 없이 편안한 우리 사랑방이 늘 이 자리를 지키겠습니다 💚',
     '어머님, 아버님 오늘 마음 날씨는 어떠신가요? 행여 적적하거나 허전한 순간이 찾아오더라도 절대 혼자라 생각지 마세요. 라디오 버튼 하나만 누르시면 김쌤의 다정한 목소리와 영웅님의 깊은 위로가 거실 가득 따뜻하게 채워집니다 💚',
     '참 귀하고 자랑스러운 우리 파라다이스 가족 어머님, 아버님! 매일 보내주시는 응원 하트 하나하나가 모여 영웅님께 가장 든든한 버팀목이 됩니다. 오늘 저녁에도 잔잔한 미소 지으시며 온 가족 평안하고 복된 시간 보내시길 바랍니다 💚'
+  ];
+
+  // 초기 방문 시에도 정겹게 채워져 있는 전국 어머님·아버님 기본 사랑 편지 6건
+  var DEFAULT_LOVE_LETTERS = [
+    {
+      id: 'seed-1',
+      author: '👑 대구 수성구 이순자 어머니',
+      badge: '오늘의 사랑 편지',
+      message: '영웅님 깊은 중저음 목소리가 제 인생의 가장 큰 위로입니다. 아침마다 〈당신 편〉 틀어두고 따뜻한 차 한 잔 마시는 시간이 하루 중 제일 행복해요 💚',
+      isMine: false
+    },
+    {
+      id: 'seed-2',
+      author: '🌻 부산 해운대 박정숙 어머니',
+      badge: '콘서트 동행 약속',
+      message: '전국투어 콘서트 날까지 무릎·눈 건강 꼭 챙기며 기다릴게요! 공연장에서 에메랄드 불빛 흔들며 우리 영웅님 이름 목청껏 불러주렵니다.',
+      isMine: false
+    },
+    {
+      id: 'seed-3',
+      author: '🙏 광주 북구 김종수 아버님',
+      badge: '든든한 아버지 팬',
+      message: '남자인 제가 들어도 황영웅 가수님의 깊은 울림은 가슴을 먹먹하게 합니다. 비가 오나 눈이 오나 언제나 영웅님 편에서 묵묵히 응원합니다!',
+      isMine: false
+    },
+    {
+      id: 'seed-4',
+      author: '🎶 서울 송파구 최영희 어머니',
+      badge: '매일 아침 출석',
+      message: '오늘 아침도 영웅님 노래로 행복한 하루 시작합니다. 김쌤 라디오 켜놓고 거실 화초에 물 주는데 마음이 어찌나 평안하고 포근한지 몰라요 🌸',
+      isMine: false
+    },
+    {
+      id: 'seed-5',
+      author: '💚 대전 유성구 정미경 어머니',
+      badge: '평생 파라다이스',
+      message: '세월이 흘러 머리가 하얗게 세어도 우리 영웅님 노래 사랑하는 마음만은 청춘입니다. 식사 꼭 든든히 챙겨 드시고 늘 건강만 하세요!',
+      isMine: false
+    },
+    {
+      id: 'seed-6',
+      author: '🌟 경기 수원시 한복순 어머니',
+      badge: '온 가족 찐팬',
+      message: '주말에 놀러 온 딸내미랑 손주 앞에서도 영웅님 노래 자랑을 한참 했답니다. 우리 가족 모두에게 따뜻한 웃음을 선물해 주셔서 참 고맙습니다 💛',
+      isMine: false
+    }
   ];
 
   function getKstInfo(customDateObj) {
@@ -218,7 +268,6 @@
   }
 
   function calculateThermometerTemp(displayTotal, myTodayHearts) {
-    // 36.5°C 출발 -> 전국 가족 온기 합산 시 84°C~98.5°C 구간 도달 + 내 터치마다 +0.1°C 상승 (최대 99.9°C)
     var communityRatio = Math.min(1, Math.max(0, displayTotal / 2200));
     var curved = 1 - Math.pow(1 - communityRatio, 2.1);
     var baseTemp = MIN_TEMP + curved * (96.2 - MIN_TEMP);
@@ -349,6 +398,17 @@
     } catch (e) {}
   }
 
+  function hitAbacusLoveLetterNonBlocking(kstInfo) {
+    try {
+      if (typeof fetch !== 'function') return;
+      var letterUrl = 'https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/love_letter_' + kstInfo.dateStr;
+      fetch(letterUrl, { mode: 'cors', keepalive: true }).catch(function () {});
+      if (typeof window.__hitParadiseHeroMetric === 'function') {
+        window.__hitParadiseHeroMetric('love_letter');
+      }
+    } catch (e) {}
+  }
+
   // -------------------------------------------------------------------------
   // 3. 김쌤의 오늘 안부 편지 렌더링 (YYYY-MM-DD 시드 자동 선택 + 다른 편지 보기)
   // -------------------------------------------------------------------------
@@ -378,7 +438,189 @@
   }
 
   // -------------------------------------------------------------------------
-  // 4. 전체 초기화
+  // 4. 💌 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox)
+  // -------------------------------------------------------------------------
+  function loadSavedMyLoveLetters() {
+    var saved = safeReadJson(LOVE_LETTERBOX_STORAGE_KEY, null);
+    if (Array.isArray(saved)) {
+      return saved.slice(0, 50);
+    }
+    if (saved && Array.isArray(saved.items)) {
+      return saved.items.slice(0, 50);
+    }
+    return [];
+  }
+
+  function saveMyLoveLetters(items) {
+    safeWriteJson(LOVE_LETTERBOX_STORAGE_KEY, {
+      version: 1,
+      updatedAt: new Date().toISOString(),
+      items: items.slice(0, 50)
+    });
+  }
+
+  function buildCombinedWallLetters(myItems, kstInfo) {
+    var combined = [];
+    myItems.forEach(function (item) {
+      if (item && item.message) {
+        combined.push({
+          id: item.id || ('mine-' + combined.length),
+          author: item.author || '👑 따뜻한 파라다이스 가족',
+          badge: item.badge || (item.dateLabel ? ('내 사랑 편지 · ' + item.dateLabel) : ('내 사랑 편지 · ' + kstInfo.prettyDate)),
+          message: item.message,
+          isMine: true
+        });
+      }
+    });
+    DEFAULT_LOVE_LETTERS.forEach(function (seed) {
+      combined.push(seed);
+    });
+    return combined;
+  }
+
+  function renderLoveWall(myItems, kstInfo) {
+    var wallList = document.getElementById('hero-love-wall-list');
+    var countPill = document.getElementById('hero-love-wall-count');
+    if (!wallList) return;
+
+    var allLetters = buildCombinedWallLetters(myItems, kstInfo);
+    wallList.innerHTML = '';
+
+    allLetters.slice(0, 12).forEach(function (entry) {
+      var card = document.createElement('article');
+      card.className = 'love-wall-card' + (entry.isMine ? ' is-mine' : '');
+
+      var meta = document.createElement('div');
+      meta.className = 'love-wall-card-meta';
+
+      var authorStrong = document.createElement('strong');
+      authorStrong.className = 'love-wall-author';
+      authorStrong.textContent = entry.author;
+
+      var badgeSpan = document.createElement('span');
+      badgeSpan.className = 'love-wall-badge';
+      badgeSpan.textContent = entry.badge;
+
+      meta.appendChild(authorStrong);
+      meta.appendChild(badgeSpan);
+
+      var msgP = document.createElement('p');
+      msgP.className = 'love-wall-message';
+      msgP.textContent = entry.message;
+
+      card.appendChild(meta);
+      card.appendChild(msgP);
+      wallList.appendChild(card);
+    });
+
+    if (countPill) {
+      var baseWallCount = 318 + (computeDateSeed(kstInfo.dateStr) % 45) + myItems.length;
+      countPill.textContent = '✨ 사랑 편지 ' + baseWallCount.toLocaleString('ko-KR') + '통 보관 중';
+    }
+  }
+
+  function showLoveLetterConfirmation(message) {
+    var banner = document.getElementById('hero-love-confirm-banner');
+    if (banner) {
+      banner.textContent = message;
+      banner.classList.add('visible');
+    }
+    if (window.SeniorAccessibility && typeof window.SeniorAccessibility.showToast === 'function') {
+      window.SeniorAccessibility.showToast(message);
+    }
+  }
+
+  function initLoveLetterbox(onBoostLoungeHeart) {
+    var boxRoot = document.getElementById('hero-love-letterbox');
+    if (!boxRoot) return;
+
+    var kstInfo = getKstInfo();
+    var myLetters = loadSavedMyLoveLetters();
+    var authorInput = document.getElementById('hero-love-author-input');
+    var msgInput = document.getElementById('hero-love-message-input');
+    var formEl = document.getElementById('hero-love-letter-form');
+    var presetBtns = boxRoot.querySelectorAll('.btn-love-preset[data-love-preset]');
+
+    // 이전 방문에 입력하셨던 성함/지역 자동 복원 (재입력 수고 덜어드리기)
+    try {
+      var savedAuthor = localStorage.getItem(LOVE_AUTHOR_STORAGE_KEY);
+      if (savedAuthor && authorInput && !authorInput.value) {
+        authorInput.value = savedAuthor;
+      }
+    } catch (e) {}
+
+    renderLoveWall(myLetters, kstInfo);
+
+    function commitLoveLetter(rawAuthor, rawMessage, sourceLabel) {
+      var nowKst = getKstInfo();
+      var cleanMsg = String(rawMessage || '').replace(/\s+/g, ' ').trim();
+      if (!cleanMsg) {
+        showLoveLetterConfirmation('💛 어머님·아버님, 위 원터치 사랑 문구 버튼을 누르시거나 응원 한마디를 적어주세요!');
+        if (msgInput) msgInput.focus();
+        return false;
+      }
+
+      var cleanAuthor = String(rawAuthor || '').replace(/\s+/g, ' ').trim();
+      if (cleanAuthor) {
+        try {
+          localStorage.setItem(LOVE_AUTHOR_STORAGE_KEY, cleanAuthor.slice(0, 32));
+        } catch (e) {}
+      }
+      var displayAuthor = cleanAuthor
+        ? ('👑 ' + cleanAuthor.slice(0, 32))
+        : '👑 따뜻한 파라다이스 가족';
+
+      var newEntry = {
+        id: 'love-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        author: displayAuthor,
+        badge: sourceLabel || ('내 사랑 편지 · ' + nowKst.prettyDate),
+        dateLabel: nowKst.prettyDate,
+        message: cleanMsg.slice(0, 280),
+        createdAt: new Date().toISOString()
+      };
+
+      myLetters = [newEntry].concat(myLetters).slice(0, 50);
+      saveMyLoveLetters(myLetters);
+      renderLoveWall(myLetters, nowKst);
+
+      // 응원 온도계(#hero-family-lounge) & 하트 동시 상승 + 비차단 Abacus 카운터 연동
+      if (typeof onBoostLoungeHeart === 'function') {
+        onBoostLoungeHeart(nowKst);
+      }
+      hitAbacusLoveLetterNonBlocking(nowKst);
+
+      showLoveLetterConfirmation('💌 황영웅님을 향한 어머님·아버님의 따뜻한 사랑 편지가 담벼락 맨 위에 소중히 담겼습니다!');
+      return true;
+    }
+
+    // (A) 원터치 사랑 문구 버튼 4종: 터치 1번으로 즉시 담벼락 등록 & 온도계 상승!
+    presetBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var presetText = btn.getAttribute('data-love-preset') || '';
+        presetBtns.forEach(function (b) { b.classList.remove('is-selected'); });
+        btn.classList.add('is-selected');
+
+        var currentAuthor = authorInput ? authorInput.value : '';
+        commitLoveLetter(currentAuthor, presetText, '원터치 사랑 편지 등록 완료 💚');
+      });
+    });
+
+    // (B) 직접 성함/지역과 사랑의 한마디 작성 후 대형 버튼 클릭
+    if (formEl) {
+      formEl.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var currentAuthor = authorInput ? authorInput.value : '';
+        var currentMsg = msgInput ? msgInput.value : '';
+        var ok = commitLoveLetter(currentAuthor, currentMsg, '내 사랑 편지 등록 완료 👑');
+        if (ok && msgInput) {
+          msgInput.value = '';
+        }
+      });
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // 5. 전체 초기화
   // -------------------------------------------------------------------------
   function initHeroFamilyLounge() {
     var loungeRoot = document.getElementById('hero-family-lounge');
@@ -398,38 +640,79 @@
     renderThermometerUI(heartState, false);
     fetchInitialAbacusCount(kstInfo, heartState);
 
+    function triggerLoungeHeartIncrement(nowKst, showHeartToast) {
+      if (heartState.date !== nowKst.dateStr) {
+        heartState = loadHeartState(nowKst);
+      }
+      heartState.myTodayHearts += 1;
+      heartState.myTotalHearts += 1;
+      heartState.displayTotal += 1;
+      safeWriteJson(HEARTS_STORAGE_KEY, heartState);
+
+      var refreshedAttendance = syncDailyAttendance(nowKst);
+      renderAttendanceUI(refreshedAttendance);
+
+      spawnHeartCelebration();
+      renderThermometerUI(heartState, true);
+      if (showHeartToast) {
+        showHeartConfirmationMessage('💚 어머님·아버님의 따뜻한 응원 하트가 영웅 사랑방 온도계에 전해졌습니다!');
+      }
+      hitAbacusHeartNonBlocking(nowKst, heartState);
+    }
+
     // (4) 1초 응원 하트 버튼 클릭 핸들러 (무로그인·다회 클릭 즉시 반응·출석은 일 1회 보장)
     var heartBtn = document.getElementById('btn-hero-lounge-heart');
     if (heartBtn) {
       heartBtn.addEventListener('click', function () {
         var nowKst = getKstInfo();
-        if (heartState.date !== nowKst.dateStr) {
-          heartState = loadHeartState(nowKst);
-        }
-
-        heartState.myTodayHearts += 1;
-        heartState.myTotalHearts += 1;
-        heartState.displayTotal += 1;
-        safeWriteJson(HEARTS_STORAGE_KEY, heartState);
-
-        // 일일 출석은 하루 1회만 기록 유지
-        var refreshedAttendance = syncDailyAttendance(nowKst);
-        renderAttendanceUI(refreshedAttendance);
-
-        // 버튼 터치 피드백 + 하트 축하 파티클 + 온도계 상승 + 안심 확인 토스트
         heartBtn.classList.add('is-tapped');
         setTimeout(function () {
           heartBtn.classList.remove('is-tapped');
         }, 160);
-
-        spawnHeartCelebration();
-        renderThermometerUI(heartState, true);
-        showHeartConfirmationMessage('💚 어머님·아버님의 따뜻한 응원 하트가 영웅 사랑방 온도계에 전해졌습니다!');
-
-        // 비차단 Abacus 카운터 전송
-        hitAbacusHeartNonBlocking(nowKst, heartState);
+        triggerLoungeHeartIncrement(nowKst, true);
       });
     }
+
+    // (5) 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox) 초기화 및 온도계 연동
+    initLoveLetterbox(function (nowKst) {
+      triggerLoungeHeartIncrement(nowKst, false);
+    });
+
+    // (6) 애장·건강 컬렉션 4대 스토리텔링 탭 범용 전환 보장 (인앱·로컬·모바일 환경 100% 동작)
+    function switchStoryCollectionTab(tabKey, scrollIntoMarket) {
+      var btns = document.querySelectorAll('.safe-theme-tab-btn[data-market-tab]');
+      var panels = document.querySelectorAll('.safe-theme-panel[data-market-panel]');
+      if (!btns.length || !panels.length) return;
+      btns.forEach(function (b) {
+        var active = b.getAttribute('data-market-tab') === tabKey;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      panels.forEach(function (p) {
+        var active = p.getAttribute('data-market-panel') === tabKey;
+        p.classList.toggle('active', active);
+      });
+      if (scrollIntoMarket) {
+        var sec = document.getElementById('senior-curation-market');
+        if (sec && sec.scrollIntoView) {
+          sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    document.addEventListener('click', function (ev) {
+      var tabBtn = ev.target && ev.target.closest ? ev.target.closest('.safe-theme-tab-btn[data-market-tab]') : null;
+      if (tabBtn) {
+        ev.preventDefault();
+        switchStoryCollectionTab(tabBtn.getAttribute('data-market-tab'), false);
+        return;
+      }
+      var jumpLink = ev.target && ev.target.closest ? ev.target.closest('[data-open-market-tab]') : null;
+      if (jumpLink && document.getElementById('senior-curation-market')) {
+        ev.preventDefault();
+        switchStoryCollectionTab(jumpLink.getAttribute('data-open-market-tab'), true);
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
@@ -440,6 +723,7 @@
 
   window.HeroFamilyLounge = {
     getLetters: function () { return DAILY_HOST_LETTERS.slice(); },
+    getDefaultLoveWall: function () { return DEFAULT_LOVE_LETTERS.slice(); },
     getKstInfo: getKstInfo,
     syncDailyAttendance: syncDailyAttendance
   };

@@ -2521,3 +2521,326 @@ body.font-xlarge {
   font-size: var(--font-base);
   font-weight: 800;
 }
+
+/* ==========================================================================
+   18. 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox)
+       & 사랑을 담은 애장·건강 컬렉션 스토리텔링 배너 (WCAG AAA 20px+ / 64px+ / 375px 무결점)
+   ========================================================================== */
+.hero-love-letterbox-section {
+  margin-top: 22px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF5 100%);
+  border: 3px solid var(--brand-gold);
+  border-radius: 20px;
+  padding: 22px 18px;
+  box-shadow: 0 8px 22px rgba(14, 40, 32, 0.08);
+}
+
+.love-letterbox-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.love-letterbox-title {
+  font-size: var(--font-subheading);
+  font-weight: 900;
+  color: var(--brand-emerald-dark);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.love-letterbox-count-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FEF3C7;
+  color: #78350F;
+  border: 2px solid #F59E0B;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: var(--font-base);
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.love-letterbox-desc {
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: var(--text-charcoal);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.love-preset-guide-label {
+  display: block;
+  font-size: calc(var(--font-base) + 1px);
+  font-weight: 900;
+  color: var(--brand-emerald-dark);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.love-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+@media (max-width: 720px) {
+  .love-preset-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-love-preset {
+  min-height: 68px;
+  width: 100%;
+  padding: 14px 16px;
+  background: #FFFBEB;
+  color: #0E2820;
+  border: 2.5px solid #F59E0B;
+  border-radius: 16px;
+  font-size: var(--font-base);
+  font-weight: 800;
+  line-height: 1.45;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  box-shadow: 0 3px 10px rgba(217, 119, 6, 0.1);
+  transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.1s ease;
+}
+.btn-love-preset:hover,
+.btn-love-preset:focus {
+  background: #FEF3C7;
+  border-color: var(--brand-emerald);
+  outline: 3px solid var(--brand-gold-glow);
+}
+.btn-love-preset:active,
+.btn-love-preset.is-selected {
+  background: #ECFDF5;
+  border-color: var(--brand-emerald);
+  transform: scale(0.99);
+}
+
+.btn-love-preset-tag {
+  flex-shrink: 0;
+  display: inline-block;
+  background: var(--brand-emerald-dark);
+  color: #FEF08A;
+  font-size: var(--font-base);
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: 10px;
+  line-height: 1.25;
+}
+
+.love-custom-form-box {
+  background: #F8FAFC;
+  border: 2.5px solid #CBD5E1;
+  border-radius: 18px;
+  padding: 18px 16px;
+  margin-bottom: 18px;
+}
+
+.love-field-group {
+  margin-bottom: 14px;
+}
+
+.love-field-label {
+  display: block;
+  font-size: calc(var(--font-base) + 1px);
+  font-weight: 900;
+  color: #111827;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.love-input-text,
+.love-input-textarea {
+  width: 100%;
+  max-width: 100%;
+  background: #FFFFFF;
+  color: #111827;
+  border: 2.5px solid #64748B;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: calc(var(--font-base) + 2px);
+  font-weight: 700;
+  line-height: 1.5;
+}
+.love-input-text {
+  min-height: 66px;
+}
+.love-input-textarea {
+  min-height: 104px;
+  resize: vertical;
+}
+.love-input-text:focus,
+.love-input-textarea:focus {
+  border-color: var(--brand-emerald);
+  outline: 4px solid var(--brand-gold-glow);
+}
+
+.btn-love-submit-king {
+  width: 100%;
+  min-height: 72px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #0E2820 0%, #1B4D3E 55%, #0E2820 100%);
+  color: #FEF08A;
+  border: 3px solid var(--brand-gold);
+  border-radius: 18px;
+  font-size: calc(var(--font-base) + 2px);
+  font-weight: 900;
+  line-height: 1.35;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(14, 40, 32, 0.28);
+  transition: filter 0.16s ease, transform 0.1s ease;
+}
+.btn-love-submit-king:hover,
+.btn-love-submit-king:focus {
+  filter: brightness(1.1);
+  outline: 4px solid var(--brand-gold-glow);
+}
+.btn-love-submit-king:active {
+  transform: scale(0.99);
+}
+
+.love-letter-confirm-banner {
+  display: none;
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: #ECFDF5;
+  color: #064E3B;
+  border: 3px solid #10B981;
+  border-radius: 14px;
+  font-size: var(--font-base);
+  font-weight: 900;
+  line-height: 1.5;
+  text-align: center;
+}
+.love-letter-confirm-banner.visible {
+  display: block;
+}
+
+.love-wall-wrap {
+  margin-top: 18px;
+}
+
+.love-wall-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.love-wall-title {
+  font-size: calc(var(--font-base) + 2px);
+  font-weight: 900;
+  color: var(--brand-emerald-dark);
+  line-height: 1.35;
+}
+
+.love-wall-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.love-wall-card {
+  background: #FFFFFF;
+  border: 2.5px solid #E5E7EB;
+  border-left: 7px solid var(--brand-emerald);
+  border-radius: 16px;
+  padding: 16px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+.love-wall-card.is-mine {
+  background: linear-gradient(180deg, #FFFDF0 0%, #FFFFFF 100%);
+  border-color: var(--brand-gold);
+  border-left: 8px solid #D97706;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.22);
+}
+
+.love-wall-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.love-wall-author {
+  font-size: calc(var(--font-base) + 1px);
+  font-weight: 900;
+  color: var(--brand-emerald-dark);
+  line-height: 1.35;
+}
+
+.love-wall-badge {
+  display: inline-block;
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1.5px solid #F59E0B;
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-size: var(--font-base);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.love-wall-message {
+  font-size: calc(var(--font-base) + 1px);
+  font-weight: 700;
+  color: #1F2937;
+  line-height: 1.62;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  margin: 0;
+}
+
+/* 애장·건강 컬렉션 스토리텔링 테마 배너 및 탭 가독성 강화 */
+.safe-theme-tab-btn {
+  font-size: var(--font-base);
+  min-height: 74px;
+}
+
+.safe-theme-story-banner {
+  background: linear-gradient(90deg, #FFFDF2 0%, #ECFDF5 100%);
+  border: 2.5px solid var(--brand-gold);
+  border-left: 8px solid var(--brand-emerald);
+  border-radius: 16px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  font-size: calc(var(--font-base) + 1px);
+  font-weight: 900;
+  color: var(--brand-emerald-dark);
+  line-height: 1.5;
+}
+
+@media (max-width: 560px) {
+  .hero-love-letterbox-section,
+  .love-custom-form-box {
+    padding: 16px 12px;
+  }
+  .btn-love-preset {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
