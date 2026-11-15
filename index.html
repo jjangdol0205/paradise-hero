@@ -55,7 +55,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/senior-style.css?v=20261115a">
+  <link rel="stylesheet" href="css/senior-style.css?v=20261115b">
 </head>
 <body>
   <!-- 스킵 네비게이션 -->
@@ -195,6 +195,134 @@
             </button>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- 1-2. 💚 영웅 가족 사랑방 — 김쌤의 오늘 안부 편지 & 1초 응원 하트 & 연속 출석 도장 수첩 (무로그인 시니어 팬덤 동행 허브) -->
+    <section id="hero-family-lounge" class="senior-card hero-family-lounge-card" aria-labelledby="hero-family-lounge-heading" style="margin-top: 24px;">
+      <div class="hero-lounge-top-row">
+        <span class="section-badge" style="font-size: var(--font-base); margin-bottom: 0;">💚 회원가입 없이 1초 참여 · 어머님·아버님 동행 사랑방</span>
+        <span id="hero-lounge-family-badge" class="hero-lounge-family-badge" role="status" aria-live="polite">🏅 영웅 사랑방 1일째 동행 가족</span>
+      </div>
+
+      <div class="section-title-wrap" style="margin-bottom: 14px;">
+        <h2 id="hero-family-lounge-heading" class="section-title">
+          💚 영웅 가족 사랑방 — 김쌤의 오늘 안부 편지 &amp; 1초 응원 하트
+        </h2>
+        <p class="section-desc">
+          복잡한 가입 없이 <strong>하트 버튼 한 번</strong>만 누르시면 전국 파라다이스 가족의 응원 온도가 올라가고 오늘 출석 도장이 자동으로 찍힙니다.
+        </p>
+      </div>
+
+      <!-- 💌 김쌤의 오늘 안부 편지 (YYYY-MM-DD 자동 순환 · 22px+ 큰 글씨) -->
+      <article class="lounge-daily-letter-box" aria-label="김쌤의 오늘 안부 편지">
+        <div class="lounge-letter-head">
+          <strong class="lounge-letter-sender">💌 라디오 진행자 김쌤이 올리는 오늘 아침 안부 편지</strong>
+          <span id="hero-lounge-letter-date" class="lounge-letter-date">📅 오늘의 안부 편지</span>
+        </div>
+        <p id="hero-lounge-letter-body" class="lounge-letter-body">
+          어머님, 아버님 오늘 아침도 편안히 주무셨나요? 영웅님 깊은 중저음 노래 한 곡 틀어두시고 따뜻한 물 한 잔 꼭 챙겨 드세요. 우리 파라다이스 가족분들의 무릎과 눈이 늘 건강하셔야 10년 뒤 콘서트장도 함께 걸어가실 수 있습니다 💚
+        </p>
+        <p class="lounge-letter-signoff">— 언제나 어머님·아버님 편인 DJ 김쌤 올림 —</p>
+        <button type="button" id="btn-hero-next-letter" class="btn-lounge-letter-next">
+          <span aria-hidden="true">📖</span>
+          <span>김쌤의 다른 따뜻한 안부 편지도 읽어보기 👉</span>
+        </button>
+      </article>
+
+      <!-- 🔥 실시간 영웅 사랑방 응원 온도계 & 💚 1초 응원 하트 보내기 -->
+      <div class="lounge-thermometer-panel" aria-label="실시간 영웅 사랑방 응원 온도계 및 하트 보내기">
+        <div class="lounge-thermo-head">
+          <strong class="lounge-thermo-title">🔥 실시간 영웅 사랑방 응원 온도계</strong>
+          <span id="hero-lounge-temp-value" class="lounge-thermo-temp-readout" aria-live="polite">🔥 현재 88.5°C</span>
+        </div>
+
+        <div class="lounge-thermo-scale-labels" aria-hidden="true">
+          <span>체온 36.5°C 출발</span>
+          <span>황금 온기 게이지</span>
+          <span>목표 99.9°C 달성</span>
+        </div>
+
+        <div id="hero-lounge-thermo-track"
+             class="lounge-thermometer-track"
+             role="progressbar"
+             aria-label="영웅 사랑방 응원 온도계"
+             aria-valuemin="36.5"
+             aria-valuemax="99.9"
+             aria-valuenow="88.5"
+             aria-valuetext="현재 사랑방 응원 온도 88.5°C">
+          <div id="hero-lounge-thermo-fill" class="lounge-thermometer-fill" style="width: 82%;"></div>
+        </div>
+
+        <div class="lounge-heart-stats-row">
+          <span>💛 오늘 전국 가족 누적 응원 하트: <strong id="hero-lounge-national-hearts" class="lounge-heart-stats-highlight">1,240개</strong></span>
+          <span id="hero-lounge-my-hearts" class="lounge-heart-stats-highlight">오늘 첫 응원 하트를 눌러주세요 💚</span>
+        </div>
+
+        <div class="lounge-heart-action-wrap">
+          <div id="hero-lounge-burst-stage" class="lounge-heart-burst-stage" aria-hidden="true"></div>
+          <button type="button" id="btn-hero-lounge-heart" class="btn-lounge-giant-heart">
+            <span aria-hidden="true" style="font-size: 28px;">💚</span>
+            <span>오늘의 영웅 응원 하트 보내기 (터치 1번)</span>
+          </button>
+        </div>
+
+        <div id="hero-lounge-heart-toast" class="lounge-heart-confirm-toast" role="status" aria-live="polite">
+          💚 어머님·아버님의 따뜻한 응원 하트가 영웅 사랑방 온도계에 전해졌습니다!
+        </div>
+      </div>
+
+      <!-- 💮 내 연속 출석 도장 수첩 (7일 개근 황금 도장판) -->
+      <div class="lounge-stamp-notebook" aria-label="내 연속 출석 도장 수첩">
+        <div class="lounge-stamp-head">
+          <strong class="lounge-stamp-title">💮 내 연속 출석 도장 수첩</strong>
+          <span id="hero-lounge-streak-pill" class="lounge-stamp-streak-pill" role="status" aria-live="polite">
+            연속 출석 1일째 · 영웅 사랑방 개근 가족
+          </span>
+        </div>
+
+        <div id="hero-lounge-stamp-grid" class="lounge-stamp-grid" role="list" aria-label="7일 연속 출석 황금 도장판">
+          <div class="lounge-stamp-slot is-stamped is-today" data-stamp-day="1" role="listitem" aria-label="1일차 출석 도장 완료">
+            <span class="lounge-stamp-icon" aria-hidden="true">💮</span>
+            <span class="lounge-stamp-day-label">1일차</span>
+            <span class="lounge-stamp-status-label">오늘 도장 완료!</span>
+          </div>
+          <div class="lounge-stamp-slot" data-stamp-day="2" role="listitem" aria-label="2일차 미완료 도장 칸">
+            <span class="lounge-stamp-icon" aria-hidden="true">○</span>
+            <span class="lounge-stamp-day-label">2일차</span>
+            <span class="lounge-stamp-status-label">내일 도장</span>
+          </div>
+          <div class="lounge-stamp-slot" data-stamp-day="3" role="listitem" aria-label="3일차 미완료 도장 칸">
+            <span class="lounge-stamp-icon" aria-hidden="true">○</span>
+            <span class="lounge-stamp-day-label">3일차</span>
+            <span class="lounge-stamp-status-label">내일 도장</span>
+          </div>
+          <div class="lounge-stamp-slot" data-stamp-day="4" role="listitem" aria-label="4일차 미완료 도장 칸">
+            <span class="lounge-stamp-icon" aria-hidden="true">○</span>
+            <span class="lounge-stamp-day-label">4일차</span>
+            <span class="lounge-stamp-status-label">내일 도장</span>
+          </div>
+          <div class="lounge-stamp-slot" data-stamp-day="5" role="listitem" aria-label="5일차 미완료 도장 칸">
+            <span class="lounge-stamp-icon" aria-hidden="true">○</span>
+            <span class="lounge-stamp-day-label">5일차</span>
+            <span class="lounge-stamp-status-label">내일 도장</span>
+          </div>
+          <div class="lounge-stamp-slot" data-stamp-day="6" role="listitem" aria-label="6일차 미완료 도장 칸">
+            <span class="lounge-stamp-icon" aria-hidden="true">○</span>
+            <span class="lounge-stamp-day-label">6일차</span>
+            <span class="lounge-stamp-status-label">내일 도장</span>
+          </div>
+          <div class="lounge-stamp-slot" data-stamp-day="7" role="listitem" aria-label="7일차 미완료 도장 칸">
+            <span class="lounge-stamp-icon" aria-hidden="true">🏆</span>
+            <span class="lounge-stamp-day-label">7일차</span>
+            <span class="lounge-stamp-status-label">7일 개근 선물</span>
+          </div>
+        </div>
+
+        <a href="community.html" class="senior-btn btn-primary btn-senior-64">
+          <span aria-hidden="true">💬</span>
+          <span>전국 영웅 가족 사랑방에 한 줄 안부 인사 남기기 👉</span>
+        </a>
       </div>
     </section>
 
@@ -640,7 +768,7 @@
         </a>
         <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="senior-btn btn-outline" style="border-color: #03C75A; border-width: 3px; background: #F0FDF4; color: #065F46;">
           <span aria-hidden="true">👑</span>
-          <span>골드 VIP 응원·건강선물 (네이버페이 Npay 원탭 결제) 바로가기 👉</span>
+          <span>골드 VIP 멤버십 · 응원·건강선물 (월 9,900원~ 네이버페이 원탭 결제) 바로가기 👉</span>
         </a>
         <a href="story.html" class="senior-btn btn-outline">
           <span aria-hidden="true">💌</span>
@@ -728,7 +856,8 @@
   </footer>
 
   <!-- 스크립트 로드 -->
-  <script src="js/senior-accessibility.js?v=20261115a"></script>
-  <script src="js/radio-player.js?v=20261115a"></script>
+  <script src="js/senior-accessibility.js?v=20261115b"></script>
+  <script src="js/radio-player.js?v=20261115b"></script>
+  <script src="js/hero-family-lounge.js?v=20261115b"></script>
 </body>
 </html>
