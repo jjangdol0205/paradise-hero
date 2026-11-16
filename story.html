@@ -185,7 +185,7 @@
         <a href="vip.html" class="btn-vip-header-link" style="background-color: #0E2820; color: #D4AF37; border-color: #D4AF37; text-decoration: none;">
           <span aria-hidden="true">🎁</span> 무료 선물제작소
         </a>
-        <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 20px)">
+        <button type="button" id="btn-font-scaler" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 20px)">
           <span aria-hidden="true">🔍</span> 글자크게 가+
         </button>
       </div>
@@ -298,6 +298,13 @@
         </div>
 
         <div class="form-group">
+          <label for="story-email" class="form-label">
+            2-2. 큰글씨 소식지·답장 받으실 이메일 (선택 · 안 적으셔도 사연 접수됩니다)
+          </label>
+          <input type="email" id="story-email" class="form-input" autocomplete="email" inputmode="email" placeholder="선택 입력: 예) hero@naver.com (비워두셔도 정상 접수됩니다)">
+        </div>
+
+        <div class="form-group">
           <label for="story-song" class="form-label">
             3. 김쌤 라디오에서 함께 듣고 싶은 황영웅 신청곡
           </label>
@@ -400,7 +407,7 @@
       </div>
 
       <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-cshop">
-        <span>🟢 네이버페이(Npay)로 편하게 구매하기 — 김쌤 공식 네이버 크리에이터샵 전체보기 👉</span>
+        <span>💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~) 바로가기 👉</span>
       </a>
 
       <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-influencer">
@@ -618,8 +625,41 @@
     </div>
   </footer>
 
-  <script src="js/senior-accessibility.js?v=20261114d"></script>
-  <script src="js/radio-player.js?v=20261114d"></script>
-  <script src="js/story-hub.js?v=20261114d"></script>
+  <!-- 인앱 브라우저(카카오톡·인스타그램·페이스북) 음성 입력 외부 브라우저 안내 모달 (20px+ 큰글씨 · 64px+ 왕버튼) -->
+  <div id="inapp-voice-browser-modal" class="kakao-king-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="inapp-voice-modal-heading">
+    <div class="kakao-king-modal-card" style="max-width: 560px; text-align: left;">
+      <h2 id="inapp-voice-modal-heading" style="font-size: 25px; font-weight: 900; color: #0E2820; margin: 0 0 12px; text-align: center; line-height: 1.4;">
+        🎙️ 마이크 음성 입력을 쓰시려면<br>외부 인터넷 창으로 열어주세요!
+      </h2>
+      <p style="font-size: 20px; color: #1F2937; font-weight: 700; line-height: 1.65; margin: 0 0 16px;">
+        어머님·아버님, 지금 보고 계신 <strong>카카오톡 · 인스타그램 앱 안의 임시 창</strong>에서는 보안 정책 때문에 휴대폰 마이크(음성 받아쓰기)가 제한됩니다.
+      </p>
+
+      <a id="btn-inapp-open-chrome"
+         href="intent://paradise-hero.com/story.html#Intent;scheme=https;package=com.android.chrome;end"
+         style="display: flex; align-items: center; justify-content: center; width: 100%; min-height: 64px; padding: 14px 18px; margin-bottom: 14px; border-radius: 14px; background: #1B4D3E; color: #FFFFFF; border: 3px solid #D4AF37; font-size: 20px; font-weight: 900; text-decoration: none; text-align: center; line-height: 1.4;">
+        <span>🌐 삼성·안드로이드폰: 크롬(Chrome) 창으로 1초 열기 👉</span>
+      </a>
+
+      <div style="background: #FFFBEB; border: 2px solid #F59E0B; border-radius: 14px; padding: 16px; margin-bottom: 14px; font-size: 20px; color: #1F2937; line-height: 1.65;">
+        <strong style="color: #92400E; display: block; margin-bottom: 6px;">🍎 아이폰(iOS)에서 여시는 방법:</strong>
+        화면 <strong>우측 하단 ⋯ 또는 공유 버튼 ➜ Safari로 열기</strong>를 누르시거나, 아래 <strong>주소 복사하기</strong> 버튼을 눌러 Safari 주소창에 붙여넣어 주세요!
+      </div>
+
+      <button type="button" id="btn-inapp-copy-url" style="display: flex; align-items: center; justify-content: center; width: 100%; min-height: 64px; padding: 14px 18px; margin-bottom: 10px; border-radius: 14px; background: #FEE500; color: #191919; border: 2px solid #D97706; font-size: 20px; font-weight: 900; cursor: pointer;">
+        <span>📋 주소 복사하기</span>
+      </button>
+
+      <button type="button" id="btn-inapp-use-keyboard" style="display: flex; align-items: center; justify-content: center; width: 100%; min-height: 64px; padding: 14px 18px; border-radius: 14px; background: #F3F4F6; color: #1F2937; border: 2px solid #9CA3AF; font-size: 20px; font-weight: 900; cursor: pointer;">
+        <span>⌨️ 그냥 키보드로 편하게 적기</span>
+      </button>
+    </div>
+  </div>
+
+  <script>window.HQ_MAILING_CONFIG_PATH = '/hq-mailing-endpoint.json';</script>
+  <script src="js/hq_member_crm_client.js?v=20261116a"></script>
+  <script src="js/senior-accessibility.js?v=20261116a"></script>
+  <script src="js/radio-player.js?v=20261116a"></script>
+  <script src="js/story-hub.js?v=20261116a"></script>
 </body>
 </html>

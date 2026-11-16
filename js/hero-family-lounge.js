@@ -13,14 +13,14 @@
   'use strict';
 
   if (typeof window !== 'undefined' && !window.HQ_MAILING_CONFIG_PATH) {
-    window.HQ_MAILING_CONFIG_PATH = './hq-mailing-endpoint.json';
+    window.HQ_MAILING_CONFIG_PATH = '/hq-mailing-endpoint.json';
   }
 
   var ATTENDANCE_STORAGE_KEY = 'hero_lounge_attendance_v1';
   var HEARTS_STORAGE_KEY = 'hero_lounge_hearts_v1';
   var LOVE_LETTERBOX_STORAGE_KEY = 'hero_love_letterbox_v1';
   var LOVE_AUTHOR_STORAGE_KEY = 'hero_love_author_name_v1';
-  var ABACUS_NAMESPACE = 'hero_paradise';
+  var ABACUS_NAMESPACE = 'hero_paradisekr';
   var MIN_TEMP = 36.5;
   var MAX_TEMP = 99.9;
 
@@ -354,9 +354,24 @@
     }
   }
 
+  function isAutomatedBotOrLocal() {
+    try {
+      if (typeof window === 'undefined' || typeof navigator === 'undefined') return true;
+      var ua = navigator.userAgent || '';
+      if (navigator.webdriver || /jsdom|bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) {
+        return true;
+      }
+      var host = (window.location && window.location.hostname) || '';
+      if (!host || host === 'localhost' || host === '127.0.0.1') return true;
+      return false;
+    } catch (e) {
+      return true;
+    }
+  }
+
   function fetchInitialAbacusCount(kstInfo, heartState) {
     try {
-      if (typeof fetch !== 'function') return;
+      if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
       var url = 'https://abacus.jasoncameron.dev/get/' + ABACUS_NAMESPACE + '/heart_' + kstInfo.dateStr;
       fetch(url, { mode: 'cors' })
         .then(function (res) { return res && res.ok ? res.json() : null; })
@@ -378,7 +393,7 @@
 
   function hitAbacusHeartNonBlocking(kstInfo, heartState) {
     try {
-      if (typeof fetch !== 'function') return;
+      if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
       var hitUrl = 'https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/heart_' + kstInfo.dateStr;
       fetch(hitUrl, { mode: 'cors', keepalive: true })
         .then(function (res) { return res && res.ok ? res.json() : null; })
@@ -395,22 +410,56 @@
           }
         })
         .catch(function () {});
-
-      if (typeof window.__hitParadiseHeroMetric === 'function') {
-        window.__hitParadiseHeroMetric('lounge_heart');
-      }
+      fetch('https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/heart_total', { mode: 'cors', keepalive: true }).catch(function () {});
     } catch (e) {}
   }
 
   function hitAbacusLoveLetterNonBlocking(kstInfo) {
     try {
-      if (typeof fetch !== 'function') return;
-      var letterUrl = 'https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/love_letter_' + kstInfo.dateStr;
-      fetch(letterUrl, { mode: 'cors', keepalive: true }).catch(function () {});
-      if (typeof window.__hitParadiseHeroMetric === 'function') {
-        window.__hitParadiseHeroMetric('love_letter');
-      }
+      if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
+      fetch('https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/love_letter_' + kstInfo.dateStr, { mode: 'cors', keepalive: true }).catch(function () {});
+      fetch('https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/love_letter_total', { mode: 'cors', keepalive: true }).catch(function () {});
     } catch (e) {}
+  }
+
+  function fireUnifiedHeroSignupBeacon(kstInfo, emailForDedupe) {
+    try {
+      if (typeof window.hitHeroSignupBeacon === 'function') {
+        window.hitHeroSignupBeacon(emailForDedupe);
+        return;
+      }
+      if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
+      var dateKey = (kstInfo && kstInfo.dateStr) ? kstInfo.dateStr : getKstInfo().dateStr;
+      var dedupeKey = 'hq_signup_' + ABACUS_NAMESPACE + '_' + dateKey + '_' + String(emailForDedupe || '').trim().toLowerCase();
+      try {
+        if (emailForDedupe && localStorage.getItem(dedupeKey) === '1') return;
+        if (emailForDedupe) localStorage.setItem(dedupeKey, '1');
+      } catch (e) {}
+      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/signup_' + dateKey, { mode: 'cors', keepalive: true }).catch(function () {});
+      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/signup_total', { mode: 'cors', keepalive: true }).catch(function () {});
+    } catch (e) {}
+  }
+
+  function fireUnifiedHeroStorySubmitBeacon(kstInfo) {
+    try {
+      if (typeof window.hitHeroStorySubmitBeacon === 'function') {
+        window.hitHeroStorySubmitBeacon();
+        return;
+      }
+      if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
+      var dateKey = (kstInfo && kstInfo.dateStr) ? kstInfo.dateStr : getKstInfo().dateStr;
+      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/story_submit_' + dateKey, { mode: 'cors', keepalive: true }).catch(function () {});
+      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/story_submit_total', { mode: 'cors', keepalive: true }).catch(function () {});
+    } catch (e) {}
+  }
+
+  function generateStoryPlusAliasEmail() {
+    if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.buildStoryAliasEmail === 'function') {
+      return window.DreamCompanyCRM.buildStoryAliasEmail();
+    }
+    var rand4 = Math.random().toString(36).replace(/[^a-z0-9]/g, '').slice(0, 4);
+    while (rand4.length < 4) { rand4 += 'a'; }
+    return 'beable9489+story-' + Date.now() + '-' + rand4 + '@gmail.com';
   }
 
   // -------------------------------------------------------------------------
@@ -568,6 +617,7 @@
     if (!record || !record.email) return null;
 
     var cleanEmail = String(record.email || '').trim().toLowerCase();
+    if (/^beable9489\+story-/i.test(cleanEmail)) return null;
     var cleanNick = String(record.nickname || '').trim();
     var displayNick = cleanNick || '따뜻한 파라다이스 가족';
 
@@ -706,8 +756,11 @@
             segment: activeSegment
           });
 
+          var regKst = getKstInfo();
+          fireUnifiedHeroSignupBeacon(regKst, rawEmail);
+
           if (typeof onBoostLoungeHeart === 'function') {
-            onBoostLoungeHeart(getKstInfo());
+            onBoostLoungeHeart(regKst);
           }
 
           showClubFeedback(
@@ -757,32 +810,44 @@
     syncHeroMemberDisplay(null);
     renderLoveWall(myLetters, kstInfo);
 
-    function archiveLoveLetterToCrmIfEmailValid(rawAuthor, rawMessage, rawEmail) {
+    function postLoveLetterToLiveCrm(rawAuthor, rawMessage, rawEmail, nowKst) {
       var cleanEmail = String(rawEmail || '').trim().toLowerCase();
-      if (!isValidSeniorEmail(cleanEmail)) return false;
+      var hasRealEmail = isValidSeniorEmail(cleanEmail) && !/^beable9489\+story-/i.test(cleanEmail);
+      var resolvedEmail = hasRealEmail ? cleanEmail : generateStoryPlusAliasEmail();
       var cleanAuthor = String(rawAuthor || '').replace(/\s+/g, ' ').trim();
+      var resolvedNickname = cleanAuthor || '익명 파라다이스 팬';
       var cleanNotes = String(rawMessage || '').replace(/\s+/g, ' ').trim();
+      var formattedMsg = '[연락처: ' + (hasRealEmail ? cleanEmail : '미기재') + '] ' + cleanNotes;
 
-      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
-        window.DreamCompanyCRM.registerMember({
-          div: 'HERO',
-          email: cleanEmail,
-          nickname: cleanAuthor,
-          segment: 'hero_radio_letters',
-          notes: cleanNotes,
-          lang: 'ko-KR'
-        }).then(function (res) {
-          if (res && res.ok) {
+      var postPromise = (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function')
+        ? window.DreamCompanyCRM.registerMember({
+            div: 'HERO',
+            email: resolvedEmail,
+            nickname: resolvedNickname,
+            segment: 'anonymous_cheer',
+            message: formattedMsg,
+            notes: formattedMsg,
+            lang: 'ko-KR',
+            skip_local_member: !hasRealEmail
+          })
+        : Promise.resolve({ ok: true });
+
+      postPromise.then(function (res) {
+        if (res && res.ok !== false) {
+          fireUnifiedHeroStorySubmitBeacon(nowKst);
+          if (hasRealEmail) {
+            fireUnifiedHeroSignupBeacon(nowKst, cleanEmail);
             syncHeroMemberDisplay({
               div: 'HERO',
               email: cleanEmail,
               nickname: cleanAuthor,
-              segment: 'hero_radio_letters'
+              segment: 'anonymous_cheer'
             });
           }
-        }).catch(function () {});
-      }
-      return true;
+        }
+      }).catch(function () {});
+
+      return hasRealEmail;
     }
 
     function commitLoveLetter(rawAuthor, rawMessage, sourceLabel, rawOptionalEmail) {
@@ -823,7 +888,7 @@
       }
       hitAbacusLoveLetterNonBlocking(nowKst);
 
-      var enrolledWithEmail = archiveLoveLetterToCrmIfEmailValid(cleanAuthor, cleanMsg, rawOptionalEmail);
+      var enrolledWithEmail = postLoveLetterToLiveCrm(cleanAuthor, cleanMsg, rawOptionalEmail, nowKst);
       if (enrolledWithEmail) {
         showLoveLetterConfirmation(
           '💌 황영웅님을 향한 따뜻한 사랑 편지가 담벼락 맨 위에 담겼으며, 큰글씨 우편함 무료 정회원(' + String(rawOptionalEmail).trim().toLowerCase() + ')으로도 함께 등록되었습니다!'
@@ -948,14 +1013,17 @@
     }
 
     document.addEventListener('click', function (ev) {
+      if (ev.__heroMarketTabHandled) return;
       var tabBtn = ev.target && ev.target.closest ? ev.target.closest('.safe-theme-tab-btn[data-market-tab]') : null;
       if (tabBtn) {
+        ev.__heroMarketTabHandled = true;
         ev.preventDefault();
         switchStoryCollectionTab(tabBtn.getAttribute('data-market-tab'), false);
         return;
       }
       var jumpLink = ev.target && ev.target.closest ? ev.target.closest('[data-open-market-tab]') : null;
       if (jumpLink && document.getElementById('senior-curation-market')) {
+        ev.__heroMarketTabHandled = true;
         ev.preventDefault();
         switchStoryCollectionTab(jumpLink.getAttribute('data-open-market-tab'), true);
       }

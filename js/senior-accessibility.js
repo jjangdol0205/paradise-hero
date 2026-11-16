@@ -45,7 +45,7 @@
       document.body.classList.add(current.className);
     }
 
-    const buttons = document.querySelectorAll('button.btn-font-scaler');
+    const buttons = document.querySelectorAll('#btn-font-scaler, button.btn-font-scaler');
     buttons.forEach((btn) => {
       btn.innerHTML = `<span aria-hidden="true">🔍</span> ${current.label}`;
       btn.setAttribute('aria-label', `화면 글자 크기 조절 (현재: ${current.toast})`);
@@ -328,7 +328,7 @@
             💬 카카오톡 단톡방·친구에게 이 사진 바로 보내기 👉
           </button>
           <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:64px; margin-bottom:10px; padding:12px 16px; border-radius:14px; background:#03C75A; color:#FFFFFF; border:2px solid #065F46; font-size:20px; font-weight:900; text-decoration:none; text-align:center;">
-            🟢 네이버페이(Npay) 원탭 구매 — 콘서트·건강선물 &amp; 골드VIP 응원템 보기 👉
+            💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~) 👉
           </a>
           <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:64px; margin-bottom:10px; padding:12px 16px; border-radius:14px; background:#B91C1C; color:#FFFFFF; border:2px solid #FDE68A; font-size:20px; font-weight:900; text-decoration:none; text-align:center;">
             💿 황영웅 정품 음반·효도USB·응원굿즈 쿠팡 공식관 보기 👉
@@ -359,13 +359,97 @@
     modal.classList.add('open');
   }
 
+  function isInAppVoiceBlockedWebView() {
+    const ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
+    return /Instagram|FBAN|FBAV|KAKAOTALK/i.test(ua);
+  }
+
+  function buildChromeExternalIntentUrl() {
+    const loc = (typeof window !== 'undefined' && window.location) ? window.location : null;
+    const host = (loc && loc.host) ? loc.host : 'paradise-hero.com';
+    const path = (loc && loc.pathname) ? loc.pathname : '/story.html';
+    const search = (loc && loc.search) ? loc.search : '';
+    return 'intent://' + host + path + search + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+
+  function openInAppVoiceBrowserModal(focusTargetId) {
+    let modal = document.getElementById('inapp-voice-browser-modal');
+    const currentUrl = (typeof window !== 'undefined' && window.location && window.location.href)
+      ? window.location.href
+      : 'https://paradise-hero.com/story.html';
+    const chromeIntentUrl = buildChromeExternalIntentUrl();
+
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'inapp-voice-browser-modal';
+      modal.className = 'kakao-king-modal-backdrop';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-label', '외부 인터넷 창으로 열기 안내');
+      modal.innerHTML = `
+        <div class="kakao-king-modal-card" style="max-width: 560px; text-align: left;">
+          <div style="font-size: 25px; font-weight: 900; color: #0E2820; margin-bottom: 12px; text-align: center; line-height: 1.4;">
+            🎙️ 마이크 음성 입력을 쓰시려면<br>외부 인터넷 창으로 열어주세요!
+          </div>
+          <p style="font-size: 20px; color: #1F2937; font-weight: 700; line-height: 1.65; margin: 0 0 16px;">
+            현재 보고 계신 <strong>카카오톡 · 인스타그램 앱 안의 임시 창</strong>에서는 보안 정책 때문에 휴대폰 마이크(음성 받아쓰기)가 작동하지 않습니다.
+          </p>
+          <a id="btn-inapp-open-chrome" href="${chromeIntentUrl}" style="display: flex; align-items: center; justify-content: center; width: 100%; min-height: 64px; padding: 14px 18px; margin-bottom: 14px; border-radius: 14px; background: #1B4D3E; color: #FFFFFF; border: 3px solid #D4AF37; font-size: 20px; font-weight: 900; text-decoration: none; text-align: center; line-height: 1.4;">
+            🌐 삼성·안드로이드폰: 크롬(Chrome) 창으로 1초 열기 👉
+          </a>
+          <div style="background: #FFFBEB; border: 2px solid #F59E0B; border-radius: 14px; padding: 16px; margin-bottom: 14px; font-size: 20px; color: #1F2937; line-height: 1.65;">
+            <strong style="color: #92400E; display: block; margin-bottom: 6px;">🍎 아이폰(iOS)에서 여시는 방법:</strong>
+            화면 <strong>우측 하단 ⋯ 또는 공유 버튼 ➜ Safari로 열기</strong>를 누르시거나, 아래 <strong>주소 복사하기</strong> 버튼을 눌러 사파리 주소창에 붙여넣어 주세요!
+          </div>
+          <button type="button" id="btn-inapp-copy-url" style="display: flex; align-items: center; justify-content: center; width: 100%; min-height: 64px; padding: 14px 18px; margin-bottom: 10px; border-radius: 14px; background: #FEE500; color: #191919; border: 2px solid #D97706; font-size: 20px; font-weight: 900; cursor: pointer;">
+            📋 주소 복사하기
+          </button>
+          <button type="button" id="btn-inapp-use-keyboard" style="display: flex; align-items: center; justify-content: center; width: 100%; min-height: 64px; padding: 14px 18px; border-radius: 14px; background: #F3F4F6; color: #1F2937; border: 2px solid #9CA3AF; font-size: 20px; font-weight: 900; cursor: pointer;">
+            ⌨️ 그냥 키보드로 편하게 적기
+          </button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    const chromeLink = modal.querySelector('#btn-inapp-open-chrome');
+    if (chromeLink) {
+      chromeLink.setAttribute('href', chromeIntentUrl);
+    }
+
+    if (!modal.getAttribute('data-bound')) {
+      modal.setAttribute('data-bound', '1');
+      modal.addEventListener('click', function (ev) {
+        if (ev.target.closest('#btn-inapp-copy-url')) {
+          ev.preventDefault();
+          copyTextToClipboard(currentUrl).then(function () {
+            showSeniorToast('✅ 사연장 주소가 복사되었습니다! 크롬이나 Safari 주소창에 붙여넣어 주세요 💚');
+          });
+          return;
+        }
+        if (ev.target === modal || ev.target.closest('#btn-inapp-use-keyboard')) {
+          ev.preventDefault();
+          modal.classList.remove('open');
+          modal.style.display = '';
+          const targetEl = focusTargetId ? document.getElementById(focusTargetId) : document.getElementById('story-content');
+          if (targetEl && typeof targetEl.focus === 'function') {
+            targetEl.focus();
+          }
+        }
+      });
+    }
+
+    modal.style.display = 'flex';
+    modal.classList.add('open');
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const initialIndex = loadSavedLevel();
     applyLevel(initialIndex, false);
     hydrateGlobalBillboardTicker();
 
     document.addEventListener('click', (e) => {
-      const fontBtn = e.target.closest('button.btn-font-scaler');
+      const fontBtn = e.target.closest('#btn-font-scaler, button.btn-font-scaler');
       if (fontBtn) {
         e.preventDefault();
         toggleNextLevel();
@@ -385,7 +469,10 @@
     getCurrentLevel: () => currentLevelIndex,
     setLevel: (idx) => applyLevel(idx, false),
     toggleNext: toggleNextLevel,
-    showToast: showSeniorToast
+    showToast: showSeniorToast,
+    isInAppVoiceBlockedWebView: isInAppVoiceBlockedWebView,
+    buildChromeExternalIntentUrl: buildChromeExternalIntentUrl,
+    openInAppVoiceBrowserModal: openInAppVoiceBrowserModal
   };
 
   window.ParadiseKakaoBookmark = {
@@ -403,38 +490,62 @@
   };
 })();
 
-/* === HQ Edge Real-Human Visitor & Conversion KPI Tracker (hero_paradisekr) === */
+/* === HQ Edge Real-Human Visitor & Conversion KPI Tracker (hero_paradisekr ONLY) === */
 (function () {
   'use strict';
   try {
     if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
     if (window.__HQ_BEACON_SENT_hero_paradisekr__) return;
     window.__HQ_BEACON_SENT_hero_paradisekr__ = true;
-    var ua = navigator.userAgent || '';
-    if (navigator.webdriver || /jsdom|bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) return;
-    var host = (location && location.hostname) || '';
-    if (!host || host === 'localhost' || host === '127.0.0.1') return;
-    var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+
     var ns = 'hero_paradisekr';
+    function getKstDateStr() {
+      return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+    }
+    window.getHeroKstDate = getKstDateStr;
+
+    var ua = navigator.userAgent || '';
+    var isAutomatedOrLocal = Boolean(
+      navigator.webdriver ||
+      /jsdom|bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua) ||
+      !location ||
+      !location.hostname ||
+      location.hostname === 'localhost' ||
+      location.hostname === '127.0.0.1'
+    );
+
     function hitMetric(key) {
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/' + key + '_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
+      if (!key || isAutomatedOrLocal || typeof fetch !== 'function') return;
+      var kstNow = getKstDateStr();
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/' + key + '_' + kstNow, { mode: 'cors', keepalive: true }).catch(function () {});
       fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/' + key + '_total', { mode: 'cors', keepalive: true }).catch(function () {});
     }
     window.__hitParadiseHeroMetric = hitMetric;
+    window.hitHeroBeacon = hitMetric;
 
-    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
-    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function () {});
-    if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
-      localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
+    function hitSignupMetric(emailForDedupe) {
+      if (isAutomatedOrLocal || typeof fetch !== 'function') return;
+      var kstNow = getKstDateStr();
+      var dedupeKey = 'hq_signup_' + ns + '_' + kstNow + '_' + String(emailForDedupe || '').trim().toLowerCase();
+      try {
+        if (emailForDedupe && localStorage.getItem(dedupeKey) === '1') return;
+        if (emailForDedupe) localStorage.setItem(dedupeKey, '1');
+      } catch (e) {}
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kstNow, { mode: 'cors', keepalive: true }).catch(function () {});
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', { mode: 'cors', keepalive: true }).catch(function () {});
     }
-    if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {
-      localStorage.setItem('hq_uv_ever_' + ns, '1');
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', { mode: 'cors', keepalive: true }).catch(function () {});
+    window.hitHeroSignupBeacon = hitSignupMetric;
+
+    function hitStorySubmitMetric() {
+      if (isAutomatedOrLocal || typeof fetch !== 'function') return;
+      var kstNow = getKstDateStr();
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/story_submit_' + kstNow, { mode: 'cors', keepalive: true }).catch(function () {});
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/story_submit_total', { mode: 'cors', keepalive: true }).catch(function () {});
     }
+    window.hitHeroStorySubmitBeacon = hitStorySubmitMetric;
 
     // Normalize any legacy direct www.coupang.com search links to official AFFSRP redirect
-    // + Hydrate Morning Briefing KST Date & 4-Theme Safe Market Tabs
+    // + Hydrate Morning Briefing KST Date & 4-Theme Safe Market Tabs (runs even on localhost)
     document.addEventListener('DOMContentLoaded', function () {
       var links = document.querySelectorAll('a[href*="coupang.com/np/search"]');
       links.forEach(function (a) {
@@ -479,8 +590,10 @@
       }
 
       document.addEventListener('click', function (ev) {
+        if (ev.__heroMarketTabHandled) return;
         var tabBtn = ev.target && ev.target.closest ? ev.target.closest('.safe-theme-tab-btn[data-market-tab]') : null;
         if (tabBtn) {
+          ev.__heroMarketTabHandled = true;
           ev.preventDefault();
           activateSafeMarketTab(tabBtn.getAttribute('data-market-tab'), false);
           return;
@@ -489,6 +602,7 @@
         if (jumpBtn) {
           var targetTab = jumpBtn.getAttribute('data-open-market-tab');
           if (document.getElementById('senior-curation-market')) {
+            ev.__heroMarketTabHandled = true;
             ev.preventDefault();
             activateSafeMarketTab(targetTab, true);
           }
@@ -496,25 +610,45 @@
       });
     });
 
+    if (isAutomatedOrLocal) return;
+
+    var kst = getKstDateStr();
+    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
+    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function () {});
+    try {
+      if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
+        localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
+      }
+      if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {
+        localStorage.setItem('hq_uv_ever_' + ns, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      }
+    } catch (e) {}
+
     function hitShopAndReferral(extraKey) {
       hitMetric('ref_click');
       hitMetric('shop_click');
       if (extraKey) hitMetric(extraKey);
-      // Mirror to hero_paradisehero namespace for HQ visitor ledger continuity
-      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisehero/ref_click_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
-      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisehero/shop_click_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
     }
+
+    var lastBeaconClickTs = 0;
+    var lastBeaconEl = null;
 
     document.addEventListener('click', function (e) {
       var el = e.target && e.target.closest ? e.target.closest('a, button, [role="button"]') : null;
       if (!el) return;
+      var nowTs = Date.now();
+      if (lastBeaconEl === el && nowTs - lastBeaconClickTs < 400) return;
+      lastBeaconClickTs = nowTs;
+      lastBeaconEl = el;
+
       var href = (el.getAttribute('href') || '').toLowerCase();
       var onclick = (el.getAttribute('onclick') || '').toLowerCase();
       if (href.indexOf('cshop.naver.com/paradiseshop') !== -1 || href.indexOf('brandconnect.naver.com/affiliates/') !== -1) {
         hitShopAndReferral('aff_naver_cshop');
       } else if (href.indexOf('influencers.coupang.com/s/paradisehero') !== -1) {
         hitShopAndReferral('aff_coupang_influencer');
-        hitMetric('aff_coupang');
       } else if (href.indexOf('coupang.com') !== -1) {
         hitShopAndReferral('aff_coupang');
       } else if (href.indexOf('linkprice.com') !== -1 || href.indexOf('kr.iherb.com') !== -1 || href.indexOf('myrealt.rip') !== -1 || href.indexOf('naver.me/') !== -1) {

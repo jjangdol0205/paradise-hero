@@ -64,6 +64,8 @@ const sitemapContent = fs.readFileSync(path.join(ROOT_DIR, 'sitemap.xml'), 'utf-
 ALL_HTML_PAGES.forEach(({ canonical }) => {
   assert.ok(sitemapContent.includes(`<loc>${canonical}</loc>`), `sitemap.xml must register ${canonical}`);
 });
+assert.ok(sitemapContent.includes('<loc>https://paradise-hero.com/columns/</loc>'), 'sitemap.xml must register normalized https://paradise-hero.com/columns/');
+assert.ok(!sitemapContent.includes('/index.html</loc>'), 'sitemap.xml must NOT contain /index.html folder URLs');
 
 const rssContent = fs.readFileSync(path.join(ROOT_DIR, 'rss.xml'), 'utf-8');
 assert.ok(rssContent.includes('<rss version="2.0"') && !rssContent.includes('10대 왕자'));

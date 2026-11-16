@@ -154,8 +154,81 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 2. Web Speech API Voice Dictation
+  // 2. Web Speech API Voice Dictation + In-App WebView External Browser Modal
   // ---------------------------------------------------------------------------
+  function isInAppBlockedWebView() {
+    var ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
+    return /Instagram|FBAN|FBAV|KAKAOTALK/i.test(ua);
+  }
+
+  function buildDynamicChromeIntentUrl() {
+    var loc = (typeof window !== 'undefined' && window.location) ? window.location : null;
+    var host = (loc && loc.host) ? loc.host : 'paradise-hero.com';
+    var path = (loc && loc.pathname) ? loc.pathname : '/story.html';
+    var search = (loc && loc.search) ? loc.search : '';
+    return 'intent://' + host + path + search + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+
+  function copyCurrentUrlFallback(urlStr) {
+    if (typeof navigator !== 'undefined' && navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      return navigator.clipboard.writeText(urlStr).catch(function () { return false; });
+    }
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = urlStr;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      return Promise.resolve(true);
+    } catch (e) {
+      return Promise.resolve(false);
+    }
+  }
+
+  function openInAppVoiceFallbackModal() {
+    if (typeof window !== 'undefined' && window.SeniorAccessibility && typeof window.SeniorAccessibility.openInAppVoiceBrowserModal === 'function') {
+      window.SeniorAccessibility.openInAppVoiceBrowserModal('story-content');
+      return;
+    }
+    if (typeof document === 'undefined' || !document.body) return;
+
+    var modal = document.getElementById('inapp-voice-browser-modal');
+    var chromeIntent = buildDynamicChromeIntentUrl();
+    var shareHref = (typeof window !== 'undefined' && window.location && window.location.href)
+      ? window.location.href
+      : 'https://paradise-hero.com/story.html';
+
+    if (modal) {
+      var chromeBtn = modal.querySelector('#btn-inapp-open-chrome');
+      if (chromeBtn) chromeBtn.setAttribute('href', chromeIntent);
+      if (!modal.getAttribute('data-bound')) {
+        modal.setAttribute('data-bound', '1');
+        modal.addEventListener('click', function (ev) {
+          if (ev.target && ev.target.closest && ev.target.closest('#btn-inapp-copy-url')) {
+            ev.preventDefault();
+            copyCurrentUrlFallback(shareHref).then(function () {
+              alert('✅ 사연장 주소가 복사되었습니다! 크롬이나 Safari 주소창에 붙여넣기 해주세요.');
+            });
+            return;
+          }
+          if (ev.target === modal || (ev.target && ev.target.closest && ev.target.closest('#btn-inapp-use-keyboard'))) {
+            ev.preventDefault();
+            modal.classList.remove('open');
+            modal.style.display = 'none';
+            var contentArea = document.getElementById('story-content');
+            if (contentArea) contentArea.focus();
+          }
+        });
+      }
+      modal.style.display = 'flex';
+      modal.classList.add('open');
+    }
+  }
+
   function initVoiceDictation() {
     const btnVoice = document.getElementById('btn-voice-dictation');
     const statusText = document.getElementById('voice-dictation-status');
@@ -163,58 +236,75 @@
 
     if (!btnVoice || !textarea) return;
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = (typeof window !== 'undefined')
+      ? (window.SpeechRecognition || window.webkitSpeechRecognition)
+      : null;
 
-    if (!SpeechRecognition) {
-      if (statusText) {
-        statusText.textContent = '현재 사용하시는 브라우저는 음성 입력을 지원하지 않습니다. 키보드로 편안히 작성해주세요.';
-      }
-      btnVoice.style.opacity = '0.7';
-      return;
+    if (isInAppBlockedWebView() && statusText) {
+      statusText.textContent = '💡 카카오톡·인스타그램 창에서는 위 버튼을 누르시면 크롬·사파리 음성 입력 안내가 열립니다.';
+    } else if (!SpeechRecognition && statusText) {
+      statusText.textContent = '현재 사용하시는 브라우저는 음성 입력을 지원하지 않습니다. 키보드로 편안히 작성해주세요.';
     }
 
-    speechRecognitionInstance = new SpeechRecognition();
-    speechRecognitionInstance.lang = 'ko-KR';
-    speechRecognitionInstance.continuous = true;
-    speechRecognitionInstance.interimResults = true;
+    if (SpeechRecognition) {
+      speechRecognitionInstance = new SpeechRecognition();
+      speechRecognitionInstance.lang = 'ko-KR';
+      speechRecognitionInstance.continuous = true;
+      speechRecognitionInstance.interimResults = true;
 
-    speechRecognitionInstance.onstart = function () {
-      isSpeechRecording = true;
-      btnVoice.classList.add('recording-active');
-      btnVoice.innerHTML = '<span aria-hidden="true">⏹️</span> <span>말씀 다 하셨으면 여기를 눌러주세요 (듣는 중...)</span>';
-      if (statusText) {
-        statusText.textContent = '🎙️ 어머님의 고운 말씀을 잘 듣고 있습니다. 편안하게 천천히 말씀하세요...';
-        statusText.style.color = 'var(--brand-emerald)';
-        statusText.style.fontWeight = '700';
-      }
-    };
-
-    speechRecognitionInstance.onresult = function (event) {
-      let finalTranscript = '';
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        if (event.results[i].isFinal) {
-          finalTranscript += event.results[i][0].transcript + ' ';
+      speechRecognitionInstance.onstart = function () {
+        isSpeechRecording = true;
+        btnVoice.classList.add('recording-active');
+        btnVoice.innerHTML = '<span aria-hidden="true">⏹️</span> <span>말씀 다 하셨으면 여기를 눌러주세요 (듣는 중...)</span>';
+        if (statusText) {
+          statusText.textContent = '🎙️ 어머님의 고운 말씀을 잘 듣고 있습니다. 편안하게 천천히 말씀하세요...';
+          statusText.style.color = 'var(--brand-emerald)';
+          statusText.style.fontWeight = '700';
         }
-      }
-      if (finalTranscript) {
-        const currentVal = textarea.value.trim();
-        textarea.value = currentVal ? currentVal + ' ' + finalTranscript.trim() : finalTranscript.trim();
-      }
-    };
+      };
 
-    speechRecognitionInstance.onerror = function (event) {
-      console.warn('SpeechRecognition error:', event.error);
-      stopVoiceRecording();
-      if (statusText) {
-        statusText.textContent = '음성 인식 중 잠시 안내: 마이크 권한을 확인해 주시거나 키보드로 작성해 주세요.';
-      }
-    };
+      speechRecognitionInstance.onresult = function (event) {
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript + ' ';
+          }
+        }
+        if (finalTranscript) {
+          const currentVal = textarea.value.trim();
+          textarea.value = currentVal ? currentVal + ' ' + finalTranscript.trim() : finalTranscript.trim();
+        }
+      };
 
-    speechRecognitionInstance.onend = function () {
-      stopVoiceRecording();
-    };
+      speechRecognitionInstance.onerror = function (event) {
+        console.warn('SpeechRecognition error:', event.error);
+        stopVoiceRecording();
+        if (isInAppBlockedWebView()) {
+          openInAppVoiceFallbackModal();
+          return;
+        }
+        if (statusText) {
+          statusText.textContent = '음성 인식 중 잠시 안내: 마이크 권한을 확인해 주시거나 키보드로 작성해 주세요.';
+        }
+      };
+
+      speechRecognitionInstance.onend = function () {
+        stopVoiceRecording();
+      };
+    }
 
     btnVoice.addEventListener('click', function () {
+      if (isInAppBlockedWebView()) {
+        openInAppVoiceFallbackModal();
+        return;
+      }
+      if (!SpeechRecognition || !speechRecognitionInstance) {
+        if (statusText) {
+          statusText.textContent = '현재 브라우저는 음성 입력을 지원하지 않습니다. 크롬(Chrome)으로 여시거나 키보드로 작성해 주세요.';
+        }
+        textarea.focus();
+        return;
+      }
       if (!isSpeechRecording) {
         try {
           speechRecognitionInstance.start();
@@ -274,11 +364,125 @@
     return { valid: true };
   }
 
+  function generateStoryAliasEmail() {
+    if (typeof window !== 'undefined' && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.buildStoryAliasEmail === 'function') {
+      return window.DreamCompanyCRM.buildStoryAliasEmail();
+    }
+    var rand4 = Math.random().toString(36).replace(/[^a-z0-9]/g, '').slice(0, 4);
+    while (rand4.length < 4) { rand4 += 'a'; }
+    return 'beable9489+story-' + Date.now() + '-' + rand4 + '@gmail.com';
+  }
+
+  function fireStorySubmitBeacons(hasRealEmail, cleanEmail) {
+    try {
+      if (typeof window !== 'undefined' && typeof window.hitHeroStorySubmitBeacon === 'function') {
+        window.hitHeroStorySubmitBeacon();
+        if (hasRealEmail && typeof window.hitHeroSignupBeacon === 'function') {
+          window.hitHeroSignupBeacon(cleanEmail);
+        }
+        return;
+      }
+      if (typeof fetch !== 'function' || typeof navigator === 'undefined') return;
+      var ua = navigator.userAgent || '';
+      if (navigator.webdriver || /jsdom|bot|crawl|spider|slurp|headless|lighthouse|python|curl|node|axios/i.test(ua)) return;
+      var host = (typeof window !== 'undefined' && window.location && window.location.hostname) || '';
+      if (!host || host === 'localhost' || host === '127.0.0.1') return;
+
+      var kstDate = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/story_submit_' + kstDate, { mode: 'cors', keepalive: true }).catch(function () {});
+      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/story_submit_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      if (hasRealEmail) {
+        fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/signup_' + kstDate, { mode: 'cors', keepalive: true }).catch(function () {});
+        fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/signup_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      }
+    } catch (e) {}
+  }
+
+  function syncStoryToLiveAppsScript(formData) {
+    try {
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      var candidateEmail = String(formData.email || '').trim().toLowerCase();
+      var contactAsEmail = String(formData.contact || '').trim().toLowerCase();
+      var realEmail = '';
+      if (emailRegex.test(candidateEmail) && !/^beable9489\+story-/i.test(candidateEmail)) {
+        realEmail = candidateEmail;
+      } else if (emailRegex.test(contactAsEmail) && !/^beable9489\+story-/i.test(contactAsEmail)) {
+        realEmail = contactAsEmail;
+      }
+      var hasRealEmail = Boolean(realEmail);
+      var resolvedEmail = hasRealEmail ? realEmail : generateStoryAliasEmail();
+      var resolvedNickname = String(formData.sender || '').trim() || '익명 파라다이스 팬';
+      var fullStoryText = '[신청곡: ' + (formData.song || '당신 편') + '] [제목: ' + formData.title + '] ' + formData.content;
+      var formattedMsg = '[연락처: ' + (formData.contact || '미기재') + '] ' + fullStoryText;
+
+      if (typeof window !== 'undefined' && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+        return window.DreamCompanyCRM.registerMember({
+          div: 'HERO',
+          email: resolvedEmail,
+          nickname: resolvedNickname,
+          segment: 'story_box',
+          message: formattedMsg,
+          notes: formattedMsg,
+          lang: 'ko-KR',
+          skip_local_member: !hasRealEmail
+        }).then(function (res) {
+          if (res && res.ok !== false) {
+            fireStorySubmitBeacons(hasRealEmail, realEmail);
+          }
+          return res;
+        }).catch(function () {
+          fireStorySubmitBeacons(hasRealEmail, realEmail);
+        });
+      }
+
+      // Direct fallback to /hq-mailing-endpoint.json if CRM script wasn't loaded
+      if (typeof fetch === 'function') {
+        var payload = {
+          action: 'register_member',
+          div: 'HERO',
+          email: resolvedEmail,
+          nickname: resolvedNickname,
+          segment: 'story_box',
+          message: formattedMsg,
+          notes: formattedMsg,
+          lang: 'ko-KR',
+          source_url: (typeof window !== 'undefined' && window.location && window.location.href) ? window.location.href : '',
+          client_ts: new Date().toISOString()
+        };
+        return fetch('/hq-mailing-endpoint.json', { cache: 'no-store' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (cfg) {
+            if (cfg && cfg.webapp_exec_url) {
+              return fetch(cfg.webapp_exec_url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload),
+                redirect: 'follow'
+              });
+            }
+          })
+          .then(function () {
+            fireStorySubmitBeacons(hasRealEmail, realEmail);
+          })
+          .catch(function () {
+            try {
+              var q = JSON.parse(localStorage.getItem('dc_crm_sync_queue_v1') || '[]');
+              q.push(payload);
+              localStorage.setItem('dc_crm_sync_queue_v1', JSON.stringify(q.slice(-25)));
+            } catch (_) {}
+            fireStorySubmitBeacons(hasRealEmail, realEmail);
+          });
+      }
+    } catch (e) {}
+    return Promise.resolve();
+  }
+
   function handleStoryFormSubmit(e) {
     if (e) e.preventDefault();
 
     const senderInput = document.getElementById('story-sender');
     const contactInput = document.getElementById('story-contact');
+    const emailInput = document.getElementById('story-email');
     const songSelect = document.getElementById('story-song');
     const titleInput = document.getElementById('story-title');
     const contentInput = document.getElementById('story-content');
@@ -294,6 +498,7 @@
     const formData = {
       sender: senderInput.value.trim(),
       contact: contactInput ? contactInput.value.trim() : '',
+      email: emailInput ? emailInput.value.trim() : '',
       song: songSelect ? songSelect.value : '당신 편',
       title: titleInput.value.trim(),
       content: contentInput.value.trim()
@@ -329,6 +534,9 @@
     } catch (err) {
       console.warn('localStorage save failed:', err);
     }
+
+    // Real-time POST to live Google Apps Script CRM + unified hero_paradisekr beacon
+    syncStoryToLiveAppsScript(formData);
 
     // Hide form, show success box
     const formEl = document.getElementById('story-submission-form');
@@ -577,6 +785,9 @@
     validateStorySubmission: validateStorySubmission,
     maskContact: maskContact,
     switchTab: switchTab,
+    isInAppBlockedWebView: isInAppBlockedWebView,
+    openInAppVoiceFallbackModal: openInAppVoiceFallbackModal,
+    generateStoryAliasEmail: generateStoryAliasEmail,
     SEED_STORIES: SEED_STORIES
   };
 })();

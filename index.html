@@ -75,7 +75,7 @@
         <a href="vip.html" class="btn-vip-header-link" style="background-color: #0E2820; color: #D4AF37; border-color: #D4AF37; text-decoration: none;">
           <span aria-hidden="true">🎁</span> 무료 선물제작소
         </a>
-        <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 20px)">
+        <button type="button" id="btn-font-scaler" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 20px)">
           <span aria-hidden="true">🔍</span> 글자크게 가+
         </button>
       </div>
@@ -229,6 +229,58 @@
           <span>김쌤의 다른 따뜻한 안부 편지도 읽어보기 👉</span>
         </button>
       </article>
+
+      <!-- 📻 최상단 전면 배치: 김쌤의 영웅 라디오 15분 본방송 16:9 보이는 유튜브 플레이어 (오늘의 안부 편지 직하단) -->
+      <section id="hero-radio-section" class="senior-card" aria-labelledby="radio-player-heading" style="margin: 20px 0 22px; border: 3px solid var(--brand-gold); background: #FFFDF5;">
+        <div class="section-title-wrap">
+          <span class="section-badge">📻 화면을 누르면 바로 15분 사연 방송이 나옵니다</span>
+          <h3 id="radio-player-heading" class="section-title">김쌤의 영웅 라디오 15분 본방송 바로듣기</h3>
+          <p class="section-desc" id="main-youtube-title">
+            📺 현재 선택된 방송: 1화: [사연라디오] 내 인생의 사계절을 울린 황영웅의 목소리 — 파라다이스에 찾아온 봄 (11:45)
+          </p>
+        </div>
+
+        <div class="video-embed-container">
+          <iframe
+            id="main-youtube-embed"
+            src="https://www.youtube.com/embed/WOPZLb6S1xI?playsinline=1&amp;rel=0&amp;enablejsapi=1"
+            title="김쌤의 영웅 라디오 공식 유튜브 플레이어"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <p style="font-size: 20px; color: var(--brand-emerald-dark); font-weight: 800; margin: 12px 0 18px; text-align: center;">
+          👆 위 영상 한가운데 ▶ 버튼을 누르시거나 아래 1~3화 버튼을 누르시면 시원한 소리와 함께 바로 재생됩니다!
+        </p>
+
+        <div class="btn-block-group">
+          <button type="button" class="senior-btn btn-primary btn-senior-64" data-play-episode="0">
+            <span>▶ 1화: 내 인생의 사계절을 울린 황영웅의 목소리 사연 듣기 (11:45)</span>
+          </button>
+          <button type="button" class="senior-btn btn-outline btn-senior-64" data-play-episode="1">
+            <span>▶ 2화: 앞치마는 잠시 내려놓으세요 — 파라다이스 사연 열차 (12:33)</span>
+          </button>
+          <button type="button" class="senior-btn btn-outline btn-senior-64" data-play-episode="2">
+            <span>▶ 3화: 텅 빈 연습실의 눈물과 파라다이스 두 번째 기적 (12:27)</span>
+          </button>
+        </div>
+
+        <div class="btn-block-group" style="margin-top: 14px;">
+          <a href="radio.html" class="senior-btn btn-gold btn-senior-64">
+            <span aria-hidden="true">📻</span>
+            <span>라디오 롱폼 전편(1~5화) 모두 보러가기 👉</span>
+          </a>
+          <a href="story.html" class="senior-btn btn-outline btn-senior-64">
+            <span aria-hidden="true">💌</span>
+            <span>김쌤 라디오에 내 사연·신청곡 바로 보내기 👉</span>
+          </a>
+          <a href="https://www.youtube.com/@김쌤의영웅라디오?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="senior-btn btn-outline btn-senior-64">
+            <span aria-hidden="true">🔔</span>
+            <span>유튜브 @김쌤의영웅라디오 무료 구독하기 (새창)</span>
+          </a>
+        </div>
+      </section>
 
       <!-- 🔥 실시간 영웅 사랑방 응원 온도계 & 💚 1초 응원 하트 보내기 -->
       <div class="lounge-thermometer-panel" aria-label="실시간 영웅 사랑방 응원 온도계 및 하트 보내기">
@@ -552,7 +604,7 @@
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 12px; margin-bottom: 14px;">
         <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-cshop" style="margin: 0; min-height: 68px; font-size: var(--font-base);">
-          <span>🟢 네이버페이 1초 연결 — 영웅 가족 애장·건강 공식 크리에이터샵 👉</span>
+          <span>💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~) 👉</span>
         </a>
         <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-influencer" style="margin: 0; min-height: 68px; font-size: var(--font-base);">
           <span>🚀 쿠팡 내일 도착 — 정품음반·건강차·보온 응원 컬렉션 보기 👉</span>
@@ -827,57 +879,6 @@
       </p>
     </section>
 
-    <!-- 3. 김쌤의 영웅 라디오 16:9 보이는 유튜브 플레이어 (라디오 들으며 소식·장터 동시 이용) -->
-    <section id="hero-radio-section" class="senior-card" aria-labelledby="radio-player-heading" style="margin-top: 26px;">
-      <div class="section-title-wrap">
-        <span class="section-badge">📻 화면을 누르면 바로 소리가 나옵니다</span>
-        <h2 id="radio-player-heading" class="section-title">김쌤의 영웅 라디오 바로듣기</h2>
-        <p class="section-desc" id="main-youtube-title">
-          📺 현재 선택된 방송: 1화 [보컬분석] 가수 황영웅, 소리 전문가들이 극찬한 명품 중저음의 비밀
-        </p>
-      </div>
-
-      <div class="video-embed-container">
-        <iframe
-          id="main-youtube-embed"
-          src="https://www.youtube.com/embed/lGkMncY4u1o?playsinline=1&amp;rel=0"
-          title="김쌤의 영웅 라디오 공식 유튜브 플레이어"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <p style="font-size: 20px; color: var(--brand-emerald-dark); font-weight: 800; margin: 12px 0 18px; text-align: center;">
-        👆 위 영상 한가운데 버튼을 누르시거나 아래 방송 목록을 누르시면 시원한 소리와 함께 바로 재생됩니다!
-      </p>
-
-      <div class="btn-block-group">
-        <button type="button" class="senior-btn btn-primary btn-senior-64" data-play-episode="0">
-          <span>▶ 1화: 가수 황영웅 명품 중저음 보컬 분석 듣기 (15:20)</span>
-        </button>
-        <button type="button" class="senior-btn btn-outline btn-senior-64" data-play-episode="1">
-          <span>▶ 2화: 황영웅 침묵의 시간들 8부작 인생다큐 듣기 (16:45)</span>
-        </button>
-        <button type="button" class="senior-btn btn-outline btn-senior-64" data-play-episode="2">
-          <span>▶ 3화: 소리 전문가가 분석한 황영웅의 압도적 감성 듣기 (17:10)</span>
-        </button>
-      </div>
-
-      <div class="btn-block-group" style="margin-top: 14px;">
-        <a href="radio.html" class="senior-btn btn-gold btn-senior-64">
-          <span aria-hidden="true">📻</span>
-          <span>라디오 전편(1~5화) 모두 보러가기 👉</span>
-        </a>
-        <a href="#senior-curation-market" data-open-market-tab="warmth" class="btn-coupang-influencer btn-senior-64" style="margin: 0;">
-          <span>💿 오늘 방송 소개 황영웅 정품 음반·보온 애장품 컬렉션 보기 👉</span>
-        </a>
-        <a href="https://www.youtube.com/@김쌤의영웅라디오?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="senior-btn btn-outline btn-senior-64">
-          <span aria-hidden="true">🔔</span>
-          <span>유튜브 @김쌤의영웅라디오 무료 구독하기 (새창)</span>
-        </a>
-      </div>
-    </section>
-
     <!-- 2-2. 오늘의 황영웅 실시간 뉴스 속보 & 활동 소식 (돋보기 없는 큰 글씨) -->
     <section class="senior-card highlight-card" id="home-hero-news" aria-labelledby="hero-news-heading">
       <div class="section-title-wrap">
@@ -992,9 +993,11 @@
           <span aria-hidden="true">🎁</span>
           <span>황영웅 10대 무료 선물제작소 전체 가기 👉</span>
         </a>
-        <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="senior-btn btn-outline" style="border-color: #03C75A; border-width: 3px; background: #F0FDF4; color: #065F46;">
-          <span aria-hidden="true">👑</span>
-          <span>골드 VIP 멤버십 · 응원·건강선물 (월 9,900원~ 네이버페이 원탭 결제) 바로가기 👉</span>
+        <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="senior-btn btn-outline" style="border-color: #03C75A; border-width: 3px; background: #F0FDF4; color: #065F46; min-height: 64px;">
+          <span>💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~) 👉</span>
+        </a>
+        <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="senior-btn btn-outline" style="border-color: #B91C1C; border-width: 2px; background: #FFF5F5; color: #991B1B; min-height: 64px;">
+          <span>💿 황영웅 정품 음반·효도USB·응원굿즈 쿠팡 공식관 바로가기 👉</span>
         </a>
         <a href="story.html" class="senior-btn btn-outline">
           <span aria-hidden="true">💌</span>
@@ -1082,10 +1085,11 @@
   </footer>
 
   <!-- 스크립트 로드 -->
-  <script src="js/senior-accessibility.js?v=20261115c"></script>
-  <script src="js/radio-player.js?v=20261115c"></script>
-  <script>window.HQ_MAILING_CONFIG_PATH = './hq-mailing-endpoint.json';</script>
-  <script src="js/hq_member_crm_client.js"></script>
-  <script src="js/hero-family-lounge.js?v=20261115d"></script>
+  <script src="https://www.youtube.com/iframe_api" async></script>
+  <script src="js/senior-accessibility.js?v=20261116a"></script>
+  <script src="js/radio-player.js?v=20261116a"></script>
+  <script>window.HQ_MAILING_CONFIG_PATH = '/hq-mailing-endpoint.json';</script>
+  <script src="js/hq_member_crm_client.js?v=20261116a"></script>
+  <script src="js/hero-family-lounge.js?v=20261116a"></script>
 </body>
 </html>

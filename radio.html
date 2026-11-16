@@ -87,7 +87,7 @@
         <a href="vip.html" class="btn-vip-header-link" style="background-color: #0E2820; color: #D4AF37; border-color: #D4AF37; text-decoration: none;">
           <span aria-hidden="true">🎁</span> 무료 선물제작소
         </a>
-        <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 20px)">
+        <button type="button" id="btn-font-scaler" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 20px)">
           <span aria-hidden="true">🔍</span> 글자크게 가+
         </button>
       </div>
@@ -133,22 +133,22 @@
   <!-- 본문 컨테이너 -->
   <main id="main-content" class="container">
     <!-- 1. 라디오 채널 소개 & 본문 중앙 16:9 보이는 유튜브 플레이어 (무음 버그 해결) -->
-    <section class="senior-card highlight-card" aria-labelledby="radio-intro-heading">
+    <section id="hero-radio-section" class="senior-card highlight-card" aria-labelledby="radio-intro-heading">
       <div class="section-title-wrap">
         <span class="section-badge">📻 화면을 누르면 바로 소리가 나옵니다</span>
         <h1 id="radio-intro-heading" class="section-title">
           황영웅과 함께 걷는 @김쌤의영웅라디오
         </h1>
         <p class="section-desc" id="main-youtube-title">
-          📺 현재 선택된 방송: 1화 [보컬분석] 가수 황영웅, 소리 전문가들이 극찬한 명품 중저음의 비밀
+          📺 현재 선택된 방송: 1화: [사연라디오] 내 인생의 사계절을 울린 황영웅의 목소리 — 파라다이스에 찾아온 봄 (11:45)
         </p>
       </div>
 
-      <!-- 보이는 16:9 유튜브 공식 임베드 플레이어 -->
+      <!-- 보이는 16:9 유튜브 공식 임베드 플레이어 (IFrame API enablejsapi=1 연동) -->
       <div class="video-embed-container">
         <iframe
           id="main-youtube-embed"
-          src="https://www.youtube.com/embed/lGkMncY4u1o?playsinline=1&amp;rel=0"
+          src="https://www.youtube.com/embed/WOPZLb6S1xI?playsinline=1&amp;rel=0&amp;enablejsapi=1"
           title="김쌤의 영웅 라디오 공식 유튜브 플레이어"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen>
@@ -192,96 +192,96 @@
       </div>
     </section>
 
-    <!-- 2. 회차별 라디오 방송 목록 (실제 유튜브 영상 5편 완벽 연동) -->
+    <!-- 2. 회차별 라디오 방송 목록 (실제 공개 11~17분 롱폼 유튜브 영상 5편 완벽 연동) -->
     <section class="senior-card" aria-labelledby="episode-list-heading">
       <div class="section-title-wrap">
-        <span class="section-badge">🎙 정규 방송 목록 (1~5화)</span>
+        <span class="section-badge">🎙 정규 롱폼 방송 목록 (1~5화)</span>
         <h2 id="episode-list-heading" class="section-title">김쌤의 영웅 라디오 전편 다시듣기</h2>
-        <p class="section-desc">아래 버튼을 누르시면 상단 TV 화면에서 해당 방송이 즉시 재생됩니다.</p>
+        <p class="section-desc">아래 버튼을 누르시면 상단 TV 화면에서 해당 롱폼 본방송이 즉시 재생됩니다.</p>
       </div>
 
-      <!-- 에피소드 1: lGkMncY4u1o -->
+      <!-- 에피소드 1: WOPZLb6S1xI -->
       <div style="background-color: #FAFAF8; border-left: 6px solid var(--brand-gold); padding: 20px; border-radius: 12px; margin-bottom: 18px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <h3 style="font-size: var(--font-subheading); color: var(--brand-emerald-dark); font-weight: 800;">
-            제1화: [보컬분석] 가수 황영웅, 소리 전문가들이 극찬한 명품 중저음의 비밀
+            제1화: [사연라디오] 내 인생의 사계절을 울린 황영웅의 목소리 — 파라다이스에 찾아온 봄
           </h3>
-          <span style="font-size: 17px; color: var(--text-muted); font-weight: 700;">방송 시간 15:20</span>
+          <span style="font-size: 17px; color: var(--text-muted); font-weight: 700;">방송 시간 11:45</span>
         </div>
         <p style="margin-bottom: 12px; color: var(--text-charcoal);">
-          <strong>배경 명곡:</strong> 정규 1집 타이틀곡 〈당신 편〉<br>
-          <strong>방송 소개:</strong> 대한민국 트로트계를 뒤흔든 황영웅 가수의 독보적인 중저음 울림과 흉성 공명 발성을 소리 전문가의 시선으로 깊이 있게 분석하고, 대구 순자 어머니의 사연을 함께 전합니다.
+          <strong>배경 명곡:</strong> 정규 1집 타이틀곡 〈당신 편〉 · 〈꽃구경〉<br>
+          <strong>방송 소개:</strong> 고단했던 세월의 겨울을 지나 우리 어머님들의 사계절을 다시 따뜻하게 피워낸 가수 황영웅의 깊은 중저음과 파라다이스 가족의 눈물 어린 사연을 함께 나눕니다.
         </p>
         <button type="button" class="senior-btn btn-gold" data-play-episode="0" style="width: 100%;">
-          <span>▶ 1화 바로듣기 (화면에서 즉시 재생)</span>
+          <span>▶ 1화 바로듣기 (11분 45초 · 화면에서 즉시 재생)</span>
         </button>
       </div>
 
-      <!-- 에피소드 2: QcrBg7UWg3k -->
+      <!-- 에피소드 2: M26BNE0bSz8 -->
       <div style="background-color: #FAFAF8; border-left: 6px solid var(--brand-emerald); padding: 20px; border-radius: 12px; margin-bottom: 18px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <h3 style="font-size: var(--font-subheading); color: var(--brand-emerald-dark); font-weight: 800;">
-            제2화: 황영웅, 아무도 몰랐던 침묵의 시간들... 빛과 그림자 8부작 풀스토리
+            제2화: [심야사연극] 앞치마는 잠시 내려놓으세요 — 황영웅이 파라다이스에 보낸 사연 열차
           </h3>
-          <span style="font-size: 15px; color: var(--text-muted); font-weight: 700;">방송 시간 16분 45초</span>
+          <span style="font-size: 17px; color: var(--text-muted); font-weight: 700;">방송 시간 12:33</span>
         </div>
         <p style="margin-bottom: 12px; color: var(--text-charcoal);">
-          <strong>배경 명곡:</strong> 미니 1집 대표곡 〈꽃구경〉 · 트로트 인생다큐<br>
-          <strong>방송 소개:</strong> 모진 비바람과 침묵의 시간 속에서도 흔들리지 않고 팬들과의 약속을 지켜낸 가수 황영웅의 눈물겨운 8부작 풀스토리 다큐멘터리입니다.
+          <strong>배경 명곡:</strong> 〈해바라기〉 · 〈함께해요〉<br>
+          <strong>방송 소개:</strong> 평생 가족 뒷바라지하느라 앞치마 벗을 날 없었던 어머님들을 위해, 오늘 저녁만큼은 가장 귀한 주인공으로 모시는 감동 사연 열차를 출발합니다.
         </p>
         <button type="button" class="senior-btn btn-primary" data-play-episode="1" style="width: 100%;">
-          <span>▶ 2화 바로듣기 (화면에서 즉시 재생)</span>
+          <span>▶ 2화 바로듣기 (12분 33초 · 화면에서 즉시 재생)</span>
         </button>
       </div>
 
-      <!-- 에피소드 3: kgkUqsI5d2k -->
+      <!-- 에피소드 3: fqYTY_NZ3Uw -->
       <div style="background-color: #FAFAF8; border-left: 6px solid var(--brand-gold); padding: 20px; border-radius: 12px; margin-bottom: 18px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <h3 style="font-size: var(--font-subheading); color: var(--brand-emerald-dark); font-weight: 800;">
-            제3화: 소리 전문가가 분석한 황영웅의 압도적 감성 이유 (김쌤의 영웅 라디오)
+            제3화: [감동다큐] 텅 빈 연습실의 눈물과 파라다이스가 함께 만든 두 번째 기적
           </h3>
-          <span style="font-size: 15px; color: var(--text-muted); font-weight: 700;">방송 시간 17분 10초</span>
+          <span style="font-size: 17px; color: var(--text-muted); font-weight: 700;">방송 시간 12:27</span>
         </div>
         <p style="margin-bottom: 12px; color: var(--text-charcoal);">
-          <strong>배경 명곡:</strong> 〈인사동 찻집〉 · 〈비나리〉<br>
-          <strong>방송 소개:</strong> 첫 소절만으로도 듣는 이의 가슴을 무너지게 만드는 황영웅 특유의 한(恨)과 호소력, 그리고 5070 어머님들이 열광할 수밖에 없는 음악적 비결을 해설합니다.
+          <strong>배경 명곡:</strong> 〈비상〉 · 〈인생아 고마웠다〉<br>
+          <strong>방송 소개:</strong> 홀로 땀과 눈물을 삼키던 연습실의 시간부터 전국 에메랄드 물결이 일궈낸 감동의 무대까지, 가수와 팬이 서로를 살려낸 기적 같은 동행 기록입니다.
         </p>
         <button type="button" class="senior-btn btn-gold" data-play-episode="2" style="width: 100%;">
-          <span>▶ 3화 바로듣기 (화면에서 즉시 재생)</span>
+          <span>▶ 3화 바로듣기 (12분 27초 · 화면에서 즉시 재생)</span>
         </button>
       </div>
 
-      <!-- 에피소드 4: NArJ2CH2IAw -->
+      <!-- 에피소드 4: wb9IV7eD1p0 -->
       <div style="background-color: #FAFAF8; border-left: 6px solid var(--brand-emerald); padding: 20px; border-radius: 12px; margin-bottom: 18px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <h3 style="font-size: var(--font-subheading); color: var(--brand-emerald-dark); font-weight: 800;">
-            제4화: 황영웅 운명이 뒤바뀐 8주간의 기록 (오디오북 특집)
+            제4화: [인생사연] 낡은 구두와 초록빛 응원봉 — 황영웅이 전하는 진심의 이야기
           </h3>
-          <span style="font-size: 15px; color: var(--text-muted); font-weight: 700;">방송 시간 15분 50초</span>
+          <span style="font-size: 17px; color: var(--text-muted); font-weight: 700;">방송 시간 14:14</span>
         </div>
         <p style="margin-bottom: 12px; color: var(--text-charcoal);">
-          <strong>배경 명곡:</strong> 〈당신꽃〉, 〈황금빛 인생〉<br>
-          <strong>방송 소개:</strong> 무명 시절의 아픔을 딛고 대한민국 최고의 감성 황태자로 우뚝 서기까지, 운명이 뒤바뀐 8주간의 감동 실록을 김쌤의 따뜻한 목소리로 낭독합니다.
+          <strong>배경 명곡:</strong> 〈인사동 찻집〉 · 〈당신꽃〉<br>
+          <strong>방송 소개:</strong> 묵묵히 견뎌온 지난 세월의 흔적과 객석에서 반짝이던 초록빛 응원봉 하나가 어떻게 영웅님의 노래가 되었는지 따뜻한 목소리로 전해드립니다.
         </p>
         <button type="button" class="senior-btn btn-primary" data-play-episode="3" style="width: 100%;">
-          <span>▶ 4화 바로듣기 (화면에서 즉시 재생)</span>
+          <span>▶ 4화 바로듣기 (14분 14초 · 화면에서 즉시 재생)</span>
         </button>
       </div>
 
-      <!-- 에피소드 5: GwJBs6kouow -->
+      <!-- 에피소드 5: nZhCCjhgSIE -->
       <div style="background-color: #FAFAF8; border-left: 6px solid var(--brand-gold); padding: 20px; border-radius: 12px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
           <h3 style="font-size: var(--font-subheading); color: var(--brand-emerald-dark); font-weight: 800;">
-            제5화: 황영웅 귀환 확정 &amp; 파라다이스 총공 특집 브리핑
+            제5화: [명곡해설] 새벽 4시 녹음실, 모두를 울려버린 황영웅의 진심과 신곡 비하인드
           </h3>
-          <span style="font-size: 17px; color: var(--brand-emerald); font-weight: 800;">방송 시간 0:45 (특집 속보 브리핑)</span>
+          <span style="font-size: 17px; color: var(--text-muted); font-weight: 700;">방송 시간 16:59</span>
         </div>
         <p style="margin-bottom: 12px; color: var(--text-charcoal);">
-          <strong>배경 명곡:</strong> 〈함께해요〉, 〈비상〉<br>
-          <strong>방송 소개:</strong> 정규 1집 63만 장 신화를 일궈낸 파라다이스 팬덤의 위대한 결집력과 핵심 응원 브리핑을 45초 특집으로 빠르게 정리해 드립니다.
+          <strong>배경 명곡:</strong> 〈당신 편〉 · 〈가을, 그리움〉<br>
+          <strong>방송 소개:</strong> 새벽 4시까지 한 음절 한 음절 정성을 쏟아 부른 녹음실 비하인드 스토리와 어머님들의 가슴을 울린 명곡 탄생 비화를 깊이 있게 들려드립니다.
         </p>
         <button type="button" class="senior-btn btn-gold" data-play-episode="4" style="width: 100%;">
-          <span>▶ 5화 바로듣기 — 0:45 (특집 속보 브리핑)</span>
+          <span>▶ 5화 바로듣기 (16분 59초 · 화면에서 즉시 재생)</span>
         </button>
       </div>
 
@@ -331,7 +331,7 @@
       </div>
 
       <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-cshop">
-        <span>🟢 네이버페이(Npay)로 편하게 구매하기 — 김쌤 공식 네이버 크리에이터샵 전체보기 👉</span>
+        <span>💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~) 바로가기 👉</span>
       </a>
 
       <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-influencer">
@@ -589,7 +589,10 @@
     </div>
   </footer>
 
-  <script src="js/senior-accessibility.js?v=20261115a"></script>
-  <script src="js/radio-player.js?v=20261115a"></script>
+  <script src="https://www.youtube.com/iframe_api" async></script>
+  <script>window.HQ_MAILING_CONFIG_PATH = '/hq-mailing-endpoint.json';</script>
+  <script src="js/hq_member_crm_client.js?v=20261116a"></script>
+  <script src="js/senior-accessibility.js?v=20261116a"></script>
+  <script src="js/radio-player.js?v=20261116a"></script>
 </body>
 </html>

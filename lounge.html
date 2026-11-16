@@ -10,14 +10,14 @@
   <meta name="description" content="황영웅 공식 팬덤 파라다이스 사랑방. 회원가입 없이 닉네임만으로 남기는 따뜻한 응원 한마디, 매일 출석체크, 그리고 김쌤 라디오 사연 신청 연동.">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <link rel="canonical" href="https://paradise-hero.com/community.html">
+  <link rel="canonical" href="https://paradise-hero.com/lounge.html">
 
   <!-- OpenGraph Metadata -->
   <meta property="og:site_name" content="파라다이스 - 가수 황영웅 팬덤 플랫폼">
   <meta property="og:type" content="website">
   <meta property="og:title" content="파라다이스 사랑방 | 팬 응원 &amp; 출석체크">
   <meta property="og:description" content="황영웅 공식 팬덤 파라다이스 사랑방. 회원가입 없이 닉네임만으로 남기는 따뜻한 응원 한마디, 매일 출석체크, 그리고 김쌤 라디오 사연 신청 연동.">
-  <meta property="og:url" content="https://paradise-hero.com/community.html">
+  <meta property="og:url" content="https://paradise-hero.com/lounge.html">
   <meta property="og:image" content="https://paradise-hero.com/assets/og_booth_share.jpg">
 
   <!-- Twitter Card Metadata -->
@@ -33,21 +33,21 @@
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": "https://paradise-hero.com/community.html#webpage",
-        "url": "https://paradise-hero.com/community.html",
-        "name": "파라다이스 사랑방 | 팬 응원 & 출석체크",
+        "@id": "https://paradise-hero.com/lounge.html#webpage",
+        "url": "https://paradise-hero.com/lounge.html",
+        "name": "파라다이스 출석방 | 팬 응원 & 출석체크",
         "isPartOf": {
           "@type": "WebSite",
           "@id": "https://paradise-hero.com/#website",
           "url": "https://paradise-hero.com/",
           "name": "파라다이스"
         },
-        "description": "황영웅 공식 팬덤 파라다이스 사랑방. 팬 응원과 출석체크 열린 마당.",
+        "description": "황영웅 공식 팬덤 파라다이스 출석방. 팬 응원과 출석체크 열린 마당.",
         "inLanguage": "ko-KR"
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://paradise-hero.com/community.html#breadcrumb",
+        "@id": "https://paradise-hero.com/lounge.html#breadcrumb",
         "itemListElement": [
           {
             "@type": "ListItem",
@@ -58,8 +58,8 @@
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "파라다이스 사랑방",
-            "item": "https://paradise-hero.com/community.html"
+            "name": "파라다이스 출석방",
+            "item": "https://paradise-hero.com/lounge.html"
           }
         ]
       }
@@ -87,7 +87,7 @@
         <a href="vip.html" class="btn-vip-header-link" style="background-color: #0E2820; color: #D4AF37; border-color: #D4AF37; text-decoration: none;">
           <span aria-hidden="true">🎁</span> 무료 선물제작소
         </a>
-        <button type="button" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 20px)">
+        <button type="button" id="btn-font-scaler" class="btn-font-scaler" aria-label="화면 글자 크기 조절 (현재: 기본 20px)">
           <span aria-hidden="true">🔍</span> 글자크게 가+
         </button>
       </div>
@@ -180,6 +180,13 @@
           <textarea id="cheer-content" class="form-textarea" placeholder="오늘 하루 어떤 노래를 들으셨나요? 영웅이에게 힘이 되는 따뜻한 글을 남겨주세요." required></textarea>
         </div>
 
+        <div class="form-group">
+          <label for="cheer-email" class="form-label">
+            📧 큰글씨 소식지 받으실 이메일 (선택 · 안 적으셔도 응원 글이 바로 등록됩니다)
+          </label>
+          <input type="email" id="cheer-email" class="form-input" autocomplete="email" inputmode="email" placeholder="선택 입력: 예) hero@naver.com">
+        </div>
+
         <button type="submit" id="btn-submit-cheer" class="senior-btn btn-primary" style="width: 100%; min-height: 64px; font-size: 21px;">
           <span aria-hidden="true">🌟</span>
           <span>응원 글 등록 &amp; 출석 도장 찍기</span>
@@ -263,7 +270,7 @@
       </div>
 
       <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-cshop">
-        <span>🟢 네이버페이(Npay)로 편하게 구매하기 — 김쌤 공식 네이버 크리에이터샵 전체보기 👉</span>
+        <span>💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~) 바로가기 👉</span>
       </a>
 
       <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-influencer">
@@ -481,8 +488,10 @@
     </div>
   </footer>
 
-  <script src="js/senior-accessibility.js?v=20261114d"></script>
-  <script src="js/radio-player.js?v=20261114d"></script>
+  <script>window.HQ_MAILING_CONFIG_PATH = '/hq-mailing-endpoint.json';</script>
+  <script src="js/hq_member_crm_client.js?v=20261116a"></script>
+  <script src="js/senior-accessibility.js?v=20261116a"></script>
+  <script src="js/radio-player.js?v=20261116a"></script>
   <script>
     const CHEER_STORAGE_KEY = 'paradise_community_cheers_v1';
 
@@ -493,6 +502,37 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
+    }
+
+    function syncLoungeCheerToCrm(nickname, message, optionalEmail) {
+      try {
+        var cleanEmail = String(optionalEmail || '').trim().toLowerCase();
+        var hasRealEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(cleanEmail) && !/^beable9489\+story-/i.test(cleanEmail);
+        var aliasEmail = (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.buildStoryAliasEmail === 'function')
+          ? window.DreamCompanyCRM.buildStoryAliasEmail()
+          : ('beable9489+story-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6) + '@gmail.com');
+        var resolvedEmail = hasRealEmail ? cleanEmail : aliasEmail;
+        var resolvedNick = String(nickname || '').trim() || '익명 파라다이스 팬';
+        var formatted = '[연락처: ' + (hasRealEmail ? cleanEmail : '미기재') + '] ' + String(message || '').trim();
+
+        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+          window.DreamCompanyCRM.registerMember({
+            div: 'HERO',
+            email: resolvedEmail,
+            nickname: resolvedNick,
+            segment: 'anonymous_cheer',
+            message: formatted,
+            notes: formatted,
+            lang: 'ko-KR',
+            skip_local_member: !hasRealEmail
+          }).then(function (res) {
+            if (res && res.ok !== false) {
+              if (typeof window.hitHeroStorySubmitBeacon === 'function') window.hitHeroStorySubmitBeacon();
+              if (hasRealEmail && typeof window.hitHeroSignupBeacon === 'function') window.hitHeroSignupBeacon(cleanEmail);
+            }
+          }).catch(function () {});
+        }
+      } catch (e) {}
     }
 
     function prependCheerCard(name, content, saveToStorage) {
@@ -542,22 +582,27 @@
 
     function stampQuickAttendance() {
       const nameInput = document.getElementById('cheer-nickname');
-      const name = (nameInput && nameInput.value.trim()) || '파라다이스 열혈 가족';
+      const emailInput = document.getElementById('cheer-email');
+      const name = (nameInput && nameInput.value.trim()) || '익명 파라다이스 팬';
       const content = '💮 오늘도 황영웅님 노래 들으며 힘차게 출석방 도장 찍습니다! 언제나 당신 편입니다 💚';
       prependCheerCard(name, content, true);
+      syncLoungeCheerToCrm(name, content, emailInput ? emailInput.value : '');
       showCheerFeedback('💮 출석 도장 쾅! [' + name + '] 님의 오늘 출석 인사가 사랑방 맨 위에 등록되었습니다!');
     }
 
     function postCheerMessage() {
       const nameInput = document.getElementById('cheer-nickname');
       const contentInput = document.getElementById('cheer-content');
+      const emailInput = document.getElementById('cheer-email');
 
-      const name = (nameInput && nameInput.value.trim()) || '파라다이스 팬';
+      const name = (nameInput && nameInput.value.trim()) || '익명 파라다이스 팬';
       const content = (contentInput && contentInput.value.trim()) || '';
+      const rawEmail = emailInput ? emailInput.value.trim() : '';
 
       if (!content) return;
 
       prependCheerCard(name, content, true);
+      syncLoungeCheerToCrm(name, content, rawEmail);
       if (nameInput) nameInput.value = '';
       if (contentInput) contentInput.value = '';
       showCheerFeedback('🌟 감사합니다! [' + name + '] 님의 따뜻한 응원 글과 출석 도장이 등록되었습니다!');

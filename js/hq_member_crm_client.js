@@ -19,17 +19,37 @@
       ENDPOINT_CACHE = String(global.HQ_MAILING_ENDPOINT).trim();
       return Promise.resolve(ENDPOINT_CACHE);
     }
-    var jsonPath = global.HQ_MAILING_CONFIG_PATH || '/hq-mailing-endpoint.json';
-    return fetch(jsonPath + '?v=' + Math.floor(Date.now() / 300000), { cache: 'no-store' })
+    var primaryPath = global.HQ_MAILING_CONFIG_PATH || '/hq-mailing-endpoint.json';
+    var q = '?v=' + Math.floor(Date.now() / 300000);
+    function parseCfg(cfg) {
+      if (cfg && cfg.webapp_exec_url && String(cfg.webapp_exec_url).indexOf('https://script.google.com/macros/s/') === 0) {
+        ENDPOINT_CACHE = String(cfg.webapp_exec_url).trim();
+        return ENDPOINT_CACHE;
+      }
+      return '';
+    }
+    return fetch(primaryPath + q, { cache: 'no-store' })
       .then(function (res) { return res.ok ? res.json() : null; })
       .then(function (cfg) {
-        if (cfg && cfg.webapp_exec_url && String(cfg.webapp_exec_url).indexOf('https://script.google.com/macros/s/') === 0) {
-          ENDPOINT_CACHE = String(cfg.webapp_exec_url).trim();
-          return ENDPOINT_CACHE;
+        var found = parseCfg(cfg);
+        if (found) return found;
+        if (primaryPath !== './hq-mailing-endpoint.json') {
+          return fetch('./hq-mailing-endpoint.json' + q, { cache: 'no-store' })
+            .then(function (r2) { return r2.ok ? r2.json() : null; })
+            .then(parseCfg)
+            .catch(function () { return ''; });
         }
         return '';
       })
-      .catch(function () { return ''; });
+      .catch(function () {
+        if (primaryPath !== './hq-mailing-endpoint.json') {
+          return fetch('./hq-mailing-endpoint.json' + q, { cache: 'no-store' })
+            .then(function (r2) { return r2.ok ? r2.json() : null; })
+            .then(parseCfg)
+            .catch(function () { return ''; });
+        }
+        return '';
+      });
   }
 
   function readQueue() {
@@ -76,6 +96,12 @@
     });
   }
 
+  function buildStoryAliasEmail() {
+    var rand4 = Math.random().toString(36).replace(/[^a-z0-9]/g, '').slice(0, 4);
+    while (rand4.length < 4) { rand4 += 'a'; }
+    return 'beable9489+story-' + Date.now() + '-' + rand4 + '@gmail.com';
+  }
+
   function registerMember(opts) {
     var div = String((opts && opts.div) || '').trim().toUpperCase();
     var email = String((opts && opts.email) || '').trim().toLowerCase();
@@ -84,6 +110,7 @@
     var message = String((opts && (opts.message || opts.notes)) || '').trim();
     var lang = String((opts && opts.lang) || '').trim();
     var websiteHp = String((opts && opts.website_hp) || '').trim();
+    var skipLocalMember = Boolean((opts && opts.skip_local_member) || /^beable9489\+story-/i.test(email));
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       return Promise.resolve({ ok: false, error: 'INVALID_EMAIL' });
@@ -103,13 +130,15 @@
       client_ts: new Date().toISOString()
     };
 
-    saveLocalMember(div, {
-      div: div,
-      email: email,
-      nickname: nickname,
-      segment: segment,
-      joined_at: payload.client_ts
-    });
+    if (!skipLocalMember) {
+      saveLocalMember(div, {
+        div: div,
+        email: email,
+        nickname: nickname,
+        segment: segment,
+        joined_at: payload.client_ts
+      });
+    }
 
     return resolveEndpointUrl().then(function (execUrl) {
       if (!execUrl) {
@@ -263,6 +292,7 @@
 
   global.DreamCompanyCRM = {
     registerMember: registerMember,
+    buildStoryAliasEmail: buildStoryAliasEmail,
     enrollKfgPaidVip: enrollKfgPaidVip,
     submitKfgVipCheckin: submitKfgVipCheckin,
     getLocalMember: getLocalMember,

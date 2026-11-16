@@ -86,11 +86,14 @@ assert.ok(cssContent.includes('60px'), 'CSS must specify 60px+ minimum touch tar
 assert.ok(cssContent.includes('font-lg') && cssContent.includes('font-xl'));
 console.log('  [PASS] Senior WCAG AAA CSS (20px+ font, 60px+ touch target, 3-stage scaler) verified.');
 
-// Radio player Ep 5 duration & ?ep=1~5 deep link check
+// Radio player 5 longform episodes (zero 0:45 shorts), IFrame API 330s beacon & ?ep=1~5 deep link check
 const radioJsContent = fs.readFileSync(RADIO_JS, 'utf-8');
-assert.ok(radioJsContent.includes('0:45 (특집 속보 브리핑)'), "Ep 5 duration must be '0:45 (특집 속보 브리핑)'");
+const { RADIO_EPISODES } = require(RADIO_JS);
+assert.ok(Array.isArray(RADIO_EPISODES) && RADIO_EPISODES.length === 5, 'RADIO_EPISODES must contain 5 longform episodes');
+assert.ok(!radioJsContent.includes('0:45'), 'RADIO_EPISODES must NOT contain any 0:45 short');
+assert.ok(radioJsContent.includes('enablejsapi=1') && radioJsContent.includes('radio_5m30s') && radioJsContent.includes('330'), 'radio-player.js must implement real YouTube IFrame API 330s radio_5m30s beacon');
 assert.ok(radioJsContent.includes('URLSearchParams') && radioJsContent.includes("get('ep')"), 'radio-player.js must support ?ep=1~5 query parameter deep-linking');
-console.log("  [PASS] Radio player Ep 5 ('0:45 (특집 속보 브리핑)') & ?ep=1~5 deep-link autoplay verified.");
+console.log('  [PASS] Radio player 5 public longform episodes, YouTube IFrame API 330s beacon & ?ep=1~5 deep-link verified.');
 
 // Kakao bookmark king-button check
 const indexHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf-8');

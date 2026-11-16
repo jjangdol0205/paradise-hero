@@ -21,6 +21,7 @@ import datetime
 import html
 import json
 import pathlib
+import re
 import sys
 from email.utils import format_datetime
 from typing import Any, Dict, List, Tuple
@@ -154,7 +155,7 @@ SENIOR_COLUMNS: List[Dict[str, Any]] = [
         ],
         "kakao_quote": "📱 자녀 도움 없이도 큰 버튼 한 번이면 황영웅 응원이 끝납니다.",
         "faqs": [
-            ("골드 VIP 멤버십과 무료 선물제작소는 무엇인가요?", "누구나 무료로 달력과 동행 증서를 만드실 수 있으며, 더 특별한 황금 명패와 전용 혜택을 원하시는 분들을 위해 골드 VIP 라운지(vip.html)도 함께 열려 있습니다."),
+            ("무료 선물제작소와 김쌤 공식 네이버페이 응원·건강 특가관은 무엇인가요?", "누구나 무료로 달력과 동행 증서를 만드실 수 있으며(vip.html), 어머님 콘서트·목건강 실속 준비물은 💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~)과 쿠팡 공식관에서 편하게 만나보실 수 있습니다."),
         ],
     },
 ]
@@ -280,7 +281,7 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
                     "@type": "BreadcrumbList",
                     "itemListElement": [
                         {"@type": "ListItem", "position": 1, "name": "파라다이스 홈", "item": f"https://{HOST}/"},
-                        {"@type": "ListItem", "position": 2, "name": "큰 글씨 명곡·건강 편지", "item": f"https://{HOST}/columns/index.html"},
+                        {"@type": "ListItem", "position": 2, "name": "큰 글씨 명곡·건강 편지", "item": f"https://{HOST}/columns/"},
                         {"@type": "ListItem", "position": 3, "name": col["title"], "item": canonical_url},
                     ],
                 },
@@ -306,12 +307,16 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
         for q, a in col["faqs"]
     )
     share_msg_js = json.dumps(f"{col['kakao_quote']}\n👉 큰 글씨로 바로 읽기: {canonical_url}", ensure_ascii=False)
-    hero_letter_stamp_html = build_html_morning_letter_and_stamp_card(
-        div_code="HERO",
-        date_str=today_iso,
-        empathy_line_1="존경하는 파라다이스 어머님·아버님, 간밤에 주무시는 동안 어깨나 무릎은 시리지 않으셨는지요? 아침 창문을 열며 가장 먼저 가족분들의 평안과 건강부터 여쭙습니다.",
-        empathy_line_2="자식들 앞에서는 늘 괜찮다 웃어 보이시느라 삼켜 두셨던 속마음까지, 오늘도 김쌤과 황영웅 가족 사랑방이 언제나 어머님·아버님 편이 되어 다정하게 곁을 지키겠습니다.",
-        mission_text="편지를 읽으신 뒤 목을 적시는 따뜻한 물 한 잔을 천천히 드시고, 아래 초록색 '사랑방 출석 도장' 버튼을 한 번 눌러 오늘의 기분 좋은 동행을 남겨 보세요.",
+    hero_letter_stamp_html = re.sub(
+        r"/hit/[a-zA-Z0-9_-]+/",
+        "/hit/hero_paradisekr/",
+        build_html_morning_letter_and_stamp_card(
+            div_code="HERO",
+            date_str=today_iso,
+            empathy_line_1="존경하는 파라다이스 어머님·아버님, 간밤에 주무시는 동안 어깨나 무릎은 시리지 않으셨는지요? 아침 창문을 열며 가장 먼저 가족분들의 평안과 건강부터 여쭙습니다.",
+            empathy_line_2="자식들 앞에서는 늘 괜찮다 웃어 보이시느라 삼켜 두셨던 속마음까지, 오늘도 김쌤과 황영웅 가족 사랑방이 언제나 어머님·아버님 편이 되어 다정하게 곁을 지키겠습니다.",
+            mission_text="편지를 읽으신 뒤 목을 적시는 따뜻한 물 한 잔을 천천히 드시고, 아래 초록색 '사랑방 출석 도장' 버튼을 한 번 눌러 오늘의 기분 좋은 동행을 남겨 보세요.",
+        ),
     )
 
     return f"""<!DOCTYPE html>
@@ -374,7 +379,7 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
   <header class="topbar">
     <a class="brand" href="/">💚 파라다이스 히어로</a>
     <div class="font-controls" role="group" aria-label="글자 크기 3단계 조절">
-      <button type="button" class="font-btn active" onclick="setFontSize('22px', this)">글자 보통</button>
+      <button type="button" id="btn-font-scaler" class="font-btn active" onclick="setFontSize('22px', this)">글자 보통</button>
       <button type="button" class="font-btn" onclick="setFontSize('26px', this)">글자 크게</button>
       <button type="button" class="font-btn" onclick="setFontSize('30px', this)">글자 특대</button>
     </div>
@@ -382,7 +387,7 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
   <main class="wrap">
     <span class="badge">{html.escape(col['category'])}</span>
     <h1>{html.escape(col['title'])}</h1>
-    <div class="date-line">발행일: {today_iso} · 글: 김쌤과 황영웅 가족 사랑방 편집실 · <a href="/columns/index.html">전체 편지 목록 보기 →</a></div>
+    <div class="date-line">발행일: {today_iso} · 글: 김쌤과 황영웅 가족 사랑방 편집실 · <a href="/columns/">전체 편지 목록 보기 →</a></div>
     {hero_letter_stamp_html}
 
     <article>
@@ -400,7 +405,7 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
       <div class="funnel-grid">
         <a class="funnel-btn" href="/radio.html">📻 24시간 영웅라디오 연속 듣기</a>
         <a class="funnel-btn" href="/booth.html">📸 10종 의상 무료 기념사진 찍기</a>
-        <a class="funnel-btn gold" href="/vip.html">👑 골드 VIP 멤버십 &amp; 무료 달력 선물</a>
+        <a class="funnel-btn gold" href="/vip.html">🎁 10종 무료 달력·선물제작소 바로가기</a>
         <a class="funnel-btn" href="/community.html">💛 황금 응원 전광판 출석하기</a>
       </div>
     </section>
@@ -408,7 +413,7 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     <section class="curation-box" aria-label="김쌤이 고른 어머님 콘서트 및 건강 안심 준비물">
       <h2 style="font-size:1.22em;color:var(--gold);margin:0 0 8px;">💚 김쌤이 직접 고른 어머님 콘서트·목건강·나들이 안심 혜택관</h2>
       <p style="margin:0 0 16px;color:var(--muted);font-size:0.95em;">네이버페이(Npay)·쿠팡 로켓배송은 물론, YES24 정품 음반, 미국 직구 영양제(iHerb), 주말 효도·손주 나들이 입장권까지 한곳에 모았습니다.</p>
-      <a class="npay-btn" href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored">🟢 네이버페이(Npay) 김쌤 공식 크리에이터샵 바로가기 👉</a>
+      <a class="npay-btn" href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored">💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~) 👉</a>
       <a class="npay-btn" href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" style="background:#b91c1c;">💿 영웅라디오 쿠팡 인플루언서 공식관 (음반·효도USB·응원템) 👉</a>
       <div class="cp-grid">
         <a class="cp-btn" href="https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero_col&amp;pageKey=%EB%8F%84%EB%9D%BC%EC%A7%80%EB%B0%B0%EC%A6%99+%ED%99%8D%EC%82%BC%EC%8A%A4%ED%8B%B1" target="_blank" rel="noopener noreferrer sponsored"><span>🍯 도라지배즙·홍삼스틱 (쿠팡 로켓)</span><span style="color:var(--gold);">보기 👉</span></a>
@@ -480,7 +485,8 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>큰 글씨 명곡 해설 &amp; 김쌤의 건강·응원 편지함 | 파라다이스히어로</title>
   <meta name="description" content="5070 파라다이스 가족분들을 위한 가수 황영웅 명곡 가사 해설, 콘서트 준비물 안내, 음성 사연 보내기, 환절기 건강 편지 모음입니다." />
-  <link rel="canonical" href="https://{HOST}/columns/index.html" />
+  <link rel="canonical" href="https://{HOST}/columns/" />
+  <meta property="og:url" content="https://{HOST}/columns/" />
   <link rel="alternate" type="application/rss+xml" title="파라다이스히어로 RSS" href="https://{HOST}/rss.xml" />
   <style>
     :root {{ --base-font: 22px; }}
@@ -501,7 +507,7 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
   <header class="topbar">
     <a href="/" style="font-size:24px;font-weight:900;color:#fbbf24;">💚 파라다이스 히어로 홈으로</a>
     <div>
-      <button type="button" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','22px')">보통</button>
+      <button type="button" id="btn-font-scaler" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','22px')">보통</button>
       <button type="button" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','26px')">크게</button>
       <button type="button" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','30px')">특대</button>
     </div>
@@ -514,12 +520,12 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
       <span class="badge">💚 5대 공식 제휴 · 안심 효도 큐레이션</span>
       <h2>김쌤이 직접 고른 어머님 콘서트·목건강·나들이 통합 혜택관</h2>
       <p>네이버페이(Npay)·쿠팡 로켓배송·YES24 정품음반·iHerb 미국직구·주말 나들이 티켓을 큰 글씨로 편하게 만나보세요.</p>
-      <a class="read-btn" href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="background:#03c75a;color:#ffffff;width:100%;margin-bottom:10px;">🟢 네이버페이(Npay) 김쌤 공식 크리에이터샵 바로가기 👉</a>
+      <a class="read-btn" href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="background:#03c75a;color:#ffffff;width:100%;margin-bottom:10px;">💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~) 👉</a>
       <a class="read-btn" href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" style="background:#b91c1c;color:#ffffff;width:100%;margin-bottom:10px;">💿 쿠팡 인플루언서 공식관 (황영웅 음반·효도USB·응원템) 👉</a>
       <a class="read-btn" href="https://click.linkprice.com/click.php?m=yes24&amp;a=A100708867&amp;l=9999&amp;l_cd1=3&amp;l_cd2=0&amp;tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2599%25A9%25EC%2598%2581%25EC%259B%2585" target="_blank" rel="noopener noreferrer sponsored" style="background:#92400e;color:#fef3c7;width:100%;margin-bottom:10px;">📖 YES24 황영웅 정품 음반·포토북 (차트 공식 반영) 👉</a>
       <a class="read-btn" href="https://kr.iherb.com/search?kw=California%20Gold%20Nutrition%20Omega-3&amp;rcode=IPZ1547" target="_blank" rel="noopener noreferrer sponsored" style="background:#047857;color:#ffffff;width:100%;margin-bottom:10px;">🌿 iHerb 한국어 공식 직구 건강관 (오메가3·마그네슘 Npay 결제) 👉</a>
       <a class="read-btn" href="https://naver.me/xJcOADhA" target="_blank" rel="noopener noreferrer sponsored" style="background:#0369a1;color:#ffffff;width:100%;margin-bottom:10px;">🎟️ 주말 효도여행 · 손주 동반 전국 나들이 티켓 라운지 👉</a>
-      <a class="read-btn" href="/vip.html#gold-vip-membership" style="background:#fbbf24;color:#05130e;width:100%;">👑 골드 VIP 서포터즈(월 9,900원) &amp; 무료 선물제작소 보기 👉</a>
+      <a class="read-btn" href="/vip.html#gold-vip-membership" style="background:#fbbf24;color:#05130e;width:100%;">🎁 무료 선물제작소 &amp; 네이버페이 응원·건강 특가관 보기 👉</a>
       <p style="font-size:0.82em;color:#a7f3d0;margin:12px 0 0;">ℹ️ 본 안내관은 네이버 쇼핑 커넥트, 쿠팡 파트너스(AF7865143), 링크프라이스(A100708867), 아이허브(IPZ1547), 마이리얼트립 제휴 활동의 일환으로 일정액의 수수료를 제공받습니다.</p>
     </section>
   </main>
@@ -541,16 +547,26 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
         ("vip.html", "vip.html", "0.92", "weekly"),
         ("lounge.html", "lounge.html", "0.85", "weekly"),
         ("news.html", "news.html", "0.92", "daily"),
-        ("columns/index.html", "columns/index.html", "0.93", "daily"),
+        ("columns/", "columns/index.html", "0.93", "daily"),
     ]
     url_map: Dict[str, pathlib.Path] = {}
     smap_blocks: List[str] = []
+    seen_locs: set[str] = set()
+
+    def _normalize_canonical_loc(raw_loc: str) -> str:
+        if raw_loc.endswith("/index.html"):
+            return raw_loc[: -len("index.html")]
+        return raw_loc
 
     for slug_url, rel_path, prio, freq in core_pages:
         fp = DIV4_ROOT / rel_path
         if not fp.exists():
             continue
-        loc = f"https://{HOST}/" if slug_url == "" else f"https://{HOST}/{slug_url}"
+        raw_loc = f"https://{HOST}/" if slug_url == "" else f"https://{HOST}/{slug_url}"
+        loc = _normalize_canonical_loc(raw_loc)
+        if loc in seen_locs:
+            continue
+        seen_locs.add(loc)
         url_map[loc] = fp
         smap_blocks.append(
             f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{today_iso}</lastmod>\n    <changefreq>{freq}</changefreq>\n    <priority>{prio}</priority>\n  </url>"
@@ -558,7 +574,10 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
 
     rss_items_xml: List[str] = []
     for col in SENIOR_COLUMNS:
-        loc = f"https://{HOST}/columns/{col['slug']}"
+        loc = _normalize_canonical_loc(f"https://{HOST}/columns/{col['slug']}")
+        if loc in seen_locs:
+            continue
+        seen_locs.add(loc)
         url_map[loc] = COLUMNS_DIR / col["slug"]
         smap_blocks.append(
             f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{today_iso}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.88</priority>\n  </url>"
@@ -606,10 +625,10 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
         f"- 24시간 연속 재생 영웅라디오: https://{HOST}/radio.html",
         f"- 10종 시그니처 의상 무제한 무료 기념사진관: https://{HOST}/booth.html",
         f"- 음성 받아쓰기 사연 접수 (사연 복덕방): https://{HOST}/story.html",
-        f"- 골드 VIP 멤버십 & 무료 효도 달력/증서 제작소: https://{HOST}/vip.html",
+        f"- 무료 효도 달력/증서 제작소 & 💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~): https://{HOST}/vip.html",
         f"- 황금 응원 전광판 (사랑방 출석부): https://{HOST}/community.html",
         f"- 황영웅 전담 뉴스룸: https://{HOST}/news.html",
-        f"- 큰 글씨 명곡 해설 · 건강 편지함: https://{HOST}/columns/index.html",
+        f"- 큰 글씨 명곡 해설 · 건강 편지함: https://{HOST}/columns/",
         "- 공식 문의: mailto:beable9489@gmail.com",
         "",
         "## 2. 큰 글씨 명곡 해설 및 시니어 응원 칼럼 목록 (/columns/)",
