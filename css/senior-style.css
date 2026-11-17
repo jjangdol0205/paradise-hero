@@ -220,7 +220,7 @@ img {
   margin: 0;
   padding: 0 4px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 4px;
 }
 
@@ -3247,11 +3247,17 @@ body.font-xlarge {
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    gap: 4px;
+    gap: 6px;
     padding: 4px 8px;
     justify-content: flex-start;
   }
+  .site-header .main-nav .nav-item {
+    flex: 0 0 auto;
+    min-width: auto;
+  }
   .site-header .main-nav .nav-link {
+    flex-direction: row;
+    gap: 4px;
     min-height: 40px;
     padding: 6px 10px;
     font-size: 15px;
