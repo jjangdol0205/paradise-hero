@@ -2,16 +2,17 @@
 # -*- coding: utf-8 -*-
 """
 4사업부/scripts/generate_senior_columns_and_feeds.py
-===================================================
-Generates WCAG AAA Senior-First Song Commentary & Radio Letter Hub (`/columns/*.html`),
-and dynamically updates `rss.xml`, `feed.xml`, `sitemap.xml`, and `llms.txt` for `paradise-hero.com`.
+Generates WCAG AAA Senior-First Original Virtual Trot Singer Baek Woon-ho (백운호)
+Column Hub (`/columns/*.html`), and dynamically updates `rss.xml`, `feed.xml`,
+`sitemap.xml`, and `llms.txt` for `paradise-hero.com`.
 
 Strict Guardrails:
-  - 100% Original Virtual Trot Singer 『백운호 (Baek Woon-ho)』 & `@김쌤의영웅라디오` (Zero real celebrity names).
-  - Minimum body font >= 22px (exceeds 20px requirement), touch targets >= 64px (exceeds 60px).
-  - 3-stage font size switcher (`기본 22px` / `크게 26px` / `특대 30px`).
-  - Store renamed to `💚 김쌤의 콘서트·응원 안심 준비물관` with FTC disclosure right next to product buttons.
-  - Excludes consolidated `lounge.html` redirect stub from `sitemap.xml`.
+  - 100% Original Virtual Trot Singer 『백운호 (白雲湖, Baek Woon-ho)』 & `@김쌤의영웅라디오` (Zero real celebrity names or legacy slugs).
+  - Signature Original Songs: 〈어머니의 봄날〉 · 〈백운호 연가〉 · 〈다시 피는 동백꽃〉 (plus 〈항구의 등불〉 · 〈고향역 첫차〉 · 〈내 인생의 금빛 노을〉).
+  - Minimum body font >= 22px (exceeds 20px requirement), touch targets >= 60px (62~68px).
+  - 3-stage font size switcher (`보통 22px` / `크게 26px` / `특대 30px`).
+  - Store `💚 김쌤의 콘서트·응원 안심 준비물관` with FTC disclosure right next to product buttons + `#hero-brand-partnership-box`.
+  - Automatically purges any stale/legacy HTML files inside `columns/` so removed posts never reappear.
 """
 
 from __future__ import annotations
@@ -46,124 +47,132 @@ FTC_DISCLOSURE_TEXT = (
 
 SENIOR_COLUMNS: List[Dict[str, Any]] = [
     {
-        "slug": "dangsin-pyeon-lyric-commentary.html",
-        "category": "오리지널 타이틀곡 해설",
-        "title": "가상 트로트 가수 백운호 타이틀곡 〈어머니의 봄날〉 가사 해설 — 평생 가족 위해 헌신하신 당신께",
-        "desc": "어머님·아버님들의 고단했던 세월을 다정하게 안아주는 김쌤의영웅라디오 전속 가상 가수 백운호의 대표곡 〈어머니의 봄날〉 노랫말 의미를 풀어드립니다.",
+        "slug": "baek-woon-ho-debut-story.html",
+        "category": "오리지널 탄생 이야기",
+        "title": "가상 트로트 가수 백운호 탄생 이야기 — 세월의 강을 건너온 우리네 어머니·아버지를 위한 중저음 위로",
+        "desc": "유튜브 @김쌤의영웅라디오 가족 사랑방에서 오직 5070 어머님·아버님들의 마음을 안아드리기 위해 탄생한 오리지널 가상 트로트 가수 『백운호(白雲湖)』의 첫걸음과 음악 철학을 소개합니다.",
+        "highlight_box_title": "🎙️ 『백운호(白雲湖)』 이름에 담긴 약속",
+        "highlight_box_body": "흰 구름(白雲)이 고요한 호수(湖) 위에 쉬어 가듯, 자극적인 고음 경쟁이나 번거로운 가입 절차 없이 어머님·아버님의 지친 어깨를 포근한 정통 중저음으로 감싸 안겠다는 『김쌤의영웅라디오』의 진심을 담았습니다.",
         "body_paragraphs": [
-            "살다 보면 누구에게도 속마음을 털어놓지 못하고 혼자 베갯잇을 적시는 밤이 있습니다. 자식들에게 짐이 될까 봐 괜찮다 웃어넘기던 그 긴 세월 끝에, 가상 트로트 가수 백운호의 〈어머니의 봄날〉 첫 소절이 흘러나오면 굳게 닫혔던 마음의 빗장이 스르르 풀립니다.",
-            "높은 고음을 자랑하기보다 듣는 분의 심장 박동과 가장 닮은 따뜻하고 묵직한 중저음으로 '거친 세월 다 지나고 어머니의 봄날이 이제야 활짝 피네'라 건네는 위로. 가족을 위해 평생을 바치신 어머님·아버님 여러분이 바로 우리 인생의 진짜 영웅이십니다.",
-            "오늘 저녁에는 따뜻한 차 한 잔을 곁에 두시고 김쌤의영웅라디오 연속 플레이어에서 〈어머니의 봄날〉을 편안하게 감상해 보세요.",
+            "평생 자식들 뒷바라지와 가정을 일구시느라 정작 내 마음 기댈 곳 하나 없이 바쁘게 달려오신 우리네 어머님·아버님들께는, 귀를 찌르는 화려한 유행가보다 내 숨결 속도에 맞춰 나지막이 말을 걸어주는 따뜻한 노래 한 곡이 더 큰 위로가 됩니다.",
+            "『김쌤의영웅라디오』 제작진과 작가실은 어느 실존 연예인의 이름이나 모습도 빌리지 않고, 오직 우리 사랑방 어머님·아버님만을 위해 노래하는 순수 창작 가상(버추얼) 정통 트로트 가수 『백운호(白雲湖)』를 탄생시켰습니다. 이 사랑방에서 부르는 '영웅'이란 무대 위의 스타가 아니라, 거친 세월의 강을 묵묵히 건너오신 어머님·아버님 여러분 자신입니다.",
+            "백운호의 목소리는 듣는 분의 심장 박동과 가장 편안하게 어우러지는 깊고 묵직한 중저음 바리톤으로 설계되었습니다. 첫 타이틀곡 〈어머니의 봄날〉을 비롯해 아침 산책길의 벗이 되어주는 〈백운호 연가〉, 그리고 인생 후반전의 희망을 노래한 신곡 〈다시 피는 동백꽃〉까지 모든 노랫말에 우리 부모님 세대의 삶과 눈물, 그리고 다시 피어날 웃음을 정성껏 새겼습니다.",
+            "매주 화요일과 금요일 저녁 6시 유튜브 『@김쌤의영웅라디오』 15분 정규 본방송은 물론, 본 사랑방 홈페이지에서도 24시간 광고 걱정 없이 백운호의 노래와 전국 가족들의 진솔한 인생 사연을 이어 들으실 수 있습니다. 오늘도 흰 구름 머무는 호숫가 쉼터처럼 어머님·아버님 곁을 든든하게 지키겠습니다.",
         ],
-        "kakao_quote": "💚 첫 소절만 들어도 가슴 뭉클한 백운호 〈어머니의 봄날〉 큰 글씨 해설 편지입니다.",
+        "kakao_quote": "💚 세월의 강을 건너온 우리 어머님·아버지를 위해 탄생한 가상 트로트 가수 『백운호』 이야기입니다.",
         "faqs": [
-            ("백운호의 〈어머니의 봄날〉 노래와 라디오 사연은 어디서 들을 수 있나요?", "김쌤의영웅라디오 가족 사랑방(paradise-hero.com/radio.html)에서 회원가입 없이 큰 글씨 화면으로 24시간 무료 감상하실 수 있습니다."),
-            ("백운호는 실존 연예인인가요?", "백운호는 실존 연예인이 아닌, 5070 시니어 가족분들의 음악 위로와 사연 소통을 위해 탄생한 『김쌤의영웅라디오』 오리지널 가상(버추얼) 트로트 가수입니다."),
+            (
+                "가상 트로트 가수 백운호는 실존 연예인인가요?",
+                "아닙니다. 백운호(白雲湖)는 실존 연예인과 무관하게 5070 시니어 청취자 가족분들의 음악 위로와 사연 소통을 위해 『김쌤의영웅라디오』가 독자 기획·제작한 100% 오리지널 가상(버추얼) 트로트 가수입니다.",
+            ),
+            (
+                "백운호의 대표곡은 어디에서 무료로 들을 수 있나요?",
+                "본 홈페이지 라디오 방송관(radio.html)과 백운호 노래 감상관(stream.html)에서 회원가입이나 결제 없이 〈어머니의 봄날〉, 〈백운호 연가〉, 〈다시 피는 동백꽃〉 등 6대 오리지널 곡을 24시간 무료로 감상하실 수 있습니다.",
+            ),
+            (
+                "사랑방에서 기념사진이나 안부카드도 무료로 만들 수 있나요?",
+                "네, 백운호 6벌 무대 의상 기념촬영관(booth.html)과 카톡 아침 안부카드·큰글씨 달력 선물관(vip.html) 모두 평생 100% 무료로 열려 있습니다.",
+            ),
         ],
     },
     {
-        "slug": "haebaragi-insadong-song-story.html",
-        "category": "대표곡 산책 · 정통 트롯",
-        "title": "〈백운호 연가〉와 〈고향역 첫차〉 — 산책길과 그리운 추억을 적시는 중저음 선율",
-        "desc": "흰 구름 머무는 고요한 호수 같은 〈백운호 연가〉와 새벽 정거장의 추억이 담긴 〈고향역 첫차〉의 정취를 큰 글씨 에세이로 만나보세요.",
+        "slug": "mothers-spring-day-lyric-story.html",
+        "category": "대표곡 가사 해설 · 사연",
+        "title": "대표곡 〈어머니의 봄날〉 가사 해설과 사연 — 자식 키우느라 잊고 산 봄날을 다시 불러드립니다",
+        "desc": "첫 소절만 들어도 코끝이 찡해지는 가상 트로트 가수 백운호의 대표 타이틀곡 〈어머니의 봄날〉 노랫말 구절별 의미와 전국 사랑방 어머님들의 실제 감동 사연을 함께 전해드립니다.",
+        "highlight_box_title": "🎵 〈어머니의 봄날〉 핵심 노랫말 한 소절",
+        "highlight_box_body": "“거친 세월 앞치마에 눈물을 닦으시던 그리운 우리 어머니 / 이제는 무거운 짐 내려놓으시고 꽃길만 걸으소서 / 어머니의 봄날이 이제야 활짝 피네” — 느린 정통 트롯 발라드 (72 BPM)",
         "body_paragraphs": [
-            "아침 햇살이 퍼지는 공원 산책길에 〈백운호 연가〉를 틀어 두면 흰 구름 쉬어 가는 고요한 호숫가를 걷는 듯 발걸음이 한결 가벼워집니다.",
-            "이어 흐르는 〈고향역 첫차〉를 들을 때면 젊은 날 도시로 일하러 떠나는 자식 손에 따뜻한 삶은 달걀과 보리차 병을 쥐여주시던 친정어머니의 고운 얼굴이 눈앞에 아련히 피어오릅니다.",
-            "추억 속 다정한 마음 그대로, 오늘 무료 온라인 촬영관에서 백운호의 6가지 무대 의상과 함께 기념사진 한 장을 남겨보시는 건 어떨까요.",
+            "새벽녘 남들보다 일찍 일어나 찬물에 손을 담그고 도시락을 싸시던 시절, 아픈 곳이 있어도 자식들 걱정할까 봐 늘 '엄마는 괜찮다'며 웃어넘기시던 세월이 있었습니다. 백운호의 대표 타이틀곡 〈어머니의 봄날〉은 바로 그 앞치마 자락에 묻어둔 어머님들의 청춘을 다시 불러드리는 헌정곡입니다.",
+            "노래 1절이 편지를 읽어 내려가듯 담담한 저음으로 지난 세월의 고단함을 어루만진다면, 후렴구 '어머니의 봄날이 이제야 활짝 피네'에서는 따뜻한 현악 선율과 함께 백운호 특유의 포근한 중저음이 깊게 울려 퍼집니다. 봄날이 이미 지나가 버린 것이 아니라, 자녀들을 다 키워낸 지금 이 순간이 진짜 내 인생의 봄날이라는 다정한 선언입니다.",
+            "대구 달서구의 이순자 어머님께서는 '홀로 맞이하던 고요한 아침 부엌에 〈어머니의 봄날〉을 틀어놓으니 텅 빈 집안이 따뜻한 온기로 가득 찼다'는 사연을 보내주셨고, 수원의 한상철 아버님께서는 아내분과 저녁 산책길마다 이 노래를 함께 들으시며 평생 고마웠다는 말씀을 전하셨다고 합니다.",
+            "집에서 노래를 천천히 따라 부르실 때는 높은 음에서 목에 힘을 주기보다, 코로 편안히 숨을 들이마신 뒤 배 아래에서부터 부드럽게 소리를 밀어 올려 보세요. 무료 선물관(vip.html)에 준비된 30px 왕글씨 가사집을 펼쳐 두시면 돋보기 없이도 한결 여유롭게 노래교실 기분을 만끽하실 수 있습니다.",
         ],
-        "kakao_quote": "🍂 산책길에 듣기 참 좋은 백운호 〈백운호 연가 · 고향역 첫차〉 큰 글씨 편지입니다.",
+        "kakao_quote": "🌸 자식 키우느라 잊고 산 봄날을 다시 불러드리는 백운호 대표곡 〈어머니의 봄날〉 가사 해설 편지입니다.",
         "faqs": [
-            ("백운호 6벌 의상 온라인 기념촬영관은 무료인가요?", "네, 회원가입이나 결제 없이 누구나 에메랄드 정장부터 전통 한복, 라디오 DJ룩까지 6가지 의상과 함께 100% 무료로 촬영하고 저장하실 수 있습니다."),
+            (
+                "〈어머니의 봄날〉 큰 글씨 가사집은 어디에서 볼 수 있나요?",
+                "무료 선물관(vip.html)의 '⑤ 백운호 6대 대표곡 왕글씨(30px) 가사집 & 노래교실 비법서' 코너에서 호흡 표시와 함께 보시거나 인쇄하실 수 있습니다.",
+            ),
+            (
+                "〈어머니의 봄날〉을 신청곡으로 라디오 사연을 보낼 수 있나요?",
+                "네, 사연 보내기(story.html)에서 신청곡으로 '어머니의 봄날'을 선택하시고 사연을 남겨주시면 화·금 저녁 6시 @김쌤의영웅라디오 정규 방송 원고로 소중히 검토됩니다.",
+            ),
         ],
     },
     {
-        "slug": "emerald-concert-senior-preparation-guide.html",
-        "category": "공연·나들이 안내서",
-        "title": "5070 어머님·아버님을 위한 음악회·나들이 편안하게 즐기는 큰 글씨 준비물 체크리스트",
-        "desc": "오래 앉아 계셔도 허리가 편안한 휴대용 방석부터 실내외 온도 차를 막아주는 경량 보온 숄, 따뜻한 수분 보충까지 한눈에 확인하세요.",
+        "slug": "baek-woon-ho-yeonga-radio-note.html",
+        "category": "스튜디오 녹음 노트",
+        "title": "〈백운호 연가〉 스튜디오 녹음 노트 — 호숫가 물안개처럼 잔잔히 스며드는 저녁 라디오 편지",
+        "desc": "동네 공원 산책길과 저녁 차 한 잔의 시간에 가장 많은 사랑을 받는 〈백운호 연가〉의 76 BPM 트롯 왈츠 편곡 비밀과 스튜디오 제작 노트를 공개합니다.",
+        "highlight_box_title": "📻 스튜디오 사운드 노트 — 걸음걸이를 닮은 76 BPM 왈츠",
+        "highlight_box_body": "〈백운호 연가〉는 5070 시니어 분들의 가장 편안한 공원 산책 보폭과 안정된 저녁 심박수에 맞춘 분당 76박자(76 BPM) 정통 트롯 왈츠 리듬으로 마스터링되었습니다.",
         "body_paragraphs": [
-            "오랜만에 지역 문화회관 음악회나 봄·가을 나들이에 나서실 때는 몸이 피로하지 않도록 가벼운 실속 준비물을 미리 챙기시는 것이 좋습니다.",
-            "첫째, 공연장 내부는 냉난방으로 온도 차가 있을 수 있으니 어깨와 무릎에 가볍게 덮으실 수 있는 경량 보온 숄을 챙겨 주세요. 둘째, 딱딱한 좌석에서 허리와 엉덩이 배김을 덜어주는 접이식 메모리폼 방석과 미지근한 물 한 병이 있으면 2~3시간 관람도 훨씬 편안합니다.",
-            "집에서 쉬시는 날에는 김쌤의영웅라디오 화·금 저녁 6시 정규 방송을 켜시고 전국 사랑방 가족들과 따뜻한 공감 박수를 나눠 보세요.",
+            "해 질 녘 창가에 앉아 따뜻한 차 한 잔을 마실 때나, 저녁 식사 후 가볍게 동네 공원을 걸으실 때 유독 자주 찾게 되는 노래가 있습니다. 흰 구름 쉬어 가는 호숫가 물안개처럼 마음속 번잡함을 차분히 가라앉혀 주는 곡, 바로 백운호의 〈백운호 연가〉입니다.",
+            "스튜디오에서 〈백운호 연가〉를 제작할 때 가장 공을 들인 부분은 '귀가 피로하지 않은 아날로그 라디오의 온기'였습니다. 날카로운 전자음을 덜어내고 부드러운 어쿠스틱 기타와 잔잔한 아코디언 선율 위에 백운호의 숨결 섞인 중저음을 얹어, 오래 이어 들어도 귀와 마음이 한결 편안하도록 다듬었습니다.",
+            "대전 유성구에서 무릎 재활 운동을 이어가시는 오정숙 어머님께서는 '공원 세 바퀴를 돌 때마다 〈백운호 연가〉의 왈츠 박자에 발걸음을 맞추니 삼십 분 산책이 거뜬하고 기운이 솟는다'며 반가운 안부를 전해 주셨습니다. 강릉과 부산의 사랑방 가족분들 역시 잠들기 전 작은 음량으로 틀어두는 애창곡으로 이 곡을 손꼽아 주십니다.",
+            "오늘 저녁에는 거실 조명을 한결 포근하게 낮추시고, 화면 아래 슬림 라디오 플레이어나 연속 방송관(radio.html)에서 〈백운호 연가〉와 〈항구의 등불〉을 나란히 재생해 보세요. 잔잔한 호숫가 산책길 같은 평안이 어머님·아버님의 저녁 시간을 따뜻하게 채워 드릴 것입니다.",
         ],
-        "kakao_quote": "💚 음악회·나들이 가실 때 허리와 체온을 지켜주는 실속 준비물 체크리스트입니다.",
+        "kakao_quote": "🍂 호숫가 물안개처럼 저녁 산책길과 쉼터를 적시는 〈백운호 연가〉 스튜디오 녹음 편지입니다.",
         "faqs": [
-            ("전국 가족들과 안부 인사는 어디서 나눌 수 있나요?", "소통 사랑방(community.html)에서 비밀번호 없이 성함(또는 별명)만 적으시면 1줄 응원과 실시간 공감 박수로 소통하실 수 있습니다."),
+            (
+                "글을 읽는 동안에도 〈백운호 연가〉 라디오를 끊김 없이 들을 수 있나요?",
+                "네, 본 사랑방 본문 페이지 하단의 슬림 라디오 바에서 재생(▶)을 누르시면 사연과 편지를 읽으시는 동안 광고 없이 연속 재생됩니다.",
+            ),
+            (
+                "산책할 때 스마트폰 배터리가 빨리 닳지 않게 듣는 방법이 있나요?",
+                "화면 밝기를 적당히 낮추어 홈페이지 오디오 플레이어로 감상하시면 데이터와 배터리 소모가 적으며, 장시간 외출 시에는 가벼운 보조배터리를 챙기시면 더욱 든든합니다.",
+            ),
         ],
     },
     {
-        "slug": "bisang-live-encore-resonance.html",
-        "category": "인생 2막 응원 노트",
-        "title": "〈다시 피는 동백꽃〉과 〈내 인생의 금빛 노을〉 — 찬 서리 견뎌낸 우리의 가장 빛나는 오늘",
-        "desc": "모진 겨울바람을 이겨내고 꽃망울을 터뜨리는 〈다시 피는 동백꽃〉과 황혼을 축복하는 〈내 인생의 금빛 노을〉 이야기를 담았습니다.",
+        "slug": "blooming-camellia-again-hope.html",
+        "category": "신곡 응원 사연 모음",
+        "title": "신곡 〈다시 피는 동백꽃〉 응원 사연 모음 — 인생 후반전, 오늘이 가장 젊은 날입니다",
+        "desc": "모진 겨울 찬 서리를 이겨내고 가장 붉게 피어나는 동백꽃처럼, 자녀 뒷바라지를 마치고 인생 후반전을 맞이한 전국 사랑방 가족들의 가슴 뭉클한 응원 사연을 모았습니다.",
+        "highlight_box_title": "🌺 〈다시 피는 동백꽃〉 인생 2막 응원 구절",
+        "highlight_box_body": "“모진 겨울 찬 바람을 다 견뎌내고서 붉게 피어난 내 사랑 동백꽃아 / 내 인생도 지금부터 다시 피는 꽃이라네” — 경쾌한 미디엄 템포 정통 트롯 (88 BPM)",
         "body_paragraphs": [
-            "평생 자녀들 뒷바라지와 가정을 지키느라 정작 내 이름 석 자는 뒤로 미뤄두셨던 어머님·아버님들께 백운호의 〈다시 피는 동백꽃〉은 따뜻한 헌정가입니다.",
-            "한낮의 뜨거운 태양보다 저녁 하늘을 물들이는 금빛 노을이 더욱 깊고 찬란하듯, 〈내 인생의 금빛 노을〉 노랫말은 우리의 인생 2막이 지금부터 가장 아름답게 빛나는 시간임을 일깨워 줍니다.",
-            "오늘 하루 마음이 조금 적적하셨다면 어깨를 활짝 펴시고 라디오 플레이어의 재생 버튼을 눌러 보시기 바랍니다.",
+            "모든 꽃이 추위를 피해 잎을 떨구는 한겨울에도 눈보라를 견뎌내며 누구보다 붉고 탐스러운 꽃망울을 터뜨리는 꽃이 동백꽃입니다. 백운호의 신곡 〈다시 피는 동백꽃〉은 평생 '누구의 엄마, 누구의 아빠'로 살아오시느라 잠시 접어두었던 어머님·아버님 자신의 이름을 다시 활짝 피워드리는 응원가입니다.",
+            "칠순 고개를 넘기신 전북 익산의 박정옥 어머님께서는 '삼 남매 출가시키고 거울을 보니 흰머리만 남은 것 같아 서글펐는데, 라디오에서 흐르는 〈다시 피는 동백꽃〉 가사를 듣고 남은 인생은 내 이름 석 자를 아끼며 활짝 웃고 살기로 다짐했다'는 사연으로 전국 사랑방 가족들의 뜨거운 공감 박수를 받으셨습니다.",
+            "88 BPM의 정겨운 미디엄 템포 리듬으로 완성된 이 곡은 어깨를 살짝 들썩이며 따라 부르기에도 참 좋습니다. 이어지는 수록곡 〈내 인생의 금빛 노을〉과 함께 들으시면, 한낮의 햇살보다 더욱 깊고 찬란한 우리 황혼의 품격을 가슴 벅차게 느끼실 수 있습니다.",
+            "인생 후반전을 걸어가시는 우리 사랑방 가족 여러분, 지나간 세월을 아쉬워하기보다 '오늘이 내 남은 생애 가장 젊은 날'이라는 마음으로 어깨를 활짝 펴 보세요. 소통 사랑방(community.html) 담벼락에서 전국 동년배 이웃들과 주고받는 따뜻한 1줄 응원과 공감 박수가 매일 새로운 활력이 되어 드립니다.",
         ],
-        "kakao_quote": "🌺 찬 서리 이겨내고 피어나는 〈다시 피는 동백꽃〉, 인생 2막 응원 편지입니다.",
+        "kakao_quote": "🌺 찬 서리 견뎌내고 활짝 피어나는 백운호 신곡 〈다시 피는 동백꽃〉, 인생 후반전 응원 편지입니다.",
         "faqs": [
-            ("김쌤의영웅라디오 정규 방송 시간은 언제인가요?", "유튜브 '@김쌤의영웅라디오'에서 매주 화요일·금요일 저녁 6시 15분 정규 본방송으로 찾아뵙며, 홈페이지에서는 24시간 언제든 다시 들으실 수 있습니다."),
+            (
+                "전국 가족 담벼락에 1줄 응원이나 박수는 어떻게 남기나요?",
+                "소통 사랑방(community.html#hero-love-letterbox)에서 비밀번호 없이 성함(또는 별명)만 적으시면 1줄 응원을 보내실 수 있고, 이웃 사연 아래 '👏 공감 박수' 버튼으로 실시간 응원을 나누실 수 있습니다.",
+            ),
+            (
+                "내가 보낸 응원글과 사연은 바로 전체 공개되나요?",
+                "보내주신 글은 방송국 서버에 즉시 접수되며, 어르신들을 노리는 광고·스팸 및 개인정보 노출을 막기 위한 확인 절차를 거친 뒤 전국 가족 담벼락과 정규 방송에 안전하게 게시됩니다.",
+            ),
         ],
     },
     {
-        "slug": "paradise-fandom-warm-charity-culture.html",
-        "category": "사랑방 소통 이야기",
-        "title": "부산에서 강릉까지 실시간 공감 박수로 이어지는 『김쌤의영웅라디오』 가족 사랑방 이야기",
-        "desc": "가짜 숫자 부풀리기 없이 전국 시니어 청취자분들이 정직하게 안부를 묻고 공감 박수를 건네는 따뜻한 라디오 공동체 문화를 소개합니다.",
+        "slug": "senior-radio-concert-wellness-guide.html",
+        "category": "본방송 활용법 · 청취 건강",
+        "title": "화·금 저녁 6시 김쌤의영웅라디오 15분 본방송 100% 즐기는 법 & 눈·목 편안한 청취 건강 수칙",
+        "desc": "매주 화요일·금요일 저녁 6시 유튜브 @김쌤의영웅라디오 15분 정규 방송을 자녀 도움 없이 큰 글씨로 편하게 즐기시는 방법과 스마트폰 청취 시 눈·목 건강 수칙을 안내해 드립니다.",
+        "highlight_box_title": "📅 기억하기 쉬운 『김쌤의영웅라디오』 주간 약속",
+        "highlight_box_body": "• 정규 본방송: 매주 화요일 · 금요일 저녁 6시 (유튜브 @김쌤의영웅라디오 15분 힐링 라디오)\n• 사랑방 다시듣기: paradise-hero.com 에서 연중무휴 24시간 무료 연속 청취 & 음성 받아쓰기 사연 접수",
         "body_paragraphs": [
-            "대구 달서구 어머니가 남기신 아침 설거지 안부 글에 부산 해운대와 강원 강릉의 이웃이 '공감 박수'를 눌러 화답하는 풍경은 우리 사랑방만의 포근한 자랑입니다.",
-            "자극적인 소식이나 복잡한 회원가입 없이, 서로의 무릎 안부와 식사를 먼저 챙기며 정통 트로트 한 곡의 여운을 나누는 다정한 마음이 추운 계절을 훈훈하게 데우고 있습니다.",
-            "오늘도 소통 사랑방 담벼락에서 이웃들의 사연을 읽으시고 따뜻한 공감 박수 한 번을 선물해 보세요.",
+            "매주 화요일과 금요일 저녁 6시가 되면 유튜브 『@김쌤의영웅라디오』에서는 한 주 동안 전국 어머님·아버님들께서 보내주신 귀한 인생 사연과 가상 트로트 가수 백운호의 〈어머니의 봄날〉·〈백운호 연가〉·〈다시 피는 동백꽃〉을 엮은 15분 정규 라디오 본방송이 문을 엽니다.",
+            "자녀들에게 매번 물어보지 않으셔도 혼자서 편하게 이용하실 수 있도록 모든 기능을 큼직하게 준비했습니다. 첫째, 글씨가 작게 느껴지실 때는 화면 오른쪽 위 '글자 크게' 버튼을 눌러 22px부터 30px 특대 글씨까지 3단계로 키워 보세요. 둘째, 작은 휴대폰 자판 치기가 번거로우실 때는 사연 보내기(story.html)의 황금색 '말씀으로 편하게 적기' 마이크 버튼을 누르고 천천히 말씀만 하시면 사연이 저절로 글자로 적힙니다.",
+            "좋은 노래와 사연을 오래오래 건강하게 즐기시려면 눈과 목을 지키는 작은 생활 습관도 꼭 함께 챙겨 주세요. 스마트폰 화면은 눈에서 30cm 이상 거리를 두시고, 50분 정도 라디오나 사연을 보신 뒤에는 10분간 창밖 먼 산이나 하늘을 바라보며 눈의 피로를 풀어주시는 것이 좋습니다. 이어폰 음량은 최대 크기의 60% 이하로 맞추시거나 거실 블루투스 라디오 스피커를 활용하시면 귀가 한결 편안합니다.",
+            "또한 실내 난방이나 환절기 건조한 공기로 목이 칼칼할 때 백운호의 노래를 따라 부르시려면, 진한 커피 대신 체온과 비슷한 미지근한 물이나 따뜻한 도라지배즙 차로 성대 점막을 촉촉하게 적셔 주세요. 지역 음악회나 나들이에 나서실 때는 가벼운 메모리폼 방석과 경량 보온 숄 하나만 챙기셔도 허리와 체온을 든든하게 보호하실 수 있습니다.",
         ],
-        "kakao_quote": "🌷 전국 시니어 가족들이 서로의 건강을 챙기며 박수를 나누는 사랑방 이야기입니다.",
+        "kakao_quote": "📻 화·금 저녁 6시 김쌤의영웅라디오 100% 즐기는 법과 눈·목 편안한 청취 건강 수칙입니다.",
         "faqs": [
-            ("내가 쓴 응원글은 어떻게 게시되나요?", "보내주신 1줄 응원과 라디오 사연은 방송국 서버에 즉시 접수되며, 스팸 및 개인정보 보호 확인을 거친 뒤 전국 가족 담벼락과 방송에 안전하게 게시됩니다."),
-        ],
-    },
-    {
-        "slug": "radio-story-guide-voice-dictation.html",
-        "category": "시니어 맞춤 안내",
-        "title": "작은 휴대폰 자판 치기 힘드셨죠? 목소리로 편하게 '김쌤의영웅라디오' 사연 보내는 법",
-        "desc": "손가락으로 작은 글자를 누르지 않아도 말만 하시면 글자로 받아적어 주는 음성 사연 접수 기능을 쉽게 설명해 드립니다.",
-        "body_paragraphs": [
-            "백운호의 〈항구의 등불〉이나 〈어머니의 봄날〉을 들으며 떠오른 젊은 날의 추억은 가득한데, 휴대폰 자판이 작고 오타가 나서 망설이셨던 분들이 많으십니다.",
-            "사연 보내기(story.html) 페이지에는 큼지막한 '말씀으로 편하게 적기' 마이크 버튼이 준비되어 있습니다. 버튼을 누르고 전화 통화하듯 천천히 말씀하시면 화면에 큰 글씨로 사연이 자동으로 입력됩니다.",
-            "접수된 소중한 인생 이야기는 화요일·금요일 저녁 6시 김쌤의영웅라디오 정규 방송으로 정성껏 낭독됩니다.",
-        ],
-        "kakao_quote": "🎙️ 작은 글씨 타자 치지 마세요—말씀만 하시면 라디오 사연이 바로 적힙니다.",
-        "faqs": [
-            ("사연을 보내거나 라디오를 듣는 데 비용이 드나요?", "전혀 들지 않습니다. 사연 접수, 라디오 청취, 포토부스, 디지털 선물관 10종 모두 100% 무료로 운영됩니다."),
-        ],
-    },
-    {
-        "slug": "seasonal-senior-throat-and-sleep-letter.html",
-        "category": "김쌤의 건강 편지",
-        "title": "김쌤의 환절기 안부 편지 — 노래 따라 부르실 때 목을 촉촉하게 지키는 차(茶)와 눈 휴식 습관",
-        "desc": "아침저녁 일교차에 성대와 기관지를 지키는 미지근한 수분 섭취법과 스마트폰 청취 시 눈 피로를 줄이는 생활 수칙을 정리했습니다.",
-        "body_paragraphs": [
-            "난방이 시작되는 환절기에는 실내 공기가 건조해져 노래를 한두 곡만 따라 불러도 목이 쉽게 칼칼해질 수 있습니다.",
-            "찬물이나 진한 카페인 음료 대신 체온과 비슷한 미지근한 물이나 따뜻한 도라지배즙 차를 조금씩 자주 머금어 성대 점막을 촉촉하게 보호해 주세요.",
-            "또한 스마트폰으로 라디오 사연을 읽으실 때는 상단 '글자 크게' 버튼을 활용하시고, 50분 시청 후에는 창밖 먼 풍경을 바라보며 눈의 피로를 풀어주시는 것이 좋습니다.",
-        ],
-        "kakao_quote": "🍵 환절기 목 건강과 눈 피로를 덜어주는 김쌤의 큰 글씨 건강 편지입니다.",
-        "faqs": [
-            ("잠들기 전 라디오를 틀어 놓아도 괜찮나요?", "네, 잔잔한 음량으로 〈항구의 등불〉이나 〈백운호 연가〉를 틀어 두시면 편안한 휴식에 도움이 됩니다."),
-        ],
-    },
-    {
-        "slug": "streaming-and-cheering-easy-step-guide.html",
-        "category": "3분 쉬운 이용법",
-        "title": "칠순에도 배우기 쉬운 3분 사랑방 가이드 — 자녀 도움 없이 큰 버튼 하나로 라디오 즐기기",
-        "desc": "바쁜 자녀들에게 매번 물어보기 미안하셨던 어머님·아버님들을 위해 큰 버튼 하나로 라디오 청취와 무료 달력 만들기를 즐기는 방법을 안내합니다.",
-        "body_paragraphs": [
-            "김쌤의영웅라디오 가족 사랑방은 처음부터 오직 5070 시니어 눈높이에 맞춰 모든 글씨를 20px 이상 큼직하게, 모든 버튼을 60px 이상 시원하게 설계했습니다.",
-            "카카오톡 나와의 채팅방에 주소 하나만 저장해 두시면 매일 아침 버튼 한 번으로 오늘의 안부 편지 확인, 1~5화 라디오 연속 듣기, 카톡 아침 안부카드 만들기까지 혼자서도 손쉽게 이용하실 수 있습니다.",
-            "디지털 세상의 당당한 주인공이 되신 전국 모든 사랑방 어머님·아버님들의 활기찬 일상을 진심으로 응원합니다.",
-        ],
-        "kakao_quote": "📱 자녀 도움 없이도 큰 버튼 한 번이면 라디오 청취와 안부카드 만들기가 끝납니다.",
-        "faqs": [
-            ("김쌤의 콘서트·응원 안심 준비물관은 무엇인가요?", "라디오 청취용 블루투스 스피커, 보조배터리, 공연장 메모리폼 방석, 루테인, 도라지배즙 등 시니어 청취·공연·건강 필수품 7종만 모은 에디터 큐레이션 안내관입니다."),
+            (
+                "화·금 저녁 6시 본방송 소식을 잊지 않고 받아볼 수 있나요?",
+                "메인 홈(index.html#hero-passwordless-club-card)의 '비밀번호 없는 3초 무료 우편함'에 이메일 주소만 적어두시면 새 방송과 큰 글씨 건강 편지를 정직하게 보내드리며 언제든 1클릭 수신거부가 가능합니다.",
+            ),
+            (
+                "카카오톡 안에서 열었더니 음성 받아쓰기 마이크가 안 켜질 때는 어떻게 하나요?",
+                "카카오톡 내부 임시 창에서는 휴대폰 보안 정책상 마이크가 제한될 수 있어, 안내창의 '크롬(Chrome)으로 열기' 또는 'Safari로 열기'를 누르시면 음성 받아쓰기가 시원하게 작동합니다.",
+            ),
         ],
     },
 ]
@@ -171,35 +180,13 @@ SENIOR_COLUMNS: List[Dict[str, Any]] = [
 
 def _select_best_two_shop_cards(col: Dict[str, Any]) -> List[Dict[str, str]]:
     slug = str(col.get("slug") or "")
-    cat = str(col.get("category") or "")
-    if "concert" in slug or "나들이" in cat:
-        return [
-            {
-                "img": "/assets/shop/item_cushion.svg",
-                "tag": "공연·나들이 준비물",
-                "name": "3시간 공연장 푹신 메모리폼 방석",
-                "reason": "오래 앉아 계셔도 허리와 엉덩이 부담을 덜어주는 휴대용 접이식 방석입니다.",
-                "url": "https://cshop.naver.com/paradiseshop",
-                "btn_bg": "#03c75a",
-                "btn_label": "🟢 공식 판매처 보러가기 (네이버페이)",
-            },
-            {
-                "img": "/assets/shop/item_shawl.svg",
-                "tag": "공연·나들이 준비물",
-                "name": "환절기 경량 보온 숄·무릎담요",
-                "reason": "실내 냉방이나 아침저녁 바람에 어깨와 무릎을 포근하게 감싸줍니다.",
-                "url": "https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero_col&pageKey=%EA%B2%BD%EB%9F%89+%EB%B3%B4%EC%98%A8+%EC%88%84+%EB%AC%B4%EB%A6%8E%EB%8B%B4%EC%9A%94",
-                "btn_bg": "#b91c1c",
-                "btn_label": "🚀 공식 판매처 보러가기 (쿠팡)",
-            },
-        ]
-    if "throat" in slug or "건강" in cat:
+    if "wellness" in slug:
         return [
             {
                 "img": "/assets/shop/item_doraji.svg",
                 "tag": "청취 건강 케어",
                 "name": "목이 편안한 도라지배즙 스틱",
-                "reason": "노래를 따라 부르실 때 칼칼한 목을 부드럽고 촉촉하게 지켜드립니다.",
+                "reason": "백운호 애창곡을 따라 부르실 때 칼칼한 목을 부드럽고 촉촉하게 지켜드립니다.",
                 "url": "https://cshop.naver.com/paradiseshop",
                 "btn_bg": "#03c75a",
                 "btn_label": "🟢 공식 판매처 보러가기 (네이버페이)",
@@ -208,8 +195,29 @@ def _select_best_two_shop_cards(col: Dict[str, Any]) -> List[Dict[str, str]]:
                 "img": "/assets/shop/item_lutein.svg",
                 "tag": "청취 건강 케어",
                 "name": "눈 침침함 케어 루테인 지아잔틴",
-                "reason": "스마트폰 큰 글씨 화면을 보실 때 눈 건강 관리를 도와드립니다.",
+                "reason": "스마트폰 큰 글씨 화면으로 사연과 가사를 보실 때 눈 건강 관리를 도와드립니다.",
                 "url": "https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero_col&pageKey=%EB%A3%A8%ED%85%8C%EC%9D%B8+%EC%A7%80%EC%95%84%EC%9E%94%ED%8B%B4",
+                "btn_bg": "#b91c1c",
+                "btn_label": "🚀 공식 판매처 보러가기 (쿠팡)",
+            },
+        ]
+    if "camellia" in slug:
+        return [
+            {
+                "img": "/assets/shop/item_cushion.svg",
+                "tag": "공연·나들이 준비물",
+                "name": "3시간 공연장 푹신 메모리폼 방석",
+                "reason": "음악회나 나들이 좌석에 오래 앉아 계셔도 허리와 엉덩이 부담을 덜어주는 접이식 방석입니다.",
+                "url": "https://cshop.naver.com/paradiseshop",
+                "btn_bg": "#03c75a",
+                "btn_label": "🟢 공식 판매처 보러가기 (네이버페이)",
+            },
+            {
+                "img": "/assets/shop/item_shawl.svg",
+                "tag": "공연·나들이 준비물",
+                "name": "환절기 경량 보온 숄·무릎담요",
+                "reason": "실내외 온도 차이나 산책길 바람에 어깨와 무릎을 포근하게 감싸줍니다.",
+                "url": "https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero_col&pageKey=%EA%B2%BD%EB%9F%89+%EB%B3%B4%EC%98%A8+%EC%88%84+%EB%AC%B4%EB%A6%8E%EB%8B%B4%EC%9A%94",
                 "btn_bg": "#b91c1c",
                 "btn_label": "🚀 공식 판매처 보러가기 (쿠팡)",
             },
@@ -219,7 +227,7 @@ def _select_best_two_shop_cards(col: Dict[str, Any]) -> List[Dict[str, str]]:
             "img": "/assets/shop/item_speaker.svg",
             "tag": "음반·청취 필수품",
             "name": "백운호·정통 트로트 감상용 효도 블루투스 라디오 스피커",
-            "reason": "큼직한 버튼 하나로 거실에서 풍성한 중저음 라디오를 들으실 수 있습니다.",
+            "reason": "큼직한 버튼 하나로 거실과 부엌에서 풍성한 중저음 라디오를 편안하게 들으실 수 있습니다.",
             "url": "https://cshop.naver.com/paradiseshop",
             "btn_bg": "#03c75a",
             "btn_label": "🟢 공식 판매처 보러가기 (네이버페이)",
@@ -228,7 +236,7 @@ def _select_best_two_shop_cards(col: Dict[str, Any]) -> List[Dict[str, str]]:
             "img": "/assets/shop/item_battery.svg",
             "tag": "음반·청취 필수품",
             "name": "라디오 장시간 청취 대용량 보조배터리",
-            "reason": "산책길이나 외출 중에도 배터리 걱정 없이 라디오를 연속 청취하실 수 있습니다.",
+            "reason": "공원 산책길이나 외출 중에도 배터리 걱정 없이 라디오 사연을 연속 청취하실 수 있습니다.",
             "url": "https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero_col&pageKey=%EB%8C%80%EC%9A%A9%EB%9F%89+%EA%B3%A0%EC%86%8D+%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC",
             "btn_bg": "#b91c1c",
             "btn_label": "🚀 공식 판매처 보러가기 (쿠팡)",
@@ -264,6 +272,26 @@ def _render_two_card_shop_html(cards: List[Dict[str, str]], heading: str) -> str
     </section>"""
 
 
+def _render_related_columns_html(current_slug: str) -> str:
+    links_html = ""
+    for item in SENIOR_COLUMNS:
+        if item["slug"] == current_slug:
+            continue
+        links_html += (
+            f'<a class="related-col-link" href="/columns/{item["slug"]}">'
+            f'<span class="related-col-cat">{html.escape(item["category"])}</span>'
+            f'<span class="related-col-title">{html.escape(item["title"])}</span>'
+            f'</a>\n'
+        )
+    return f"""
+    <section class="related-box" aria-label="백운호 사랑방 다른 큰 글씨 편지 읽기">
+      <h2 style="font-size:1.22em;color:var(--gold);margin:0 0 14px;">📖 이어 읽기 좋은 백운호 사랑방 큰 글씨 편지</h2>
+      <div class="related-col-list">
+        {links_html}
+      </div>
+    </section>"""
+
+
 def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     canonical_url = f"https://{HOST}/columns/{col['slug']}"
     faq_entities = [
@@ -289,7 +317,7 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
                     "@type": "BreadcrumbList",
                     "itemListElement": [
                         {"@type": "ListItem", "position": 1, "name": "김쌤의영웅라디오 홈", "item": f"https://{HOST}/"},
-                        {"@type": "ListItem", "position": 2, "name": "큰 글씨 명곡·건강 편지", "item": f"https://{HOST}/columns/"},
+                        {"@type": "ListItem", "position": 2, "name": "백운호 큰 글씨 명곡·건강 편지함", "item": f"https://{HOST}/columns/"},
                         {"@type": "ListItem", "position": 3, "name": col["title"], "item": canonical_url},
                     ],
                 },
@@ -300,20 +328,32 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
 
     best_two_cards = _select_best_two_shop_cards(col)
     mid_shop_html = _render_two_card_shop_html(best_two_cards, "김쌤의 콘서트·응원 안심 준비물관 추천 2선")
+    highlight_html = ""
+    if col.get("highlight_box_title") and col.get("highlight_box_body"):
+        hb_lines = "<br />".join(html.escape(line) for line in str(col["highlight_box_body"]).split("\n"))
+        highlight_html = f"""
+      <div class="lyric-note-box">
+        <div class="lyric-note-title">{html.escape(str(col['highlight_box_title']))}</div>
+        <p class="lyric-note-body">{hb_lines}</p>
+      </div>"""
+
     paras = col["body_paragraphs"]
     if len(paras) >= 2:
         paras_html = (
             f"<p>{html.escape(paras[0])}</p>\n"
+            f"{highlight_html}\n"
             f"<p>{html.escape(paras[1])}</p>\n"
             f"{mid_shop_html}\n"
             + "\n".join(f"<p>{html.escape(p)}</p>" for p in paras[2:])
         )
     else:
-        paras_html = "\n".join(f"<p>{html.escape(p)}</p>" for p in paras) + "\n" + mid_shop_html
+        paras_html = highlight_html + "\n" + "\n".join(f"<p>{html.escape(p)}</p>" for p in paras) + "\n" + mid_shop_html
+
     faqs_html = "\n".join(
         f'<div class="faq-item"><h3>Q. {html.escape(q)}</h3><p>{html.escape(a)}</p></div>'
         for q, a in col["faqs"]
     )
+    related_html = _render_related_columns_html(col["slug"])
     share_msg_js = json.dumps(f"{col['kakao_quote']}\n👉 큰 글씨로 바로 읽기: {canonical_url}", ensure_ascii=False)
 
     raw_letter_card = build_html_morning_letter_and_stamp_card(
@@ -323,7 +363,6 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
         empathy_line_2="가족을 위해 평생을 바치신 어머님·아버님이 우리 인생의 진짜 영웅이십니다. 오늘도 김쌤의영웅라디오와 가상 트로트 가수 백운호가 따뜻하게 곁을 지키겠습니다.",
         mission_text="편지를 읽으신 뒤 목을 적시는 따뜻한 물 한 잔을 천천히 드시고, 아래 초록색 '사랑방 출석 도장' 버튼을 한 번 눌러 오늘의 기분 좋은 동행을 남겨 보세요.",
     )
-    # Strip any legacy celebrity string returned by external shared module
     hero_letter_stamp_html = re.sub(
         r"/hit/[a-zA-Z0-9_-]+/",
         "/hit/hero_paradisekr/",
@@ -351,7 +390,7 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     body {{ margin: 0; font-family: 'Pretendard', 'Malgun Gothic', sans-serif; background: var(--bg); color: var(--text); font-size: var(--base-font); line-height: 1.85; }}
     a {{ color: var(--gold); text-decoration: none; }}
     .topbar {{ background: #05130e; border-bottom: 2px solid #1b4332; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }}
-    .brand {{ font-size: 24px; font-weight: 900; color: var(--gold); }}
+    .brand {{ font-size: 24px; font-weight: 900; color: var(--gold); min-height: 60px; display: inline-flex; align-items: center; }}
     .font-controls {{ display: flex; gap: 8px; flex-wrap: wrap; }}
     .font-btn {{ min-height: 60px; min-width: 92px; padding: 10px 16px; font-size: 20px; font-weight: 800; border-radius: 12px; border: 2px solid var(--gold); background: #102a20; color: #fff; cursor: pointer; }}
     .font-btn.active {{ background: var(--gold); color: #05130e; }}
@@ -360,6 +399,9 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     h1 {{ font-size: 1.45em; line-height: 1.4; color: #ffffff; margin: 16px 0 12px; }}
     .date-line {{ color: var(--muted); font-size: 0.92em; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #2d6a4f; }}
     .honesty-box {{ background: #fffbeb; color: #451a03; border: 2px solid #d97706; border-radius: 14px; padding: 14px 18px; font-weight: 800; font-size: 0.92em; margin-bottom: 22px; line-height: 1.55; }}
+    .lyric-note-box {{ background: #143628; border-left: 6px solid var(--gold); border-radius: 14px; padding: 18px 20px; margin: 22px 0; }}
+    .lyric-note-title {{ font-size: 1.04em; font-weight: 900; color: #fde68a; margin-bottom: 8px; }}
+    .lyric-note-body {{ margin: 0 !important; color: #ecfdf5 !important; font-weight: 700; line-height: 1.7; }}
     article p {{ margin: 22px 0; font-size: 1em; color: #f1f5f9; }}
     .one-tap-shop-section {{ background: #ffffff; color: #111827; border: 3px solid var(--gold); border-radius: 20px; padding: 24px 20px; margin: 28px 0; box-shadow: 0 12px 30px rgba(0,0,0,0.28); }}
     .one-tap-shop-header {{ font-size: 24px; font-weight: 900; color: #0e2820; margin-bottom: 6px; line-height: 1.35; }}
@@ -378,6 +420,11 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     .funnel-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 32px 0; }}
     .funnel-btn {{ display: flex; align-items: center; justify-content: center; text-align: center; min-height: 68px; padding: 14px 18px; border-radius: 14px; font-size: 21px; font-weight: 800; background: var(--card); border: 2px solid #34d399; color: #ffffff; }}
     .funnel-btn.gold {{ border-color: var(--gold); background: linear-gradient(135deg, #422006, #1c1917); color: #fde68a; }}
+    .related-box {{ background: var(--card); border: 2px solid #2d6a4f; border-radius: 18px; padding: 22px; margin: 28px 0; }}
+    .related-col-list {{ display: grid; gap: 12px; }}
+    .related-col-link {{ display: flex; flex-direction: column; justify-content: center; gap: 4px; min-height: 66px; padding: 14px 16px; border-radius: 14px; background: #081c15; border: 1.5px solid #34d399; color: #ffffff; }}
+    .related-col-cat {{ font-size: 17px; font-weight: 800; color: #fde68a; }}
+    .related-col-title {{ font-size: 20px; font-weight: 800; color: #ffffff; line-height: 1.4; }}
     .curation-box {{ background: #102a20; border: 2px solid var(--gold); border-radius: 18px; padding: 24px; margin: 32px 0; }}
     .npay-btn {{ display: flex; align-items: center; justify-content: center; text-align: center; min-height: 68px; padding: 14px 18px; border-radius: 14px; font-size: 21px; font-weight: 900; background: #03c75a; color: #ffffff; margin-bottom: 14px; }}
     .cp-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }}
@@ -385,6 +432,8 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     .faq-item {{ background: var(--card); border: 1px solid #2d6a4f; border-radius: 14px; padding: 20px; margin-bottom: 16px; }}
     .faq-item h3 {{ margin: 0 0 10px; color: var(--gold); font-size: 1.05em; }}
     .faq-item p {{ margin: 0; font-size: 0.98em; }}
+    .partner-box {{ background: #102a20; border: 2px solid #34d399; border-radius: 18px; padding: 22px; margin-top: 28px; }}
+    .partner-btn {{ display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 64px; padding: 12px 18px; border-radius: 14px; border: 2px solid var(--gold); background: #081c15; color: #fde68a; font-size: 20px; font-weight: 800; margin-top: 10px; }}
   </style>
 </head>
 <body>
@@ -413,13 +462,17 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
       <p id="share-toast" style="margin:12px 0 0;color:#6ee7b7;font-weight:800;display:none;">✅ 편지 주소가 복사되었습니다! 카카오톡이나 밴드 대화창에 붙여넣기 해주세요.</p>
     </section>
 
+    {related_html}
+
     <section aria-label="사랑방 주요 메뉴 바로가기">
       <h2 style="font-size:1.25em;color:var(--gold);margin-bottom:14px;">김쌤의영웅라디오 가족 사랑방 바로가기</h2>
       <div class="funnel-grid">
         <a class="funnel-btn" href="/radio.html">📻 사연 라디오 1~5화 연속 듣기</a>
+        <a class="funnel-btn" href="/stream.html">🎵 백운호 6대 대표곡 감상관</a>
         <a class="funnel-btn" href="/booth.html">📸 백운호 6벌 의상 무료 기념촬영</a>
         <a class="funnel-btn gold" href="/vip.html">🎁 카톡 안부카드·큰글씨 달력 선물관</a>
         <a class="funnel-btn" href="/community.html">💬 소통 사랑방 1줄 응원·공감 박수</a>
+        <a class="funnel-btn" href="/story.html">💌 라디오 사연 보내기 (음성 지원)</a>
       </div>
     </section>
 
@@ -443,6 +496,12 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     <section>
       <h2 style="font-size:1.2em;color:#ffffff;">자주 묻는 질문</h2>
       {faqs_html}
+    </section>
+
+    <section id="hero-brand-partnership-box" class="partner-box" aria-label="공식 브랜드 협찬 및 제휴 문의">
+      <h2 style="font-size:1.15em;color:var(--gold);margin:0 0 8px;">🤝 공식 브랜드 협찬 · 라디오 캠페인 제휴 창구</h2>
+      <p style="margin:0;color:var(--muted);font-size:0.95em;">5070 시니어 청취자분들께 유익한 음향·공연·청취 건강 브랜드 협찬 및 사연 캠페인 문의는 공식 이메일 창구로 연락해 주세요.</p>
+      <a class="partner-btn" href="mailto:beable9489@gmail.com">📧 공식 제휴·사연 문의: beable9489@gmail.com</a>
     </section>
   </main>
   <script src="/js/senior-accessibility.js" defer></script>
@@ -476,6 +535,11 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
     day_utc = datetime.datetime.strptime(today_iso, "%Y-%m-%d").replace(tzinfo=datetime.timezone.utc)
     rfc_now = format_datetime(day_utc)
 
+    allowed_files = {col["slug"] for col in SENIOR_COLUMNS} | {"index.html"}
+    for existing_fp in COLUMNS_DIR.glob("*.html"):
+        if existing_fp.name not in allowed_files:
+            existing_fp.unlink()
+
     cards_html = ""
     for col in SENIOR_COLUMNS:
         out_fp = COLUMNS_DIR / col["slug"]
@@ -488,17 +552,33 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
         <a class="read-btn" href="/columns/{col['slug']}">📖 큰 글씨로 편지 읽기 →</a>
       </article>"""
 
+    hub_ld_json = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "가상 트로트 가수 백운호 탄생 이야기 · 명곡 해설 & 청취 건강 편지함 | 김쌤의영웅라디오",
+            "description": "5070 시니어 가족분들을 위한 오리지널 가상 트로트 가수 백운호(白雲湖) 탄생 이야기와 대표곡 〈어머니의 봄날〉·〈백운호 연가〉·〈다시 피는 동백꽃〉 해설 및 청취 건강 편지 모음입니다.",
+            "url": f"https://{HOST}/columns/",
+            "inLanguage": "ko-KR",
+        },
+        ensure_ascii=False,
+    )
+
     hub_html = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>큰 글씨 백운호 명곡 해설 &amp; 김쌤의 건강·응원 편지함 | 김쌤의영웅라디오</title>
-  <meta name="description" content="5070 시니어 가족분들을 위한 가상 트로트 가수 백운호 대표곡 해설, 나들이 준비물 안내, 음성 사연 보내기, 환절기 건강 편지 모음입니다." />
+  <title>가상 트로트 가수 백운호 탄생 이야기 · 명곡 해설 &amp; 청취 건강 편지함 | 김쌤의영웅라디오</title>
+  <meta name="description" content="5070 시니어 가족분들을 위한 오리지널 가상 트로트 가수 백운호(白雲湖) 탄생 이야기와 대표곡 〈어머니의 봄날〉·〈백운호 연가〉·〈다시 피는 동백꽃〉 해설 및 청취 건강 편지 모음입니다." />
   <link rel="canonical" href="https://{HOST}/columns/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="가상 트로트 가수 백운호 탄생 이야기 · 명곡 해설 &amp; 청취 건강 편지함 | 김쌤의영웅라디오" />
+  <meta property="og:description" content="5070 시니어 가족분들을 위한 오리지널 가상 트로트 가수 백운호(白雲湖) 탄생 이야기와 대표곡 〈어머니의 봄날〉·〈백운호 연가〉·〈다시 피는 동백꽃〉 해설 및 청취 건강 편지 모음입니다." />
   <meta property="og:url" content="https://{HOST}/columns/" />
   <meta property="og:image" content="https://{HOST}/assets/og_booth_share.jpg" />
   <link rel="alternate" type="application/rss+xml" title="김쌤의영웅라디오 RSS" href="https://{HOST}/rss.xml" />
+  <script type="application/ld+json">{hub_ld_json}</script>
   <style>
     :root {{ --base-font: 22px; }}
     * {{ box-sizing: border-box; }}
@@ -513,22 +593,36 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
     .card h2 a {{ color:#ffffff; }}
     .read-btn {{ display:inline-flex; align-items:center; justify-content:center; min-height:62px; padding:10px 22px; background:#10b981; color:#042f2e; font-weight:900; border-radius:12px; margin-top:8px; }}
     .honesty-box {{ background:#fffbeb; color:#451a03; border:2px solid #d97706; border-radius:14px; padding:14px 18px; font-weight:800; font-size:0.92em; margin-bottom:22px; line-height:1.55; }}
+    .nav-grid {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-top:20px; }}
+    .nav-btn {{ display:flex; align-items:center; justify-content:center; min-height:62px; padding:12px 16px; border-radius:12px; border:2px solid #34d399; background:#081c15; color:#ffffff; font-weight:800; text-align:center; }}
   </style>
 </head>
 <body>
   <header class="topbar">
-    <a href="/" style="font-size:24px;font-weight:900;color:#fbbf24;">📻 김쌤의영웅라디오 홈으로</a>
-    <div>
+    <a href="/" style="font-size:24px;font-weight:900;color:#fbbf24;min-height:60px;display:inline-flex;align-items:center;">📻 김쌤의영웅라디오 홈으로</a>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
       <button type="button" id="btn-font-scaler" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','22px')">보통</button>
       <button type="button" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','26px')">크게</button>
       <button type="button" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','30px')">특대</button>
     </div>
   </header>
   <main class="wrap">
-    <h1 style="font-size:1.5em;color:#fde68a;margin-bottom:8px;">💌 김쌤의 큰 글씨 백운호 명곡·건강 편지함</h1>
-    <p style="color:#d1fae5;margin-top:0;margin-bottom:18px;">돋보기 없이 편안하게 읽으시고 카카오톡 단톡방 가족분들과 따뜻한 마음을 나눠보세요.</p>
+    <h1 style="font-size:1.5em;color:#fde68a;margin-bottom:8px;">💌 가상 트로트 가수 『백운호』 탄생 이야기 · 대표곡 해설 편지함</h1>
+    <p style="color:#d1fae5;margin-top:0;margin-bottom:18px;">〈어머니의 봄날〉 · 〈백운호 연가〉 · 〈다시 피는 동백꽃〉 이야기와 청취 건강 수칙을 돋보기 없이 큰 글씨로 만나보세요.</p>
     <div class="honesty-box">{HONESTY_BADGE_TEXT}</div>
     {cards_html}
+    <section class="card" aria-label="사랑방 주요 바로가기">
+      <span class="badge">📻 김쌤의영웅라디오 가족 사랑방</span>
+      <h2>노래 감상과 사연 소통도 큰 버튼으로 편하게 즐기세요</h2>
+      <div class="nav-grid">
+        <a class="nav-btn" href="/radio.html">📻 1~5화 사연 라디오 듣기</a>
+        <a class="nav-btn" href="/stream.html">🎵 백운호 6대 대표곡 감상</a>
+        <a class="nav-btn" href="/community.html">💬 1줄 응원 &amp; 공감 박수</a>
+        <a class="nav-btn" href="/story.html">💌 라디오 사연 보내기</a>
+        <a class="nav-btn" href="/booth.html">📸 백운호 6벌 의상 촬영관</a>
+        <a class="nav-btn" href="/vip.html">🎁 무료 안부카드 선물관</a>
+      </div>
+    </section>
     <section class="card" style="border-color:#fbbf24;margin-top:28px;">
       <span class="badge">💚 에디터 큐레이션 · 청취 &amp; 공연 준비물</span>
       <h2>💚 김쌤의 콘서트·응원 안심 준비물관</h2>
@@ -536,6 +630,11 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
       <p style="font-size:0.9em;color:#fde68a;font-weight:800;margin:0 0 12px;">{FTC_DISCLOSURE_TEXT}</p>
       <a class="read-btn" href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="background:#03c75a;color:#ffffff;width:100%;margin-bottom:10px;">💚 김쌤의 콘서트·응원 안심 준비물관 (네이버페이 공식관) 👉</a>
       <a class="read-btn" href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" style="background:#b91c1c;color:#ffffff;width:100%;">📻 김쌤의 콘서트·응원 안심 준비물관 (쿠팡 공식관) 👉</a>
+    </section>
+    <section id="hero-brand-partnership-box" class="card" style="border-color:#34d399;">
+      <span class="badge">🤝 공식 브랜드 협찬 · 제휴 문의</span>
+      <h2>유튜브 @김쌤의영웅라디오 &amp; 시니어 브랜드 제휴 안내</h2>
+      <p>음향·공연·청취 건강 브랜드 협찬 및 라디오 사연 캠페인 문의: <a href="mailto:beable9489@gmail.com" style="font-weight:900;text-decoration:underline;">beable9489@gmail.com</a></p>
     </section>
   </main>
   <script src="/js/senior-accessibility.js" defer></script>
@@ -588,7 +687,7 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
         seen_locs.add(loc)
         url_map[loc] = COLUMNS_DIR / col["slug"]
         smap_blocks.append(
-            f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{today_iso}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.88</priority>\n  </url>"
+            f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{today_iso}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.90</priority>\n  </url>"
         )
         rss_items_xml.append(
             f"""    <item>
@@ -627,7 +726,7 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
     llms_lines = [
         "# Paradise Hero · 유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 라운지 (https://paradise-hero.com)",
         "",
-        f"> 최종 업데이트: {today_iso} | 5070 시니어 음악 위로·사연 소통 라디오 쉼터 (실존 연예인 팬카페 아님 · 오리지널 가상 트로트 가수 '백운호' 공식 라운지 · WCAG AAA 20px+ 큰 글씨, 60px+ 터치 버튼).",
+        f"> 최종 업데이트: {today_iso} | 5070 시니어 음악 위로·사연 소통 라디오 쉼터 (실존 연예인 팬카페 아님 · 오리지널 가상 트로트 가수 '백운호(白雲湖)' 공식 라운지 · WCAG AAA 20px+ 큰 글씨, 60px+ 터치 버튼).",
         "",
         "## 1. 주요 라디오 사랑방 서비스 바로가기",
         f"- 메인 홈: https://{HOST}/",
@@ -638,10 +737,10 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
         f"- [② 라디오 사연 보내기] (음성 받아쓰기 지원): https://{HOST}/story.html",
         f"- 화·금 저녁 6시 정규 방송 편성표 & 백운호 소식란: https://{HOST}/news.html",
         f"- 10종 무료 카톡 안부카드·큰글씨 달력 선물관 & 김쌤의 콘서트·응원 안심 준비물관: https://{HOST}/vip.html",
-        f"- 큰 글씨 명곡 해설 · 건강 편지함: https://{HOST}/columns/",
+        f"- 백운호 탄생 이야기 · 명곡 해설 · 청취 건강 편지함: https://{HOST}/columns/",
         "- 공식 제휴·사연 문의: mailto:beable9489@gmail.com",
         "",
-        "## 2. 큰 글씨 백운호 명곡 해설 및 시니어 건강 칼럼 목록 (/columns/)",
+        "## 2. 오리지널 가상 트로트 가수 『백운호(白雲湖)』 큰 글씨 칼럼 목록 (/columns/)",
     ]
     for col in SENIOR_COLUMNS:
         llms_lines.append(f"- [{col['title']}](https://{HOST}/columns/{col['slug']})")
@@ -652,4 +751,4 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
 
 if __name__ == "__main__":
     umap = generate_all_senior_columns_and_feeds()
-    print(f"[HERO Senior Columns] Generated {len(SENIOR_COLUMNS)} Baek Woon-ho WCAG AAA columns & synced {len(umap)} canonical URLs.")
+    print(f"[HERO Senior Columns] Generated {len(SENIOR_COLUMNS)} pure Baek Woon-ho WCAG AAA columns & synced {len(umap)} canonical URLs.")
