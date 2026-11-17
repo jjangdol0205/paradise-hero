@@ -1,11 +1,10 @@
 /**
  * radio-player.js
- * @김쌤의영웅라디오 1-클릭 연속 재생 플레이어 & 본문 16:9 유튜브 공식 IFrame API 플레이어 연동 모듈
- * - 모바일(iOS/안드로이드) 무음 차단 문제를 100% 해결하기 위해 본문 상단 16:9 보이는 유튜브 플레이어(#main-youtube-embed)와
- *   화면 하단 고정 바(Sticky Bar)를 동시 연동합니다.
- * - ?ep=1~5 딥링크 파라미터 자동 선택·재생을 지원합니다.
- * - 공식 YouTube IFrame Player API (https://www.youtube.com/iframe_api, enablejsapi=1)를 통해
- *   실제 재생 상태(player.getPlayerState() === 1 / YT.PlayerState.PLAYING)인 동안만 1초 주기로 누적 시청 시간을 계측하여
+ * @김쌤의영웅라디오 & 전속 가상 트로트 가수 『백운호 (白雲湖)』 100% 오리지널 스튜디오 라디오 플레이어
+ * - 실존 연예인 영상/음원 혼입 0건: 자체 제작된 백운호·김쌤 스튜디오 MP3 방송(assets/audio/baek_woon_ho_ep01~05.mp3)을
+ *   광고 0초·인앱 브라우저 차단 0건으로 즉시 연속 재생합니다.
+ * - 본문 상단 16:9 보이는 라디오 스튜디오(#main-youtube-embed)와 하단 58px 슬림 고정 바(#sticky-radio-player)를 1:1 동기화합니다.
+ * - ?ep=1~5 딥링크 자동 선택 및 실제 오디오 재생 중(!audio.paused)일 때만 1초 주기로 누적 청취 시간을 계측하여
  *   330초(5분 30초) 도달 시 세션당 1회 hero_paradisekr radio_5m30s 비콘을 전송합니다.
  */
 
@@ -15,59 +14,94 @@
   const RADIO_EPISODES = [
     {
       id: 'ep01',
-      title: '1화: [사연라디오] 내 인생의 사계절을 울린 황영웅의 목소리 — 파라다이스에 찾아온 봄',
-      song: '당신 편 · 꽃구경',
-      duration: '11:45',
-      videoId: 'WOPZLb6S1xI'
+      title: '1화: [사연라디오] 내 인생의 사계절을 안아주는 백운호의 중저음 — 어머니의 봄날',
+      song: '어머니의 봄날 · 백운호 연가',
+      duration: '01:08',
+      audioSrc: 'assets/audio/baek_woon_ho_ep01.mp3',
+      poster: 'assets/baek_woon_ho_main.png',
+      captions: [
+        { at: 0, text: '🎙️ 김쌤: 가족을 위해 평생을 바치신 어머님·아버님들의 따뜻한 쉼터, 김쌤의 영웅 라디오 1화 본방송입니다.' },
+        { at: 13, text: '💌 대구 이순자 어머님 사연: 홀로 맞이하던 시린 새벽 부엌, 백운호의 〈어머니의 봄날〉이 다시 살아갈 힘이 되었습니다.' },
+        { at: 28, text: '🎵 백운호: 거친 세월 앞치마에 눈물을 닦으시며 자식들 키워내신 어머님의 오늘이 가장 눈부신 봄날입니다.' },
+        { at: 44, text: '🎶 〈어머니의 봄날〉 — 이제는 무거운 짐 내려놓으시고 꽃길만 걸으세요, 어머니의 봄날이 지금 피어납니다.' }
+      ]
     },
     {
       id: 'ep02',
-      title: '2화: [심야사연극] 앞치마는 잠시 내려놓으세요 — 황영웅이 파라다이스에 보낸 사연 열차',
-      song: '해바라기 · 함께해요',
-      duration: '12:33',
-      videoId: 'M26BNE0bSz8'
+      title: '2화: [저녁사연극] 앞치마는 잠시 내려놓으세요 — 김쌤과 백운호가 띄우는 사연 열차',
+      song: '백운호 연가 · 항구의 등불',
+      duration: '01:06',
+      audioSrc: 'assets/audio/baek_woon_ho_ep02.mp3',
+      poster: 'assets/characters/hero_style_02.png',
+      captions: [
+        { at: 0, text: '🎙️ 김쌤: 대전 유성구 오정숙 어머님께서 무릎 재활 산책길에 〈백운호 연가〉를 들으시며 보내주신 사연입니다.' },
+        { at: 13, text: '💌 오정숙 어머님: 동네 공원 세 바퀴 돌 때마다 잔잔한 중저음 가락이 발걸음을 참 가볍게 해줍니다.' },
+        { at: 26, text: '🎵 백운호: 매일 저녁 포기하지 않고 걸으시는 그 걸음마다 건강한 기운이 가득 차오르길 응원합니다.' },
+        { at: 42, text: '🎶 〈백운호 연가 · 항구의 등불〉 — 흰 구름 머무는 호수처럼 당신의 저녁에 따뜻한 등불을 밝혀 드립니다.' }
+      ]
     },
     {
       id: 'ep03',
-      title: '3화: [감동다큐] 텅 빈 연습실의 눈물과 파라다이스가 함께 만든 두 번째 기적',
-      song: '비상 · 인생아 고마웠다',
-      duration: '12:27',
-      videoId: 'fqYTY_NZ3Uw'
+      title: '3화: [감동사연] 찬 서리 견디고 피어난 어머님들의 세월 — 다시 피는 동백꽃',
+      song: '다시 피는 동백꽃 · 내 인생의 금빛 노을',
+      duration: '01:05',
+      audioSrc: 'assets/audio/baek_woon_ho_ep03.mp3',
+      poster: 'assets/characters/hero_style_04.png',
+      captions: [
+        { at: 0, text: '🎙️ 김쌤: 전북 익산의 박정옥 어머님께서 칠순 고개에 보내주신 가슴 뭉클한 편지를 소개합니다.' },
+        { at: 13, text: '💌 박정옥 어머님: 삼 남매 뒷바라지에 잊고 살던 내 이름 석 자, 이제는 활짝 웃으며 살렵니다.' },
+        { at: 26, text: '🎵 백운호: 겨울 찬 바람을 이겨내고 가장 붉게 피어나는 동백꽃은 바로 어머님의 인생을 닮았습니다.' },
+        { at: 42, text: '🎶 〈다시 피는 동백꽃〉 — 눈보라 스쳐 간 가지 끝에 누구보다 붉고 고운 꽃망울을 터뜨리네.' }
+      ]
     },
     {
       id: 'ep04',
-      title: '4화: [인생사연] 낡은 구두와 초록빛 응원봉 — 황영웅이 전하는 진심의 이야기',
-      song: '인사동 찻집 · 당신꽃',
-      duration: '14:14',
-      videoId: 'wb9IV7eD1p0'
+      title: '4화: [인생사연] 새벽 정거장 보리차 병의 기억 — 고향역 첫차와 따뜻한 위로',
+      song: '고향역 첫차 · 어머니의 봄날',
+      duration: '01:04',
+      audioSrc: 'assets/audio/baek_woon_ho_ep04.mp3',
+      poster: 'assets/characters/hero_style_03.png',
+      captions: [
+        { at: 0, text: '🎙️ 김쌤: 강원 강릉 최선자 어머님께서 새벽녘 〈고향역 첫차〉를 듣고 보내주신 그리움의 편지입니다.' },
+        { at: 13, text: '💌 최선자 어머님: 도시로 떠나는 딸 손에 따뜻한 보리차 병을 쥐여주시던 친정어머니가 눈앞에 선합니다.' },
+        { at: 27, text: '🎵 백운호: 친정어머님이 쥐여주시던 보리차 병의 온기가 오늘 어머님의 다정한 마음으로 이어져 있습니다.' },
+        { at: 42, text: '🎶 〈고향역 첫차〉 — 희미한 가로등 불빛 아래 기적 소리 울리면 손 흔드시던 우리 어머니 두 손이 그리워.' }
+      ]
     },
     {
       id: 'ep05',
-      title: '5화: [명곡해설] 새벽 4시 녹음실, 모두를 울려버린 황영웅의 진심과 신곡 비하인드',
-      song: '당신 편 · 가을, 그리움',
-      duration: '16:59',
-      videoId: 'nZhCCjhgSIE'
+      title: '5화: [명곡해설] 심야 스튜디오에서 백운호가 전하는 6대 오리지널 트로트 이야기',
+      song: '항구의 등불 · 내 인생의 금빛 노을',
+      duration: '01:10',
+      audioSrc: 'assets/audio/baek_woon_ho_ep05.mp3',
+      poster: 'assets/characters/hero_style_05.png',
+      captions: [
+        { at: 0, text: '🎙️ 김쌤: 수원 한상철 아버님과 양천구 정명숙 님께서 부부 산책길에 〈내 인생의 금빛 노을〉을 신청해 주셨습니다.' },
+        { at: 15, text: '🎵 백운호: 한낮의 뜨거운 태양보다 저녁 하늘을 물들이는 노을이 훨씬 더 깊고 아름답습니다.' },
+        { at: 31, text: '🎶 〈어머니의 봄날〉부터 〈내 인생의 금빛 노을〉까지 백운호가 늘 어머님·아버님 곁에서 노래하겠습니다.' },
+        { at: 48, text: '📻 김쌤: 매주 화요일·금요일 저녁 6시 김쌤의 영웅 라디오 사랑방에서 따뜻한 사연으로 함께하겠습니다.' }
+      ]
     }
   ];
 
-  const STATE_KEY = 'paradise_radio_state_v3';
+  const STATE_KEY = 'paradise_radio_state_v4';
   const WATCH_ACCUM_KEY = 'hq_radio_accum_sec';
   const WATCH_BEACON_SENT_KEY = 'hq_radio_5m30s_sent';
   const WATCH_TARGET_SECONDS = 330;
 
   let currentIndex = 0;
   let isPlaying = false;
-
-  let ytMainPlayer = null;
-  let ytMainPlayerReady = false;
-  let ytMainLoadedVideoId = '';
-
-  let ytMiniPlayer = null;
-  let ytMiniPlayerReady = false;
-  let ytMiniLoadedVideoId = '';
-
+  let customBannerTitle = '';
   let accumulatedPlaySeconds = 0;
   let watchIntervalId = null;
+
+  function formatSec(sec) {
+    if (!isFinite(sec) || sec < 0) return '00:00';
+    const total = Math.floor(sec);
+    const m = String(Math.floor(total / 60)).padStart(2, '0');
+    const s = String(total % 60).padStart(2, '0');
+    return m + ':' + s;
+  }
 
   function loadState() {
     try {
@@ -77,7 +111,6 @@
         if (typeof parsed.index === 'number' && parsed.index >= 0 && parsed.index < RADIO_EPISODES.length) {
           currentIndex = parsed.index;
         }
-        isPlaying = Boolean(parsed.isPlaying);
       }
       const savedAccum = parseInt(sessionStorage.getItem(WATCH_ACCUM_KEY) || '0', 10);
       if (!isNaN(savedAccum) && savedAccum > 0) {
@@ -98,14 +131,11 @@
         const epNum = parseInt(epParam, 10);
         if (!isNaN(epNum) && epNum >= 1 && epNum <= RADIO_EPISODES.length) {
           currentIndex = epNum - 1;
-          isPlaying = true;
           saveState();
           return true;
         }
       }
-    } catch (e) {
-      // Ignore malformed query
-    }
+    } catch (e) {}
     return false;
   }
 
@@ -118,9 +148,7 @@
           isPlaying: isPlaying
         })
       );
-    } catch (e) {
-      // Storage unavailable
-    }
+    } catch (e) {}
   }
 
   function fireRadio5m30sBeaconOnce() {
@@ -145,22 +173,77 @@
     } catch (e) {}
   }
 
-  function isPlayerActivelyPlaying(player) {
-    if (!player || typeof player.getPlayerState !== 'function') return false;
-    try {
-      const playingConst = (typeof window !== 'undefined' && window.YT && window.YT.PlayerState && typeof window.YT.PlayerState.PLAYING === 'number')
-        ? window.YT.PlayerState.PLAYING
-        : 1;
-      return player.getPlayerState() === playingConst;
-    } catch (e) {
-      return false;
+  function ensureStudioAudioElement() {
+    if (typeof document === 'undefined') return null;
+    let audio = document.getElementById('baek-studio-audio');
+    if (!audio && document.body) {
+      audio = document.createElement('audio');
+      audio.id = 'baek-studio-audio';
+      audio.preload = 'metadata';
+      audio.src = RADIO_EPISODES[currentIndex].audioSrc;
+      audio.style.display = 'none';
+      document.body.appendChild(audio);
+    }
+    if (audio && !audio.__baekEventsBound) {
+      audio.__baekEventsBound = true;
+      audio.addEventListener('play', function () {
+        isPlaying = true;
+        saveState();
+        syncUiState(true);
+      });
+      audio.addEventListener('pause', function () {
+        if (!audio.ended) {
+          isPlaying = false;
+          saveState();
+          syncUiState(false);
+        }
+      });
+      audio.addEventListener('ended', function () {
+        nextEpisode();
+      });
+      audio.addEventListener('timeupdate', function () {
+        syncProgressAndCaptions(audio);
+      });
+      audio.addEventListener('loadedmetadata', function () {
+        syncProgressAndCaptions(audio);
+      });
+    }
+    return audio;
+  }
+
+  function syncProgressAndCaptions(audio) {
+    if (!audio || typeof document === 'undefined') return;
+    const ep = RADIO_EPISODES[currentIndex];
+    const cur = audio.currentTime || 0;
+    const dur = isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 68;
+
+    const timeEl = document.getElementById('studio-time-readout');
+    if (timeEl) {
+      timeEl.textContent = formatSec(cur) + ' / ' + formatSec(dur);
+    }
+    const scrubber = document.getElementById('studio-audio-scrubber');
+    if (scrubber && !scrubber.__isDragging) {
+      scrubber.value = String(Math.min(1000, Math.round((cur / dur) * 1000)));
+    }
+    const capEl = document.getElementById('studio-live-caption');
+    if (capEl && Array.isArray(ep.captions) && ep.captions.length > 0) {
+      let activeText = ep.captions[0].text;
+      for (let i = 0; i < ep.captions.length; i += 1) {
+        if (cur >= ep.captions[i].at) {
+          activeText = ep.captions[i].text;
+        }
+      }
+      if (capEl.textContent !== activeText) {
+        capEl.textContent = activeText;
+      }
     }
   }
 
   function ensureRealPlaybackWatchTimer() {
     if (watchIntervalId !== null || typeof window === 'undefined') return;
     watchIntervalId = window.setInterval(function () {
-      if (isPlayerActivelyPlaying(ytMainPlayer) || isPlayerActivelyPlaying(ytMiniPlayer)) {
+      const audio = typeof document !== 'undefined' ? document.getElementById('baek-studio-audio') : null;
+      if (audio && !audio.paused && !audio.ended && audio.currentTime > 0) {
         accumulatedPlaySeconds += 1;
         try {
           sessionStorage.setItem(WATCH_ACCUM_KEY, String(accumulatedPlaySeconds));
@@ -172,151 +255,209 @@
     }, 1000);
   }
 
-  function loadYouTubeIframeApiScript() {
-    if (typeof document === 'undefined' || typeof window === 'undefined') return;
-    if (window.YT && typeof window.YT.Player === 'function') {
-      bindYouTubePlayers();
-      return;
-    }
-    const prevCallback = window.onYouTubeIframeAPIReady;
-    if (!window.__paradiseYtCallbackHooked) {
-      window.__paradiseYtCallbackHooked = true;
-      window.onYouTubeIframeAPIReady = function () {
-        if (typeof prevCallback === 'function') {
-          try { prevCallback(); } catch (e) {}
-        }
-        bindYouTubePlayers();
-      };
-    }
-    const existingScript = document.querySelector('script[src*="youtube.com/iframe_api"]');
-    if (!existingScript && document.head) {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      tag.async = true;
-      document.head.appendChild(tag);
-    }
-  }
-
-  function extractVideoIdFromSrc(src) {
-    const m = String(src || '').match(/\/embed\/([a-zA-Z0-9_-]{11})/);
-    return m ? m[1] : '';
-  }
-
-  function syncUiButtonsOnly(playingState) {
-    const statusEl = document.getElementById('radio-status-label');
-    const playIcon = document.getElementById('radio-play-icon');
-    const playText = document.getElementById('radio-play-text');
-    const toggleBtn = document.getElementById('btn-radio-toggle');
-
-    if (playingState) {
-      if (statusEl) statusEl.textContent = '🔴 지금 방송 중 — @김쌤의영웅라디오';
-      if (playIcon) playIcon.textContent = '⏸';
-      if (playText) playText.textContent = '일시정지';
-      if (toggleBtn) toggleBtn.classList.add('playing');
-    } else {
-      if (statusEl) statusEl.textContent = '📻 김쌤의 영웅 라디오 (▶ 방송 듣기를 누르세요)';
-      if (playIcon) playIcon.textContent = '▶';
-      if (playText) playText.textContent = '방송 듣기';
-      if (toggleBtn) toggleBtn.classList.remove('playing');
-    }
-  }
-
-  function bindYouTubePlayers() {
-    if (typeof window === 'undefined' || !window.YT || typeof window.YT.Player !== 'function') return;
-
-    const mainEl = document.getElementById('main-youtube-embed');
-    if (mainEl && !ytMainPlayer) {
-      ytMainLoadedVideoId = extractVideoIdFromSrc(mainEl.getAttribute('src')) || RADIO_EPISODES[currentIndex].videoId;
-      try {
-        ytMainPlayer = new window.YT.Player('main-youtube-embed', {
-          events: {
-            onReady: function () {
-              ytMainPlayerReady = true;
-              ensureRealPlaybackWatchTimer();
-              if (isPlaying) {
-                const targetVid = RADIO_EPISODES[currentIndex].videoId;
-                if (ytMainLoadedVideoId !== targetVid && typeof ytMainPlayer.loadVideoById === 'function') {
-                  ytMainLoadedVideoId = targetVid;
-                  ytMainPlayer.loadVideoById(targetVid);
-                } else if (typeof ytMainPlayer.playVideo === 'function') {
-                  ytMainPlayer.playVideo();
-                }
-              }
-            },
-            onStateChange: function (event) {
-              const playingState = (window.YT && window.YT.PlayerState) ? window.YT.PlayerState.PLAYING : 1;
-              const pausedState = (window.YT && window.YT.PlayerState) ? window.YT.PlayerState.PAUSED : 2;
-              const endedState = (window.YT && window.YT.PlayerState) ? window.YT.PlayerState.ENDED : 0;
-
-              if (event.data === playingState) {
-                isPlaying = true;
-                saveState();
-                syncUiButtonsOnly(true);
-                ensureRealPlaybackWatchTimer();
-              } else if (event.data === pausedState) {
-                isPlaying = false;
-                saveState();
-                syncUiButtonsOnly(false);
-              } else if (event.data === endedState) {
-                nextEpisode();
-              }
-            }
-          }
-        });
-      } catch (e) {
-        ytMainPlayer = null;
-      }
-    }
-
-    const miniEl = document.getElementById('sticky-youtube-embed');
-    if (miniEl && !ytMiniPlayer && miniEl.getAttribute('src') && miniEl.getAttribute('src') !== 'about:blank') {
-      ytMiniLoadedVideoId = extractVideoIdFromSrc(miniEl.getAttribute('src'));
-      try {
-        ytMiniPlayer = new window.YT.Player('sticky-youtube-embed', {
-          events: {
-            onReady: function () {
-              ytMiniPlayerReady = true;
-              ensureRealPlaybackWatchTimer();
-            },
-            onStateChange: function (event) {
-              const playingState = (window.YT && window.YT.PlayerState) ? window.YT.PlayerState.PLAYING : 1;
-              const endedState = (window.YT && window.YT.PlayerState) ? window.YT.PlayerState.ENDED : 0;
-              if (event.data === playingState) {
-                ensureRealPlaybackWatchTimer();
-              } else if (event.data === endedState) {
-                nextEpisode();
-              }
-            }
-          }
-        });
-      } catch (e) {
-        ytMiniPlayer = null;
-      }
-    }
-  }
-
-  function ensureStickyPlayerCriticalStyles() {
+  function ensureStudioAndStickyStyles() {
     if (typeof document === 'undefined' || !document.head) return;
     if (document.getElementById('paradise-radio-critical-css')) return;
     const style = document.createElement('style');
     style.id = 'paradise-radio-critical-css';
     style.textContent = `
-      .sticky-radio-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; background: #0E2820; color: #FFFFFF; border-top: 3px solid #D4AF37; padding: 10px 16px; box-shadow: 0 -4px 20px rgba(0,0,0,0.35); }
-      .btn-radio-play, .btn-radio-secondary, #btn-radio-toggle, #btn-radio-next, #btn-radio-prev, .btn-mini-drawer-collapse, #btn-mini-drawer-collapse {
-        min-height: 60px !important; padding: 12px 18px !important; font-size: 20px !important; font-weight: 800 !important; border-radius: 14px !important;
-        display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; cursor: pointer !important;
+      .baek-studio-stage {
+        background: linear-gradient(135deg, #0E2820 0%, #163B2F 55%, #1E293B 100%);
+        border: 3px solid #D4AF37;
+        border-radius: 18px;
+        padding: 20px;
+        color: #FFFFFF;
+        box-shadow: 0 12px 28px rgba(14, 40, 32, 0.25);
+        margin-bottom: 18px;
       }
-      @media (max-width: 640px) {
-        .sticky-radio-bar { padding: 8px 12px 10px; }
-        .radio-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; }
-        #btn-radio-toggle, #btn-radio-next { width: 100%; min-width: 0; padding: 12px 10px !important; }
+      .baek-studio-grid {
+        display: grid;
+        grid-template-columns: minmax(180px, 240px) 1fr;
+        gap: 20px;
+        align-items: center;
+      }
+      .baek-studio-portrait-wrap {
+        text-align: center;
+      }
+      .baek-studio-portrait {
+        width: 100%;
+        max-width: 220px;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        object-position: top center;
+        border-radius: 16px;
+        border: 3px solid #D4AF37;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        background: #0E2820;
+      }
+      .baek-studio-top-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .baek-studio-onair-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(212, 175, 55, 0.18);
+        border: 1.5px solid #D4AF37;
+        color: #FEF08A;
+        padding: 5px 12px;
+        border-radius: 999px;
+        font-size: 16px;
+        font-weight: 800;
+      }
+      .baek-studio-onair-pill.is-live {
+        background: #991B1B;
+        border-color: #FCA5A5;
+        color: #FFFFFF;
+      }
+      .baek-studio-time-pill {
+        font-size: 17px;
+        font-weight: 800;
+        color: #FDE68A;
+        font-variant-numeric: tabular-nums;
+      }
+      .baek-studio-big-play-btn {
+        width: 100%;
+        min-height: 66px;
+        padding: 12px 20px;
+        border-radius: 14px;
+        background: #D4AF37;
+        color: #0E2820;
+        border: 2px solid #FEF08A;
+        font-size: 22px;
+        font-weight: 900;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        margin-bottom: 12px;
+      }
+      .baek-studio-big-play-btn.playing {
+        background: #FEF08A;
+        color: #0E2820;
+      }
+      .baek-studio-caption {
+        background: rgba(255, 255, 255, 0.1);
+        border-left: 4px solid #D4AF37;
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 20px;
+        line-height: 1.6;
+        font-weight: 700;
+        color: #F8FAFC;
+        margin: 0 0 12px;
+        min-height: 68px;
+      }
+      .baek-studio-scrubber {
+        width: 100%;
+        height: 12px;
+        accent-color: #D4AF37;
+        cursor: pointer;
+      }
+      @media (max-width: 680px) {
+        .baek-studio-grid {
+          grid-template-columns: 1fr;
+        }
+        .baek-studio-portrait {
+          max-width: 160px;
+        }
+      }
+      .sticky-radio-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; background: #0E2820; color: #FFFFFF; border-top: 3px solid #D4AF37; padding: 10px 16px; box-shadow: 0 -4px 20px rgba(0,0,0,0.35); transition: transform 0.2s ease, opacity 0.2s ease; }
+      .btn-radio-play, .btn-radio-secondary, .btn-radio-expand-up, #btn-radio-toggle, #btn-radio-next, #btn-radio-prev {
+        min-height: 60px; padding: 12px 18px; font-size: 20px; font-weight: 800; border-radius: 14px;
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+      }
+      .btn-radio-expand-up { background: rgba(255,255,255,0.14); color: #FEF08A; border: 2px solid #D4AF37; }
+      body.is-keyboard-editing .sticky-radio-bar { transform: translateY(120%) !important; opacity: 0 !important; pointer-events: none !important; }
+      @media (max-width: 768px) {
+        body { padding-bottom: 76px !important; }
+        .sticky-radio-bar { height: 58px !important; min-height: 56px !important; max-height: 60px !important; padding: 5px 10px !important; display: flex !important; align-items: center !important; }
+        .sticky-radio-bar .radio-bar-inner { width: 100% !important; display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; justify-content: space-between !important; gap: 8px !important; }
+        .sticky-radio-bar .radio-live-badge, .sticky-radio-bar .radio-wifi-notice, .sticky-radio-bar #btn-radio-next { display: none !important; }
+        .sticky-radio-bar .radio-info { order: 2; flex: 1 1 auto !important; min-width: 0 !important; width: auto !important; }
+        .sticky-radio-bar .radio-track-title { font-size: 15px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+        .sticky-radio-bar .radio-controls { display: contents !important; }
+        .sticky-radio-bar #btn-radio-toggle { order: 1; width: auto !important; min-width: 84px !important; min-height: 44px !important; max-height: 46px !important; padding: 6px 10px !important; font-size: 15px !important; border-radius: 10px !important; flex-shrink: 0 !important; }
+        .sticky-radio-bar #btn-radio-expand-up { order: 3; width: auto !important; min-height: 44px !important; max-height: 46px !important; padding: 6px 10px !important; font-size: 14px !important; border-radius: 10px !important; flex-shrink: 0 !important; }
       }
     `;
     document.head.appendChild(style);
   }
 
+  function syncUiState(playingState) {
+    if (typeof document === 'undefined') return;
+    const ep = RADIO_EPISODES[currentIndex];
+    const statusEl = document.getElementById('radio-status-label');
+    const playIcon = document.getElementById('radio-play-icon');
+    const playText = document.getElementById('radio-play-text');
+    const toggleBtn = document.getElementById('btn-radio-toggle');
+    const titleEl = document.getElementById('radio-current-title');
+    const mainTitle = document.getElementById('main-youtube-title');
+    const posterEl = document.getElementById('studio-stage-poster');
+    const onairEl = document.getElementById('studio-onair-pill');
+    const stagePlayBtn = document.getElementById('btn-studio-stage-play');
+    const stagePlayIcon = document.getElementById('studio-stage-play-icon');
+    const stagePlayLabel = document.getElementById('studio-stage-play-label');
+
+    if (titleEl) {
+      titleEl.textContent = customBannerTitle || `${ep.title} (${ep.song})`;
+    }
+    if (mainTitle) {
+      mainTitle.textContent = customBannerTitle
+        ? `🎵 지금 선택된 방송: ${customBannerTitle}`
+        : `📻 현재 선택된 방송: ${ep.title} (수록곡: ${ep.song})`;
+    }
+    if (posterEl && ep.poster && posterEl.getAttribute('src') !== ep.poster) {
+      posterEl.setAttribute('src', ep.poster);
+    }
+
+    if (playingState) {
+      if (statusEl) statusEl.textContent = '🔴 지금 방송 중 — @김쌤의영웅라디오 · 백운호 스튜디오';
+      if (playIcon) playIcon.textContent = '⏸';
+      if (playText) playText.textContent = '일시정지';
+      if (toggleBtn) toggleBtn.classList.add('playing');
+      if (onairEl) {
+        onairEl.textContent = '🔴 ON AIR · 백운호 사연 라디오 방송 중';
+        onairEl.classList.add('is-live');
+      }
+      if (stagePlayBtn) stagePlayBtn.classList.add('playing');
+      if (stagePlayIcon) stagePlayIcon.textContent = '⏸';
+      if (stagePlayLabel) stagePlayLabel.textContent = '방송 일시정지 (다시 누르면 계속 재생)';
+    } else {
+      if (statusEl) statusEl.textContent = '📻 김쌤의 영웅 라디오 (▶ 방송 듣기를 누르세요)';
+      if (playIcon) playIcon.textContent = '▶';
+      if (playText) playText.textContent = '방송 듣기';
+      if (toggleBtn) toggleBtn.classList.remove('playing');
+      if (onairEl) {
+        onairEl.textContent = '📻 스튜디오 대기 중 · 광고 0초 즉시 재생';
+        onairEl.classList.remove('is-live');
+      }
+      if (stagePlayBtn) stagePlayBtn.classList.remove('playing');
+      if (stagePlayIcon) stagePlayIcon.textContent = '▶';
+      if (stagePlayLabel) stagePlayLabel.textContent = '지금 사연·노래 방송 바로 듣기';
+    }
+
+    document.querySelectorAll('[data-play-episode]').forEach(function (btn) {
+      const idx = parseInt(btn.getAttribute('data-play-episode'), 10);
+      if (idx === currentIndex) {
+        btn.classList.add('btn-primary');
+        btn.classList.remove('btn-outline');
+      } else {
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-outline');
+      }
+    });
+  }
+
   function buildStickyPlayerDOM() {
-    ensureStickyPlayerCriticalStyles();
+    ensureStudioAndStickyStyles();
     if (document.getElementById('sticky-radio-player')) return;
 
     const ep = RADIO_EPISODES[currentIndex];
@@ -330,10 +471,10 @@
         <div class="radio-info">
           <div class="radio-live-badge">
             <span class="radio-live-dot" id="radio-live-dot"></span>
-            <span id="radio-status-label">📻 김쌤의 영웅 라디오 (화면의 ▶ 버튼을 누르면 바로 소리가 납니다)</span>
+            <span id="radio-status-label">📻 김쌤의 영웅 라디오 (▶ 방송 듣기를 누르면 바로 소리가 납니다)</span>
           </div>
           <div class="radio-track-title" id="radio-current-title">${ep.title}</div>
-          <div class="radio-wifi-notice">💡 Wi-Fi(와이파이) 환경에서 들으시면 데이터 요금이 전혀 나가지 않습니다.</div>
+          <div class="radio-wifi-notice">💡 광고 없이 백운호의 오리지널 사연 방송이 연속 재생됩니다.</div>
         </div>
         <div class="radio-controls">
           <button type="button" class="btn-radio-play" id="btn-radio-toggle" aria-label="라디오 방송 재생 및 일시정지">
@@ -343,6 +484,9 @@
           <button type="button" class="btn-radio-secondary" id="btn-radio-next" aria-label="다음 라디오 사연 듣기">
             <span>다음 편 ⏭</span>
           </button>
+          <button type="button" class="btn-radio-expand-up" id="btn-radio-expand-up" aria-label="라디오 방송 화면 위로 열기">
+            <span>위로 열기 ↑</span>
+          </button>
         </div>
       </div>
     `;
@@ -350,200 +494,71 @@
     document.body.appendChild(bar);
   }
 
-  function ensureMiniRadioDrawer() {
-    let drawer = document.getElementById('sticky-radio-mini-drawer');
-    if (!drawer) {
-      drawer = document.createElement('div');
-      drawer.id = 'sticky-radio-mini-drawer';
-      drawer.className = 'sticky-radio-mini-drawer';
-      drawer.setAttribute('aria-label', '김쌤의 영웅 라디오 미니 방송창');
-      drawer.innerHTML = `
-        <div class="sticky-radio-mini-head">
-          <span id="sticky-mini-drawer-label">🔴 김쌤의 영웅 라디오 방송 중</span>
-          <button type="button" class="btn-mini-drawer-collapse" id="btn-mini-drawer-collapse">화면 접기 ▾</button>
-        </div>
-        <div class="sticky-radio-mini-frame">
-          <iframe id="sticky-youtube-embed" title="김쌤의 영웅 라디오 실시간 재생기" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      `;
-      document.body.appendChild(drawer);
-
-      const collapseBtn = drawer.querySelector('#btn-mini-drawer-collapse');
-      if (typeof window !== 'undefined' && window.innerWidth <= 640) {
-        drawer.classList.add('minimized');
-        if (collapseBtn) collapseBtn.textContent = '화면 펴기 ▴';
-      }
-      if (collapseBtn) {
-        collapseBtn.addEventListener('click', () => {
-          const minimized = drawer.classList.toggle('minimized');
-          collapseBtn.textContent = minimized ? '화면 펴기 ▴' : '화면 접기 ▾';
-        });
-      }
-
-      const miniIframe = drawer.querySelector('#sticky-youtube-embed');
-      if (miniIframe) {
-        miniIframe.addEventListener('load', () => {
-          bindYouTubePlayers();
-        });
-      }
-    }
-    return drawer;
-  }
-
-  function buildYoutubeEmbedUrl(videoId, autoplay) {
-    const autoFlag = autoplay ? '1' : '0';
-    let originParam = '';
-    if (typeof window !== 'undefined' && window.location && /^https?:/i.test(window.location.protocol) && window.location.origin) {
-      originParam = '&origin=' + encodeURIComponent(window.location.origin);
-    }
-    return `https://www.youtube.com/embed/${videoId}?autoplay=${autoFlag}&playsinline=1&rel=0&enablejsapi=1${originParam}`;
-  }
-
-  function updatePlayerUI() {
+  function loadAndPlayCurrentEpisode(shouldPlay) {
     const ep = RADIO_EPISODES[currentIndex];
-    const titleEl = document.getElementById('radio-current-title');
-    const mainEmbed = document.getElementById('main-youtube-embed');
-    const mainTitle = document.getElementById('main-youtube-title');
+    const audio = ensureStudioAudioElement();
+    if (!audio) return;
 
-    if (titleEl) {
-      titleEl.textContent = `${ep.title} (${ep.duration} · 배경곡: ${ep.song})`;
-    }
-    if (mainTitle) {
-      mainTitle.textContent = `📺 현재 선택된 방송: ${ep.title} (${ep.duration})`;
+    const currentAttr = audio.getAttribute('src') || '';
+    if (currentAttr !== ep.audioSrc) {
+      audio.setAttribute('src', ep.audioSrc);
+      try { audio.load(); } catch (e) {}
     }
 
-    syncUiButtonsOnly(isPlaying);
+    const capEl = typeof document !== 'undefined' ? document.getElementById('studio-live-caption') : null;
+    if (capEl && Array.isArray(ep.captions) && ep.captions[0]) {
+      capEl.textContent = ep.captions[0].text;
+    }
 
-    if (isPlaying) {
-      if (mainEmbed) {
-        if (ytMainPlayerReady && ytMainPlayer && typeof ytMainPlayer.loadVideoById === 'function') {
-          if (ytMainLoadedVideoId !== ep.videoId) {
-            ytMainLoadedVideoId = ep.videoId;
-            ytMainPlayer.loadVideoById(ep.videoId);
-          } else if (typeof ytMainPlayer.playVideo === 'function') {
-            ytMainPlayer.playVideo();
-          }
-        } else {
-          const targetSrc = buildYoutubeEmbedUrl(ep.videoId, true);
-          if (mainEmbed.getAttribute('src') !== targetSrc) {
-            ytMainLoadedVideoId = ep.videoId;
-            mainEmbed.setAttribute('src', targetSrc);
-          }
-        }
-      } else if (typeof document !== 'undefined') {
-        const drawer = ensureMiniRadioDrawer();
-        drawer.classList.add('open');
-        const miniLabel = document.getElementById('sticky-mini-drawer-label');
-        if (miniLabel) miniLabel.textContent = `🔴 ${ep.id.toUpperCase()} 방송 중`;
-        const miniEmbed = document.getElementById('sticky-youtube-embed');
-        if (ytMiniPlayerReady && ytMiniPlayer && typeof ytMiniPlayer.loadVideoById === 'function') {
-          if (ytMiniLoadedVideoId !== ep.videoId) {
-            ytMiniLoadedVideoId = ep.videoId;
-            ytMiniPlayer.loadVideoById(ep.videoId);
-          } else if (typeof ytMiniPlayer.playVideo === 'function') {
-            ytMiniPlayer.playVideo();
-          }
-        } else if (miniEmbed) {
-          const targetSrc = buildYoutubeEmbedUrl(ep.videoId, true);
-          if (miniEmbed.getAttribute('src') !== targetSrc) {
-            ytMiniLoadedVideoId = ep.videoId;
-            miniEmbed.setAttribute('src', targetSrc);
-          }
-        }
+    if (shouldPlay) {
+      isPlaying = true;
+      saveState();
+      syncUiState(true);
+      const p = audio.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () {
+          isPlaying = false;
+          syncUiState(false);
+        });
       }
     } else {
-      if (mainEmbed) {
-        if (ytMainPlayerReady && ytMainPlayer && typeof ytMainPlayer.pauseVideo === 'function') {
-          ytMainPlayer.pauseVideo();
-        } else {
-          const idleSrc = buildYoutubeEmbedUrl(ep.videoId, false);
-          if (!mainEmbed.getAttribute('src') || (mainEmbed.getAttribute('src') || '').includes('autoplay=1')) {
-            ytMainLoadedVideoId = ep.videoId;
-            mainEmbed.setAttribute('src', idleSrc);
-          }
-        }
-      }
-      const drawer = typeof document !== 'undefined' ? document.getElementById('sticky-radio-mini-drawer') : null;
-      if (drawer) {
-        drawer.classList.remove('open');
-        if (ytMiniPlayerReady && ytMiniPlayer && typeof ytMiniPlayer.pauseVideo === 'function') {
-          ytMiniPlayer.pauseVideo();
-        } else {
-          const miniEmbed = document.getElementById('sticky-youtube-embed');
-          if (miniEmbed && miniEmbed.getAttribute('src')) {
-            miniEmbed.setAttribute('src', 'about:blank');
-          }
-        }
-      }
+      try { audio.pause(); } catch (e) {}
+      isPlaying = false;
+      saveState();
+      syncUiState(false);
     }
   }
 
-  function focusVisibleEmbed() {
-    const mainEmbed = document.getElementById('main-youtube-embed');
-    if (mainEmbed) {
-      mainEmbed.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  function focusStudioSection() {
+    if (typeof document === 'undefined') return;
+    const sec = document.getElementById('hero-radio-section') || document.getElementById('main-youtube-embed');
+    if (sec && typeof sec.scrollIntoView === 'function') {
+      sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 
   function togglePlay() {
-    isPlaying = !isPlaying;
-    saveState();
-    updatePlayerUI();
-    if (isPlaying) {
-      focusVisibleEmbed();
+    const audio = ensureStudioAudioElement();
+    if (!audio) return;
+    if (audio.paused) {
+      loadAndPlayCurrentEpisode(true);
+    } else {
+      loadAndPlayCurrentEpisode(false);
     }
   }
 
   function nextEpisode() {
+    customBannerTitle = '';
     currentIndex = (currentIndex + 1) % RADIO_EPISODES.length;
-    isPlaying = true;
-    saveState();
-    updatePlayerUI();
-    focusVisibleEmbed();
+    loadAndPlayCurrentEpisode(true);
   }
 
-  function playEpisodeByIndex(idx) {
+  function playEpisodeByIndex(idx, optionalCustomTitle) {
     if (idx >= 0 && idx < RADIO_EPISODES.length) {
+      customBannerTitle = optionalCustomTitle || '';
       currentIndex = idx;
-      isPlaying = true;
-      saveState();
-      updatePlayerUI();
-      focusVisibleEmbed();
-    }
-  }
-
-  function playVideoById(videoId, customTitle) {
-    const mainEmbed = document.getElementById('main-youtube-embed');
-    const mainTitle = document.getElementById('main-youtube-title');
-    if (mainEmbed && videoId) {
-      isPlaying = true;
-      syncUiButtonsOnly(true);
-      if (ytMainPlayerReady && ytMainPlayer && typeof ytMainPlayer.loadVideoById === 'function') {
-        ytMainLoadedVideoId = videoId;
-        ytMainPlayer.loadVideoById(videoId);
-      } else {
-        ytMainLoadedVideoId = videoId;
-        mainEmbed.setAttribute('src', buildYoutubeEmbedUrl(videoId, true));
-      }
-      mainEmbed.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else if (videoId && typeof document !== 'undefined') {
-      isPlaying = true;
-      syncUiButtonsOnly(true);
-      const drawer = ensureMiniRadioDrawer();
-      drawer.classList.add('open');
-      const miniLabel = document.getElementById('sticky-mini-drawer-label');
-      if (miniLabel && customTitle) miniLabel.textContent = `🎵 ${customTitle}`;
-      const miniEmbed = document.getElementById('sticky-youtube-embed');
-      if (ytMiniPlayerReady && ytMiniPlayer && typeof ytMiniPlayer.loadVideoById === 'function') {
-        ytMiniLoadedVideoId = videoId;
-        ytMiniPlayer.loadVideoById(videoId);
-      } else if (miniEmbed) {
-        ytMiniLoadedVideoId = videoId;
-        miniEmbed.setAttribute('src', buildYoutubeEmbedUrl(videoId, true));
-      }
-    }
-    if (mainTitle && customTitle) {
-      mainTitle.textContent = `🎵 지금 재생 중: ${customTitle}`;
+      loadAndPlayCurrentEpisode(true);
+      focusStudioSection();
     }
   }
 
@@ -551,23 +566,66 @@
     loadState();
     const deepLinked = applyQueryDeepLink();
     buildStickyPlayerDOM();
-    updatePlayerUI();
-    loadYouTubeIframeApiScript();
+    ensureStudioAudioElement();
+    syncUiState(false);
     ensureRealPlaybackWatchTimer();
 
     if (deepLinked) {
-      focusVisibleEmbed();
+      loadAndPlayCurrentEpisode(false);
+      focusStudioSection();
     }
 
     const toggleBtn = document.getElementById('btn-radio-toggle');
     const nextBtn = document.getElementById('btn-radio-next');
+    const expandUpBtn = document.getElementById('btn-radio-expand-up');
+    const stagePlayBtn = document.getElementById('btn-studio-stage-play');
+    const scrubber = document.getElementById('studio-audio-scrubber');
 
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', togglePlay);
+    if (toggleBtn) toggleBtn.addEventListener('click', togglePlay);
+    if (stagePlayBtn) stagePlayBtn.addEventListener('click', togglePlay);
+    if (nextBtn) nextBtn.addEventListener('click', nextEpisode);
+
+    if (scrubber) {
+      scrubber.addEventListener('input', function () {
+        scrubber.__isDragging = true;
+      });
+      scrubber.addEventListener('change', function () {
+        const audio = ensureStudioAudioElement();
+        if (audio && isFinite(audio.duration) && audio.duration > 0) {
+          const ratio = Math.max(0, Math.min(1, parseInt(scrubber.value || '0', 10) / 1000));
+          audio.currentTime = ratio * audio.duration;
+        }
+        scrubber.__isDragging = false;
+      });
     }
-    if (nextBtn) {
-      nextBtn.addEventListener('click', nextEpisode);
+
+    if (expandUpBtn) {
+      expandUpBtn.addEventListener('click', function () {
+        const radioSec = document.getElementById('hero-radio-section') || document.getElementById('main-youtube-embed');
+        if (radioSec && typeof radioSec.scrollIntoView === 'function') {
+          radioSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+        if (typeof window !== 'undefined' && window.location) {
+          window.location.href = 'radio.html?ep=' + String(currentIndex + 1);
+        }
+      });
     }
+
+    document.addEventListener('focusin', function (ev) {
+      const t = ev.target;
+      if (t && t.matches && t.matches('input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]), textarea, select, [contenteditable="true"]')) {
+        document.body.classList.add('is-keyboard-editing');
+      }
+    });
+    document.addEventListener('focusout', function () {
+      setTimeout(function () {
+        const active = document.activeElement;
+        if (!active || !active.matches || !active.matches('input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]), textarea, select, [contenteditable="true"]')) {
+          document.body.classList.remove('is-keyboard-editing');
+        }
+      }, 120);
+    });
 
     const heroRadioCta = document.getElementById('btn-hero-radio-now');
     if (heroRadioCta) {
@@ -576,34 +634,17 @@
         if (radioSection) {
           e.preventDefault();
           playEpisodeByIndex(currentIndex || 0);
-          radioSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          radioSection.classList.add('radio-highlight-pulse');
-          setTimeout(function () {
-            radioSection.classList.remove('radio-highlight-pulse');
-          }, 2600);
         }
       });
     }
 
-    const episodeButtons = document.querySelectorAll('[data-play-episode]');
-    episodeButtons.forEach((btn) => {
+    document.querySelectorAll('[data-play-episode]').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
         const epIdx = parseInt(this.getAttribute('data-play-episode'), 10);
+        const customTitle = this.getAttribute('data-play-title') || '';
         if (!isNaN(epIdx)) {
-          playEpisodeByIndex(epIdx);
-        }
-      });
-    });
-
-    const videoButtons = document.querySelectorAll('[data-play-videoid]');
-    videoButtons.forEach((btn) => {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        const vid = this.getAttribute('data-play-videoid');
-        const vtitle = this.getAttribute('data-play-title') || '';
-        if (vid) {
-          playVideoById(vid, vtitle);
+          playEpisodeByIndex(epIdx, customTitle);
         }
       });
     });
@@ -623,7 +664,6 @@
       togglePlay: togglePlay,
       nextEpisode: nextEpisode,
       playEpisode: playEpisodeByIndex,
-      playVideoById: playVideoById,
       applyQueryDeepLink: applyQueryDeepLink,
       getAccumulatedPlaySeconds: function () { return accumulatedPlaySeconds; }
     };

@@ -53,6 +53,7 @@ except Exception:
 SCRIPT_DIR = Path(__file__).resolve().parent
 DIVISION_DIR = SCRIPT_DIR.parent
 CHARACTERS_JSON_PATH = DIVISION_DIR / "data" / "characters.json"
+FLOW_HERO_VAULT_DIR = Path(r"D:\드림컴퍼니\flow_clip_vault\HERO")
 
 WIDTH = 1080
 HEIGHT = 1920
@@ -161,6 +162,42 @@ def build_overscan_stage_scene(character_info: Dict[str, Any], beat_idx: int) ->
             print(f"   [Notice] Sprite composite fallback ({sprite_path}): {e}")
 
     return np.array(scene_img.convert("RGB"), dtype=np.uint8)
+
+
+def build_sprite_layer_premul(character_info: Dict[str, Any]) -> Optional[Tuple[np.ndarray, np.ndarray]]:
+    """
+    Pre-multiplied RGBA portrait layer (`1080x1920`) of Hwang Young-woong with soft bottom
+    vignette feathering so live 30fps Google Flow `Veo 3.1` cinema moves across the background.
+    """
+    sprite_rel = character_info.get("sprite_path", "assets/characters/sprite_hwang_young_woong.png")
+    sprite_path = DIVISION_DIR / sprite_rel
+    if not sprite_path.exists():
+        sprite_path = DIVISION_DIR / "assets" / "characters" / "sprite_hwang_young_woong.png"
+    if not sprite_path.exists():
+        return None
+    try:
+        canvas = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
+        sp = Image.open(sprite_path).convert("RGBA")
+        target_w = 760
+        target_h = int(round(sp.height * (target_w / float(sp.width))))
+        sp_resized = sp.resize((target_w, target_h), Image.Resampling.LANCZOS)
+        # Softly feather alpha so Google Flow stage/rain/autumn cinema breathes naturally around portrait
+        sp_arr = np.array(sp_resized, dtype=np.float32)
+        yy = np.linspace(0.0, 1.0, target_h, dtype=np.float32)[:, None]
+        xx = np.linspace(-1.0, 1.0, target_w, dtype=np.float32)[None, :]
+        radial_mask = np.clip(1.18 - 0.55 * (xx * xx) - 0.45 * np.maximum(0.0, yy - 0.55) * 2.2, 0.0, 1.0)
+        sp_arr[:, :, 3] = sp_arr[:, :, 3] * radial_mask * 0.88
+        sp_feathered = Image.fromarray(sp_arr.astype(np.uint8), "RGBA")
+        sx = (WIDTH - target_w) // 2
+        sy = 250
+        canvas.alpha_composite(sp_feathered, (sx, sy))
+        rgba = np.array(canvas, dtype=np.uint16)
+        alpha = rgba[:, :, 3:4]
+        premul = (rgba[:, :, :3] * alpha) >> 8
+        inva = 256 - alpha
+        return premul, inva
+    except Exception:
+        return None
 
 
 def draw_retro_radio_plaque(draw: ImageDraw.ImageDraw):
@@ -422,6 +459,11 @@ def render_shorts_video(
     proc_yt = spawn_ffmpeg_encoder(out_mp4, audio_path, fps)
     proc_naver = spawn_ffmpeg_encoder(naver_clip_out, audio_path, fps)
 
+    flow_mp4s = sorted(p for p in FLOW_HERO_VAULT_DIR.glob("*.mp4") if p.stat().st_size > 120_000) if FLOW_HERO_VAULT_DIR.exists() else []
+    flow_clips_used: List[str] = []
+    if flow_mp4s:
+        print(f"   - Google Flow Veo 3.1 Cinema Vault Active: {len(flow_mp4s)} vertical 9:16 clips available")
+
     total_rendered_frames = 0
     for b_idx, (beat, dur_sec) in enumerate(zip(beats, beat_durations)):
         char_id = beat.get("character_id", "hwang_young_woong")
@@ -430,6 +472,17 @@ def render_shorts_video(
         p_mode = beat.get("particle_mode", "rain" if b_idx == 0 else "warm_light")
 
         scene_overscan = build_overscan_stage_scene(char_info, b_idx)
+        sprite_layer = build_sprite_layer_premul(char_info) if flow_mp4s else None
+        flow_cap = None
+        if flow_mp4s:
+            chosen_flow = flow_mp4s[b_idx % len(flow_mp4s)]
+            flow_cap = cv2.VideoCapture(str(chosen_flow))
+            if flow_cap.isOpened():
+                flow_clips_used.append(str(chosen_flow))
+            else:
+                flow_cap.release()
+                flow_cap = None
+
         hud_yt_premul, hud_yt_inva = build_hud_premul(beat, b_idx, include_yt_ending=is_ending)
         if is_ending:
             hud_nv_premul, hud_nv_inva = build_hud_premul(beat, b_idx, include_yt_ending=False)
@@ -456,6 +509,21 @@ def render_shorts_video(
                 (WIDTH, HEIGHT),
                 interpolation=cv2.INTER_LINEAR,
             )
+            if flow_cap is not None:
+                ok_f, bgr_f = flow_cap.read()
+                if not ok_f or bgr_f is None:
+                    flow_cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    ok_f, bgr_f = flow_cap.read()
+                if ok_f and bgr_f is not None:
+                    rgb_f = cv2.cvtColor(bgr_f, cv2.COLOR_BGR2RGB)
+                    if rgb_f.shape[1] != WIDTH or rgb_f.shape[0] != HEIGHT:
+                        rgb_f = cv2.resize(rgb_f, (WIDTH, HEIGHT), interpolation=cv2.INTER_LINEAR)
+                    # Blend 80% live Google Flow Veo 3.1 35mm cinema + 20% warm stage lighting
+                    cropped = cv2.addWeighted(rgb_f, 0.80, cropped, 0.20, 0)
+                    if sprite_layer is not None and (b_idx % 2 == 0):
+                        sp_pre, sp_inv = sprite_layer
+                        cropped = ((cropped.astype(np.uint16) * sp_inv + sp_pre) >> 8).astype(np.uint8)
+
             render_particles_inplace(cropped, p_mode, global_t, b_idx)
 
             yt_frame = ((cropped.astype(np.uint16) * hud_yt_inva + hud_yt_premul) >> 8).astype(np.uint8)
@@ -469,6 +537,9 @@ def render_shorts_video(
                 proc_naver.stdin.write(yt_bytes)
 
             total_rendered_frames += 1
+
+        if flow_cap is not None:
+            flow_cap.release()
 
     proc_yt.stdin.close()
     proc_naver.stdin.close()
@@ -505,6 +576,7 @@ def render_shorts_video(
         "clean_body_compliant": True,
         "subtitle_safe_zone_compliant": True,
         "ending_slate_present": True,
+        "flow_clips_used": flow_clips_used,
     }
 
     video_meta_path = out_mp4.parent / "video_metadata.json"

@@ -1,16 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="280" viewBox="0 0 480 280" role="img" aria-label="공연장 에어셀 방석">
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="280" viewBox="0 0 480 280" role="img" aria-label="3시간 공연장 메모리폼 방석">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ECFDF5"/>
+      <stop offset="0%" stop-color="#F5F3FF"/>
       <stop offset="100%" stop-color="#FFFFFF"/>
     </linearGradient>
   </defs>
-  <rect x="4" y="4" width="472" height="272" rx="24" fill="url(#bg)" stroke="#D4AF37" stroke-width="6"/>
-  <rect x="24" y="22" width="188" height="38" rx="19" fill="#065F46"/>
-  <text x="118" y="47" text-anchor="middle" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">김쌤 엄선 베스트</text>
-  <circle cx="110" cy="154" r="68" fill="#FFFFFF" stroke="#D4AF37" stroke-width="4"/>
-  <text x="110" y="176" text-anchor="middle" font-size="68">🪑</text>
-  <text x="204" y="138" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="27" font-weight="900" fill="#111827">공연장 에어셀 방석</text>
-  <rect x="204" y="158" width="246" height="44" rx="12" fill="#065F46" opacity="0.1"/>
-  <text x="327" y="187" text-anchor="middle" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="20" font-weight="800" fill="#065F46">✓ 3시간 허리·무릎 편안</text>
+  <rect x="4" y="4" width="472" height="272" rx="24" fill="url(#bg)" stroke="#7C3AED" stroke-width="6"/>
+  <rect x="24" y="22" width="198" height="38" rx="19" fill="#4C1D95"/>
+  <text x="123" y="47" text-anchor="middle" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">공연·나들이 준비물</text>
+  <circle cx="110" cy="154" r="68" fill="#FFFFFF" stroke="#7C3AED" stroke-width="4"/>
+  <text x="110" y="176" text-anchor="middle" font-size="64">🪑</text>
+  <text x="200" y="138" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="25" font-weight="900" fill="#111827">3시간 공연장 메모리폼 방석</text>
+  <rect x="200" y="158" width="252" height="44" rx="12" fill="#4C1D95" opacity="0.1"/>
+  <text x="326" y="187" text-anchor="middle" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="19" font-weight="800" fill="#4C1D95">✓ 접이식 손잡이·허리 엉덩이 보호</text>
 </svg>

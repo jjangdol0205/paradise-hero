@@ -1,7 +1,7 @@
 /**
  * anime_trot_characters.test.js
- * Verification Suite for Singer Hwang Young-woong's 10 Signature Stage & Daily Outfits Catalog,
- * 20 RGBA PNG Assets, and Zero Other-Singer Guarantee on paradise-hero.com (2026-11-11 HQ Spec).
+ * Verification Suite for Virtual Trot Singer Baek Woon-ho (백운호) 6 Stage Outfits Catalog,
+ * 12 RGBA PNG Assets (hero_style_01~06), and Zero Real-Celebrity File/Name Guarantee.
  */
 
 const fs = require('fs');
@@ -14,20 +14,18 @@ const JS_CATALOG = path.join(ROOT_DIR, 'js', 'character-catalog.js');
 const CHARACTERS_DIR = path.join(ROOT_DIR, 'assets', 'characters');
 
 const EXPECTED_IDS = [
-  'hwang_young_woong',
-  'lim_young_woong',
-  'lee_chan_won',
-  'young_tak',
-  'jeong_dong_won',
-  'kim_ho_joong',
-  'jang_min_ho',
-  'park_seo_jin',
-  'son_tae_jin',
-  'ahn_sung_hoon_jin_hae_seong'
+  'hero_style_01',
+  'hero_style_02',
+  'hero_style_03',
+  'hero_style_04',
+  'hero_style_05',
+  'hero_style_06'
 ];
 
-const BANNED_OTHER_SINGERS = [
-  '임영웅', '이찬원', '영탁', '정동원', '김호중', '장민호', '박서진', '손태진', '안성훈', '진해성'
+const BANNED_SLUGS = [
+  'hwang_young_woong', 'lim_young_woong', 'lee_chan_won', 'young_tak',
+  'kim_ho_joong', 'jang_min_ho', 'jeong_dong_won', 'park_seo_jin',
+  'son_tae_jin', 'ahn_sung_hoon', 'jin_hae_seong'
 ];
 
 function readPngMetadata(filePath) {
@@ -47,41 +45,42 @@ function readPngMetadata(filePath) {
 }
 
 console.log('===============================================================');
-console.log('Running Hwang Young-woong 10 Signature Outfits Catalog Test Suite');
+console.log('Running Virtual Singer Baek Woon-ho 6 Outfits Catalog Test Suite');
 console.log('===============================================================\n');
+
+// Verify zero real-singer filenames exist in assets/characters/
+const dirFiles = fs.readdirSync(CHARACTERS_DIR);
+dirFiles.forEach((fname) => {
+  const low = fname.toLowerCase();
+  BANNED_SLUGS.forEach((slug) => {
+    assert.ok(!low.includes(slug), `Banned real-celebrity filename '${fname}' still exists in assets/characters/`);
+  });
+});
 
 const rawData = fs.readFileSync(DATA_CHARACTERS_JSON, 'utf-8');
 const jsRaw = fs.readFileSync(JS_CATALOG, 'utf-8');
-
-BANNED_OTHER_SINGERS.forEach((s) => {
-  assert.ok(!rawData.includes(s), `data/characters.json must NOT contain '${s}'`);
-  assert.ok(!jsRaw.includes(s), `js/character-catalog.js must NOT contain '${s}'`);
-});
-assert.ok(!rawData.includes('건행') && !jsRaw.includes('건행'), 'Must NOT contain 건행');
-assert.ok(!rawData.includes('10대 왕자') && !jsRaw.includes('10대 왕자'), 'Must NOT contain 10대 왕자');
-
 const characters = JSON.parse(rawData);
-assert.strictEqual(characters.length, 10);
+assert.strictEqual(characters.length, 6);
 
 characters.forEach((char, index) => {
-  assert.strictEqual(char.name_ko, '황영웅', `Outfit #${index + 1} name_ko must be '황영웅'`);
-  assert.strictEqual(char.name_en, 'Hwang Young-woong');
-  assert.ok(char.title && char.title.length >= 4);
-  assert.strictEqual(char.thumb_path.split('?')[0], `assets/characters/thumb_${char.id}.png`);
-  assert.strictEqual(char.sprite_path.split('?')[0], `assets/characters/sprite_${char.id}.png`);
+  assert.strictEqual(char.id, EXPECTED_IDS[index]);
+  assert.strictEqual(char.name_ko, '백운호', `Outfit #${index + 1} name_ko must be '백운호'`);
+  assert.strictEqual(char.name_en, 'Baek Woon-ho');
+  assert.strictEqual(char.thumb_path, `assets/characters/thumb_${char.id}.png`);
+  assert.strictEqual(char.sprite_path, `assets/characters/${char.id}.png`);
 });
 
 const catalog = require(JS_CATALOG);
-assert.strictEqual(catalog.CHARACTER_CARDS.length, 10);
-for (let i = 0; i < 10; i++) {
+assert.strictEqual(catalog.CHARACTER_CARDS.length, 6);
+for (let i = 0; i < 6; i++) {
   assert.strictEqual(characters[i].id, catalog.CHARACTER_CARDS[i].id);
   assert.strictEqual(characters[i].name_ko, catalog.CHARACTER_CARDS[i].name_ko);
   assert.strictEqual(characters[i].title, catalog.CHARACTER_CARDS[i].title);
 }
-console.log('  [PASS] 100% Hwang Young-woong 10 signature outfits & JSON/JS 1:1 parity verified.');
+console.log('  [PASS] Baek Woon-ho 6 stage outfits & JSON/JS 1:1 parity verified.');
 
 EXPECTED_IDS.forEach((id) => {
-  const spriteFull = path.join(CHARACTERS_DIR, `sprite_${id}.png`);
+  const spriteFull = path.join(CHARACTERS_DIR, `${id}.png`);
   const thumbFull = path.join(CHARACTERS_DIR, `thumb_${id}.png`);
   assert.ok(fs.existsSync(spriteFull) && fs.statSync(spriteFull).size > 10000);
   assert.ok(fs.existsSync(thumbFull) && fs.statSync(thumbFull).size > 5000);
@@ -96,8 +95,8 @@ EXPECTED_IDS.forEach((id) => {
   assert.strictEqual(tMeta.height, 160);
   assert.strictEqual(tMeta.colorType, 6);
 });
-console.log('  [PASS] All 20 PNG assets (1080x1440 sprites & 160x160 thumbs RGBA) verified.');
+console.log('  [PASS] All 12 PNG assets (hero_style_01~06 1080x1440 & thumb_hero_style_01~06 160x160 RGBA) verified.');
 
 console.log('\n===============================================================');
-console.log('ALL HWANG YOUNG-WOONG 10-OUTFIT CATALOG TESTS PASSED (100%)!');
+console.log('ALL BAEK WOON-HO 6-OUTFIT CATALOG TESTS PASSED (100%)!');
 console.log('===============================================================');

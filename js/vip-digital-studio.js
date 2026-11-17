@@ -1,20 +1,20 @@
 /**
  * js/vip-digital-studio.js
  * ==============================================================================
- * 4사업부 파라다이스히어로 (paradise-hero.com)
- * 황영웅 10대 유료 디지털 굿즈 & 어머님 초밀착 참여형 효도 아이템 제작소 엔진
+ * 4사업부 김쌤의영웅라디오 가족 사랑방 (paradise-hero.com)
+ * 가상 트로트 가수 백운호 10대 무료 디지털 효도 선물 제작소 엔진
  *
- * [전격 가동 10대 유료 참여 아이템]
- * 1. 황영웅 카톡 아침 안부 카드 & 명절·생일 연하장 생성기 (1080x1350 Canvas)
- * 2. 파라다이스 공식 황금 명예 팬증(시민증) 발급기 (1080x680 Canvas)
- * 3. 황영웅 핸드폰 잠금화면 (큰글씨 달력·시계 배경화면) 생성기 (1080x1920 Canvas)
+ * [전격 가동 10대 무료 참여 아이템]
+ * 1. 백운호 카톡 아침 안부 카드 & 명절·생일 연하장 생성기 (1080x1350 Canvas)
+ * 2. 김쌤의영웅라디오 가족 사랑방 황금 명예 회원증 발급기 (1080x680 Canvas)
+ * 3. 백운호 핸드폰 잠금화면 (큰글씨 달력·시계 배경화면) 생성기 (1080x1920 Canvas)
  * 4. 내 이름을 불러주는 라디오 DJ 생일축하·쾌유기원 맞춤 음성편지 (Web Speech + 화음 BGM)
- * 5. 황영웅 전곡 왕글씨(30px) 가사집 & 노래교실 부르기 비법서 (열람 & 인쇄/PDF)
- * 6. 오늘의 황영웅 황금 행운 부적 & 생년(띠)별 대박 운세 뽑기 (1080x1350 Canvas)
- * 7. 우리 가족 소원 등불(연등) 달기 & 황영웅 대박 기원탑 인증서 (1080x1350 Canvas + 실시간 등불 전광판)
- * 8. 황영웅에게 바치는 가상 황금 꽃다발 & 효자가수 대상 상장 수여식 (1080x1080 Canvas)
- * 9. 내 이름이 찍힌 황영웅 VIP 골든 콘서트 소장용 기념 티켓 발급기 (1080x560 Canvas)
- * 10. 치매 예방 & 팬심 테스트 '황영웅 찐팬 골든벨 퀴즈' & 장원급제 수료증 (1080x800 Canvas)
+ * 5. 백운호 6대 대표곡 왕글씨(30px) 가사집 & 노래교실 부르기 비법서 (열람 & 인쇄/PDF)
+ * 6. 오늘의 사랑방 황금 행운 부적 & 생년(띠)별 대길 운세 뽑기 (1080x1350 Canvas)
+ * 7. 우리 가족 소원 등불(연등) 달기 & 만사형통 기원 인증서 (1080x1350 Canvas)
+ * 8. 가상 트로트 가수 백운호에게 보내는 꽃다발 & 사랑의 상장 수여식 (1080x1080 Canvas)
+ * 9. 내 이름이 찍힌 김쌤의영웅라디오 공개방송 소장용 기념 티켓 발급기 (1080x560 Canvas)
+ * 10. 두뇌 활력 & 트로트 상식 '백운호 사랑방 골든벨 퀴즈' & 장원급제 수료증 (1080x800 Canvas)
  *
  * [100% 무제한 무료 개방]
  * - 회원가입·결제 없이 전 아이템 평생 무제한 무료 (credits: 9999, unlimitedVip: true)
@@ -27,19 +27,15 @@
   'use strict';
 
   const STUDIO_STORAGE_KEY = 'paradise_vip_studio_state_free_v3';
-  const LANTERN_STORAGE_KEY = 'paradise_wish_lanterns_v1';
+  const LANTERN_STORAGE_KEY = 'paradise_wish_lanterns_v2';
 
-  const HWANG_PORTRAITS = [
-    { idx: 1, label: '에메랄드 벨벳 콘서트 수트', src: 'assets/characters/sprite_hwang_young_woong.png?v=20261110c' },
-    { idx: 2, label: '순백의 프린스 턱시도', src: 'assets/characters/sprite_lim_young_woong.png?v=20261110c' },
-    { idx: 3, label: '따뜻한 핑크 가디건 하트룩', src: 'assets/characters/sprite_lee_chan_won.png?v=20261110c' },
-    { idx: 4, label: '시크 올블랙 수트', src: 'assets/characters/sprite_young_tak.png?v=20261110c' },
-    { idx: 5, label: '로열 제복 스타일', src: 'assets/characters/sprite_jeong_dong_won.png?v=20261110c' },
-    { idx: 6, label: '퍼플 벨벳 디너쇼룩', src: 'assets/characters/sprite_kim_ho_joong.png?v=20261110c' },
-    { idx: 7, label: '가을 트렌치코트 산책룩', src: 'assets/characters/sprite_jang_min_ho.png?v=20261110c' },
-    { idx: 8, label: '황금빛 명절 한복룩', src: 'assets/characters/sprite_park_seo_jin.png?v=20261110c' },
-    { idx: 9, label: '버건디 장미 세레나데룩', src: 'assets/characters/sprite_son_tae_jin.png?v=20261110c' },
-    { idx: 10, label: '심야 라디오 DJ 안경룩', src: 'assets/characters/sprite_ahn_sung_hoon_jin_hae_seong.png?v=20261110c' }
+  const BAEK_PORTRAITS = [
+    { idx: 1, label: '① 에메랄드 정장', src: 'assets/characters/hero_style_01.png' },
+    { idx: 2, label: '② 화이트 콘서트 턱시도', src: 'assets/characters/hero_style_02.png' },
+    { idx: 3, label: '③ 클래식 네이비 수트', src: 'assets/characters/hero_style_03.png' },
+    { idx: 4, label: '④ 따뜻한 가을 코트', src: 'assets/characters/hero_style_04.png' },
+    { idx: 5, label: '⑤ 전통 한복 자락', src: 'assets/characters/hero_style_05.png' },
+    { idx: 6, label: '⑥ 라디오 DJ 스튜디오룩', src: 'assets/characters/hero_style_06.png' }
   ];
 
   const GREETING_TEMPLATES = [
@@ -47,7 +43,7 @@
       id: 'morning',
       title: '아침 문안 인사',
       header: '행복한 아침 문안 인사',
-      line1: '오늘도 황영웅님 노래처럼',
+      line1: '오늘도 어머니의 봄날 노래처럼',
       line2: '건강하고 꽃길만 걸으시는',
       line3: '행복한 하루 보내세요!'
     },
@@ -56,7 +52,7 @@
       title: '주말·계절 안부',
       header: '따뜻한 주말 안부 편지',
       line1: '바람이 참 좋은 계절입니다.',
-      line2: '언제나 당신 편인 영웅님과 함께',
+      line2: '김쌤 라디오의 따뜻한 선율과 함께',
       line3: '웃음꽃 피는 주말 되세요!'
     },
     {
@@ -64,7 +60,7 @@
       title: '생신 축하 연하장',
       header: '생신을 진심으로 축하드립니다',
       line1: '세상에서 가장 소중하고 귀한 날,',
-      line2: '황영웅님의 따뜻한 노래와 함께',
+      line2: '백운호의 포근한 중저음 노래와 함께',
       line3: '백세까지 만수무강하세요!'
     },
     {
@@ -88,76 +84,76 @@
       title: '감사·사랑 인사',
       header: '늘 고맙고 사랑합니다',
       line1: '소중한 인연에 깊이 감사드리며',
-      line2: '황영웅님 목소리처럼 포근한',
+      line2: '백운호 연가처럼 잔잔하고 포근한',
       line3: '축복이 늘 함께하시길 바랍니다!'
     }
   ];
 
   const SONG_GUIDES = [
     {
-      id: '당신 편',
-      title: '당신 편 (정규 1집 타이틀)',
-      tempo: '느린 트롯 발라드 (72 BPM)',
-      key_note: '핵심 비법: 첫 소절은 말하듯 나지막이 시작하고, 후렴구 "내가 당신 편이 되어줄게요"에서 가슴 깊은 중저음 울림을 실어주세요.',
+      id: '어머니의 봄날',
+      title: '어머니의 봄날 (백운호 오리지널 타이틀곡)',
+      tempo: '느린 정통 트롯 발라드 (72 BPM)',
+      key_note: '핵심 비법: 첫 소절은 편지를 읽듯 나지막이 시작하고, 후렴구 "어머니의 봄날이 이제야 피네"에서 깊은 중저음 울림을 실어주세요.',
       lines: [
-        '1절 가이드: 세상이 등을 돌려도 [숨쉬기 ∨] 눈물이 앞을 가려도 [부드럽게 ~]',
-        '후렴 포인트: ★ 내가 당신 편이 되어줄게요 [길게 울림 ~~~] 언제까지나 영원히 ★',
-        '노래교실 팁: 고음에서 목을 조이지 말고 어머님 한숨 쉬듯 편안하게 배에서 소리를 밀어 올리세요.'
+        '1절 가이드: 거친 세월 앞치마에 눈물을 닦으시던 [숨쉬기 ∨] 그리운 우리 어머니 [부드럽게 ~]',
+        '후렴 포인트: ★ 어머니의 봄날이 이제야 활짝 피네 [길게 울림 ~~~] 꽃길만 걸으소서 ★',
+        '노래교실 팁: 고음에서 목에 힘을 주지 말고 편안하게 배에서 호흡을 밀어 올리세요.'
       ]
     },
     {
-      id: '비상',
-      title: '비상 (가슴 뭉클한 역전 명곡)',
-      tempo: '락 발라드 트롯 (74 BPM)',
-      key_note: '핵심 비법: 1절은 독백처럼 낮게 읊조리고, 후렴 "나 이제 날아오른다"에서 양팔을 벌리듯 성량을 폭발시키세요.',
+      id: '백운호 연가',
+      title: '백운호 연가 (아침 산책길 애창곡)',
+      tempo: '잔잔한 트롯 왈츠 (76 BPM)',
+      key_note: '핵심 비법: 흰 구름 머무는 고요한 호숫가를 산책하듯 부드러운 미소를 머금고 부르시면 감동이 배가됩니다.',
       lines: [
-        '1절 가이드: 그토록 오랫동안 움츠렸던 날개를 [숨쉬기 ∨] 이제는 활짝 펴고 [감정 고조 ▲]',
-        '후렴 포인트: ★ 하늘 높이 날아오른다 [길게 호흡 유지 ~~~] 거친 바람을 가르며 ★',
+        '1절 가이드: 흰 구름 쉬어 가는 고요한 호숫가에 [숨쉬기 ∨] 그리운 이름 하나 띄워 보낸다 [감정 고조 ▲]',
+        '후렴 포인트: ★ 세월 가도 변치 않을 백운호 연가여 [길게 호흡 유지 ~~~] 내 마음을 안아주오 ★',
         '노래교실 팁: 후렴 들어가기 직전 코와 입으로 깊게 숨을 들이마셔야 끝음이 흔들리지 않습니다.'
       ]
     },
     {
-      id: '인생아 고마웠다',
-      title: '인생아 고마웠다 (어머님 애창 1위)',
-      tempo: '정통 트롯 슬로우 (76 BPM)',
-      key_note: '핵심 비법: 지나온 세월을 쓰다듬듯 따뜻한 미소를 머금고 부르시면 듣는 분들의 눈시울이 붉어집니다.',
+      id: '항구의 등불',
+      title: '항구의 등불 (든든한 중저음 위로곡)',
+      tempo: '정통 트롯 슬로우 (78 BPM)',
+      key_note: '핵심 비법: 밤바다 배를 비추는 등대처럼 묵직하고 흔들림 없는 저음 호흡으로 차분히 감싸 안듯 불러보세요.',
       lines: [
-        '1절 가이드: 미운 정 고운 정 다 품고 살아온 [숨쉬기 ∨] 내 인생아 참 고마웠다 [꺾기 ♪]',
-        '후렴 포인트: ★ 눈물도 웃음도 다 내 보석이었네 [깊은 비브라토 ~~~] ★',
-        '노래교실 팁: "고마웠다"의 "다" 발음을 급하게 닫지 말고 2초간 여운을 남겨주세요.'
+        '1절 가이드: 바람 불고 파도 치는 어두운 밤바다에 [숨쉬기 ∨] 변함없이 켜져 있는 항구의 등불아 [꺾기 ♪]',
+        '후렴 포인트: ★ 지친 걸음 돌아올 곳 내가 비춰주리라 [깊은 비브라토 ~~~] ★',
+        '노래교실 팁: 마지막 받침 발음을 급하게 닫지 말고 2초간 따뜻한 여운을 남겨주세요.'
       ]
     },
     {
-      id: '해바라기',
-      title: '해바라기 (정규 1집 수록곡)',
+      id: '다시 피는 동백꽃',
+      title: '다시 피는 동백꽃 (인생 2막 응원곡)',
       tempo: '미디엄 템포 정통 트롯 (88 BPM)',
-      key_note: '핵심 비법: 경쾌하면서도 애절한 리듬감이 생명입니다. 박자 끝음마다 살짝 들어 올리는 트롯 꺾기를 넣어보세요.',
+      key_note: '핵심 비법: 찬 서리를 이겨내고 피어나는 동백꽃처럼 단단하면서도 경쾌한 리듬감을 살려 박자 끝음을 살짝 들어 올려주세요.',
       lines: [
-        '1절 가이드: 오직 한 사람만 바라보는 [숨쉬기 ∨] 해바라기 같은 내 사랑 [박자 정박 ●]',
-        '후렴 포인트: ★ 비가 오나 눈이 오나 당신만을 기다립니다 [감정 강조 ★]',
-        '노래교실 팁: 어깨에 힘을 빼고 무릎으로 살짝 리듬을 타면서 부르시면 박자가 흔들리지 않습니다.'
+        '1절 가이드: 모진 겨울 찬 바람을 다 견뎌내고서 [숨쉬기 ∨] 붉게 피어난 내 사랑 동백꽃아 [박자 정박 ●]',
+        '후렴 포인트: ★ 내 인생도 지금부터 다시 피는 꽃이라네 [감정 강조 ★]',
+        '노래교실 팁: 어깨에 힘을 빼고 무릎으로 살짝 리듬을 타면서 부르시면 박자가 안정됩니다.'
       ]
     },
     {
-      id: '안 볼 때 없을 때',
-      title: '안 볼 때 없을 때 (경쾌한 리듬)',
-      tempo: '네오 트롯 미디엄 (104 BPM)',
-      key_note: '핵심 비법: 박수 치며 부르기 가장 좋은 흥겨운 곡입니다! 첫 박에 강세를 주어 신나게 리듬을 타세요.',
+      id: '고향역 첫차',
+      title: '고향역 첫차 (그리운 어머님 추억곡)',
+      tempo: '경쾌한 정통 트롯 (98 BPM)',
+      key_note: '핵심 비법: 기차 바퀴 리듬처럼 규칙적인 박자감이 생명입니다! 첫 박에 가벼운 강세를 주어 정겹게 불러보세요.',
       lines: [
-        '1절 가이드: 있을 때 잘해 후회하지 말고 [숨쉬기 ∨] 안 볼 때 없을 때 더 생각나는 사람 [경쾌하게 ●]',
-        '후렴 포인트: ★ 바로 지금 내 옆에 있는 당신이 최고야 [밝은 미소로 ~~~] ★',
-        '노래교실 팁: 노래교실 박수 짝-짝 리듬에 맞춰 끝음을 짧고 통통 튀게 끊어 불러보세요.'
+        '1절 가이드: 새벽안개 자욱한 정거장 플랫폼에 [숨쉬기 ∨] 삶은 달걀 쥐여주던 어머니 손길 [정겹게 ●]',
+        '후렴 포인트: ★ 기적 소리 울리며 달려가는 고향역 첫차야 [밝은 미소로 ~~~] ★',
+        '노래교실 팁: 노래교실 손뼉 박자에 맞춰 끝음을 깔끔하고 또렷하게 발음해 보세요.'
       ]
     },
     {
-      id: '미운 사랑',
-      title: '미운 사랑 (황영웅 중저음 레전드)',
+      id: '내 인생의 금빛 노을',
+      title: '내 인생의 금빛 노을 (황혼 헌정 명곡)',
       tempo: '미디엄 발라드 트롯 (80 BPM)',
-      key_note: '핵심 비법: 원곡보다 반 키 낮춰서 황영웅님처럼 굵고 묵직한 저음으로 시작하면 노래방 최고점이 나옵니다.',
+      key_note: '핵심 비법: 원곡처럼 반 키 낮춰 굵고 포근한 저음으로 시작하면 황혼의 깊은 품격이 살아납니다.',
       lines: [
-        '1절 가이드: 가랑비 내리는 밤거리에서 [숨쉬기 ∨] 가슴에 묻어둔 미운 사랑아 [중저음 강조 ●]',
-        '후렴 포인트: ★ 왜 이렇게 눈물이 나니 [크게 열기 ★] 잊으려 해도 잊지 못할 사람아',
-        '노래교실 팁: "왜 이렇게" 부분에서 입을 세로로 크게 벌려야 소리가 시원하게 뻗어 나갑니다.'
+        '1절 가이드: 앞만 보고 달려왔던 젊은 날 다 지나고 [숨쉬기 ∨] 돌아보니 고마운 사람들뿐이네 [중저음 강조 ●]',
+        '후렴 포인트: ★ 저녁 하늘 물들이는 내 인생의 금빛 노을아 [크게 열기 ★] 오늘도 찬란하구나',
+        '노래교실 팁: 후렴 고음에서 입을 세로로 편안히 벌려주시면 소리가 시원하게 뻗어 나갑니다.'
       ]
     }
   ];
@@ -166,20 +162,20 @@
     health: {
       title: '무병장수 · 백세건강 황금대길 부적',
       fortune: '막혔던 기운이 풀리고 몸과 마음에 활력이 솟아나는 대길(大吉)의 날입니다!',
-      luckySong: '행운의 명곡: 당신 편 (아침·저녁 1회 청취 시 복 배가)',
+      luckySong: '행운의 추천곡: 어머니의 봄날 (아침·저녁 편안히 감상)',
       luckyItem: '행운의 색깔: 에메랄드 그린 & 황금색'
     },
     wealth: {
-      title: '가정만복 · 재물운 대박 황금 부적',
-      fortune: '생각지 못한 반가운 소식과 재물복이 대문을 두드리는 황금빛 운세입니다!',
-      luckySong: '행운의 명곡: 해바라기 (밝은 미소로 흥얼거리면 재물운 상승)',
-      luckyItem: '행운의 숫자: 7, 10, 88'
+      title: '가정만복 · 웃음가득 황금 부적',
+      fortune: '반가운 안부 소식과 따뜻한 복이 대문을 두드리는 평안한 날입니다!',
+      luckySong: '행운의 추천곡: 다시 피는 동백꽃 (밝은 미소로 흥얼거리기)',
+      luckyItem: '행운의 숫자: 3, 7, 12'
     },
     children: {
-      title: '자녀성공 · 손주건강 만사형통 부적',
-      fortune: '자녀와 손주들에게 귀인이 나타나 하는 일마다 술술 풀리는 축복의 운세입니다!',
-      luckySong: '행운의 명곡: 비상 (자녀들을 떠올리며 들으시면 만사형통)',
-      luckyItem: '행운의 방향: 동남쪽 (따뜻한 차 한 잔의 여유)'
+      title: '자녀평안 · 손주건강 만사형통 부적',
+      fortune: '자녀와 손주들에게 좋은 인연이 함께하고 가정에 화목이 깃드는 날입니다!',
+      luckySong: '행운의 추천곡: 내 인생의 금빛 노을 (따뜻한 차 한 잔과 함께)',
+      luckyItem: '행운의 방향: 남향 창가 햇살 산책'
     }
   };
 
@@ -187,7 +183,7 @@
 
   function preloadPortraits(callback) {
     let loaded = 0;
-    HWANG_PORTRAITS.forEach((p) => {
+    BAEK_PORTRAITS.forEach((p) => {
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.src = p.src;
@@ -204,17 +200,12 @@
 
   function resolvePortraitFromValue(val) {
     if (!val) return portraitCache[1];
-    const num = parseInt(val, 10);
-    if (!isNaN(num) && portraitCache[num]) return portraitCache[num];
-    if (String(val).includes('2_') || String(val).includes('lim')) return portraitCache[2] || portraitCache[1];
-    if (String(val).includes('3_') || String(val).includes('lee')) return portraitCache[3] || portraitCache[1];
-    if (String(val).includes('4_') || String(val).includes('young_tak')) return portraitCache[4] || portraitCache[1];
-    if (String(val).includes('5_') || String(val).includes('jeong')) return portraitCache[5] || portraitCache[1];
-    if (String(val).includes('6_') || String(val).includes('jin_haesung') || String(val).includes('kim_ho')) return portraitCache[6] || portraitCache[1];
-    if (String(val).includes('7_') || String(val).includes('jang')) return portraitCache[7] || portraitCache[1];
-    if (String(val).includes('8_') || String(val).includes('park')) return portraitCache[8] || portraitCache[1];
-    if (String(val).includes('9_') || String(val).includes('son')) return portraitCache[9] || portraitCache[1];
-    if (String(val).includes('10_') || String(val).includes('ahn')) return portraitCache[10] || portraitCache[1];
+    const s = String(val);
+    const m = s.match(/([1-6])/);
+    if (m) {
+      const idx = parseInt(m[1], 10);
+      if (portraitCache[idx]) return portraitCache[idx];
+    }
     return portraitCache[1];
   }
 
@@ -284,14 +275,14 @@
   function incrementParticipationTicker(actionLabel) {
     const countEl = document.getElementById('live-today-participation-count');
     if (countEl) {
-      const current = parseInt(String(countEl.textContent).replace(/[^0-9]/g, ''), 10) || 4820;
+      const current = parseInt(String(countEl.textContent).replace(/[^0-9]/g, ''), 10) || 0;
       countEl.textContent = (current + 1).toLocaleString('ko-KR');
     }
     const feedEl = document.getElementById('live-participation-feed');
     if (feedEl && actionLabel) {
       const item = document.createElement('span');
       item.style.cssText = 'display:inline-block; background:#FEF3C7; color:#92400E; font-weight:800; padding:4px 12px; border-radius:999px; margin-right:8px; font-size:16px;';
-      item.textContent = `방금 전 [${actionLabel}] 참여 완료!`;
+      item.textContent = `내 선물함 [${actionLabel}] 저장 준비 완료!`;
       feedEl.prepend(item);
     }
   }
@@ -336,7 +327,7 @@
   }
 
   // ===========================================================================
-  // ITEM 1: 황영웅 카톡 아침 안부 카드 & 연하장 생성기 (1080x1350)
+  // ITEM 1: 백운호 카톡 아침 안부 카드 & 연하장 생성기 (1080x1350)
   // ===========================================================================
   function renderGreetingCard() {
     const canvas = document.getElementById('gc-canvas') || document.getElementById('greeting-card-canvas');
@@ -351,7 +342,7 @@
     const customInput = document.getElementById('gc-custom-msg') || document.getElementById('greeting-custom-msg');
 
     const themeId = (themeSel && themeSel.value) || 'morning';
-    const senderName = ((senderInput && senderInput.value) || '파라다이스 팬 드림').trim();
+    const senderName = ((senderInput && senderInput.value) || '사랑방 가족 드림').trim();
     const customMsg = ((customInput && customInput.value) || '').trim();
     const tpl = GREETING_TEMPLATES.find((t) => t.id === themeId) || GREETING_TEMPLATES[0];
 
@@ -427,11 +418,11 @@
 
     ctx.fillStyle = '#A7F3D0';
     ctx.font = 'bold 24px "Malgun Gothic", sans-serif';
-    ctx.fillText('황영웅 공식 팬덤 플랫폼 PARADISE-HERO.COM', W / 2, 1290);
+    ctx.fillText('유튜브 @김쌤의영웅라디오 가족 사랑방 · PARADISE-HERO.COM', W / 2, 1290);
   }
 
   // ===========================================================================
-  // ITEM 2: 파라다이스 황금 명예 팬증(시민증) 발급기 (1080x680)
+  // ITEM 2: 김쌤의영웅라디오 가족 사랑방 명예 회원증 발급기 (1080x680)
   // ===========================================================================
   function renderFanIdCard() {
     const canvas = document.getElementById('fid-canvas') || document.getElementById('fan-id-canvas');
@@ -446,8 +437,8 @@
     const portraitSel = document.getElementById('fid-look') || document.getElementById('fan-id-portrait');
 
     const fanName = ((nameInput && nameInput.value) || '이순자 어머니').trim();
-    const region = ((regionInput && regionInput.value) || '대구·경북 본부').trim();
-    const favSong = ((songInput && songInput.value) || '당신 편').trim();
+    const region = ((regionInput && regionInput.value) || '대구·경북 사랑방').trim();
+    const favSong = ((songInput && songInput.value) || '어머니의 봄날').trim();
 
     const grad = ctx.createLinearGradient(0, 0, W, H);
     grad.addColorStop(0, '#0F2E24');
@@ -466,15 +457,15 @@
     ctx.fillStyle = '#D4AF37';
     ctx.fillRect(40, 40, W - 80, 105);
     ctx.fillStyle = '#0E2820';
-    ctx.font = '900 42px "Malgun Gothic", sans-serif';
+    ctx.font = '900 40px "Malgun Gothic", sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('PARADISE GOLDEN VIP CITIZEN ID', 75, 106);
+    ctx.fillText('HERO RADIO FAMILY LOUNGE MEMBER ID', 75, 106);
 
     let hash = 2026;
     for (let i = 0; i < fanName.length; i++) {
       hash = (hash * 31 + fanName.charCodeAt(i)) % 9000 + 1000;
     }
-    const serialNo = `NO. PH-2026-${hash}`;
+    const serialNo = `NO. HR-2026-${hash}`;
 
     ctx.textAlign = 'left';
     ctx.fillStyle = '#FDE68A';
@@ -487,16 +478,16 @@
 
     ctx.fillStyle = '#D1FAE5';
     ctx.font = 'bold 34px "Malgun Gothic", sans-serif';
-    ctx.fillText(`소속 지부 : ${region}`, 75, 368);
-    ctx.fillText(`평생 애창곡 : ${favSong}`, 75, 430);
-    ctx.fillText(`회원 등급 : 황금 VIP 정회원 (평생 당신 편)`, 75, 492);
+    ctx.fillText(`지역 모임 : ${region}`, 75, 368);
+    ctx.fillText(`신청 애창곡 : ${favSong}`, 75, 430);
+    ctx.fillText(`회원 구분 : 김쌤의영웅라디오 평생 가족회원`, 75, 492);
 
     ctx.fillStyle = '#D4AF37';
     ctx.fillRect(75, 535, 580, 68);
     ctx.fillStyle = '#0E2820';
-    ctx.font = '900 28px "Malgun Gothic", sans-serif';
+    ctx.font = '900 26px "Malgun Gothic", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('위 분을 가수 황영웅 평생 명예 후원회원으로 인증함', 365, 579);
+    ctx.fillText('위 분을 김쌤의영웅라디오 명예 가족회원으로 인증함', 365, 579);
 
     ctx.fillStyle = '#FAFAF8';
     ctx.fillRect(730, 178, 280, 360);
@@ -517,11 +508,11 @@
     ctx.textAlign = 'center';
     ctx.fillStyle = '#FDE68A';
     ctx.font = 'bold 22px "Malgun Gothic", sans-serif';
-    ctx.fillText('파라다이스 총괄본부 공인 | paradise-hero.com', 870, 585);
+    ctx.fillText('김쌤의영웅라디오 사랑방 | paradise-hero.com', 870, 585);
   }
 
   // ===========================================================================
-  // ITEM 3: 황영웅 핸드폰 잠금화면 (큰글씨 달력·시계 배경화면) (1080x1920)
+  // ITEM 3: 백운호 핸드폰 잠금화면 (큰글씨 달력·시계 배경화면) (1080x1920)
   // ===========================================================================
   function renderLockscreenWallpaper() {
     const canvas = document.getElementById('wp-canvas') || document.getElementById('wallpaper-canvas');
@@ -532,7 +523,7 @@
 
     const portraitSel = document.getElementById('wp-look') || document.getElementById('wallpaper-portrait-select');
     const msgInput = document.getElementById('wp-motto') || document.getElementById('wallpaper-motto-input');
-    const motto = ((msgInput && msgInput.value) || '영웅님과 함께 오늘도 건강하고 행복하게!').trim();
+    const motto = ((msgInput && msgInput.value) || '어머니의 봄날처럼 오늘도 건강하고 행복하게!').trim();
 
     const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
     bgGrad.addColorStop(0, '#071712');
@@ -550,7 +541,7 @@
     ctx.textAlign = 'center';
     ctx.fillStyle = 'rgba(253, 230, 138, 0.85)';
     ctx.font = 'bold 28px "Malgun Gothic", sans-serif';
-    ctx.fillText('PARADISE HERO · 황영웅 공식 잠금화면', W / 2, 105);
+    ctx.fillText('HERO RADIO · 가상 트로트 가수 백운호 큰글씨 달력', W / 2, 105);
 
     const pImg = resolvePortraitFromValue(portraitSel && portraitSel.value);
     if (pImg) {
@@ -644,11 +635,11 @@
 
     let body = '';
     if (occasion === 'birthday') {
-      body = `안녕하세요, 김쌤의 영웅라디오입니다. 오늘 세상에서 가장 귀하고 아름다운 날을 맞이하신 ${recipient}! 생신을 진심으로 축하드립니다. 그동안 가족을 위해 묵묵히 걸어오신 어머님의 고운 손길에 깊은 감사와 존경을 올립니다. 언제나 어머님 편인 가수 황영웅님의 따뜻한 노래 들으시면서, 올 한 해도 아프신 곳 없이 백세까지 만수무강하시고 꽃길만 걸으시길 진심으로 기원합니다. (${sender})`;
+      body = `안녕하세요, 김쌤의영웅라디오입니다. 오늘 세상에서 가장 귀하고 아름다운 날을 맞이하신 ${recipient}! 생신을 진심으로 축하드립니다. 그동안 가족을 위해 묵묵히 걸어오신 고운 손길에 깊은 감사와 존경을 올립니다. 가상 트로트 가수 백운호의 따뜻한 중저음 노래 들으시면서, 올 한 해도 아프신 곳 없이 백세까지 만수무강하시고 꽃길만 걸으시길 진심으로 기원합니다. (${sender})`;
     } else if (occasion === 'health') {
-      body = `안녕하세요, 김쌤의 영웅라디오입니다. ${recipient}, 요즘 환절기에 몸은 좀 어떠신가요? 어머님께서 늘 건강하시고 웃음 가득하시기를 바라는 마음으로 특별 음성편지를 전해드립니다. 황영웅님의 깊은 중저음 목소리가 어머님의 지친 마음을 포근히 안아드릴 거예요. 오늘도 식사 꼭 잘 챙겨 드시고 늘 힘내세요! (${sender})`;
+      body = `안녕하세요, 김쌤의영웅라디오입니다. ${recipient}, 요즘 환절기에 몸은 좀 어떠신가요? 늘 건강하시고 웃음 가득하시기를 바라는 마음으로 특별 음성편지를 전해드립니다. 백운호의 깊은 중저음 선율이 지친 마음을 포근히 안아드릴 거예요. 오늘도 식사 꼭 잘 챙겨 드시고 늘 힘내세요! (${sender})`;
     } else {
-      body = `안녕하세요, 김쌤의 영웅라디오입니다. 언제나 가수 황영웅님의 든든한 버팀목이 되어주시는 ${recipient}! 어머님의 따뜻한 응원과 사랑 덕분에 오늘도 파라다이스는 봄날처럼 빛납니다. 오늘 하루도 황영웅님의 명곡 '당신 편'과 함께 가장 행복하고 보람찬 시간 보내시길 응원합니다! (${sender})`;
+      body = `안녕하세요, 김쌤의영웅라디오입니다. 우리 인생의 진짜 영웅이신 ${recipient}! 따뜻한 응원과 사랑 덕분에 오늘도 우리 사랑방은 봄날처럼 빛납니다. 오늘 하루도 백운호의 타이틀곡 '어머니의 봄날'과 함께 가장 행복하고 보람찬 시간 보내시길 응원합니다! (${sender})`;
     }
 
     if (previewBox) {
@@ -701,14 +692,14 @@
   }
 
   // ===========================================================================
-  // ITEM 5: 황영웅 전곡 왕글씨(30px) 가사집 & 노래교실 부르기 비법서
+  // ITEM 5: 백운호 6대 대표곡 왕글씨(30px) 가사집 & 노래교실 부르기 비법서
   // ===========================================================================
   function renderLyricGuide() {
     const sel = document.getElementById('lb-song-select') || document.getElementById('lyric-song-select');
     const container = document.getElementById('lb-guide-box') || document.getElementById('lyric-guide-display');
     if (!container) return;
 
-    const songVal = (sel && sel.value) || '당신 편';
+    const songVal = (sel && sel.value) || '어머니의 봄날';
     const guide = SONG_GUIDES.find((s) => s.id === songVal || s.title.includes(songVal)) || SONG_GUIDES[0];
 
     container.innerHTML = `
@@ -729,7 +720,7 @@
   }
 
   // ===========================================================================
-  // ITEM 6: 오늘의 황영웅 황금 행운 부적 & 띠별·생년별 대박 운세 뽑기 (1080x1350)
+  // ITEM 6: 오늘의 사랑방 황금 행운 부적 & 띠별·생년별 대길 운세 뽑기 (1080x1350)
   // ===========================================================================
   function renderFortuneTalisman() {
     const canvas = document.getElementById('ft-canvas');
@@ -775,8 +766,8 @@
     ctx.font = '900 42px "Malgun Gothic", sans-serif';
     ctx.fillText(info.title, W / 2, 150);
 
-    // Portrait Halo & Golden Hanbok/Prince Hwang Young-woong
-    const pImg = portraitCache[8] || portraitCache[1];
+    // Portrait Halo & Golden Hanbok Baek Woon-ho
+    const pImg = portraitCache[5] || portraitCache[1];
     if (pImg) {
       const halo = ctx.createRadialGradient(W / 2, 520, 50, W / 2, 520, 340);
       halo.addColorStop(0, 'rgba(250, 204, 21, 0.55)');
@@ -814,11 +805,11 @@
 
     ctx.fillStyle = '#FDE68A';
     ctx.font = 'bold 26px "Malgun Gothic", sans-serif';
-    ctx.fillText(`${getTodayKoreanDateStr()} · 황영웅 파라다이스 황금부적`, W / 2, 1295);
+    ctx.fillText(`${getTodayKoreanDateStr()} · 김쌤의영웅라디오 황금부적`, W / 2, 1295);
   }
 
   // ===========================================================================
-  // ITEM 7: 우리 가족 소원 등불(연등) 달기 & 대박 기원탑 인증서 (1080x1350)
+  // ITEM 7: 우리 가족 소원 등불(연등) 달기 & 만사형통 기원 인증서 (1080x1350)
   // ===========================================================================
   function renderWishLantern() {
     const canvas = document.getElementById('wl-canvas');
@@ -832,7 +823,7 @@
     const colorEl = document.getElementById('wl-color');
 
     const fanName = ((nameEl && nameEl.value) || '대구 이순자 어머니').trim();
-    const wishText = ((wishEl && wishEl.value) || '우리 가족 모두 아프지 말고 황영웅 콘서트 대박나게 해주세요!').trim();
+    const wishText = ((wishEl && wishEl.value) || '우리 가족 모두 아프지 말고 늘 건강하고 평안하게 해주세요!').trim();
     const lanternType = (colorEl && colorEl.value) || 'gold';
 
     // Night Sky Gradient
@@ -910,8 +901,8 @@
 
     ctx.fillStyle = '#065F46';
     ctx.font = 'bold 30px "Malgun Gothic", sans-serif';
-    ctx.fillText('어머님의 간절한 기도가 황영웅님의 노래와 함께', W / 2, 1045);
-    ctx.fillText('반드시 이루어지기를 파라다이스가 함께 기원합니다.', W / 2, 1095);
+    ctx.fillText('어머님·아버님의 간절한 기도가 따뜻한 노래와 함께', W / 2, 1045);
+    ctx.fillText('반드시 이루어지기를 사랑방 가족이 함께 기원합니다.', W / 2, 1095);
 
     ctx.fillStyle = '#FDE68A';
     ctx.font = 'bold 26px "Malgun Gothic", sans-serif';
@@ -923,7 +914,7 @@
     const nameEl = document.getElementById('wl-name');
     const wishEl = document.getElementById('wl-wish');
     const fanName = ((nameEl && nameEl.value) || '대구 이순자 어머니').trim();
-    const wishText = ((wishEl && wishEl.value) || '우리 가족 건강과 황영웅 대박 기원!').trim();
+    const wishText = ((wishEl && wishEl.value) || '우리 가족 건강과 만사형통 기원!').trim();
 
     try {
       const list = JSON.parse(localStorage.getItem(LANTERN_STORAGE_KEY) || '[]');
@@ -932,7 +923,7 @@
     } catch (e) {}
 
     renderLiveLanternWall();
-    triggerDirectDownload('wl-canvas', '황영웅_소원성취_등불인증서');
+    triggerDirectDownload('wl-canvas', '사랑방_소원성취_등불인증서');
   }
 
   function renderLiveLanternWall() {
@@ -944,8 +935,8 @@
     } catch (e) {}
     const defaults = [
       { name: '대구 이순자 어머니', wish: '우리 아들 딸 손주들 올 한 해 아프지 않고 만사형통하길 기원합니다!' },
-      { name: '부산 해운대 박정숙님', wish: '황영웅 정규앨범 대박나고 전국투어 전석 매진되기를 두 손 모아 빕니다!' },
-      { name: '서울 송파 김영희맘', wish: '남편 무릎 통증 깨끗이 낫고 영웅님 콘서트 부부 동반으로 꼭 가고 싶어요!' }
+      { name: '부산 해운대 박정숙님', wish: '김쌤의영웅라디오 식구들 모두 무릎·눈 건강하시고 행복하세요!' },
+      { name: '서울 송파 김영희님', wish: '남편 무릎 통증 깨끗이 낫고 부부 동반으로 봄꽃 나들이 꼭 가고 싶어요!' }
     ];
     const merged = saved.concat(defaults).slice(0, 6);
     wall.innerHTML = merged
@@ -960,7 +951,7 @@
   }
 
   // ===========================================================================
-  // ITEM 8: 황영웅에게 바치는 가상 황금 꽃다발 & 사랑의 상장 수여식 (1080x1080)
+  // ITEM 8: 가상 트로트 가수 백운호에게 보내는 꽃다발 & 사랑의 상장 수여식 (1080x1080)
   // ===========================================================================
   function renderFlowerTribute() {
     const canvas = document.getElementById('fl-canvas');
@@ -1006,7 +997,7 @@
     ctx.font = 'bold 32px "Malgun Gothic", sans-serif';
     ctx.fillText(`헌정 꽃다발: ${bouquetName}`, W / 2, 295);
 
-    const pImg = portraitCache[9] || portraitCache[1];
+    const pImg = portraitCache[2] || portraitCache[1];
     if (pImg) {
       ctx.save();
       ctx.beginPath();
@@ -1023,13 +1014,13 @@
 
     ctx.fillStyle = '#111827';
     ctx.font = 'bold 32px "Malgun Gothic", sans-serif';
-    ctx.fillText('위 가수는 천상의 중저음 목소리로 전국 어머님들의', W / 2, 735);
-    ctx.fillText('가슴에 깊은 위로와 기쁨을 선물하였기에,', W / 2, 785);
+    ctx.fillText('가상 트로트 가수 백운호는 따뜻한 중저음 노래로', W / 2, 735);
+    ctx.fillText('전국 어머님·아버님 가슴에 깊은 위로를 선물하였기에,', W / 2, 785);
     ctx.fillText('온 마음을 담아 이 꽃다발과 황금 상장을 수여합니다.', W / 2, 835);
 
     ctx.fillStyle = '#0E2820';
     ctx.font = '900 40px "Malgun Gothic", sans-serif';
-    ctx.fillText(`수여인 : 평생 당신 편 ${fanName} 올림`, W / 2, 925);
+    ctx.fillText(`수여인 : 사랑방 가족 ${fanName} 올림`, W / 2, 925);
 
     ctx.fillStyle = '#6B7280';
     ctx.font = 'bold 24px "Malgun Gothic", sans-serif';
@@ -1037,7 +1028,7 @@
   }
 
   // ===========================================================================
-  // ITEM 9: 내 이름이 찍힌 황영웅 VIP 골든 콘서트 소장용 기념 티켓 (1080x560)
+  // ITEM 9: 내 이름이 찍힌 김쌤의영웅라디오 공개방송 소장용 기념 티켓 (1080x560)
   // ===========================================================================
   function renderGoldenTicket() {
     const canvas = document.getElementById('gt-canvas');
@@ -1051,8 +1042,8 @@
     const seatEl = document.getElementById('gt-seat');
 
     const fanName = ((nameEl && nameEl.value) || '이순자 어머니').trim();
-    const city = (cityEl && cityEl.value) || '서울 올림픽체조경기장 (KSPO DOME)';
-    const seat = (seatEl && seatEl.value) || 'VIP 황금 R석 1열 1번 (영웅님 정면 명당)';
+    const city = (cityEl && cityEl.value) || '김쌤의영웅라디오 특설 음악홀';
+    const seat = (seatEl && seatEl.value) || '명예 가족석 1열 1번 (백운호 무대 정면)';
 
     const grad = ctx.createLinearGradient(0, 0, W, H);
     grad.addColorStop(0, '#B45309');
@@ -1080,8 +1071,8 @@
 
     ctx.textAlign = 'left';
     ctx.fillStyle = '#FDE047';
-    ctx.font = '900 34px "Malgun Gothic", sans-serif';
-    ctx.fillText('HWANG YOUNG WOONG GOLDEN VIP CONCERT TICKET', 70, 105);
+    ctx.font = '900 32px "Malgun Gothic", sans-serif';
+    ctx.fillText('BAEK WOON-HO RADIO CONCERT GOLDEN TICKET', 70, 105);
 
     ctx.fillStyle = '#FFFFFF';
     ctx.font = '900 46px "Malgun Gothic", sans-serif';
@@ -1091,7 +1082,7 @@
     ctx.font = 'bold 30px "Malgun Gothic", sans-serif';
     ctx.fillText(`공연장 : ${city}`, 70, 270);
     ctx.fillStyle = '#FDE68A';
-    ctx.fillText(`좌석 등급 : ${seat}`, 70, 330);
+    ctx.fillText(`좌석 안내 : ${seat}`, 70, 330);
     ctx.fillStyle = '#E5E7EB';
     ctx.fillText(`발권 일자 : ${getTodayKoreanDateStr()}`, 70, 390);
 
@@ -1100,7 +1091,7 @@
     ctx.fillStyle = '#0E2820';
     ctx.font = '900 28px "Malgun Gothic", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('평생 소장용 황금 VIP 기념 티켓 · PARADISE-HERO.COM', 390, 466);
+    ctx.fillText('평생 소장용 사랑방 기념 티켓 · PARADISE-HERO.COM', 390, 466);
 
     const pImg = portraitCache[6] || portraitCache[1];
     if (pImg) {
@@ -1113,11 +1104,11 @@
     }
     ctx.fillStyle = '#FDE047';
     ctx.font = '900 26px "Malgun Gothic", sans-serif';
-    ctx.fillText('VIP ADMIT ONE', 905, 455);
+    ctx.fillText('ADMIT ONE', 905, 455);
   }
 
   // ===========================================================================
-  // ITEM 10: 치매 예방 & 팬심 테스트 '황영웅 찐팬 골든벨 퀴즈' & 수료증 (1080x800)
+  // ITEM 10: 두뇌 활력 & 트로트 상식 '백운호 사랑방 골든벨 퀴즈' & 수료증 (1080x800)
   // ===========================================================================
   function renderFanQuizCert() {
     const canvas = document.getElementById('fq-canvas');
@@ -1147,24 +1138,24 @@
 
     ctx.textAlign = 'center';
     ctx.fillStyle = '#0E2820';
-    ctx.font = '900 48px "Malgun Gothic", sans-serif';
-    ctx.fillText('파라다이스 황영웅 팬심 골든벨 장원급제 증서', W / 2, 145);
+    ctx.font = '900 46px "Malgun Gothic", sans-serif';
+    ctx.fillText('김쌤의영웅라디오 백운호 골든벨 장원급제 증서', W / 2, 145);
 
     ctx.fillStyle = '#B91C1C';
     ctx.font = '900 44px "Malgun Gothic", sans-serif';
-    ctx.fillText(`성 함 : ${fanName}   |   점 수 : ${score}점 (1등급 찐팬)`, W / 2, 245);
+    ctx.fillText(`성 함 : ${fanName}   |   점 수 : ${score}점 (장원급제)`, W / 2, 245);
 
     ctx.fillStyle = '#1F2937';
     ctx.font = 'bold 32px "Malgun Gothic", sans-serif';
-    ctx.fillText('위 어머님께서는 가수 황영웅의 대표 명곡과 활동 역사를', W / 2, 345);
-    ctx.fillText('완벽히 기억하시는 대한민국 상위 1% 명예 찐팬이시기에', W / 2, 405);
-    ctx.fillText('파라다이스 골든벨 1등급 장원급제 수료증을 수여합니다!', W / 2, 465);
+    ctx.fillText('위 분께서는 김쌤의영웅라디오 방송 편성과', W / 2, 345);
+    ctx.fillText('가상 트로트 가수 백운호의 대표곡을 정확히 맞추셨기에', W / 2, 405);
+    ctx.fillText('사랑방 골든벨 장원급제 명예 수료증을 수여합니다!', W / 2, 465);
 
     ctx.fillStyle = '#0E2820';
     ctx.fillRect(220, 535, W - 440, 86);
     ctx.fillStyle = '#FDE047';
-    ctx.font = '900 36px "Malgun Gothic", sans-serif';
-    ctx.fillText('황영웅 팬덤 골든벨 위원회 공인 인증', W / 2, 590);
+    ctx.font = '900 34px "Malgun Gothic", sans-serif';
+    ctx.fillText('김쌤의영웅라디오 사랑방 골든벨 인증', W / 2, 590);
 
     ctx.fillStyle = '#4B5563';
     ctx.font = 'bold 26px "Malgun Gothic", sans-serif';
@@ -1179,7 +1170,7 @@
   function openStudioLongPressSaveModal(dataUrl, itemLabel) {
     if (typeof document === 'undefined') return;
     if (typeof window !== 'undefined' && window.ParadiseKakaoBookmark && window.ParadiseKakaoBookmark.openLongPressPhotoSaveModal) {
-      window.ParadiseKakaoBookmark.openLongPressPhotoSaveModal(dataUrl, `🎁 [${itemLabel || '황영웅 기념 선물'}] 완성!`);
+      window.ParadiseKakaoBookmark.openLongPressPhotoSaveModal(dataUrl, `🎁 [${itemLabel || '백운호 기념 선물'}] 완성!`);
       return;
     }
 
@@ -1190,7 +1181,7 @@
       modal.style.cssText = 'display:flex; position:fixed; inset:0; background:rgba(14,40,32,0.88); z-index:10050; align-items:center; justify-content:center; padding:18px; overflow-y:auto;';
       modal.innerHTML = `
         <div style="background:#FAFAF8; border:4px solid #D4AF37; border-radius:24px; max-width:580px; width:100%; padding:26px 20px; text-align:center;">
-          <div id="vip-longpress-heading" style="font-size:26px; font-weight:900; color:#0E2820; margin-bottom:12px;">🎁 황영웅 기념 선물 완성!</div>
+          <div id="vip-longpress-heading" style="font-size:26px; font-weight:900; color:#0E2820; margin-bottom:12px;">🎁 백운호 기념 선물 완성!</div>
           <div style="background:#FFFBEB; border:3px solid #F59E0B; border-radius:16px; padding:18px; font-size:23px; font-weight:900; color:#92400E; line-height:1.55; margin-bottom:16px;">
             📱 손가락으로 그림을 <strong>2초간 꾹~ 눌러</strong><br>
             <strong style="color:#B91C1C; text-decoration:underline;">[사진 저장]</strong>을 누르세요!
@@ -1208,7 +1199,7 @@
     }
     const hEl = modal.querySelector('#vip-longpress-heading');
     const imgEl = modal.querySelector('#vip-longpress-preview-img');
-    if (hEl) hEl.textContent = `🎁 [${itemLabel || '황영웅 기념 선물'}] 완성!`;
+    if (hEl) hEl.textContent = `🎁 [${itemLabel || '백운호 기념 선물'}] 완성!`;
     if (imgEl) imgEl.src = dataUrl;
     modal.style.display = 'flex';
   }
@@ -1252,12 +1243,12 @@
     try {
       const dataUrl = canvas.toDataURL('image/png');
       if (typeof window !== 'undefined' && window.ParadiseKakaoBookmark && typeof window.ParadiseKakaoBookmark.shareDataUrl === 'function') {
-        window.ParadiseKakaoBookmark.shareDataUrl(dataUrl, itemLabel || '황영웅 기념 선물');
+        window.ParadiseKakaoBookmark.shareDataUrl(dataUrl, itemLabel || '백운호 기념 선물');
         return;
       }
-      triggerDirectDownload(canvasId, '황영웅_카톡선물', itemLabel);
+      triggerDirectDownload(canvasId, '백운호_카톡선물', itemLabel);
     } catch (e) {
-      triggerDirectDownload(canvasId, '황영웅_카톡선물', itemLabel);
+      triggerDirectDownload(canvasId, '백운호_카톡선물', itemLabel);
     }
   }
 
@@ -1304,10 +1295,10 @@
   }
 
   const publicApi = {
-    downloadGreetingCard: () => downloadCanvasImage('gc-canvas', '황영웅_카톡안부카드', '카톡 아침 안부카드'),
-    shareGreetingCard: () => shareCanvasImage('gc-canvas', '황영웅 카톡 아침 안부카드'),
-    downloadFanIdCard: () => downloadCanvasImage('fid-canvas', '파라다이스_황금명예팬증', '황금 명예 팬증 발급'),
-    downloadWallpaper: () => downloadCanvasImage('wp-canvas', '황영웅_큰글씨달력_배경화면', '큰글씨 달력 잠금화면'),
+    downloadGreetingCard: () => downloadCanvasImage('gc-canvas', '백운호_카톡안부카드', '카톡 아침 안부카드'),
+    shareGreetingCard: () => shareCanvasImage('gc-canvas', '백운호 카톡 아침 안부카드'),
+    downloadFanIdCard: () => downloadCanvasImage('fid-canvas', '사랑방_황금명예회원증', '사랑방 명예 회원증 발급'),
+    downloadWallpaper: () => downloadCanvasImage('wp-canvas', '백운호_큰글씨달력_배경화면', '큰글씨 달력 잠금화면'),
     playVoiceLetterAloud,
     printLyricGuide: () => {
       if (!consumeStudioCredit('왕글씨 노래교실 비법서')) return;
@@ -1320,11 +1311,11 @@
         }
       } catch (e) {}
     },
-    downloadFortuneTalisman: () => downloadCanvasImage('ft-canvas', '황영웅_황금행운부적', '황영웅 행운 부적 뽑기'),
+    downloadFortuneTalisman: () => downloadCanvasImage('ft-canvas', '사랑방_황금행운부적', '사랑방 행운 부적 뽑기'),
     downloadWishLantern: lightUpWishLanternAndDownload,
-    downloadFlowerTribute: () => downloadCanvasImage('fl-canvas', '황영웅_황금꽃다발_사랑상장', '황금 꽃다발 & 상장 수여'),
-    downloadGoldenTicket: () => downloadCanvasImage('gt-canvas', '황영웅_VIP콘서트_골든티켓', 'VIP 골든 콘서트 티켓'),
-    downloadFanQuizCert: () => downloadCanvasImage('fq-canvas', '황영웅_찐팬골든벨_장원급제증서', '황영웅 팬심 골든벨 퀴즈'),
+    downloadFlowerTribute: () => downloadCanvasImage('fl-canvas', '백운호_황금꽃다발_사랑상장', '황금 꽃다발 & 상장 수여'),
+    downloadGoldenTicket: () => downloadCanvasImage('gt-canvas', '김쌤라디오_공개방송_기념티켓', '공개방송 기념 티켓'),
+    downloadFanQuizCert: () => downloadCanvasImage('fq-canvas', '백운호_골든벨_장원급제증서', '백운호 사랑방 골든벨 퀴즈'),
     openStudioPaywall: openStudioPaywallModal,
     closeStudioPaywall: closeStudioPaywallModal,
     redeemStudioToken
@@ -1345,7 +1336,8 @@
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = Object.assign(
       {
-        HWANG_PORTRAITS,
+        BAEK_PORTRAITS,
+        HWANG_PORTRAITS: BAEK_PORTRAITS,
         GREETING_TEMPLATES,
         SONG_GUIDES,
         getStudioState,

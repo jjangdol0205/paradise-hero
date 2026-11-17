@@ -8,8 +8,8 @@ package_youtube_metadata.py
 1. 필수 고정 태그: #황영웅 #파라다이스 #트로트 #감동사연 #시니어유튜브
    - 절대 금지 태그(#영상툰, #애니메이션, #웹툰, '트롯 10대 왕자', 타 가수명) 원천 배제
 2. 롱폼 첫 번째 고정 댓글(Pinned Comment) 자동 등록 문안:
-   - 무료 화보 기념사진관 브릿지: https://paradise-hero.com/booth.html
-   - 네이버 공식 안심특가관 브릿지: https://cshop.naver.com/paradiseshop + 쇼핑 커넥트 수수료 고지
+   - 공식 응원·사연 사랑방 브릿지: https://paradise-hero.com/story.html
+   - 네이버 공식 안심 혜택관 브릿지: https://cshop.naver.com/paradiseshop + 쇼핑 커넥트 수수료 고지
 3. 예약 발행 시각 고정 (publishAt):
    - 주 2~3회 화·금 18:00 KST 자동 산출
 """
@@ -38,14 +38,19 @@ except ImportError:
 KST = timezone(timedelta(hours=9))
 FIXED_HASHTAGS = ["#황영웅", "#파라다이스", "#트로트", "#감동사연", "#시니어유튜브"]
 
-LONGFORM_PINNED_COMMENT = """💚 우리 영웅님 라디오 매주 화·금 저녁 6시 편하게 듣기 & 무료 화보 기념사진 찍기
-👉 공식 팬 쉼터 바로가기: https://paradise-hero.com/booth.html
+LONGFORM_PINNED_COMMENT = """💬 든든한 우리 영웅 가족 여러분! 오늘 밤 가장 듣고 싶은 황영웅 님의 인생 명곡 1곡과 따뜻한 응원 한마디(💚)를 댓글 사랑방에 남겨주세요! 다음 방송에서 김쌤이 정성껏 읽어드립니다 📻
 
-🟢 카드 입력 없이 1초 결제! 김쌤이 엄선한 눈·관절 건강 & 효도 선물 [네이버 공식 안심 혜택관]
-👉 네이버페이(Npay)로 편하게 구경하기: https://cshop.naver.com/paradiseshop
+💌 황영웅 님을 향한 관심과 사랑을 홈페이지 응원·사연 사랑방에 큰 글씨로 담아주세요!
+👉 파라다이스 히어로 응원·사연 사랑방 바로가기: https://paradise-hero.com/story.html
 
-💿 황영웅 정품 음반('당신 편'·'가을, 그리움') · 차량용 효도USB · 콘서트 준비물
-👉 영웅라디오 쿠팡 인플루언서 공식관: https://influencers.coupang.com/s/paradisehero
+🛍️ 황영웅 님을 향한 사랑과 온기를 담은 애장·건강 상품 (공연 응원준비물 · 정품 음반 · 관절/눈/홍삼 건강선물)!
+👉 paradise-hero.com 원터치 쇼핑 바로가기: https://paradise-hero.com
+
+🟢 카드 번호 입력 없이 네이버페이 1초 결제! [김쌤의 사랑·건강 안심 혜택관]
+👉 네이버페이(Npay)로 편하게 보러가기: https://cshop.naver.com/paradiseshop
+
+💿 황영웅 정품 음반('당신 편'·'가을, 그리움') · 효도 오디오 · 콘서트 애장 준비물 내일 도착
+👉 영웅라디오 쿠팡 공식 판매처 보러가기: https://influencers.coupang.com/s/paradisehero
 (네이버 쇼핑 커넥트 활동의 일환으로 판매 발생 시 소정의 수수료를 제공받으며, 쿠팡 파트너스 활동의 일환으로 이에 따른 일정액의 수수료를 제공받습니다.)"""
 
 
@@ -128,24 +133,25 @@ def build_youtube_metadata(script_data: Dict[str, Any], video_plan: Dict[str, An
     timestamp_block = "\n".join([ts["label"] for ts in timestamps])
     hashtags_line = " ".join(FIXED_HASHTAGS)
 
-    description = f"""파라다이스 가족 여러분, 그리고 사랑하는 우리 어머님들, 김쌤의 영웅 라디오에 오신 것을 진심으로 환영합니다.
+    description = f"""든든한 우리 영웅 가족 여러분, 그리고 사랑하는 파라다이스 어머님들, 김쌤의 영웅 라디오 사랑방에 오신 것을 진심으로 환영합니다 💚
 📅 정규 본방송 편성: 매주 화요일 · 금요일 저녁 6시 (화요 심야 사연 드라마 & 금요 명곡 해부학·친절 특집)
-오늘 밤 방송에서는 공식 사랑방(story.html)에 도착한 어머님들의 감동 사연 3편과 황영웅 뉴스룸(news.html) 주요 소식 2건을 따뜻한 진공관 라디오 부스에서 정성껏 읽어드립니다.
+💬 오늘 밤 가장 듣고 싶은 황영웅 님의 인생 명곡 1곡과 따뜻한 응원 한마디(💚)를 댓글 사랑방에 남겨주시면 다음 방송에서 김쌤이 함께 소개해 드립니다!
+오늘 밤 방송에서는 어머님들의 감동 사연 3편과 황영웅 뉴스룸 주요 소식 2건을 따뜻한 진공관 라디오 부스에서 정성껏 읽어드립니다.
 
-💚 [무료 화보 기념사진관 & 공식 팬 쉼터 바로가기]
-👉 https://paradise-hero.com/booth.html
-
-💌 [김쌤 라디오 사연 신청 & 어머님 편지 접수]
+💌 [황영웅 님을 향한 관심과 사랑을 담는 홈페이지 응원·사연 사랑방]
 👉 https://paradise-hero.com/story.html
+
+🛍️ [paradise-hero.com 원터치 쇼핑 바로가기 — 황영웅 님을 향한 사랑과 온기를 담은 애장·건강 상품]
+👉 https://paradise-hero.com
+
+🟢 [카드 입력 없이 네이버페이 1초 결제! 김쌤 공식 네이버 크리에이터샵 안심 혜택관]
+👉 https://cshop.naver.com/paradiseshop
+
+💿 [황영웅 정품 음반 · 간편 효도오디오 · 콘서트 애장 준비물 — 쿠팡 내일 도착 공식관]
+👉 https://influencers.coupang.com/s/paradisehero
 
 📰 [가수 황영웅 전용 큰글씨 뉴스룸]
 👉 https://paradise-hero.com/news.html
-
-🟢 [카드 입력 없이 1초 결제! 김쌤 공식 네이버 크리에이터샵 안심 혜택관]
-👉 https://cshop.naver.com/paradiseshop
-
-💿 [황영웅 정품 음반 · 차량용 효도USB · 콘서트 준비물 — 쿠팡 인플루언서 공식관]
-👉 https://influencers.coupang.com/s/paradisehero
 (네이버 쇼핑 커넥트 활동의 일환으로 판매 발생 시 소정의 수수료를 제공받으며, 쿠팡 파트너스 활동의 일환으로 이에 따른 일정액의 수수료를 제공받습니다.)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -302,7 +308,7 @@ def render_sample_thumbnail(meta: Dict[str, Any], output_path: str):
     draw.text((1142, 668), s_part2[:19], font=_font(40), fill=(165, 24, 24))
 
     draw.rounded_rectangle([(1110, 795), (1855, 965)], radius=18, fill=(14, 52, 36), outline=(46, 204, 113), width=3)
-    draw.text((1145, 822), "무료 화보 기념사진관 & 안심 혜택관", font=_font(35), fill=(255, 232, 110))
+    draw.text((1145, 822), "원터치 쇼핑 & 오늘의 영웅소식", font=_font(36), fill=(255, 232, 110))
     draw.text((1145, 882), "paradise-hero.com", font=_font(38), fill=(255, 255, 255))
 
     draw.rectangle([(15, 15), (1905, 1065)], outline=(241, 196, 15), width=4)

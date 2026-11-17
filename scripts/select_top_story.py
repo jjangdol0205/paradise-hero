@@ -11,7 +11,7 @@ Equation:
       - W_cheer = 35.0, C_norm = min(1.0, ln(1 + cheer_count) / ln(1 + 200))
       - W_emotion = 30.0, E_norm based on emotional lexicons
       - W_length = 20.0, piecewise length curve (optimal 400~1200 chars)
-      - W_song = 15.0, Hwang Young-woong repertoire match
+      - W_song = 15.0, Baek Woon-ho original repertoire match
       - P_decay = min(25.0, 1.2 * delta_days)
 """
 
@@ -26,9 +26,9 @@ from datetime import datetime, timezone
 # -----------------------------------------------------------------------------
 # Configuration & Lexicons
 # -----------------------------------------------------------------------------
-HWANG_YOUNG_WOONG_REPERTOIRE = {
-    "당신 편", "꽃구경", "당신꽃", "인사동 찻집", "함께해요",
-    "황금빛 인생", "복덩이", "비나리", "비상"
+BAEK_WOON_HO_REPERTOIRE = {
+    "어머니의 봄날", "백운호 연가", "항구의 등불",
+    "다시 피는 동백꽃", "고향역 첫차", "내 인생의 금빛 노을"
 }
 
 # Ingestion Filter: Prohibited Commercial & Spam Words
@@ -48,7 +48,7 @@ EMOTION_LEXICON_FAMILY_SACRIFICE = [
     "남편", "자식", "딸", "아들", "어머니", "엄마", "청춘", "세월", "병간호", "홀로", "새벽", "고생"
 ]
 EMOTION_LEXICON_DEVOTION = [
-    "영웅", "영웅님", "파라다이스", "노래", "목소리", "콘서트", "중저음", "당신 편", "꽃구경", "비상"
+    "백운호", "김쌤", "사랑방", "노래", "목소리", "라디오", "중저음", "어머니의 봄날", "백운호 연가", "동백꽃"
 ]
 
 URL_REGEX = re.compile(r"(https?://|www\.|t\.me/|open\.kakao\.com)", re.IGNORECASE)
@@ -150,7 +150,7 @@ def compute_resonance_score(story, current_time=None):
 
     # 4. Repertoire Song Match (Weight: 15.0)
     matched_song = False
-    for standard_song in HWANG_YOUNG_WOONG_REPERTOIRE:
+    for standard_song in BAEK_WOON_HO_REPERTOIRE:
         if standard_song in song_title:
             matched_song = True
             break

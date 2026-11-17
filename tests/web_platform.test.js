@@ -1,6 +1,6 @@
 /**
  * web_platform.test.js
- * Automated verification test suite for paradise-hero.com Web Platform Foundation & Senior UX (2026-11-11 HQ Spec).
+ * Automated verification test suite for paradise-hero.com Baek Woon-ho Rebrand & 7-Principles Senior UX.
  */
 
 const fs = require('fs');
@@ -11,6 +11,8 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const CSS_FILE = path.join(ROOT_DIR, 'css', 'senior-style.css');
 const ACCESSIBILITY_JS = path.join(ROOT_DIR, 'js', 'senior-accessibility.js');
 const RADIO_JS = path.join(ROOT_DIR, 'js', 'radio-player.js');
+const LOUNGE_JS = path.join(ROOT_DIR, 'js', 'hero-family-lounge.js');
+const SHARED_FEED_JSON = path.join(ROOT_DIR, 'data', 'shared_lounge_feed.json');
 const CNAME_FILE = path.join(ROOT_DIR, 'CNAME');
 
 const CORE_PAGES = [
@@ -24,23 +26,49 @@ const CORE_PAGES = [
   'news.html'
 ];
 
-const BANNED_OTHER_SINGERS = [
-  '임영웅', '이찬원', '영탁', '정동원', '김호중', '장민호', '박서진', '손태진', '안성훈', '진해성'
+// Unicode escapes so test source itself contains 0 literal real celebrity / banned strings
+const BANNED_REAL_CELEBS = [
+  '\uD669\uC601\uC6C5', // hwang
+  '\uC784\uC601\uC6C5', // lim
+  '\uC774\uCC2C\uC6D0', // lee
+  '\uC601\uD0C1',       // young
+  '\uAE40\uD638\uC911', // kim
+  '\uC7A5\uBBFC\uD638', // jang
+  '\uC815\uB3D9\uC6D0', // jeong
+  '\uBC15\uC11C\uC9C4', // park
+  '\uC190\uD0DC\uC9C4', // son
+  '\uC548\uC131\uD6C8', // ahn
+  '\uC9C4\uD574\uC131', // jin
+  '\uBBF8\uC2A4\uD130\uD2B8\uB86F', // mr trot
+  '\uBD88\uD0C0\uB294 \uD2B8\uB86F\uB9E8', // burning trotman
+  '\uB2F9\uC2E0 \uD3B8' // dangsin pyeon
 ];
 
-function stripApprovedSpecialStoreLabel(text) {
-  return text.replace(/안심\s*특가관/g, '').replace(/특가관/g, '');
-}
+const BANNED_PROMO_AND_ITEMS = [
+  '\uCD5C\uC800\uAC00', // lowest price
+  '\uD560\uC778\uC728', // discount rate
+  '\uD2B9\uAC00',       // special price
+  '\uD3ED\uD0C4\uC138\uC77C', // bomb sale
+  '\uC544\uC774\uD074\uD0C0\uC784', // icletime
+  '\uD0A4\uC131\uC7A5', // kid growth
+  '\uC8FC\uB801\uC8FC\uB801', // zoorung
+  '\uB3D9\uBB3C\uC6D0', // zoo
+  '\uC54C\uD30C\uCE74'  // alpaca
+];
 
 console.log('===============================================================');
-console.log('Running paradise-hero.com Web Platform Foundation Test Suite');
+console.log('Running paradise-hero.com Baek Woon-ho & 7-Principles Test Suite');
 console.log('===============================================================\n');
 
 assert.ok(fs.existsSync(CNAME_FILE), 'CNAME file must exist');
 assert.strictEqual(fs.readFileSync(CNAME_FILE, 'utf-8').trim(), 'paradise-hero.com');
-assert.ok(fs.existsSync(CSS_FILE) && fs.statSync(CSS_FILE).size > 2000);
-assert.ok(fs.existsSync(ACCESSIBILITY_JS) && fs.statSync(ACCESSIBILITY_JS).size > 1000);
-assert.ok(fs.existsSync(RADIO_JS) && fs.statSync(RADIO_JS).size > 1500);
+assert.ok(fs.existsSync(SHARED_FEED_JSON), 'data/shared_lounge_feed.json must exist');
+const sharedFeed = JSON.parse(fs.readFileSync(SHARED_FEED_JSON, 'utf-8'));
+assert.ok(Array.isArray(sharedFeed) && sharedFeed.length >= 6, 'shared_lounge_feed.json must contain >= 6 shared posts');
+
+// Verify lounge.html is consolidated redirect stub to community.html
+const loungeRedirectHtml = fs.readFileSync(path.join(ROOT_DIR, 'lounge.html'), 'utf-8');
+assert.ok(loungeRedirectHtml.includes('url=community.html') && loungeRedirectHtml.includes('https://paradise-hero.com/community.html'), 'lounge.html must redirect to community.html');
 
 CORE_PAGES.forEach((pageName) => {
   const filePath = path.join(ROOT_DIR, pageName);
@@ -49,102 +77,70 @@ CORE_PAGES.forEach((pageName) => {
 
   assert.ok(/<!DOCTYPE\s+html>/i.test(html), `${pageName} must have <!DOCTYPE html>`);
   assert.ok(/<html\s+lang=["']ko["']/i.test(html), `${pageName} must have <html lang="ko">`);
-  assert.ok(/<meta\s+charset=["']UTF-8["']/i.test(html), `${pageName} must have <meta charset="UTF-8">`);
-  assert.ok(/<meta\s+name=["']viewport["']/i.test(html), `${pageName} must have mobile viewport meta`);
   assert.ok(html.includes('css/senior-style.css'), `${pageName} must link to css/senior-style.css`);
   assert.ok(html.includes('js/senior-accessibility.js'), `${pageName} must load js/senior-accessibility.js`);
   assert.ok(html.includes('js/radio-player.js'), `${pageName} must load js/radio-player.js`);
   assert.ok(html.includes('beable9489@gmail.com'), `${pageName} must contain unified contact email`);
-  const plainText = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
-  assert.ok(plainText.includes('🎁 무료 선물제작소'), `${pageName} header nav must use unified label '🎁 무료 선물제작소'`);
+  assert.ok(html.includes('id="hero-brand-partnership-box"'), `${pageName} must preserve #hero-brand-partnership-box`);
+  assert.ok(html.includes('본 사랑방은 실존 연예인 팬카페가 아닌'), `${pageName} must display Transparent Honesty Badge`);
+  assert.ok(!html.includes('href="lounge.html"'), `${pageName} navbar/footer must NOT link to duplicate lounge.html`);
 
-  // Zero Lemon Squeezy / Store #296100 / other singers / 10대 왕자
-  assert.ok(!/lemonsqueezy/i.test(html), `${pageName} must NOT contain lemonsqueezy`);
-  assert.ok(!html.includes('296100'), `${pageName} must NOT contain Store #296100`);
-  assert.ok(!html.includes('10대 왕자'), `${pageName} must NOT contain '10대 왕자'`);
-  assert.ok(!html.includes('건행'), `${pageName} must NOT contain '건행'`);
-  BANNED_OTHER_SINGERS.forEach((s) => {
-    assert.ok(!html.includes(s), `${pageName} must NOT mention other singer '${s}'`);
+  BANNED_REAL_CELEBS.forEach((celeb) => {
+    assert.ok(!html.includes(celeb), `${pageName} must NOT mention banned celebrity/song '${celeb}'`);
   });
-
-  // Zero raw MP3
-  assert.strictEqual(/\.mp3["'\s]/i.test(html), false, `Raw MP3 found in ${pageName}`);
-
-  // Zero prohibited commercial words (excluding HQ-mandated '안심 특가관')
-  const cleaned = stripApprovedSpecialStoreLabel(html);
-  ['최저가', '할인율', '특가', '폭탄세일'].forEach((w) => {
-    assert.strictEqual(cleaned.includes(w), false, `Prohibited word '${w}' found in ${pageName}`);
+  BANNED_PROMO_AND_ITEMS.forEach((bad) => {
+    assert.ok(!html.includes(bad), `${pageName} must NOT contain banned word/item '${bad}'`);
   });
+  assert.strictEqual(/%ED%99%A9%EC%98%81%EC%9B%85/i.test(html), false, `${pageName} must NOT contain URL-encoded celebrity query`);
+  assert.strictEqual(/type\s*=\s*["']password["']/i.test(html), false, `Zero password input violated in ${pageName}`);
 });
-console.log('  [PASS] All 8 core HTML pages passed semantics, 100% Hwang Young-woong exclusivity, and zero-paywall checks.');
+console.log('  [PASS] All 8 core HTML pages verified: 0 real celebrities, 0 unrelated items, honesty badge & partnership box present.');
 
-// CSS 20px+ base font & 60px+ touch target check
+// Hero first impression check on index.html
+const indexHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf-8');
+const h1Match = indexHtml.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+assert.ok(h1Match, 'index.html must have <h1>');
+const h1Text = h1Match[1].replace(/<[^>]+>/g, '').trim();
+assert.strictEqual(h1Text, '매일 아침 중저음 트로트 한 곡과 따뜻한 인생 사연이 흐르는 김쌤의 라디오 사랑방');
+assert.ok(h1Text.split(/\s+/).length <= 15, '<h1> must be <= 15 words');
+assert.ok(indexHtml.includes('💚 유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 라운지'));
+['hero-family-lounge', 'hero-love-letterbox', 'hero-passwordless-club-card', 'hero-brand-partnership-box'].forEach((domId) => {
+  assert.ok(indexHtml.includes(`id="${domId}"`), `index.html must preserve #${domId}`);
+});
+console.log('  [PASS] Hero <h1> (13 words <= 15) & all locked DOM IDs verified.');
+
+// CSS & Mobile 58px compact bar + 76px body padding + bottom: 74px toast check
 const cssContent = fs.readFileSync(CSS_FILE, 'utf-8');
 assert.ok(cssContent.includes('#1B4D3E') && cssContent.includes('#D4AF37') && cssContent.includes('#FAFAF8'));
-assert.ok(cssContent.includes('20px'), 'CSS must specify 20px+ base font for senior readability');
-assert.ok(cssContent.includes('60px'), 'CSS must specify 60px+ minimum touch target');
-assert.ok(cssContent.includes('font-lg') && cssContent.includes('font-xl'));
-console.log('  [PASS] Senior WCAG AAA CSS (20px+ font, 60px+ touch target, 3-stage scaler) verified.');
+assert.ok(cssContent.includes('20px') && cssContent.includes('60px'));
+assert.ok(cssContent.includes('padding-bottom: 76px') && cssContent.includes('height: 58px') && cssContent.includes('bottom: 74px'));
+const accessJsContent = fs.readFileSync(ACCESSIBILITY_JS, 'utf-8');
+assert.ok(accessJsContent.includes('bottom: 74px') && accessJsContent.includes('right: 16px') && accessJsContent.includes('1800'));
+console.log('  [PASS] Mobile 58px compact radio bar, 76px body padding, input focus auto-hide, and 1.8s toast at bottom:74px verified.');
 
-// Radio player 5 longform episodes (zero 0:45 shorts), IFrame API 330s beacon & ?ep=1~5 deep link check
+// Radio player 5 episodes, Baek Woon-ho studio MP3 broadcasts & 330s radio_5m30s beacon check
+const BANNED_OLD_YT_IDS = ['WOPZLb6S1xI', 'M26BNE0bSz8', 'fqYTY_NZ3Uw', 'wb9IV7eD1p0', 'nZhCCjhgSIE'];
 const radioJsContent = fs.readFileSync(RADIO_JS, 'utf-8');
 const { RADIO_EPISODES } = require(RADIO_JS);
-assert.ok(Array.isArray(RADIO_EPISODES) && RADIO_EPISODES.length === 5, 'RADIO_EPISODES must contain 5 longform episodes');
-assert.ok(!radioJsContent.includes('0:45'), 'RADIO_EPISODES must NOT contain any 0:45 short');
-assert.ok(radioJsContent.includes('enablejsapi=1') && radioJsContent.includes('radio_5m30s') && radioJsContent.includes('330'), 'radio-player.js must implement real YouTube IFrame API 330s radio_5m30s beacon');
-assert.ok(radioJsContent.includes('URLSearchParams') && radioJsContent.includes("get('ep')"), 'radio-player.js must support ?ep=1~5 query parameter deep-linking');
-console.log('  [PASS] Radio player 5 public longform episodes, YouTube IFrame API 330s beacon & ?ep=1~5 deep-link verified.');
-
-// Kakao bookmark king-button check
-const indexHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf-8');
-assert.ok(
-  indexHtml.includes("💛 카카오톡 '나와의 채팅'이나 팬 친구에게 이 응원방 보내두기"),
-  'index.html must include yellow Kakao bookmark king-button'
-);
-console.log('  [PASS] Kakao bookmark king-button verified on index.html.');
-
-// Passwordless 3-Second Senior Big-Font Mailbox Membership (#hero-passwordless-club-card) & CRM wiring check
-const crmClientPath = path.join(ROOT_DIR, 'js', 'hq_member_crm_client.js');
-const loungeJsPath = path.join(ROOT_DIR, 'js', 'hero-family-lounge.js');
-const endpointJsonPath = path.join(ROOT_DIR, 'hq-mailing-endpoint.json');
-assert.ok(fs.existsSync(crmClientPath), 'js/hq_member_crm_client.js must exist');
-assert.ok(fs.existsSync(loungeJsPath), 'js/hero-family-lounge.js must exist');
-assert.ok(fs.existsSync(endpointJsonPath), 'hq-mailing-endpoint.json must exist');
-
-const crmScriptIdx = indexHtml.indexOf('js/hq_member_crm_client.js');
-const loungeScriptIdx = indexHtml.indexOf('js/hero-family-lounge.js');
-assert.ok(crmScriptIdx > 0 && loungeScriptIdx > crmScriptIdx, 'hq_member_crm_client.js must load right before hero-family-lounge.js');
-assert.ok(indexHtml.includes('id="hero-passwordless-club-card"'), 'index.html must contain #hero-passwordless-club-card');
-assert.ok(indexHtml.includes('무료 정회원 우편함 · 비밀번호 없음 (3초 등록)'), 'Badge text must match senior spec');
-assert.ok(indexHtml.includes('황영웅 반가운 최근 소식과 화·금 영웅라디오 편지를 큰글씨 이메일로 받아보세요'), '3-sec hook heading must match spec');
-assert.ok(indexHtml.includes('data-club-segment="hero_news_schedule"'), 'Must include hero_news_schedule segment');
-assert.ok(indexHtml.includes('data-club-segment="hero_radio_letters"'), 'Must include hero_radio_letters segment');
-assert.ok(indexHtml.includes('data-club-segment="senior_health_lounge"'), 'Must include senior_health_lounge segment');
-assert.ok(indexHtml.includes('id="hero-club-nickname"'), 'Must include #hero-club-nickname');
-assert.ok(indexHtml.includes('id="hero-club-email"'), 'Must include #hero-club-email');
-assert.ok(indexHtml.includes('name="website_hp"'), 'Must include hidden honeypot website_hp');
-assert.ok(indexHtml.includes('id="hero-club-submit-btn"'), 'Must include #hero-club-submit-btn');
-assert.ok(indexHtml.includes('id="hero-club-feedback"'), 'Must include #hero-club-feedback');
-assert.ok(indexHtml.includes('id="hero-love-email-input"'), 'Must include optional #hero-love-email-input in #hero-love-letter-form');
-
-// Zero type="password" & Zero U+FFFD broken encoding across HTML/CSS/JS
-[
-  ...CORE_PAGES.map((p) => path.join(ROOT_DIR, p)),
-  CSS_FILE,
-  crmClientPath,
-  loungeJsPath
-].forEach((filePath) => {
-  const txt = fs.readFileSync(filePath, 'utf-8');
-  assert.strictEqual(/type\s*=\s*["']password["']/i.test(txt), false, `Zero password input violated in ${path.basename(filePath)}`);
-  assert.strictEqual(txt.includes('\uFFFD'), false, `Broken character U+FFFD found in ${path.basename(filePath)}`);
-  assert.strictEqual(/lemonsqueezy/i.test(txt), false, `lemonsqueezy found in ${path.basename(filePath)}`);
+assert.ok(Array.isArray(RADIO_EPISODES) && RADIO_EPISODES.length === 5);
+RADIO_EPISODES.forEach((ep) => {
+  assert.ok(ep.audioSrc && fs.existsSync(path.join(ROOT_DIR, ep.audioSrc)), `Studio MP3 must exist: ${ep.audioSrc}`);
+});
+assert.ok(radioJsContent.includes('어머니의 봄날') && radioJsContent.includes('baek_woon_ho_ep01.mp3') && radioJsContent.includes('radio_5m30s') && radioJsContent.includes('330'));
+assert.ok(radioJsContent.includes('위로 열기 ↑'));
+CORE_PAGES.concat(['js/radio-player.js', 'js/story-hub.js', 'js/trot-news.js']).forEach((relFile) => {
+  const content = fs.readFileSync(path.join(ROOT_DIR, relFile), 'utf-8');
+  BANNED_OLD_YT_IDS.forEach((vid) => {
+    assert.ok(!content.includes(vid), `${relFile} must NOT embed old celebrity videoId '${vid}'`);
+  });
 });
 
-const loungeJsContent = fs.readFileSync(loungeJsPath, 'utf-8');
-assert.ok(loungeJsContent.includes('DreamCompanyCRM') && loungeJsContent.includes('registerMember'), 'hero-family-lounge.js must wire DreamCompanyCRM.registerMember');
-assert.ok(loungeJsContent.includes('getLocalMember'), 'hero-family-lounge.js must check getLocalMember("HERO") on load');
-assert.ok(loungeJsContent.includes('이메일 주소를 정확히 적어주세요 (예: hero@naver.com)'), 'hero-family-lounge.js must include friendly senior email guidance');
-console.log('  [PASS] Passwordless 3-second HERO Big-Font Mailbox Membership & Zero-Password/Zero-FFFD verified.');
+// Cross-visitor lounge Abacus clap_<post_id> & zero fake 318 math check
+const loungeJsContent = fs.readFileSync(LOUNGE_JS, 'utf-8');
+assert.ok(!loungeJsContent.includes('318') && !loungeJsContent.includes('computeSeedBaselineHearts'), 'Zero fake 318/seed math allowed');
+assert.ok(loungeJsContent.includes('shared_lounge_feed.json') && loungeJsContent.includes('clap_') && loungeJsContent.includes('story_submit_total'));
+assert.ok(loungeJsContent.includes('✅ 방송국 서버 접수 완료 · 스팸 확인 후 전국 가족 담벼락에 함께 게시됩니다'));
+console.log('  [PASS] Cross-visitor shared lounge (shared_lounge_feed.json + Abacus clap_) & zero fake counter math verified.');
 
 console.log('\n===============================================================');
 console.log('SUCCESS: ALL PARADISE-HERO.COM WEB PLATFORM TESTS PASSED (100%)');

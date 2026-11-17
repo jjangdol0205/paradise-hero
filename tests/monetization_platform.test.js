@@ -1,7 +1,7 @@
 /**
  * monetization_platform.test.js
- * Verification suite for Dual Safe Special Store (Naver Creator Shop + Coupang AF7865143)
- * & Unlimited Free Gift Studio (2026-11-11 HQ Spec).
+ * Verification suite for 💚 김쌤의 콘서트·응원 안심 준비물관 (3 Themes, 7 Genuine Senior Items, Zero Unrelated Items)
+ * & Unlimited Free Gift Studio.
  */
 
 const fs = require('fs');
@@ -9,65 +9,54 @@ const path = require('path');
 const assert = require('assert');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const INDEX_HTML = path.join(ROOT_DIR, 'index.html');
-const BOOTH_HTML = path.join(ROOT_DIR, 'booth.html');
-const VIP_HTML = path.join(ROOT_DIR, 'vip.html');
-const RADIO_HTML = path.join(ROOT_DIR, 'radio.html');
-const STREAM_HTML = path.join(ROOT_DIR, 'stream.html');
 const VIP_STUDIO_JS = path.join(ROOT_DIR, 'js', 'vip-digital-studio.js');
 
 console.log('======================================================================');
-console.log('Running Dual Safe Special Store & Free Gift Studio Verification');
+console.log('Running 김쌤의 콘서트·응원 안심 준비물관 & Free Gift Studio Verification');
 console.log('======================================================================\n');
 
 const storePages = [
-  { name: 'index.html', content: fs.readFileSync(INDEX_HTML, 'utf-8') },
-  { name: 'booth.html', content: fs.readFileSync(BOOTH_HTML, 'utf-8') },
-  { name: 'vip.html', content: fs.readFileSync(VIP_HTML, 'utf-8') },
-  { name: 'radio.html', content: fs.readFileSync(RADIO_HTML, 'utf-8') },
-  { name: 'stream.html', content: fs.readFileSync(STREAM_HTML, 'utf-8') },
-  { name: 'news.html', content: fs.readFileSync(path.join(ROOT_DIR, 'news.html'), 'utf-8') },
-  { name: 'community.html', content: fs.readFileSync(path.join(ROOT_DIR, 'community.html'), 'utf-8') },
-  { name: 'lounge.html', content: fs.readFileSync(path.join(ROOT_DIR, 'lounge.html'), 'utf-8') },
-  { name: 'story.html', content: fs.readFileSync(path.join(ROOT_DIR, 'story.html'), 'utf-8') }
-];
+  'index.html',
+  'booth.html',
+  'vip.html',
+  'radio.html',
+  'stream.html',
+  'news.html',
+  'community.html',
+  'story.html'
+].map((name) => ({ name, content: fs.readFileSync(path.join(ROOT_DIR, name), 'utf-8') }));
 
 const NAVER_CSHOP_URL = 'https://cshop.naver.com/paradiseshop';
-const FTC_DISCLOSURE = '본 특가관은 네이버 쇼핑 커넥트 및 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.';
+const FTC_DISCLOSURE = '※ 네이버 쇼핑 커넥트·쿠팡 파트너스 활동의 일환으로 판매 발생 시 일정액의 수수료를 제공받습니다.';
+const BANNED_UNRELATED = [
+  '\uC544\uC774\uD074\uD0C0\uC784', // icletime
+  '\uD0A4\uC131\uC7A5',             // kid growth
+  '\uC8FC\uB801\uC8FC\uB801',       // zoorung
+  '\uB3D9\uBB3C\uC6D0',             // zoo
+  '\uC54C\uD30C\uCE74',             // alpaca
+  '\uACE8\uB4DC VIP',               // gold vip
+  '\uC6D4 9,900\uC6D0'              // monthly 9900
+];
 
 storePages.forEach(({ name, content }) => {
-  assert.ok(
-    content.includes('김쌤이 직접 고른 어머님 콘서트·응원·건강 안심 특가관'),
-    `${name} must contain Dual Safe Special Store heading`
-  );
-  assert.ok(
-    content.includes(NAVER_CSHOP_URL),
-    `${name} must contain top green king-button to ${NAVER_CSHOP_URL}`
-  );
-  assert.ok(
-    content.includes('https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero') ||
-    content.includes('https://link.coupang.com/re/AFFSRP?lptag=AF7865143&amp;subid=paradisehero'),
-    `${name} must contain official Coupang Partners AFFSRP redirect URLs with lptag=AF7865143&subid=paradisehero`
-  );
+  assert.ok(content.includes('💚 김쌤의 콘서트·응원 안심 준비물관'), `${name} must contain store heading '💚 김쌤의 콘서트·응원 안심 준비물관'`);
+  assert.ok(content.includes(NAVER_CSHOP_URL), `${name} must link to ${NAVER_CSHOP_URL}`);
   const coupangHits = (content.match(/link\.coupang\.com\/re\/AFFS(?:RP|DP)\?lptag=AF7865143/g) || []).length;
-  assert.ok(coupangHits >= 6, `${name} must contain at least 6 Coupang AF7865143 items (found ${coupangHits})`);
-
-  assert.ok(!content.includes('link.coupang.com/a/'), `${name} must NOT contain broken fake shortlinks link.coupang.com/a/`);
-  assert.ok(!/lemonsqueezy/i.test(content), `${name} must NOT contain broken lemonsqueezy links`);
-  assert.ok(!content.includes('296100'), `${name} must NOT contain Store #296100`);
-  assert.ok(content.includes(FTC_DISCLOSURE), `${name} must contain exact FTC disclosure`);
-  assert.ok(content.includes('beable9489@gmail.com'), `${name} must include unified support email`);
-  console.log(`  [PASS] ${name}: Naver Creator Shop + ${coupangHits} Coupang AFFSRP AF7865143 items + FTC disclosure verified.`);
+  assert.strictEqual(coupangHits, 7, `${name} must contain exact 7 genuine senior Coupang AF7865143 items (found ${coupangHits})`);
+  assert.ok(content.includes(FTC_DISCLOSURE), `${name} must contain exact FTC disclosure right next to product buttons`);
+  assert.ok(content.includes('id="hero-brand-partnership-box"'), `${name} must contain #hero-brand-partnership-box`);
+  BANNED_UNRELATED.forEach((bad) => {
+    assert.ok(!content.includes(bad), `${name} must NOT contain banned unrelated item/label '${bad}'`);
+  });
+  console.log(`  [PASS] ${name}: 3 themes, 7 genuine senior items, FTC disclosure & 0 unrelated items verified.`);
 });
 
-const vipHtml = fs.readFileSync(VIP_HTML, 'utf-8');
 const vipJs = fs.readFileSync(VIP_STUDIO_JS, 'utf-8');
-assert.ok(vipHtml.includes('id="auto-billboard-form"'), 'vip.html must preserve free fan billboard ticker form');
-assert.ok(vipJs.includes('unlimitedVip: true') && vipJs.includes('9999'), 'vip-digital-studio.js must unlock unlimited free access');
-assert.ok(vipJs.includes('KAKAOTALK') && vipJs.includes('2초간 꾹'), 'vip-digital-studio.js must support KakaoTalk 2s long-press save modal');
-assert.ok(!/lemonsqueezy/i.test(vipJs) && !vipJs.includes('296100'), 'vip-digital-studio.js must NOT reference Lemon Squeezy');
-console.log('  [PASS] vip.html & vip-digital-studio.js 100% unlimited free mode + Kakao long-press modal verified.\n');
+assert.ok(vipJs.includes('unlimitedVip: true') && vipJs.includes('9999'));
+assert.ok(vipJs.includes('어머니의 봄날') && vipJs.includes('백운호 연가') && !vipJs.includes('4820'));
+assert.ok(vipJs.includes('KAKAOTALK') && vipJs.includes('2초간 꾹'));
+console.log('  [PASS] vip-digital-studio.js 100% unlimited free mode, 6 Baek Woon-ho songs & honest counter verified.\n');
 
 console.log('======================================================================');
-console.log('SUCCESS: ALL DUAL SAFE SPECIAL STORE & GIFT STUDIO TESTS PASSED (100%)');
+console.log('SUCCESS: ALL STORE & GIFT STUDIO TESTS PASSED (100%)');
 console.log('======================================================================\n');

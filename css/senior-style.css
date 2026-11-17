@@ -1682,21 +1682,24 @@ img {
 
 .senior-toast-banner {
   position: fixed;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(560px, calc(100vw - 24px));
+  bottom: 74px;
+  right: 16px;
+  left: auto;
+  top: auto;
+  transform: none;
+  width: min(420px, calc(100vw - 32px));
   background-color: #0E2820;
   color: #FEF08A;
   border: 3px solid #D4AF37;
   border-radius: 16px;
-  padding: 16px 20px;
-  font-size: 20px;
+  padding: 12px 16px;
+  font-size: 19px;
   font-weight: 900;
-  line-height: 1.45;
+  line-height: 1.4;
   text-align: center;
   z-index: 10100;
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
 }
 
 @media (max-width: 640px) {
@@ -1739,7 +1742,7 @@ img {
 
 
 /* ==========================================================================
-   16. 50~70대 팬덤 '오늘의 황영웅 아침 브리핑 + 라디오' & '4대 테마 시각형 안심 장터' (2026-11-15)
+   16. 50~70대 시니어 '김쌤의영웅라디오 & 백운호 아침 사랑방' & '콘서트·응원 안심 준비물관'
    ========================================================================== */
 .hero-morning-dual-grid {
   display: grid;
@@ -2523,8 +2526,8 @@ body.font-xlarge {
 }
 
 /* ==========================================================================
-   18. 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox)
-       & 사랑을 담은 애장·건강 컬렉션 스토리텔링 배너 (WCAG AAA 20px+ / 64px+ / 375px 무결점)
+   18. 김쌤의영웅라디오 가족 사랑방 1줄 응원 편지함 (#hero-love-letterbox)
+       & 콘서트·응원 안심 준비물관 스토리텔링 배너 (WCAG AAA 20px+ / 64px+ / 375px 무결점)
    ========================================================================== */
 .hero-love-letterbox-section {
   margin-top: 22px;
@@ -2846,7 +2849,7 @@ body.font-xlarge {
 }
 
 /* ==========================================================================
-   19. 황영웅 최근 소식 & 영웅라디오 큰글씨 우편함 무료 정회원 등록
+   19. 김쌤의영웅라디오 & 가상 트로트 가수 백운호 큰글씨 우편함 무료 정회원 등록
        (#hero-passwordless-club-card · 비밀번호 없는 3초 등록 · WCAG AAA 20px+ / 64px+)
    ========================================================================== */
 .hero-passwordless-club-card {
@@ -3116,3 +3119,228 @@ body.font-xlarge {
     align-items: flex-start;
   }
 }
+
+/* ==========================================================================
+   20. 백운호 가상 가수 정직 고지 배지 · 전국 실시간 공감 박수 사랑방 · 모바일 58px 컴팩트 바 (2026-11-17)
+   ========================================================================== */
+.honesty-virtual-singer-notice {
+  background-color: #FFFBEB;
+  border: 2.5px solid #D97706;
+  border-radius: 16px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  color: #451A03;
+  font-size: var(--font-base);
+  font-weight: 800;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.submission-pending-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #ECFDF5;
+  color: #065F46;
+  border: 2px solid #10B981;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.shared-lounge-card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #CBD5E1;
+}
+
+.btn-shared-clap {
+  min-height: 60px;
+  padding: 10px 18px;
+  background-color: #FFFDF5;
+  color: #1B4D3E;
+  border: 2.5px solid #1B4D3E;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 19px;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-shared-clap:hover,
+.btn-shared-clap:focus {
+  background-color: #ECFDF5;
+}
+
+.btn-shared-clap.is-clapped {
+  background-color: #1B4D3E;
+  color: #FEF08A;
+  border-color: #D4AF37;
+}
+
+.ftc-inline-disclosure {
+  margin: 10px 0 14px;
+  padding: 12px 16px;
+  background-color: #F8FAFC;
+  border: 2px solid #CBD5E1;
+  border-radius: 12px;
+  color: #1E293B;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.btn-radio-expand-up {
+  min-height: 60px;
+  padding: 10px 14px;
+  background-color: rgba(255, 255, 255, 0.14);
+  color: #FEF08A;
+  border: 2px solid #D4AF37;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 76px !important;
+  }
+
+  /* 상단 헤더 슬림화 (뷰포트 가림 최소화) */
+  .site-header .header-top {
+    padding: 6px 10px;
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+  .site-header .brand-logo .logo-icon {
+    font-size: 22px;
+  }
+  .site-header .brand-logo .logo-text {
+    font-size: 18px;
+  }
+  .site-header .brand-logo .logo-sub {
+    display: none;
+  }
+  .site-header .btn-font-scaler,
+  .site-header .btn-vip-header-link {
+    min-height: 42px;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+  .site-header .main-nav .nav-list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 4px;
+    padding: 4px 8px;
+    justify-content: flex-start;
+  }
+  .site-header .main-nav .nav-link {
+    min-height: 40px;
+    padding: 6px 10px;
+    font-size: 15px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* 하단 라디오 미니바 1줄 58px 슬림화: [▶️ 재생/일시정지] · [현재 사연곡 제목 1줄 말줄임] · [위로 열기 ↑] */
+  .sticky-radio-bar,
+  .sticky-radio-player {
+    height: 58px !important;
+    min-height: 56px !important;
+    max-height: 60px !important;
+    padding: 5px 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .sticky-radio-bar .radio-bar-inner {
+    width: 100% !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+  }
+  .sticky-radio-bar .radio-live-badge,
+  .sticky-radio-bar .radio-wifi-notice,
+  .sticky-radio-bar #btn-radio-next {
+    display: none !important;
+  }
+  .sticky-radio-bar .radio-info {
+    order: 2;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    margin: 0 !important;
+  }
+  .sticky-radio-bar .radio-track-title {
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .sticky-radio-bar .radio-controls {
+    display: contents !important;
+  }
+  .sticky-radio-bar #btn-radio-toggle {
+    order: 1;
+    width: auto !important;
+    min-width: 84px !important;
+    min-height: 44px !important;
+    max-height: 46px !important;
+    padding: 6px 10px !important;
+    font-size: 15px !important;
+    border-radius: 10px !important;
+    flex-shrink: 0 !important;
+  }
+  .sticky-radio-bar #btn-radio-expand-up,
+  .sticky-radio-bar .btn-radio-expand-up {
+    order: 3;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    min-height: 44px !important;
+    max-height: 46px !important;
+    padding: 6px 10px !important;
+    font-size: 14px !important;
+    border-radius: 10px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* 입력창(input / textarea / select) 포커스 시 하단 고정바 자동 숨김 */
+  body.is-keyboard-editing .sticky-radio-bar,
+  body.is-keyboard-editing .sticky-radio-player {
+    transform: translateY(120%) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .senior-toast-banner {
+    bottom: 74px !important;
+    right: 16px !important;
+    left: auto !important;
+    top: auto !important;
+    max-width: calc(100vw - 32px) !important;
+    pointer-events: none !important;
+  }
+}
+

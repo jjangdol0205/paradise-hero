@@ -133,7 +133,7 @@ def build_episode_01_script() -> Dict[str, Any]:
                     "segment_id": "ep01_seg_01",
                     "speaker": "dj_kim",
                     "speaker_title": "DJ 김쌤",
-                    "text": "전국과 해외에 계신 사랑하는 파라다이스 가족 여러분, 그리고 우리 어머님들, 안녕하셨습니까. 저녁 진지는 따뜻하게 챙겨 드셨는지요.",
+                    "text": "전국과 해외에 계신 든든한 우리 영웅 가족 여러분, 그리고 사랑하는 파라다이스 어머님들, 안녕하셨습니까. 저녁 진지는 따뜻하게 챙겨 드셨는지요.",
                     "pacing_pause_sec": 1.2,
                     "emotion": "warm_greeting",
                     "visual_hint": "원목 라디오 스튜디오 창가, 부드럽게 스며드는 따스한 늦가을 노을빛 켄 번스 슬로우 줌인"
@@ -431,7 +431,7 @@ def build_episode_01_script() -> Dict[str, Any]:
         {
             "chapter_index": 6,
             "chapter_id": "ch6_closing_cta",
-            "title": "클로징 — 편안한 밤 되세요 & 공식 사랑방 사연 안내",
+            "title": "클로징 — 영웅님 향한 사랑을 담는 사랑방 & 사랑을 담은 애장·건강 상품 안내",
             "target_duration_sec": 60,
             "bgm_mood": "peaceful_lullaby_piano",
             "segments": [
@@ -439,25 +439,25 @@ def build_episode_01_script() -> Dict[str, Any]:
                     "segment_id": "ep01_seg_30",
                     "speaker": "dj_kim",
                     "speaker_title": "DJ 김쌤",
-                    "text": "오늘 방송에 소개해 드린 대구 이순자 어머님의 사연 전문과 영웅님을 향한 따뜻한 응원의 글들은, 저희 공식 커뮤니티 파라다이스 히어로 닷컴에서 언제든 다시 읽어보실 수 있습니다.",
+                    "text": "오늘 방송에 소개해 드린 대구 이순자 어머님의 사연처럼, 황영웅 님을 향한 어머님들의 깊은 관심과 따뜻한 사랑 이야기를 저희 공식 쉼터 파라다이스 히어로 닷컴 응원·사연 사랑방에 큰 글씨로 꼭 담아주십시오.",
                     "pacing_pause_sec": 1.0,
                     "emotion": "clear_guidance",
-                    "visual_hint": "스크린 하단에 단정하게 떠오르는 공식 사랑방 안내 자막: paradise-hero.com"
+                    "visual_hint": "스크린 하단에 단정하게 떠오르는 공식 응원·사연 사랑방 안내 자막: paradise-hero.com"
                 },
                 {
                     "segment_id": "ep01_seg_31",
                     "speaker": "dj_kim",
                     "speaker_title": "DJ 김쌤",
-                    "text": "가슴속에 담아둔 어머님의 소중한 삶의 이야기나 영웅님께 전하고 싶은 편지가 있으시다면, 공식 사랑방 사연 우체통에 편안히 남겨주세요. 김쌤의 영웅 라디오 사연 신청 및 무료 화보 기념사진관은 공식 팬 쉼터 https://paradise-hero.com 에서 언제든 무료로 만나보실 수 있습니다.",
+                    "text": "또한 황영웅 님을 향한 사랑과 온기를 정성껏 담은 공연 응원 애장품과 정품 음반, 그리고 오래오래 건강히 응원하실 수 있는 관절과 눈 건강 상품도 파라다이스 히어로 닷컴 원터치 쇼핑 바로가기에 큰 버튼으로 모아두었습니다. 영상 아래 첫 번째 고정 댓글을 누르시면 네이버페이 일초 결제와 쿠팡 내일 도착으로 편안하게 만나보실 수 있습니다.",
                     "pacing_pause_sec": 1.3,
                     "emotion": "funnel_cta",
-                    "visual_hint": "사연 우체통 페이지 그래픽과 엔딩 크레딧 롤링"
+                    "visual_hint": "사랑과 온기를 담은 애장·건강 상품 원터치 쇼핑 바로가기 안내 카드와 엔딩 크레딧 롤링"
                 },
                 {
                     "segment_id": "ep01_seg_32",
                     "speaker": "dj_kim",
                     "speaker_title": "DJ 김쌤",
-                    "text": "오늘 밤도 영웅님의 따뜻한 노래 귓가에 얹어두시고, 가슴속 응어리진 걱정일랑 모두 털어내신 채 달콤하고 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 항상 건강하시고, 늘 평안하십시오. 사랑합니다, 파라다이스!",
+                    "text": "든든한 우리 영웅 가족 여러분, 오늘 가장 듣고 싶은 황영웅 님의 인생 명곡 한 곡과 따뜻한 응원 한마디도 홈페이지 응원 사랑방과 영상 아래 댓글 사랑방에 꼭 남겨주십시오. 다음 방송에서 정성껏 읽어드리겠습니다. 오늘 밤도 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 사랑합니다, 파라다이스!",
                     "pacing_pause_sec": 2.5,
                     "emotion": "gentle_signoff",
                     "visual_hint": "스튜디오 조명이 은은히 페이드아웃되며 떠오르는 감성 로고 @김쌤의영웅라디오"
@@ -811,7 +811,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
     if episode >= 6 and prof["program_format"] == "FRI_LYRIC_ANATOMY":
         ch1_title = f"오프닝 — 금요일 저녁 제{episode}화, 영웅님 [{song_title}] 한 소절에 기대어 쉬어가세요"
         ch1_texts = [
-            ("전국과 해외에 계신 사랑하는 파라다이스 가족 여러분, 한 주 동안 정말 애 많이 쓰셨습니다. 금요일 저녁 6시, 김쌤의 영웅 라디오 문을 활짝 엽니다.", 1.2, "warm_greeting"),
+            ("전국과 해외에 계신 든든한 우리 영웅 가족 여러분, 한 주 동안 정말 애 많이 쓰셨습니다. 금요일 저녁 6시, 김쌤의 영웅 라디오 사랑방 문을 활짝 엽니다.", 1.2, "warm_greeting"),
             ("월요일부터 금요일까지 손주 챙기랴, 집안 살림 돌보랴 바쁘게 달려오신 어머님들의 어깨를 오늘만큼은 토닥여 드리고 싶은 저녁입니다.", 1.2, "tender_care"),
             (f"매주 금요일 저녁 시간에는 전직 국어교사였던 저 김쌤이 영웅님의 명곡 가사 한 줄과 중저음 발성의 비밀을 깊이 있게 풀어드리는 명곡 해부학 특집으로 찾아뵙고 있습니다.", 1.3, "empathic_resonance"),
             (f"오늘 우리가 함께 가슴에 새겨볼 주인공 노래는 바로 들을수록 눈시울이 뜨거워지는 영웅님의 명곡 [{song_title}]입니다.", 1.4, "deep_comfort"),
@@ -820,7 +820,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
     elif episode >= 6 and prof["program_format"] == "FRI_CONCERT_GUIDE":
         ch1_title = f"오프닝 — 금요일 저녁 제{episode}화, 자식 눈치 안 보고 당당하게 응원하는 주말 특집"
         ch1_texts = [
-            ("전국과 해외에 계신 파라다이스 가족 여러분, 반가운 금요일 저녁 6시입니다. 저녁 진지는 든든하고 따뜻하게 챙겨 드셨는지요.", 1.2, "warm_greeting"),
+            ("전국과 해외에 계신 든든한 우리 영웅 가족 여러분, 반가운 금요일 저녁 6시입니다. 저녁 진지는 든든하고 따뜻하게 챙겨 드셨는지요.", 1.2, "warm_greeting"),
             ("콘서트 소식이나 투표, 음원 스밍 이야기가 나올 때마다 혹시 자식들에게 물어보기 미안해서 혼자 속앓이해 보신 적 없으십니까.", 1.2, "tender_care"),
             ("그래서 오늘 금요 특집 방송에서는 우리 어머님들이 누구 눈치도 보지 않고 혼자서도 당당하게 공연장과 스밍을 즐기실 수 있는 알짜배기 친절 비법을 준비했습니다.", 1.3, "empathic_resonance"),
             (f"물론 가슴 뭉클한 파라다이스 가족 사연 세 편과 영웅님의 명곡 [{song_title}] 이야기도 알차게 담아두었습니다.", 1.4, "deep_comfort"),
@@ -829,7 +829,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
     elif episode >= 6:
         ch1_title = f"오프닝 — 화요일 저녁 제{episode}화, 사연 우체통에 도착한 눈물의 편지 세 통"
         ch1_texts = [
-            ("전국과 해외에 계신 사랑하는 파라다이스 가족 여러분, 화요일 저녁 6시 약속드린 시간에 찾아온 김쌤의 영웅 라디오입니다. 저녁 진지는 따뜻하게 드셨습니까.", 1.2, "warm_greeting"),
+            ("전국과 해외에 계신 든든한 우리 영웅 가족 여러분, 화요일 저녁 6시 약속드린 시간에 찾아온 김쌤의 영웅 라디오입니다. 저녁 진지는 따뜻하게 드셨습니까.", 1.2, "warm_greeting"),
             ("해가 짧아지고 저녁 바람이 선선해질수록, 설거지를 마치고 돌아선 부엌 창가에서 문득 밀려오는 적적함을 느끼시는 어머님들이 참 많으십니다.", 1.2, "tender_care"),
             ("매주 화요일 저녁 정규 방송은 어머님들께서 직접 보내주신 실제 삶의 편지를 두 명의 목소리로 생생하게 읽어드리는 심야 사연 드라마 시간으로 꾸며드리고 있습니다.", 1.3, "empathic_resonance"),
             (f"오늘은 {sender_name}께서 보내주신 가슴 먹먹한 편지를 비롯해 세 분의 소중한 사연과 영웅님의 반가운 소식 두 가지를 정성껏 준비했습니다.", 1.5, "deep_comfort"),
@@ -838,7 +838,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
     else:
         ch1_title = f"오프닝 — 제{episode}화 파라다이스 어머님들, 저녁 진지 드셨습니까?"
         ch1_texts = [
-            ("전국과 해외에 계신 사랑하는 파라다이스 가족 여러분, 그리고 우리 어머님들, 안녕하셨습니까. 저녁 진지는 따뜻하게 챙겨 드셨는지요.", 1.2, "warm_greeting"),
+            ("전국과 해외에 계신 든든한 우리 영웅 가족 여러분, 그리고 우리 어머님들, 안녕하셨습니까. 저녁 진지는 따뜻하게 챙겨 드셨는지요.", 1.2, "warm_greeting"),
             ("바람이 옷깃을 여미게 만드는 저녁입니다. 문득 붉게 물든 창밖을 바라보다가, 오늘 하루도 가족들 뒷바라지하랴, 무거운 장바구니 들고 오가랴 애쓰셨을 우리 어머님들의 거친 손이 떠올랐습니다.", 1.2, "tender_care"),
             ("세상은 늘 어머니들에게 이것저것 해달라며 보채기만 하지, 정작 오늘 어머니 당신의 마음은 어떠했는지 따뜻하게 물어봐 주는 사람은 참 드물지요. 그 고요함과 쓸쓸함을 저 김쌤은 잘 알고 있습니다.", 1.2, "empathic_resonance"),
             ("오늘 하루도 참 고생 많으셨습니다. 여러분의 고단했던 하루 끝자락에 작지만 결코 꺼지지 않는 따스한 모닥불을 지펴드리는 곳, 김쌤의 영웅 라디오입니다.", 1.5, "deep_comfort"),
@@ -980,13 +980,13 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
     if episode >= 6:
         if prof["slot_day"] == "TUE":
             bridge_text = (
-                "그리고 사연 보내주신 어머님처럼 환절기에 무릎이나 어깨가 시큰거리시고 눈이 침침하실 때는 절대 참지 마시고 몸부터 따뜻하게 챙기셔야 합니다. "
-                "복잡한 카드 번호 입력 없이 평소 쓰시던 네이버페이로 편하게 보실 수 있도록 발효홍삼과 목 어깨 마사지기, 눈 건강 루테인을 아래 고정댓글 김쌤 공식 크리에이터샵에 큰 글씨로 정리해 두었습니다."
+                "그리고 사연 보내주신 어머님처럼 환절기에 무릎이나 어깨가 시큰거리시고 밤잠이 얕아지실 때는 절대 참지 마시고 몸부터 따뜻하게 돌보셔야 합니다. "
+                "주무시기 전 미지근한 물로 발목과 종아리를 오 분만 데워주셔도 밤사이 다리에 쥐가 나는 것을 막아주고 훨씬 깊은 잠을 이루실 수 있습니다."
             )
         else:
             bridge_text = (
-                f"오늘 함께 나눈 [{song_title}]을 비롯해 영웅님의 정품 음반과 차 안에서 꽂기만 하면 바로 나오는 효도 유에스비, 그리고 공연장 필수 준비물들은 "
-                "아래 고정댓글 영웅라디오 쿠팡 인플루언서 공식관과 네이버 크리에이터샵에 큰 글씨로 모아두었으니 필요하실 때 편하게 둘러보시길 바랍니다."
+                f"오늘 함께 나눈 [{song_title}]처럼 깊은 중저음 노래를 들으실 때는 휴대폰 화면 밝기를 한 톤 낮추시고, "
+                "따뜻한 보리차나 대추차로 목과 눈의 피로부터 천천히 풀어주시면 음악이 주는 위로가 두 배로 깊어집니다."
             )
         ch4_segments.append({
             "segment_id": f"{ep_prefix}_seg_{next_seg + 2:02d}",
@@ -995,7 +995,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
             "text": bridge_text,
             "pacing_pause_sec": 1.8,
             "emotion": "son_like_care_bridge",
-            "visual_hint": "하단 고정댓글 큰글씨 안내 카드와 따뜻한 찻잔"
+            "visual_hint": "따뜻한 대추차 찻잔과 아늑한 저녁 스튜디오 불빛"
         })
         next_seg += 1
 
@@ -1021,7 +1021,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
                 "segment_id": f"{ep_prefix}_seg_{c5_seg_start:02d}",
                 "speaker": "dj_kim",
                 "speaker_title": "DJ 김쌤",
-                "text": f"{sender_name}뿐만 아니라 오늘도 삶의 무게를 묵묵히 짊어지고 각자의 자리에서 버텨내고 계실 전국의 수많은 파라다이스 가족 여러분.",
+                "text": f"{sender_name}뿐만 아니라 오늘도 삶의 무게를 묵묵히 짊어지고 각자의 자리에서 버텨내고 계실 전국의 든든한 우리 영웅 가족 여러분.",
                 "pacing_pause_sec": 1.0,
                 "emotion": "solidarity",
                 "visual_hint": "전국 각지에서 밝혀진 에메랄드빛 응원봉 물결 그래픽"
@@ -1052,7 +1052,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
     ch6 = {
         "chapter_index": 6,
         "chapter_id": "ch6_closing_cta",
-        "title": "클로징 — 편안한 밤 되세요 & 공식 사랑방 사연 안내",
+        "title": "클로징 — 영웅님 향한 사랑을 담는 사랑방 & 사랑을 담은 애장·건강 상품 안내",
         "target_duration_sec": 60,
         "bgm_mood": "peaceful_lullaby_piano",
         "segments": [
@@ -1060,25 +1060,25 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
                 "segment_id": f"{ep_prefix}_seg_{c6_seg_start:02d}",
                 "speaker": "dj_kim",
                 "speaker_title": "DJ 김쌤",
-                "text": f"오늘 방송에 소개해 드린 {sender_name}의 사연 전문과 영웅님을 향한 따뜻한 응원의 글들은, 저희 공식 커뮤니티 파라다이스 히어로 닷컴에서 언제든 다시 읽어보실 수 있습니다.",
+                "text": f"오늘 방송에 소개해 드린 {sender_name}의 사연처럼, 황영웅 님을 향한 어머님들의 깊은 관심과 따뜻한 사랑 이야기를 저희 공식 쉼터 파라다이스 히어로 닷컴 응원·사연 사랑방에 큰 글씨로 언제든 담아주십시오.",
                 "pacing_pause_sec": 1.0,
                 "emotion": "clear_guidance",
-                "visual_hint": "스크린 하단에 단정하게 떠오르는 공식 사랑방 안내 자막: paradise-hero.com"
+                "visual_hint": "스크린 하단에 단정하게 떠오르는 공식 응원·사연 사랑방 안내 자막: paradise-hero.com"
             },
             {
                 "segment_id": f"{ep_prefix}_seg_{c6_seg_start + 1:02d}",
                 "speaker": "dj_kim",
                 "speaker_title": "DJ 김쌤",
-                "text": "가슴속에 담아둔 어머님의 소중한 삶의 이야기나 영웅님께 전하고 싶은 편지가 있으시다면, 공식 사랑방 사연 우체통에 편안히 남겨주세요. 김쌤의 영웅 라디오 사연 신청 및 무료 화보 기념사진관은 공식 팬 쉼터 https://paradise-hero.com 에서 언제든 무료로 만나보실 수 있습니다.",
+                "text": "또한 황영웅 님을 향한 사랑과 온기를 정성껏 담은 공연 응원 애장품과 정품 음반, 그리고 오래오래 건강히 응원하실 수 있는 관절과 눈 건강 상품도 파라다이스 히어로 닷컴 원터치 쇼핑 바로가기에 큰 버튼으로 모아두었습니다. 영상 아래 첫 번째 고정 댓글을 누르시면 네이버페이 일초 결제와 쿠팡 내일 도착으로 편안하게 받아보실 수 있습니다.",
                 "pacing_pause_sec": 1.3,
                 "emotion": "funnel_cta",
-                "visual_hint": "사연 우체통 페이지 그래픽과 엔딩 크레딧 롤링"
+                "visual_hint": "사랑과 온기를 담은 애장·건강 상품 원터치 쇼핑 바로가기 안내 카드와 엔딩 크레딧 롤링"
             },
             {
                 "segment_id": f"{ep_prefix}_seg_{c6_seg_start + 2:02d}",
                 "speaker": "dj_kim",
                 "speaker_title": "DJ 김쌤",
-                "text": "오늘 밤도 영웅님의 따뜻한 노래 귓가에 얹어두시고, 가슴속 응어리진 걱정일랑 모두 털어내신 채 달콤하고 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 항상 건강하시고, 늘 평안하십시오. 사랑합니다, 파라다이스!",
+                "text": "든든한 우리 영웅 가족 여러분, 오늘 가장 듣고 싶은 황영웅 님의 인생 명곡 한 곡과 따뜻한 응원 한마디도 홈페이지 응원 사랑방과 영상 아래 댓글 사랑방에 꼭 남겨주십시오. 다음 방송에서 김쌤이 정성껏 소개해 드리겠습니다. 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 사랑합니다, 파라다이스!",
                 "pacing_pause_sec": 2.5,
                 "emotion": "gentle_signoff",
                 "visual_hint": "스튜디오 조명이 은은히 페이드아웃되며 떠오르는 감성 로고 @김쌤의영웅라디오"

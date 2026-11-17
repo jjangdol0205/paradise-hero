@@ -12,7 +12,7 @@
  * 3. Real-time Multi-Layer Compositing:
  *    - Layer 0: Glare-reduction soft ivory background (#FAFAF8)
  *    - Layer 1: Transformed user image (pan, zoom, rotation, mirror flip)
- *    - Layer 2: Commemorative Hwang Young-woong frame overlay (1080x1440 PNG)
+ *    - Layer 2: Commemorative Baek Woon-ho frame overlay (1080x1440 PNG)
  *    - Layer 3: Dynamic commemorative watermark & stamp
  * 4. Dual Senior Ergonomics:
  *    - Touch drag to pan & pinch-to-zoom gestures.
@@ -36,169 +36,117 @@
   const COMMEMORATIVE_FRAMES = [
     {
       id: 'flower_path',
-      name: '다정한 꽃길',
-      subtitle: '영웅님과 함께하는 다정한 꽃길',
+      name: '봄날 꽃길 액자',
+      subtitle: '백운호와 함께 걷는 다정한 꽃길',
       src: 'assets/frames/frame_flower_path.png',
       thumb: 'assets/frames/thumb_flower_path.png',
-      description: '언제나 당신 편, 영원히 함께해요 💚'
+      description: '어머니의 봄날처럼 늘 건강하고 행복하세요 💚'
     },
     {
       id: 'golden_milestone',
-      name: '63만장 골드',
-      subtitle: '정규 1집 [당신 편] 63만 장 기념 엠블럼',
+      name: '골든 레코드 액자',
+      subtitle: '백운호 타이틀곡 [어머니의 봄날] 헌정 액자',
       src: 'assets/frames/frame_golden_milestone.png',
       thumb: 'assets/frames/thumb_golden_milestone.png',
-      description: '정규 1집 [당신 편] 초동 63만 장 돌파 기념 👑'
+      description: '가족을 위해 바치신 세월, 당신이 진짜 영웅입니다 👑'
     },
     {
       id: 'paradise_4cut',
-      name: '파라다이스 4컷',
-      subtitle: '파라다이스 인생 네컷 클래식',
+      name: '사랑방 인생네컷',
+      subtitle: '김쌤의영웅라디오 가족 사랑방 네컷 액자',
       src: 'assets/frames/frame_paradise_4cut.png',
       thumb: 'assets/frames/thumb_paradise_4cut.png',
-      description: '2026 PARADISE PHOTOBOOTH #01 🎞️'
+      description: '내 인생의 금빛 노을 기념 네컷 🎞️'
     },
     {
       id: 'radio_studio',
       name: '명예 DJ 라디오',
-      subtitle: '김쌤의 영웅 라디오 특별 초대석',
+      subtitle: '김쌤의영웅라디오 특별 초대석',
       src: 'assets/frames/frame_radio_studio.png',
       thumb: 'assets/frames/thumb_radio_studio.png',
       description: '유튜브 @김쌤의영웅라디오 오늘 하루 명예 DJ 초대석 📻'
     }
   ];
 
-  // 가수 황영웅 10대 시그니처 무대·일상 의상 카탈로그 (5-Layer Two-Shot Companion)
+  // 가상 트로트 가수 백운호 6대 무대 의상 카탈로그 (5-Layer Two-Shot Companion)
   const DEFAULT_CHARACTERS = [
     {
-      id: 'hwang_young_woong',
-      name_ko: '황영웅',
-      name_en: 'Hwang Young-woong',
-      title: '에메랄드 벨벳 콘서트 수트',
+      id: 'hero_style_01',
+      name_ko: '백운호',
+      name_en: 'Baek Woon-ho',
+      title: '① 에메랄드 정장',
       theme_color: '#1B4D3E',
       accent_color: '#D4AF37',
       badge_emoji: '💚',
-      catchphrase: '언제나 어머님 편, 영원히 함께 걸어가요 💚',
-      signature_visual: '에메랄드 벨벳 수트, 황금 브로치, 다정한 어깨동무 포즈',
-      thumb_path: 'assets/characters/thumb_hwang_young_woong.png',
-      sprite_path: 'assets/characters/sprite_hwang_young_woong.png'
+      catchphrase: '흰 구름 머무는 호수처럼 어머님·아버님 곁을 따뜻하게 지키겠습니다 💚',
+      signature_visual: '에메랄드 벨벳 무대 정장, 황금 브로치, 다정한 미소 인사',
+      thumb_path: 'assets/characters/thumb_hero_style_01.png',
+      sprite_path: 'assets/characters/hero_style_01.png'
     },
     {
-      id: 'lim_young_woong',
-      name_ko: '황영웅',
-      name_en: 'Hwang Young-woong',
-      title: '순백의 프린스 턱시도',
+      id: 'hero_style_02',
+      name_ko: '백운호',
+      name_en: 'Baek Woon-ho',
+      title: '② 화이트 콘서트 턱시도',
       theme_color: '#38BDF8',
       accent_color: '#F0F9FF',
       badge_emoji: '🤍',
-      catchphrase: '눈부신 봄날처럼 어머님 늘 건강하고 행복하세요 🤍',
-      signature_visual: '순백의 프린스 턱시도, 실크 보타이, 환한 눈웃음 인사',
-      thumb_path: 'assets/characters/thumb_lim_young_woong.png',
-      sprite_path: 'assets/characters/sprite_lim_young_woong.png'
+      catchphrase: '어머니의 봄날처럼 늘 건강하고 환한 꽃길만 걸으세요 🤍',
+      signature_visual: '순백의 콘서트 턱시도, 실크 보타이, 환한 눈웃음 인사',
+      thumb_path: 'assets/characters/thumb_hero_style_02.png',
+      sprite_path: 'assets/characters/hero_style_02.png'
     },
     {
-      id: 'lee_chan_won',
-      name_ko: '황영웅',
-      name_en: 'Hwang Young-woong',
-      title: '따뜻한 핑크 가디건 하트룩',
-      theme_color: '#FB7185',
-      accent_color: '#FFF1F2',
-      badge_emoji: '🌸',
-      catchphrase: '어머님 웃으시는 모습이 봄꽃보다 더 곱습니다 🌸',
-      signature_visual: '포근한 핑크 니트 가디건, 손하트 포즈, 다정한 미소',
-      thumb_path: 'assets/characters/thumb_lee_chan_won.png',
-      sprite_path: 'assets/characters/sprite_lee_chan_won.png'
-    },
-    {
-      id: 'young_tak',
-      name_ko: '황영웅',
-      name_en: 'Hwang Young-woong',
-      title: '시크 올블랙 수트',
-      theme_color: '#2563EB',
+      id: 'hero_style_03',
+      name_ko: '백운호',
+      name_en: 'Baek Woon-ho',
+      title: '③ 클래식 네이비 수트',
+      theme_color: '#1E3A8A',
       accent_color: '#EFF6FF',
-      badge_emoji: '🖤',
-      catchphrase: '오늘 하루도 제 노래와 함께 힘차게 비상하세요 🖤',
-      signature_visual: '시크 올블랙 무대 수트, 든든한 엄지 척 응원 포즈',
-      thumb_path: 'assets/characters/thumb_young_tak.png',
-      sprite_path: 'assets/characters/sprite_young_tak.png'
+      badge_emoji: '💙',
+      catchphrase: '항구의 등불처럼 지친 하루 끝에 든든한 위로가 되어드릴게요 💙',
+      signature_visual: '클래식 네이비 정통 수트, 단정한 행커치프, 든든한 응원 포즈',
+      thumb_path: 'assets/characters/thumb_hero_style_03.png',
+      sprite_path: 'assets/characters/hero_style_03.png'
     },
     {
-      id: 'jeong_dong_won',
-      name_ko: '황영웅',
-      name_en: 'Hwang Young-woong',
-      title: '로열 제복 스타일',
-      theme_color: '#10B981',
-      accent_color: '#ECFDF5',
-      badge_emoji: '👑',
-      catchphrase: '파라다이스 어머님들께 정중히 사랑의 경례 올립니다 👑',
-      signature_visual: '황금 견장 로열 제복, 반듯한 자세, 맑은 미소',
-      thumb_path: 'assets/characters/thumb_jeong_dong_won.png',
-      sprite_path: 'assets/characters/sprite_jeong_dong_won.png'
-    },
-    {
-      id: 'kim_ho_joong',
-      name_ko: '황영웅',
-      name_en: 'Hwang Young-woong',
-      title: '퍼플 벨벳 디너쇼룩',
-      theme_color: '#9333EA',
-      accent_color: '#FAF5FF',
-      badge_emoji: '💜',
-      catchphrase: '깊은 밤 어머님 가슴을 적시는 명품 중저음 세레나데 💜',
-      signature_visual: '퍼플 벨벳 디너쇼 재킷, 골드 엠블럼, 품격 있는 무대 매너',
-      thumb_path: 'assets/characters/thumb_kim_ho_joong.png',
-      sprite_path: 'assets/characters/sprite_kim_ho_joong.png'
-    },
-    {
-      id: 'jang_min_ho',
-      name_ko: '황영웅',
-      name_en: 'Hwang Young-woong',
-      title: '가을 트렌치코트 산책룩',
-      theme_color: '#F59E0B',
+      id: 'hero_style_04',
+      name_ko: '백운호',
+      name_en: 'Baek Woon-ho',
+      title: '④ 따뜻한 가을 코트',
+      theme_color: '#D97706',
       accent_color: '#FFFBEB',
       badge_emoji: '🍂',
-      catchphrase: '인사동 찻집 골목길, 어머님 손잡고 도란도란 걸어요 🍂',
-      signature_visual: '클래식 베이지 트렌치코트, 따뜻한 머플러, 다정한 에스코트',
-      thumb_path: 'assets/characters/thumb_jang_min_ho.png',
-      sprite_path: 'assets/characters/sprite_jang_min_ho.png'
+      catchphrase: '백운호 연가 흥얼거리며 도란도란 가을 산책길 함께 걸어요 🍂',
+      signature_visual: '포근한 베이지 가을 코트, 따뜻한 머플러, 다정한 에스코트',
+      thumb_path: 'assets/characters/thumb_hero_style_04.png',
+      sprite_path: 'assets/characters/hero_style_04.png'
     },
     {
-      id: 'park_seo_jin',
-      name_ko: '황영웅',
-      name_en: 'Hwang Young-woong',
-      title: '황금빛 명절 한복룩',
-      theme_color: '#EAB308',
+      id: 'hero_style_05',
+      name_ko: '백운호',
+      name_en: 'Baek Woon-ho',
+      title: '⑤ 전통 한복 자락',
+      theme_color: '#CA8A04',
       accent_color: '#FEFCE8',
       badge_emoji: '🌕',
-      catchphrase: '어머님 가정에 늘 만복과 건강이 가득하시길 기원합니다 🌕',
-      signature_visual: '고운 황금빛 전통 한복 두루마기, 정갈한 큰절 인사',
-      thumb_path: 'assets/characters/thumb_park_seo_jin.png',
-      sprite_path: 'assets/characters/sprite_park_seo_jin.png'
+      catchphrase: '어머님·아버님 가정에 늘 만복과 평안이 가득하시길 기원합니다 🌕',
+      signature_visual: '고운 금빛 전통 한복 두루마기, 정갈한 큰절 효도 인사',
+      thumb_path: 'assets/characters/thumb_hero_style_05.png',
+      sprite_path: 'assets/characters/hero_style_05.png'
     },
     {
-      id: 'son_tae_jin',
-      name_ko: '황영웅',
-      name_en: 'Hwang Young-woong',
-      title: '버건디 장미 세레나데룩',
-      theme_color: '#9F1239',
-      accent_color: '#FFF1F2',
-      badge_emoji: '🌹',
-      catchphrase: '세상 가장 향기로운 장미꽃 한 송이를 어머님께 바칩니다 🌹',
-      signature_visual: '버건디 와인 수트, 붉은 장미 코사지, 감미로운 눈맞춤',
-      thumb_path: 'assets/characters/thumb_son_tae_jin.png',
-      sprite_path: 'assets/characters/sprite_son_tae_jin.png'
-    },
-    {
-      id: 'ahn_sung_hoon_jin_hae_seong',
-      name_ko: '황영웅',
-      name_en: 'Hwang Young-woong',
-      title: '심야 라디오 DJ 안경룩',
-      theme_color: '#0D9488',
-      accent_color: '#F0FDFA',
-      badge_emoji: '📻',
-      catchphrase: '오늘 밤도 제 목소리와 함께 편안한 단잠 주무세요 📻',
-      signature_visual: '지적인 안경룩, 포근한 니트, 심야 라디오 스튜디오 마이크',
-      thumb_path: 'assets/characters/thumb_ahn_sung_hoon_jin_hae_seong.png',
-      sprite_path: 'assets/characters/sprite_ahn_sung_hoon_jin_hae_seong.png'
+      id: 'hero_style_06',
+      name_ko: '백운호',
+      name_en: 'Baek Woon-ho',
+      title: '⑥ 라디오 DJ 스튜디오룩',
+      theme_color: '#9A3412',
+      accent_color: '#FFF7ED',
+      badge_emoji: '🎙️',
+      catchphrase: '김쌤의영웅라디오 부스에서 어머님·아버님 사연을 기다립니다 🎙️',
+      signature_visual: '라디오 DJ 스튜디오 니트와 안경, 빈티지 마이크 앞 다정한 눈맞춤',
+      thumb_path: 'assets/characters/thumb_hero_style_06.png',
+      sprite_path: 'assets/characters/hero_style_06.png'
     }
   ];
 
@@ -215,7 +163,7 @@
                       (typeof global !== 'undefined' && global.CHARACTER_CARDS ? global.CHARACTER_CARDS : null) ||
                       DEFAULT_CHARACTERS;
       this.characters = catalog;
-      this.activeCharacterId = options.characterId || 'hwang_young_woong';
+      this.activeCharacterId = options.characterId || 'hero_style_01';
       this.characterImages = {}; // Cache of loaded character sprite Image objects
 
       // Active state
@@ -756,12 +704,12 @@
       ctx.fillStyle = '#1B4D3E';
       ctx.font = 'bold 42px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('영웅님과 함께 찍는 파라다이스 기념사진관', w / 2, h / 2 - 60);
+      ctx.fillText('가상 트로트 가수 백운호 기념 촬영관', w / 2, h / 2 - 60);
 
       ctx.fillStyle = '#4B5563';
       ctx.font = '28px sans-serif';
       ctx.fillText('위 [내 사진 찍기] 또는 [앨범에서 사진 고르기]를 눌러보세요', w / 2, h / 2 + 10);
-      ctx.fillText('영웅님과 다정하게 어깨동무한 멋진 사진이 완성됩니다', w / 2, h / 2 + 60);
+      ctx.fillText('백운호 6대 무대 의상과 다정한 투샷 사진이 완성됩니다', w / 2, h / 2 + 60);
       ctx.restore();
     }
 
@@ -778,20 +726,20 @@
         ctx.font = 'bold 22px sans-serif';
         ctx.textAlign = 'left';
         const catchphrase = (activeChar.catchphrase || '').replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '').trim();
-        ctx.fillText(`[${activeChar.title}] ${catchphrase} — 가수 ${activeChar.name_ko}`, 40, h - 55);
+        ctx.fillText(`[${activeChar.title}] ${catchphrase} — 가상 가수 ${activeChar.name_ko}`, 40, h - 55);
       }
 
       // Date stamp
       ctx.fillStyle = 'rgba(75, 85, 99, 0.85)';
       ctx.font = '600 18px sans-serif';
       ctx.textAlign = 'left';
-      ctx.fillText(`${dateStr} 파라다이스 투샷 촬영 기념`, 40, h - 22);
+      ctx.fillText(`${dateStr} 김쌤의영웅라디오 사랑방 투샷 기념`, 40, h - 22);
 
-      // Platform legal watermark (strictly preserving exact string required by tests)
+      // Platform legal watermark
       ctx.fillStyle = 'rgba(27, 77, 62, 0.75)';
       ctx.font = 'bold 20px sans-serif';
       ctx.textAlign = 'right';
-      ctx.fillText('황영웅과 함께하는 파라다이스 | paradise-hero.com', w - 40, h - 20);
+      ctx.fillText('가상 트로트 가수 백운호와 함께 | paradise-hero.com', w - 40, h - 20);
 
       ctx.restore();
     }
@@ -860,7 +808,7 @@
             const celebrationModal = document.getElementById('save-celebration-modal');
             if (!celebrationModal) {
               if (typeof window !== 'undefined' && window.ParadiseKakaoBookmark && window.ParadiseKakaoBookmark.openLongPressPhotoSaveModal) {
-                window.ParadiseKakaoBookmark.openLongPressPhotoSaveModal(previewSrc, '📸 황영웅님과의 투샷 기념사진 완성!');
+                window.ParadiseKakaoBookmark.openLongPressPhotoSaveModal(previewSrc, '📸 백운호와의 투샷 기념사진 완성!');
               } else {
                 let fallbackModal = document.getElementById('kakao-longpress-save-modal');
                 if (!fallbackModal) {
@@ -897,8 +845,8 @@
           if (navigator.canShare({ files: [file] })) {
             await navigator.share({
               files: [file],
-              title: '황영웅과 함께 찍은 파라다이스 기념사진 💚',
-              text: '어머님, 황영웅님과 함께 찍은 다정한 기념사진이에요! 파라다이스 포토부스에서 누구나 바로 만드실 수 있습니다 🌸',
+              title: '백운호와 함께 찍은 김쌤의영웅라디오 기념사진 💚',
+              text: '어머님·아버님, 가상 트로트 가수 백운호와 함께 찍은 기념사진이에요! 사랑방 포토부스에서 무료로 만드실 수 있습니다 🌸',
               url: window.location.href
             });
             return true;

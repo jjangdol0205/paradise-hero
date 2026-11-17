@@ -19,77 +19,77 @@
   // Seed stories fallback for offline / file:// protocol execution
   const SEED_STORIES = [
     {
-      story_id: 'story_20261109_001',
+      story_id: 'story_20261117_001',
       sender_name: '대구 달서구 이순자 어머니',
       sender_location: '대구 달서구',
       contact_info_masked: '010-****-5678',
-      song_title: '당신 편',
-      story_title: '병실에서 손잡아준 당신 편, 영웅아 고맙다',
-      story_content: '김쌤, 작년 가을에 40년을 한결같이 곁을 지키던 남편을 오랜 병간호 끝에 먼저 하늘나라로 떠나보냈습니다. 장례를 다 치르고 홀로 텅 빈 집에 돌아왔는데, 방안의 공기가 어찌나 시리고 차갑던지요. 남편이 벗어둔 외투를 부여잡고 며칠 동안 밥 한 숟갈 뜨지 못한 채 울기만 했습니다. 그렇게 넋을 놓고 누워만 있던 저를 다시 일으켜 세운 건 딸아이가 머리맡에 틀어주고 간 영웅님의 노래였습니다. 세상이 다 등을 돌려도 내가 당신 편이 되겠소라는 묵직한 첫 소절이 귀를 때리는 순간 멈췄던 눈물이 왈칵 쏟아졌습니다. 영웅님, 내 인생 가장 어두웠던 골짜기에서 손을 잡아줘서 참 고맙고 감사합니다. 부디 아프지 말고 오래오래 노래해 주세요.',
-      created_at: '2026-11-09T08:00:00Z',
-      cheer_count: 188,
+      song_title: '어머니의 봄날',
+      story_title: '텅 빈 부엌을 따뜻한 온기로 채워준 어머니의 봄날',
+      story_content: '김쌤, 작년 가을에 오랜 병간호 끝에 남편을 먼저 하늘나라로 떠나보내고 홀로 맞이하는 새벽이 어찌나 시리고 쓸쓸하던지요. 자식들도 각자 가정이 있으니 매일 곁에 있을 수는 없고, 혼자 저녁 식탁에 앉아 있으면 눈물이 왈칵 쏟아졌습니다. 그러다 딸아이가 스마트폰으로 틀어준 유튜브 김쌤의영웅라디오에서 가상 트로트 가수 백운호의 어머니의 봄날을 처음 들었습니다. 청춘과 세월을 가족에게 다 바친 어머니의 가슴에도 다시 따뜻한 봄꽃이 핀다는 중저음 목소리가 큰 위로와 치유가 되었습니다. 그날 이후 매일 아침 라디오 노래를 켜는 것이 제 하루의 든든한 버팀목이자 희망입니다.',
+      created_at: '2026-11-17T08:00:00Z',
+      cheer_count: 42,
       resonance_score: 88.5,
       tier: 'top_spotlight',
       status: 'selected_for_radio',
       broadcast_info: {
         episode_number: 1,
-        broadcast_date: '2026-11-11',
-        youtube_video_id: 'ep01_preview',
-        youtube_url: 'https://www.youtube.com/@김쌤의영웅라디오'
+        broadcast_date: '2026-11-17',
+        youtube_video_id: 'baek_ep01',
+        youtube_url: 'https://paradise-hero.com/radio.html?ep=1'
       }
     },
     {
-      story_id: 'story_20261108_002',
+      story_id: 'story_20261116_002',
       sender_name: '전북 익산 박정옥 어머니',
       sender_location: '전북 익산',
       contact_info_masked: '010-****-8842',
-      song_title: '꽃구경',
-      story_title: '어머니 손잡고 떠났던 그 시절 꽃구경을 떠올리며',
-      story_content: '김쌤 안녕하세요. 칠순을 훌쩍 넘긴 나이에 영웅님을 알게 되어 매일이 꿈결 같은 박정옥입니다. 작년에 아흔넷이 되신 저희 친정 어머니를 먼저 떠나보내고 한동안 멍하니 살았습니다. 봄이 와도 꽃이 핀 줄도 모르고 지냈는데, 우연히 유튜브에서 영웅님이 부르신 꽃구경을 듣게 되었습니다. 어머니 꽃구경 가요 하며 시작하는 그 애절하고 따뜻한 목소리가 어찌나 가슴을 파고들던지요. 라디오를 들으며 얼마나 울었는지 모릅니다. 영웅님의 노래는 단순한 가요가 아니라, 가슴속 깊이 묻어둔 어머니를 향한 사모곡이자 눈물의 치유였습니다. 김쌤 라디오에서 이 꽃구경을 함께 들으며 하늘에 계신 어머니께 사랑한다는 말을 꼭 전하고 싶습니다.',
-      created_at: '2026-11-08T10:30:00Z',
-      cheer_count: 134,
+      song_title: '다시 피는 동백꽃',
+      story_title: '칠순 고개에 다시 피어난 내 인생의 붉은 동백꽃',
+      story_content: '김쌤 안녕하세요. 칠순을 넘기며 평생 아들과 딸 뒷바라지하느라 제 이름 석 자도 잊고 살았던 박정옥입니다. 봄이 와도 꽃이 핀 줄 모르고 지냈는데, 김쌤의영웅라디오에서 흘러나온 백운호의 다시 피는 동백꽃 노래를 듣고 가슴이 울컥했습니다. 찬 서리를 견뎌내고 가장 붉게 피어나는 동백꽃처럼 우리 어머니들의 세월도 지금이 가장 아름답다는 김쌤의 따뜻한 위로 말씀에 눈물이 핑 돌았습니다. 화요일 저녁 본방송에서 이 노래를 전국 사랑방 친구들과 꼭 함께 듣고 싶습니다.',
+      created_at: '2026-11-16T10:30:00Z',
+      cheer_count: 37,
       resonance_score: 81.2,
       tier: 'heartfelt_resonant',
       status: 'ranked'
     },
     {
-      story_id: 'story_20261107_003',
+      story_id: 'story_20261115_003',
       sender_name: '부산 해운대 김영희 님',
       sender_location: '부산 해운대',
       contact_info_masked: '010-****-3421',
-      song_title: '비상',
-      story_title: '항암의 차가운 병상에서 다시 날아오르게 해준 비상',
-      story_content: '2년 전 유방암 판정을 받고 힘든 수술과 고통스러운 항암 치료를 견뎌야 했습니다. 머리카락이 한 웅큼씩 빠지고 거울을 볼 때마다 쏟아지는 눈물을 참을 수가 없었습니다. 새벽마다 통증으로 잠 못 이루던 밤, 병실 침대에서 이어폰을 꽂고 영웅님의 비상을 들었습니다. 이 세상 어딘가 내 쉴 곳을 찾아서 힘차게 솟구쳐 오르는 영웅님의 울림 있는 목소리가 제 메마른 영혼에 강력한 버팀목이 되어주었습니다. 마침내 완치 판정을 받았습니다. 영웅님의 노래는 제 생명의 은인이자 가장 든든한 동행이었습니다.',
-      created_at: '2026-11-07T14:15:00Z',
-      cheer_count: 98,
+      song_title: '항구의 등불',
+      story_title: '긴 병상 회복기를 견디게 해준 따뜻한 항구의 등불',
+      story_content: '수술 후 긴 회복 기간 동안 새벽마다 잠을 이루기 힘들었을 때 병실 머리맡에서 작은 음량으로 틀어두었던 노래가 바로 백운호의 항구의 등불입니다. 거친 파도를 헤치고 돌아오는 배를 묵묵히 비춰주는 등불 같은 중저음 목소리가 상처 입은 가슴을 차분히 치유해 주었습니다. 지난달 정기 검진에서 건강이 많이 회복되었다는 기쁜 소식을 듣고 가장 먼저 김쌤 라디오 사랑방에 감사 인사를 올립니다.',
+      created_at: '2026-11-15T14:15:00Z',
+      cheer_count: 31,
       resonance_score: 76.9,
       tier: 'heartfelt_resonant',
       status: 'ranked'
     },
     {
-      story_id: 'story_20261106_004',
+      story_id: 'story_20261114_004',
       sender_name: '강원 강릉 최선자 어머니',
       sender_location: '강원 강릉',
       contact_info_masked: '010-****-7712',
-      song_title: '인사동 찻집',
-      story_title: '먼저 떠난 여고 동창과의 추억, 인사동 찻집에서',
-      story_content: '어느덧 칠십 고개를 넘어 뒤돌아보니 청춘은 쏜살같이 지나갔습니다. 여고 시절 단짝으로 평생을 함께 울고 웃었던 친구가 3년 전 갑작스럽게 세상을 떠났습니다. 젊은 날 서울에 놀러 갈 때마다 인사동 전통 찻집에서 쌍화차를 나눠 마시며 미래를 이야기하던 그 시절이 영웅님의 노래 인사동 찻집을 들을 때마다 눈앞에 아지랑이처럼 피어오릅니다. 영웅님의 구수한 감성과 담백한 목소리가 친구 잃은 제 쓸쓸한 마음에 따스한 차 한 잔처럼 온기를 전해줍니다.',
-      created_at: '2026-11-06T09:20:00Z',
-      cheer_count: 76,
+      song_title: '고향역 첫차',
+      story_title: '새벽 기차역에서 손 흔드시던 친정어머니 생각',
+      story_content: '어느덧 일흔을 넘겨 뒤돌아보니 청춘이 참 빠르게 지나갔습니다. 젊은 시절 강릉에서 새벽 첫차를 타고 일터로 떠날 때마다 따뜻한 보리차 병을 쥐여주시던 친정어머니가 고향역 첫차 노래를 들을 때마다 눈앞에 선하게 떠올라 눈물이 납니다. 백운호의 정통 트로트 중저음 목소리가 그리운 옛 시절의 정취와 어머니의 품을 고스란히 되살려주어 참 따뜻하고 감사합니다.',
+      created_at: '2026-11-14T09:20:00Z',
+      cheer_count: 28,
       resonance_score: 71.4,
       tier: 'heartfelt_resonant',
       status: 'ranked'
     },
     {
-      story_id: 'story_20261105_005',
+      story_id: 'story_20261113_005',
       sender_name: '서울 양천구 정명숙 님',
       sender_location: '서울 양천구',
       contact_info_masked: '010-****-1983',
-      song_title: '함께해요',
-      story_title: '일흔에 찾은 내 인생의 봄날, 함께해요',
-      story_content: '평생을 남편과 삼 남매 뒷바라지에 제 이름 석 자는 잊어버리고 그저 누구 엄마로만 살아왔습니다. 막내까지 결혼시키고 찾아온 빈 둥지 증후군으로 우울증이 찾아왔을 때, 기적처럼 영웅님의 노래 함께해요를 만났습니다. 함께 손잡고 걸어가요라는 가사에 가슴이 뭉클해져 팬카페에 가입하고 스밍하는 법도 배웠습니다. 칠십 평생 처음으로 나를 위한 순수한 열정을 발견하게 해준 영웅님께 진심으로 고마운 마음을 전합니다.',
-      created_at: '2026-11-05T16:45:00Z',
-      cheer_count: 62,
+      song_title: '내 인생의 금빛 노을',
+      story_title: '막내 결혼시키고 맞이한 내 인생의 금빛 노을',
+      story_content: '평생 남편과 삼 남매 뒷바라지에 엄마로만 살다가 막내까지 출가시키고 찾아온 적적함에 한동안 홀로 집안에만 머물렀습니다. 그러다 김쌤의영웅라디오를 만나 아침 산책길에 내 인생의 금빛 노을을 듣는 기운찬 습관이 생겼습니다. 저녁노을이 낮의 햇살보다 더 깊고 따뜻하듯 우리의 황혼도 참 귀하다는 가사가 큰 희망과 위로가 됩니다.',
+      created_at: '2026-11-13T16:45:00Z',
+      cheer_count: 24,
       resonance_score: 67.8,
       tier: 'community_feed',
       status: 'ranked'
@@ -411,8 +411,8 @@
       }
       var hasRealEmail = Boolean(realEmail);
       var resolvedEmail = hasRealEmail ? realEmail : generateStoryAliasEmail();
-      var resolvedNickname = String(formData.sender || '').trim() || '익명 파라다이스 팬';
-      var fullStoryText = '[신청곡: ' + (formData.song || '당신 편') + '] [제목: ' + formData.title + '] ' + formData.content;
+      var resolvedNickname = String(formData.sender || '').trim() || '익명 사랑방 가족';
+      var fullStoryText = '[신청곡: ' + (formData.song || '어머니의 봄날') + '] [제목: ' + formData.title + '] ' + formData.content;
       var formattedMsg = '[연락처: ' + (formData.contact || '미기재') + '] ' + fullStoryText;
 
       if (typeof window !== 'undefined' && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
@@ -499,7 +499,7 @@
       sender: senderInput.value.trim(),
       contact: contactInput ? contactInput.value.trim() : '',
       email: emailInput ? emailInput.value.trim() : '',
-      song: songSelect ? songSelect.value : '당신 편',
+      song: songSelect ? songSelect.value : '어머니의 봄날',
       title: titleInput.value.trim(),
       content: contentInput.value.trim()
     };
@@ -513,16 +513,17 @@
     const newStory = {
       story_id: 'story_local_' + Date.now(),
       sender_name: formData.sender,
-      sender_location: '파라다이스 가족',
+      sender_location: '김쌤의영웅라디오 가족',
       contact_info_masked: maskContact(formData.contact),
       song_title: formData.song,
       story_title: formData.title,
       story_content: formData.content,
       created_at: new Date().toISOString(),
-      cheer_count: 1,
+      cheer_count: 0,
       resonance_score: 72.0,
       tier: 'heartfelt_resonant',
-      status: 'submitted'
+      status: 'submitted',
+      is_local_pending: true
     };
 
     // Save to localStorage
@@ -667,17 +668,20 @@
             ${escapeHtml(story.story_title)}
           </h3>
 
-          <p style="font-size: var(--font-base); line-height: 1.8; color: var(--text-charcoal); margin-bottom: 20px; word-break: keep-all;">
+          <p style="font-size: var(--font-base); line-height: 1.8; color: var(--text-charcoal); margin-bottom: 14px; word-break: keep-all;">
             ${escapeHtml(story.story_content)}
           </p>
+          ${(story.is_local_pending || story.status === 'submitted')
+            ? '<div class="submission-pending-badge" style="margin-bottom: 14px;">✅ 방송국 서버 접수 완료 · 스팸 확인 후 전국 가족 담벼락에 함께 게시됩니다</div>'
+            : ''}
 
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 14px; border-top: 1px solid #F3F4F6;">
             <span style="font-size: 16px; color: var(--text-muted);">
-              함께 울고 웃은 팬 <strong><span class="cheer-count-val">${story.cheer_count || 0}</span></strong>명
+              실시간 공감 박수 <strong><span class="cheer-count-val" data-story-clap-count="${escapeHtml(story.story_id)}">0</span></strong>회
             </span>
             <button type="button" class="senior-btn btn-cheer ${hasCheered ? 'cheered' : 'btn-primary'}" data-story-id="${story.story_id}" style="min-height: 60px; font-size: 20px; font-weight: 800; padding: 12px 20px;">
               <span aria-hidden="true">👏</span>
-              <span>${hasCheered ? '따뜻한 응원 완료 💚' : '박수와 응원 보내기 👏'}</span>
+              <span>${hasCheered ? '공감 박수 완료 💚' : '👏 공감 박수 보내기'}</span>
             </button>
           </div>
         </article>
@@ -686,12 +690,23 @@
 
     listContainer.innerHTML = html;
 
-    // Attach cheer event listeners
+    // Attach cheer event listeners & hydrate live Abacus clap_<story_id> counts
     const cardCheerButtons = listContainer.querySelectorAll('.btn-cheer');
     cardCheerButtons.forEach(function (btn) {
       const storyId = btn.getAttribute('data-story-id');
       const card = btn.closest('.story-card');
       const countSpan = card ? card.querySelector('.cheer-count-val') : null;
+
+      if (storyId && countSpan && typeof fetch === 'function' && storyId.indexOf('story_local_') !== 0) {
+        fetch('https://abacus.jasoncameron.dev/get/hero_paradisekr/clap_' + encodeURIComponent(storyId), { mode: 'cors' })
+          .then(function (r) { return r && r.ok ? r.json() : null; })
+          .then(function (d) {
+            if (d && typeof d.value === 'number' && d.value >= 0) {
+              countSpan.textContent = String(d.value);
+            }
+          })
+          .catch(function () {});
+      }
 
       btn.addEventListener('click', function () {
         handleCheerClick(storyId, btn, countSpan);
@@ -702,22 +717,36 @@
   function handleCheerClick(storyId, btnElement, countElement) {
     const cheerKey = 'paradise_cheered_' + storyId;
     if (localStorage.getItem(cheerKey)) {
-      alert('어머님의 따뜻한 응원이 이미 전달되었습니다. 내일 또 힘찬 박수를 보내주세요! 💚');
+      alert('어머님·아버님의 따뜻한 공감 박수가 이미 전달되었습니다. 내일 또 보내주세요! 💚');
       return;
     }
 
     // Save cheer vote
     localStorage.setItem(cheerKey, Date.now().toString());
 
-    // Update DOM
+    // Update DOM & hit cross-visitor Abacus clap_<story_id>
+    const currentCount = countElement ? (parseInt(countElement.textContent, 10) || 0) : 0;
     if (countElement) {
-      const currentCount = parseInt(countElement.textContent, 10) || 0;
       countElement.textContent = (currentCount + 1).toString();
+    }
+    if (storyId && typeof fetch === 'function' && storyId.indexOf('story_local_') !== 0) {
+      var ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
+      var host = (typeof window !== 'undefined' && window.location && window.location.hostname) || '';
+      if (host && host !== 'localhost' && host !== '127.0.0.1' && !/jsdom|bot|headless|node|python|curl/i.test(ua)) {
+        fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/clap_' + encodeURIComponent(storyId), { mode: 'cors', keepalive: true })
+          .then(function (r) { return r && r.ok ? r.json() : null; })
+          .then(function (d) {
+            if (countElement && d && typeof d.value === 'number' && d.value >= 0) {
+              countElement.textContent = String(Math.max(currentCount + 1, d.value));
+            }
+          })
+          .catch(function () {});
+      }
     }
 
     btnElement.classList.remove('btn-primary');
     btnElement.classList.add('cheered');
-    btnElement.innerHTML = '<span aria-hidden="true">💚</span> <span>따뜻한 응원 완료 👏</span>';
+    btnElement.innerHTML = '<span aria-hidden="true">💚</span> <span>공감 박수 완료 👏</span>';
 
     // Tactile animation
     btnElement.style.transform = 'scale(0.96)';

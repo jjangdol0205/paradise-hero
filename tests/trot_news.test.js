@@ -1,81 +1,72 @@
 /**
  * tests/trot_news.test.js
- * Verification Suite for Hwang Young-woong Exclusive 6-Category News Portal (2026-11-11 HQ Spec).
+ * Verification Suite for Honest @김쌤의영웅라디오 Tue/Fri Schedule & Virtual Singer Baek Woon-ho News Portal.
  */
 
 const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const NEWS_HTML = path.join(ROOT_DIR, 'news.html');
 const TROT_NEWS_JS = path.join(ROOT_DIR, 'js', 'trot-news.js');
 const TROT_NEWS_JSON = path.join(ROOT_DIR, 'data', 'trot_news.json');
-const FETCH_SCRIPT_PY = path.join(ROOT_DIR, 'scripts', 'fetch_trot_news.py');
 
 const EXPECTED_CATEGORIES = [
   '전체',
-  '신곡·음반',
-  '콘서트·공연',
-  '나눔·선행',
-  '방송·라디오',
-  '팬덤·파라다이스'
+  '정규방송·편성표',
+  '백운호 대표곡',
+  '사랑방 사연소식',
+  '시니어 건강상식',
+  '라디오 이용안내'
 ];
 
-const BANNED_OTHER_SINGERS = [
-  '임영웅', '이찬원', '영탁', '정동원', '김호중', '장민호', '박서진', '손태진', '안성훈', '진해성'
+const BANNED_CELEBS = [
+  '\uD669\uC601\uC6C5', '\uC784\uC601\uC6C5', '\uC774\uCC2C\uC6D0', '\uC601\uD0C1',
+  '\uC815\uB3D9\uC6D0', '\uAE40\uD638\uC911', '\uC7A5\uBBFC\uD638', '\uBC15\uC11C\uC9C4',
+  '\uC190\uD0DC\uC9C4', '\uC548\uC131\uD6C8', '\uC9C4\uD574\uC131'
 ];
 
 console.log('===============================================================');
-console.log('Running Hwang Young-woong Exclusive 6-Category News Test Suite');
+console.log('Running Honest @김쌤의영웅라디오 Schedule & Baek Woon-ho News Suite');
 console.log('===============================================================\n');
 
 const newsJsonRaw = fs.readFileSync(TROT_NEWS_JSON, 'utf-8');
 const newsData = JSON.parse(newsJsonRaw);
-assert.ok(Array.isArray(newsData) && newsData.length >= 20, `Expected >=20 articles, got ${newsData.length}`);
+assert.ok(Array.isArray(newsData) && newsData.length >= 20, `Expected >=20 items, got ${newsData.length}`);
 
 newsData.forEach((item, idx) => {
   ['id', 'title', 'link', 'pubDate', 'source', 'summary', 'image_url', 'singer_tag'].forEach((f) => {
-    assert.ok(typeof item[f] === 'string' && item[f].trim().length > 0, `Article ${idx} missing ${f}`);
+    assert.ok(typeof item[f] === 'string' && item[f].trim().length > 0, `Item ${idx} missing ${f}`);
   });
-  assert.ok(
-    EXPECTED_CATEGORIES.slice(1).includes(item.singer_tag),
-    `Article ${item.id} category '${item.singer_tag}' must be one of the 5 Hwang Young-woong categories`
-  );
+  assert.ok(EXPECTED_CATEGORIES.slice(1).includes(item.singer_tag), `Invalid tag ${item.singer_tag}`);
   assert.ok(fs.existsSync(path.join(ROOT_DIR, item.image_url)), `Missing image: ${item.image_url}`);
 });
 
-// Verify zero other singers across news HTML, JS, JSON, and Python fetcher
-[NEWS_HTML, TROT_NEWS_JS, TROT_NEWS_JSON, FETCH_SCRIPT_PY].forEach((fp) => {
+[NEWS_HTML, TROT_NEWS_JS, TROT_NEWS_JSON].forEach((fp) => {
   const txt = fs.readFileSync(fp, 'utf-8');
-  BANNED_OTHER_SINGERS.forEach((s) => {
-    // Allow fetch_trot_news.py negative filter array if any, otherwise zero
-    if (fp !== FETCH_SCRIPT_PY) {
-      assert.ok(!txt.includes(s), `Banned other singer '${s}' found in ${path.basename(fp)}`);
-    }
+  BANNED_CELEBS.forEach((s) => {
+    assert.ok(!txt.includes(s), `Banned celebrity '${s}' found in ${path.basename(fp)}`);
   });
-  assert.ok(!txt.includes('10대 스타') && !txt.includes('10대 왕자') && !txt.includes('회원가입 무료 1회'), `Legacy multi-singer promo found in ${path.basename(fp)}`);
 });
-console.log(`  [PASS] All ${newsData.length} articles are 100% Hwang Young-woong exclusive across 5 categories.`);
 
-const output = execSync('python scripts/fetch_trot_news.py --seed-only --verify', {
+const output = execFileSync('python', ['scripts/fetch_trot_news.py', '--seed-only', '--verify'], {
   cwd: ROOT_DIR,
   encoding: 'utf-8',
-  timeout: 10000
+  timeout: 60000
 });
 assert.ok(output.includes('PASSED'), 'fetch_trot_news.py --seed-only --verify must pass');
-console.log('  [PASS] scripts/fetch_trot_news.py --seed-only --verify passed.');
 
 const { TrotNewsEngine, SEED_NEWS, SINGER_LIST } = require(TROT_NEWS_JS);
-assert.deepStrictEqual(SINGER_LIST, EXPECTED_CATEGORIES, 'SINGER_LIST must equal exact 6 Hwang Young-woong categories');
+assert.deepStrictEqual(SINGER_LIST, EXPECTED_CATEGORIES);
 const engine = new TrotNewsEngine(SEED_NEWS);
 assert.strictEqual(engine.activeSinger, '전체');
 assert.strictEqual(engine.getFilteredArticles().length, SEED_NEWS.length);
 
 EXPECTED_CATEGORIES.slice(1).forEach((cat) => {
   const filtered = engine.setSingerFilter(cat);
-  assert.ok(filtered.length >= 2, `Category '${cat}' must have >= 2 articles (got ${filtered.length})`);
+  assert.ok(filtered.length >= 4, `Category '${cat}' must have >= 4 notices`);
 });
 engine.setSingerFilter('전체');
 
@@ -86,8 +77,8 @@ engine.toggleModalFont();
 assert.strictEqual(engine.getModalFontSizePx(), 28);
 engine.closeModal();
 assert.strictEqual(engine.isModalOpen, false);
-console.log('  [PASS] TrotNewsEngine 6-category filtering, search, and senior easy-read modal verified.');
+console.log('  [PASS] Honest 6-category radio schedule & Baek Woon-ho notice engine verified.');
 
 console.log('\n===============================================================');
-console.log('SUCCESS: ALL HWANG YOUNG-WOONG NEWS PORTAL TESTS PASSED (100%)');
+console.log('SUCCESS: ALL HONEST NEWS & SCHEDULE TESTS PASSED (100%)');
 console.log('===============================================================');

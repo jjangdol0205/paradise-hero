@@ -1,16 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="280" viewBox="0 0 480 280" role="img" aria-label="보온 텀블러 & 목케어">
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="280" viewBox="0 0 480 280" role="img" aria-label="목이 편안한 도라지배즙 스틱">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#F0FDFA"/>
+      <stop offset="0%" stop-color="#FFF7ED"/>
       <stop offset="100%" stop-color="#FFFFFF"/>
     </linearGradient>
   </defs>
-  <rect x="4" y="4" width="472" height="272" rx="24" fill="url(#bg)" stroke="#34D399" stroke-width="6"/>
-  <rect x="24" y="22" width="188" height="38" rx="19" fill="#0F766E"/>
-  <text x="118" y="47" text-anchor="middle" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">김쌤 엄선 베스트</text>
-  <circle cx="110" cy="154" r="68" fill="#FFFFFF" stroke="#34D399" stroke-width="4"/>
-  <text x="110" y="176" text-anchor="middle" font-size="68">🍵</text>
-  <text x="204" y="138" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="27" font-weight="900" fill="#111827">보온 텀블러 & 목케어</text>
-  <rect x="204" y="158" width="246" height="44" rx="12" fill="#0F766E" opacity="0.1"/>
-  <text x="327" y="187" text-anchor="middle" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="20" font-weight="800" fill="#0F766E">✓ 따뜻한 차·응원 목 보호</text>
+  <rect x="4" y="4" width="472" height="272" rx="24" fill="url(#bg)" stroke="#EA580C" stroke-width="6"/>
+  <rect x="24" y="22" width="198" height="38" rx="19" fill="#7C2D12"/>
+  <text x="123" y="47" text-anchor="middle" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">청취 건강 케어</text>
+  <circle cx="110" cy="154" r="68" fill="#FFFFFF" stroke="#EA580C" stroke-width="4"/>
+  <text x="110" y="176" text-anchor="middle" font-size="64">🍯</text>
+  <text x="200" y="138" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="25" font-weight="900" fill="#111827">목이 편안한 도라지배즙 스틱</text>
+  <rect x="200" y="158" width="252" height="44" rx="12" fill="#7C2D12" opacity="0.1"/>
+  <text x="326" y="187" text-anchor="middle" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="19" font-weight="800" fill="#7C2D12">✓ 노래 따라 부를 때 촉촉한 목</text>
 </svg>

@@ -70,7 +70,7 @@ try {
 
 const storyHtml = fs.readFileSync(path.join(ROOT_DIR, 'story.html'), 'utf-8');
 assert.ok(storyHtml.includes('id="tab-btn-write"') && storyHtml.includes('id="tab-btn-browse"'));
-assert.ok(storyHtml.includes('booth.html') && storyHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').includes('🎁 무료 선물제작소'));
+assert.ok(storyHtml.includes('booth.html') && storyHtml.includes('vip.html') && storyHtml.includes('무료 선물관'));
 assert.ok(storyHtml.includes('beable9489@gmail.com'));
 assert.ok(!storyHtml.includes('296100') && !/lemonsqueezy/i.test(storyHtml));
 

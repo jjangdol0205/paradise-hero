@@ -76,20 +76,19 @@
       toast.setAttribute('aria-live', 'polite');
       toast.style.cssText = `
         position: fixed;
-        top: 80px;
-        left: 50%;
-        transform: translateX(-50%);
+        bottom: 74px;
+        right: 16px;
         background-color: #1B4D3E;
         color: #D4AF37;
         border: 2px solid #D4AF37;
-        padding: 14px 26px;
-        border-radius: 30px;
-        font-size: 20px;
+        padding: 12px 20px;
+        border-radius: 24px;
+        font-size: 19px;
         font-weight: 800;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
         z-index: 99999;
         pointer-events: none;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.25s ease;
       `;
       document.body.appendChild(toast);
     }
@@ -100,7 +99,7 @@
     if (toast._timer) clearTimeout(toast._timer);
     toast._timer = setTimeout(() => {
       toast.style.opacity = '0';
-    }, 2200);
+    }, 1800);
   }
 
   // ---------------------------------------------------------------------------
@@ -151,7 +150,7 @@
           </div>
           <p style="font-size: 20px; color: #374151; font-weight: 700; margin-bottom: 18px; line-height: 1.55;">
             한 번만 보내두시면 앞으로 검색할 필요 없이<br>
-            카톡방에서 1초 만에 황영웅 응원방으로 바로 오실 수 있습니다.
+            카톡방에서 1초 만에 김쌤의영웅라디오 가족 사랑방으로 바로 오실 수 있습니다.
           </p>
           <div style="background:#FFFFFF; border:2px solid #D1D5DB; border-radius:12px; padding:12px 16px; font-size:20px; font-weight:800; color:#1B4D3E; margin-bottom:18px; word-break:break-all;" id="kakao-bookmark-copied-url"></div>
           <button type="button" id="btn-close-kakao-bookmark-modal" class="btn btn-emerald btn-full" style="min-height: 64px; font-size: 22px; font-weight: 900;">
@@ -189,14 +188,14 @@
     if (toast.__hideTimer) clearTimeout(toast.__hideTimer);
     toast.__hideTimer = setTimeout(() => {
       toast.style.display = 'none';
-    }, durationMs || 3800);
+    }, durationMs || 1800);
   }
 
   async function shareOrBookmarkRoom(customUrl) {
     const targetUrl = customUrl || window.location.href.split('#')[0] || 'https://paradise-hero.com/';
     const shareData = {
-      title: '💚 가수 황영웅 공식 팬 쉼터 — 파라다이스 히어로',
-      text: '어머님, 황영웅님과 무료 기념사진도 찍고 김쌤의 영웅라디오도 바로 들으실 수 있는 응원방입니다! 카톡에 저장해 두세요 💚',
+      title: '💚 유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 라운지',
+      text: '어머님·아버님, 가상 트로트 가수 백운호의 중저음 노래와 인생 사연이 흐르는 김쌤의영웅라디오 사랑방입니다! 카톡에 저장해 두세요 💚',
       url: targetUrl
     };
 
@@ -227,7 +226,7 @@
   }
 
   let latestModalDataUrl = '';
-  let latestModalTitle = '황영웅 기념 선물';
+  let latestModalTitle = '백운호 기념 선물';
 
   function dataUrlToPngFile(dataUrl, filename) {
     try {
@@ -248,14 +247,14 @@
   }
 
   async function shareDataUrlViaKakaoOrSystem(dataUrl, titleText) {
-    const file = dataUrlToPngFile(dataUrl, `황영웅_기념선물_${Date.now()}.png`);
+    const file = dataUrlToPngFile(dataUrl, `백운호_기념선물_${Date.now()}.png`);
     if (file && navigator.canShare && navigator.share) {
       try {
         if (navigator.canShare({ files: [file] })) {
           await navigator.share({
             files: [file],
-            title: titleText || '황영웅 무료 기념선물',
-            text: '어머님, 황영웅 무료 선물제작소에서 만든 카톡 선물입니다 💚 https://paradise-hero.com/vip.html'
+            title: titleText || '백운호 무료 기념선물',
+            text: '김쌤의영웅라디오 가족 사랑방에서 만든 무료 카톡 안부선물입니다 💚 https://paradise-hero.com/vip.html'
           });
           return true;
         }
@@ -283,9 +282,9 @@
       const existing = JSON.parse(localStorage.getItem('paradise_billboard_cheers') || '[]');
       const prependText = Array.isArray(existing) && existing.length > 0
         ? existing.slice(0, 5).map((item) => {
-            const tName = escapeBillboardHtml(item.tierName || '🌟 황금빛');
-            const nick = escapeBillboardHtml(item.nickname || '파라다이스 팬');
-            const msg = escapeBillboardHtml(item.message || '영웅님 응원합니다!');
+            const tName = escapeBillboardHtml(item.tierName || '🌟 사랑방');
+            const nick = escapeBillboardHtml(item.nickname || '사랑방 가족');
+            const msg = escapeBillboardHtml(item.message || '오늘도 건강하고 평안한 하루 보내세요!');
             return `[${tName} ${nick}] "${msg}" 🌟`;
           }).join(' \u00A0\u00A0\u00A0\u00A0 ') + ' \u00A0\u00A0\u00A0\u00A0 '
         : '';
@@ -304,7 +303,7 @@
 
   function openLongPressPhotoSaveModal(dataUrl, titleText) {
     latestModalDataUrl = dataUrl || '';
-    latestModalTitle = titleText || '📸 황영웅 기념 선물 완성!';
+    latestModalTitle = titleText || '📸 백운호 기념 선물 완성!';
 
     let modal = document.getElementById('kakao-photo-longpress-modal');
     if (!modal) {
@@ -317,7 +316,7 @@
       modal.innerHTML = `
         <div class="kakao-king-modal-card">
           <div id="kakao-longpress-title" style="font-size: 26px; font-weight: 900; color: #0E2820; margin-bottom: 12px;">
-            📸 황영웅 기념 선물 완성!
+            📸 백운호 기념 선물 완성!
           </div>
           <div class="kakao-king-modal-guide" style="font-size: 23px;">
             📱 손가락으로 아래 그림을 <strong>2초간 꾹~ 눌러</strong><br>
@@ -327,12 +326,15 @@
           <button type="button" id="btn-kakao-direct-file-share" style="display:flex; align-items:center; justify-content:center; width:100%; min-height:64px; margin-bottom:10px; padding:12px 16px; border-radius:14px; background:#FEE500; color:#191919; border:3px solid #D97706; font-size:20px; font-weight:900; cursor:pointer;">
             💬 카카오톡 단톡방·친구에게 이 사진 바로 보내기 👉
           </button>
-          <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:64px; margin-bottom:10px; padding:12px 16px; border-radius:14px; background:#03C75A; color:#FFFFFF; border:2px solid #065F46; font-size:20px; font-weight:900; text-decoration:none; text-align:center;">
-            💚 김쌤 공식 네이버페이 응원·건강 특가관 (9,900원대 실속 선물~) 👉
+          <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:64px; margin-bottom:8px; padding:12px 16px; border-radius:14px; background:#03C75A; color:#FFFFFF; border:2px solid #065F46; font-size:20px; font-weight:900; text-decoration:none; text-align:center;">
+            💚 김쌤의 콘서트·응원 안심 준비물관 (네이버페이 공식관) 👉
           </a>
-          <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:64px; margin-bottom:10px; padding:12px 16px; border-radius:14px; background:#B91C1C; color:#FFFFFF; border:2px solid #FDE68A; font-size:20px; font-weight:900; text-decoration:none; text-align:center;">
-            💿 황영웅 정품 음반·효도USB·응원굿즈 쿠팡 공식관 보기 👉
+          <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" style="display:flex; align-items:center; justify-content:center; min-height:64px; margin-bottom:8px; padding:12px 16px; border-radius:14px; background:#B91C1C; color:#FFFFFF; border:2px solid #FDE68A; font-size:20px; font-weight:900; text-decoration:none; text-align:center;">
+            📻 라디오 스피커·방석·청취 건강 준비물관 (쿠팡 공식관) 👉
           </a>
+          <p style="font-size:16px; color:#475569; font-weight:700; margin:0 0 10px; line-height:1.45;">
+            ※ 네이버 쇼핑 커넥트·쿠팡 파트너스 활동의 일환으로 판매 발생 시 일정액의 수수료를 제공받습니다.
+          </p>
           <button type="button" id="btn-close-kakao-longpress-modal" class="btn btn-emerald btn-full" style="min-height: 64px; font-size: 22px; font-weight: 900;">
             ✅ 사진 저장 완료! (창 닫기)
           </button>
@@ -447,6 +449,22 @@
     const initialIndex = loadSavedLevel();
     applyLevel(initialIndex, false);
     hydrateGlobalBillboardTicker();
+
+    // 입력창(input / textarea / select) 포커스 시 하단 고정 미니바 자동 숨김 (모바일 자판 가림 원천 차단)
+    document.addEventListener('focusin', (ev) => {
+      const t = ev.target;
+      if (t && t.matches && t.matches('input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), textarea, select, [contenteditable="true"]')) {
+        document.body.classList.add('is-keyboard-editing');
+      }
+    });
+    document.addEventListener('focusout', () => {
+      setTimeout(() => {
+        const active = document.activeElement;
+        if (!active || !active.matches || !active.matches('input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), textarea, select, [contenteditable="true"]')) {
+          document.body.classList.remove('is-keyboard-editing');
+        }
+      }, 120);
+    });
 
     document.addEventListener('click', (e) => {
       const fontBtn = e.target.closest('#btn-font-scaler, button.btn-font-scaler');

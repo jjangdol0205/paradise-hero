@@ -486,12 +486,12 @@ def render_cue_slide(
     # Bottom bridge guide inside right studio card (Y=882..992)
     if is_closing_chapter:
         draw.rounded_rectangle([596, 882, 1832, 992], radius=18, fill=(20, 52, 42, 242), outline=(255, 215, 0, 255), width=3)
-        draw.text((628, 898), "💚 무료 화보 기념사진관 & 사연 접수: https://paradise-hero.com/booth.html", font=f_quote, fill=(255, 238, 120, 255))
-        draw.text((628, 944), "👇 영상 아래 첫 번째 고정 댓글의 파란 주소를 누르시면 바로 열립니다!", font=get_font(27), fill=(255, 255, 255, 255))
+        draw.text((628, 898), "🛍️ 원터치 쇼핑 바로가기 (공연준비물·음반·건강선물): https://paradise-hero.com", font=f_quote, fill=(255, 238, 120, 255))
+        draw.text((628, 944), "👇 영상 아래 첫 번째 고정 댓글의 파란 주소를 누르시면 네이버페이·쿠팡으로 바로 열립니다!", font=get_font(26), fill=(255, 255, 255, 255))
     else:
         draw.rounded_rectangle([596, 882, 1832, 992], radius=18, fill=(22, 28, 40, 232), outline=(120, 140, 165, 200), width=2)
         draw.text((628, 900), "“세상 모든 사람이 등을 돌려도, 나 하나만큼은 끝까지 당신 편이 되어드리겠습니다.”", font=get_font(29), fill=(255, 235, 165, 255))
-        draw.text((628, 944), "— 가수 황영웅 사연 3편 & 주요 소식 낭독 | 아래 고정 댓글에서 무료 기념사진관을 만나보세요", font=get_font(24), fill=(200, 220, 210, 255))
+        draw.text((628, 944), "— 가수 황영웅 사연·소식 낭독 | 아래 고정 댓글에서 원터치 쇼핑 바로가기를 만나보세요", font=get_font(24), fill=(200, 220, 210, 255))
 
     return frame if keep_rgba else frame.convert("RGB")
 

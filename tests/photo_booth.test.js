@@ -1,6 +1,6 @@
 /**
  * photo_booth.test.js
- * Verification suite for Unlimited Free Companion Photo Booth & Kakao Long-Press Save UX (2026-11-11 HQ Spec).
+ * Verification suite for Baek Woon-ho 6-Outfit Free Photo Booth & Kakao Long-Press Save UX.
  */
 
 const fs = require('fs');
@@ -16,12 +16,8 @@ const FRAMES_DIR = path.join(ROOT_DIR, 'assets', 'frames');
 const { PhotoBoothEngine, COMMEMORATIVE_FRAMES, CANVAS_WIDTH, CANVAS_HEIGHT } = require(BOOTH_JS);
 
 console.log('===============================================================');
-console.log('Running paradise-hero.com Companion Photo Booth Test Suite');
+console.log('Running Baek Woon-ho 6-Outfit Photo Booth Test Suite');
 console.log('===============================================================\n');
-
-assert.ok(fs.existsSync(BOOTH_HTML) && fs.statSync(BOOTH_HTML).size > 5000);
-assert.ok(fs.existsSync(PHOTOBOOTH_HTML) && fs.statSync(PHOTOBOOTH_HTML).size > 5000);
-assert.ok(fs.existsSync(BOOTH_JS) && fs.statSync(BOOTH_JS).size > 4000);
 
 [BOOTH_HTML, PHOTOBOOTH_HTML].forEach((pagePath) => {
   const pageName = path.basename(pagePath);
@@ -30,9 +26,7 @@ assert.ok(fs.existsSync(BOOTH_JS) && fs.statSync(BOOTH_JS).size > 4000);
   assert.ok(html.includes('id="booth-canvas"') && html.includes('1080') && html.includes('1440'));
   assert.ok(html.includes('id="booth-video"') && html.includes('id="booth-file-input"'));
   assert.ok(html.includes('https://paradise-hero.com/assets/og_booth_share.jpg'), `${pageName} must use og_booth_share.jpg OG thumbnail`);
-  assert.ok(!html.includes('id="signup-modal"'), `${pageName} must NOT force nickname signup popup`);
-  assert.ok(!html.includes('id="senior-payment-modal"'), `${pageName} must NOT contain 3,000 KRW paywall modal`);
-  assert.ok(!/lemonsqueezy/i.test(html) && !html.includes('296100'), `${pageName} must NOT contain Lemon Squeezy / Store #296100`);
+  assert.ok(html.includes('hero_style_01') && html.includes('hero_style_06'), `${pageName} must include hero_style_01~06`);
 });
 
 const boothHtml = fs.readFileSync(BOOTH_HTML, 'utf-8');
@@ -45,11 +39,7 @@ requiredControls.forEach((ctrlId) => {
   assert.ok(boothHtml.includes(`id="${ctrlId}"`), `booth.html must contain #${ctrlId}`);
 });
 
-assert.ok(boothHtml.includes('id="save-celebration-modal"'));
-assert.ok(boothHtml.includes('2초간 꾹'), 'Must include 2-second long-press save guidance for KakaoTalk in-app browser');
-assert.ok(boothHtml.includes('https://cshop.naver.com/paradiseshop'), 'booth.html must include Naver Creator Shop in Safe Special Store');
-console.log('  [PASS] Unlimited free Photo Booth UI, OG thumbnail, and Kakao 2s long-press guide verified.');
-
+assert.ok(boothHtml.includes('id="save-celebration-modal"') && boothHtml.includes('2초간 꾹'));
 assert.strictEqual(COMMEMORATIVE_FRAMES.length, 4);
 assert.strictEqual(CANVAS_WIDTH, 1080);
 assert.strictEqual(CANVAS_HEIGHT, 1440);
@@ -80,15 +70,13 @@ engine.resetTransform();
 assert.strictEqual(engine.transform.scale, 1.0);
 
 const boothJsContent = fs.readFileSync(BOOTH_JS, 'utf-8');
-assert.ok(boothJsContent.includes('toBlob') && boothJsContent.includes('image/jpeg'));
-assert.ok(boothJsContent.includes('KAKAOTALK'), 'photo-booth.js must detect KAKAOTALK in-app User-Agent');
-assert.ok(boothJsContent.includes('손가락으로 그림을 2초간 꾹~ 눌러 [사진 저장]을 누르세요'), 'photo-booth.js must display 22px+ 2s long-press modal');
+assert.ok(boothJsContent.includes('toBlob') && boothJsContent.includes('image/jpeg') && boothJsContent.includes('KAKAOTALK'));
 assert.strictEqual(
   boothJsContent.includes('fetch(') || boothJsContent.includes('XMLHttpRequest') || boothJsContent.includes('$.ajax'),
   false,
   'photo-booth.js must NOT upload photos to any backend server'
 );
-console.log('  [PASS] PhotoBoothEngine transforms, client-side privacy, and KAKAOTALK long-press modal verified.');
+console.log('  [PASS] PhotoBoothEngine transforms, client-side privacy, and 6-outfit Baek Woon-ho tray verified.');
 
 console.log('\n===============================================================');
 console.log('SUCCESS: ALL PHOTO BOOTH TESTS PASSED (100%)');

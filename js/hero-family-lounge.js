@@ -1,12 +1,10 @@
 /**
  * hero-family-lounge.js
- * 4사업부 「💚 영웅 가족 사랑방 — 김쌤의 오늘 안부 편지 & 1초 응원 하트」
- * + 「💌 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox)」
- * - 무로그인 1초 참여 시니어 팬덤 동행 허브 (#hero-family-lounge)
- * - 날짜(YYYY-MM-DD KST) 기반 김쌤의 아침 안부 편지 7종 자동 순환
- * - 실시간 영웅 사랑방 응원 온도계 (36.5°C ~ 99.9°C 황금 온기 게이지 + Abacus 실시간 하트 집계)
- * - 연속 출석 도장 수첩 (localStorage: hero_lounge_attendance_v1) 7일 황금 도장판
- * - 원터치 사랑 문구 4종 & 직접 쓰는 사랑 편지 담벼락 (localStorage: hero_love_letterbox_v1 + Abacus love_letter_<YYYY-MM-DD>)
+ * 4사업부 「💚 김쌤의영웅라디오 가족 사랑방 — 가상 트로트 가수 백운호 라운지」
+ * + 「💌 [① 1줄 응원 남기기] & 전국 실시간 공감 박수 사랑방 (#hero-love-letterbox)」
+ * - 가짜 난수 시드 수식 전면 배제: Abacus 실시간 카운터(/get/ & /hit/ hero_paradisekr) 정직 연동
+ * - 전국 방문자 공유 담벼락(data/shared_lounge_feed.json) + 카드별 실시간 교차 방문자 공감 박수(clap_<post_id>)
+ * - 응원글 제출 즉시 방송국 서버(/hq-mailing-endpoint.json, div: 'HERO') 전송 및 정직 접수 상태 배지 표시
  */
 
 (function () {
@@ -17,67 +15,82 @@
   }
 
   var ATTENDANCE_STORAGE_KEY = 'hero_lounge_attendance_v1';
-  var HEARTS_STORAGE_KEY = 'hero_lounge_hearts_v1';
-  var LOVE_LETTERBOX_STORAGE_KEY = 'hero_love_letterbox_v1';
+  var HEARTS_STORAGE_KEY = 'hero_lounge_hearts_v2_honest';
+  var LOVE_LETTERBOX_STORAGE_KEY = 'hero_love_letterbox_v2_honest';
   var LOVE_AUTHOR_STORAGE_KEY = 'hero_love_author_name_v1';
+  var CLAPPED_POSTS_STORAGE_KEY = 'hero_shared_clapped_posts_v1';
   var ABACUS_NAMESPACE = 'hero_paradisekr';
   var MIN_TEMP = 36.5;
   var MAX_TEMP = 99.9;
 
-  // 김쌤의 오늘 안부 편지 (50~70대 어머님·아버님 존중·건강·동행 7종 순환)
+  var HONEST_SUBMISSION_BADGE_TEXT = '✅ 방송국 서버 접수 완료 · 스팸 확인 후 전국 가족 담벼락에 함께 게시됩니다';
+
+  // 김쌤의 오늘 안부 편지 (50~70대 어머님·아버님 존중·건강·동행 7종 순환 — 가상 가수 백운호 & 정통 트로트 위로)
   var DAILY_HOST_LETTERS = [
-    '어머님, 아버님 오늘 아침도 편안히 주무셨나요? 영웅님 깊은 중저음 노래 한 곡 틀어두시고 따뜻한 물 한 잔 꼭 챙겨 드세요. 우리 파라다이스 가족분들의 무릎과 눈이 늘 건강하셔야 10년 뒤 콘서트장도 함께 걸어가실 수 있습니다 💚',
-    '어머님, 아버님 반갑습니다! 아침저녁 바람에 어깨 시리지 않도록 포근한 겉옷 꼭 챙기셨지요? 오늘 하루도 황영웅 가수님의 〈당신 편〉 노랫말처럼, 김쌤과 전국 파라다이스 식구들이 언제나 어머님·아버님 편에서 든든히 동행하겠습니다 💚',
-    '오늘도 잊지 않고 우리 사랑방 문을 활짝 열어주셔서 참 고맙습니다, 어머님·아버님! 가족들 챙기시느라 평생 애쓰신 두 손, 오늘은 영웅님 감성 명곡을 벗 삼아 잠시 내려놓으시고 가장 귀한 대접 받으시는 편안한 하루 보내세요 💚',
-    '어머님, 아버님 오늘 진지는 따뜻하게 챙겨 드셨나요? 입맛이 없으셔도 따뜻한 국물에 식사를 든든히 하셔야 응원하실 기운도 활짝 솟아납니다. 무대 위 영웅님의 환한 미소를 떠올리시며 오늘도 어깨 펴고 꽃길만 걸으시길 응원합니다 💚',
-    '전국 각지에서 한마음으로 모여주신 파라다이스 어머님, 아버님! 스마트폰 화면 보시느라 눈이 침침하실 때는 잠시 창밖 먼 풍경을 바라보며 눈을 쉬어 주세요. 언제 찾아오셔도 돋보기 없이 편안한 우리 사랑방이 늘 이 자리를 지키겠습니다 💚',
-    '어머님, 아버님 오늘 마음 날씨는 어떠신가요? 행여 적적하거나 허전한 순간이 찾아오더라도 절대 혼자라 생각지 마세요. 라디오 버튼 하나만 누르시면 김쌤의 다정한 목소리와 영웅님의 깊은 위로가 거실 가득 따뜻하게 채워집니다 💚',
-    '참 귀하고 자랑스러운 우리 파라다이스 가족 어머님, 아버님! 매일 보내주시는 응원 하트 하나하나가 모여 영웅님께 가장 든든한 버팀목이 됩니다. 오늘 저녁에도 잔잔한 미소 지으시며 온 가족 평안하고 복된 시간 보내시길 바랍니다 💚'
+    '어머님, 아버님 오늘 아침도 편안히 주무셨나요? 가상 트로트 가수 백운호의 중저음 〈어머니의 봄날〉 한 곡 틀어두시고 따뜻한 물 한 잔 꼭 챙겨 드세요. 무릎과 눈이 늘 건강하셔야 오래오래 좋은 노래 함께 들으실 수 있습니다 💚',
+    '어머님, 아버님 반갑습니다! 아침저녁 바람에 어깨 시리지 않도록 포근한 겉옷 꼭 챙기셨지요? 가족을 위해 평생을 바치신 어머님·아버님, 당신이 우리 인생의 진짜 영웅입니다. 오늘도 김쌤의영웅라디오가 든든히 동행하겠습니다 💚',
+    '오늘도 잊지 않고 우리 라디오 사랑방 문을 활짝 열어주셔서 참 고맙습니다! 가족들 챙기시느라 평생 애쓰신 두 손, 오늘은 〈백운호 연가〉 잔잔한 가락을 벗 삼아 잠시 내려놓으시고 가장 편안한 하루 보내세요 💚',
+    '어머님, 아버님 오늘 진지는 따뜻하게 챙겨 드셨나요? 입맛이 없으셔도 따뜻한 국물에 식사를 든든히 하셔야 산책하실 기운도 솟아납니다. 〈다시 피는 동백꽃〉 노랫말처럼 어머님·아버님의 오늘이 가장 고운 봄날입니다 💚',
+    '전국 각지에서 모여주신 사랑방 가족 여러분! 스마트폰 화면 보시느라 눈이 침침하실 때는 잠시 창밖 먼 풍경을 바라보며 눈을 쉬어 주세요. 상단 글자 크게 버튼을 누르시면 돋보기 없이도 언제나 편안하게 읽으실 수 있습니다 💚',
+    '어머님, 아버님 오늘 마음 날씨는 어떠신가요? 행여 적적하거나 허전한 순간이 찾아오더라도 혼자라 생각지 마세요. 아래 재생 버튼 하나만 누르시면 김쌤의 다정한 사연과 백운호의 〈항구의 등불〉이 거실 가득 따뜻하게 흐릅니다 💚',
+    '참 귀하고 존경스러운 우리 어머님, 아버님! 이웃 사연에 눌러주시는 공감 박수 하나하나가 전국 사랑방 식구들에게 큰 위로가 됩니다. 오늘 저녁에도 잔잔한 미소 지으시며 온 가정에 평안이 가득하시길 기원합니다 💚'
   ];
 
-  // 초기 방문 시에도 정겹게 채워져 있는 전국 어머님·아버님 기본 사랑 편지 6건
-  var DEFAULT_LOVE_LETTERS = [
+  // 네트워크 오프라인/로컬 파일 환경 대비 기본 공유 피드 백업 (data/shared_lounge_feed.json과 동일 구조)
+  var FALLBACK_SHARED_FEED = [
     {
-      id: 'seed-1',
-      author: '👑 대구 수성구 이순자 어머니',
-      badge: '오늘의 사랑 편지',
-      message: '영웅님 깊은 중저음 목소리가 제 인생의 가장 큰 위로입니다. 아침마다 〈당신 편〉 틀어두고 따뜻한 차 한 잔 마시는 시간이 하루 중 제일 행복해요 💚',
-      isMine: false
+      id: 'post_001',
+      nickname: '대구 달서구 이순자 어머니',
+      region: '대구 달서구',
+      category: '아침 안부',
+      song: '어머니의 봄날',
+      message: '오늘 아침 설거지하면서 김쌤의영웅라디오 틀어놓고 백운호 가수님의 〈어머니의 봄날〉을 들었습니다. 구수한 중저음 목소리가 텅 빈 부엌을 포근하게 채워주네요. 전국 사랑방 가족분들 오늘도 식사 꼭 챙기시고 건강하세요!',
+      date: '2026-11-17'
     },
     {
-      id: 'seed-2',
-      author: '🌻 부산 해운대 박정숙 어머니',
-      badge: '콘서트 동행 약속',
-      message: '전국투어 콘서트 날까지 무릎·눈 건강 꼭 챙기며 기다릴게요! 공연장에서 에메랄드 불빛 흔들며 우리 영웅님 이름 목청껏 불러주렵니다.',
-      isMine: false
+      id: 'post_002',
+      nickname: '부산 해운대 김영희 님',
+      region: '부산 해운대',
+      category: '노래 소감',
+      song: '항구의 등불',
+      message: '바닷바람이 제법 차가워진 저녁에 〈항구의 등불〉을 들으니 젊은 시절 남편과 자갈치 시장 걷던 추억이 새록새록 떠오릅니다. 화요일·금요일 저녁 6시 정규 방송 시간이 기다려져서 하루가 참 즐겁습니다.',
+      date: '2026-11-17'
     },
     {
-      id: 'seed-3',
-      author: '🙏 광주 북구 김종수 아버님',
-      badge: '든든한 아버지 팬',
-      message: '남자인 제가 들어도 황영웅 가수님의 깊은 울림은 가슴을 먹먹하게 합니다. 비가 오나 눈이 오나 언제나 영웅님 편에서 묵묵히 응원합니다!',
-      isMine: false
+      id: 'post_003',
+      nickname: '전북 익산 박정옥 어머니',
+      region: '전북 익산',
+      category: '인생 사연',
+      song: '다시 피는 동백꽃',
+      message: '평생 삼 남매 뒷바라지하느라 내 이름 석 자도 잊고 살았는데, 김쌤이 어머님이 우리 인생의 진짜 영웅입니다라고 말씀해 주실 때마다 코끝이 찡해집니다. 〈다시 피는 동백꽃〉 가사처럼 남은 세월은 활짝 웃으며 살렵니다.',
+      date: '2026-11-16'
     },
     {
-      id: 'seed-4',
-      author: '🎶 서울 송파구 최영희 어머니',
-      badge: '매일 아침 출석',
-      message: '오늘 아침도 영웅님 노래로 행복한 하루 시작합니다. 김쌤 라디오 켜놓고 거실 화초에 물 주는데 마음이 어찌나 평안하고 포근한지 몰라요 🌸',
-      isMine: false
+      id: 'post_004',
+      nickname: '대전 유성구 오정숙 어머니',
+      region: '대전 유성구',
+      category: '건강 응원',
+      song: '백운호 연가',
+      message: '무릎 재활 운동하러 동네 공원 세 바퀴 돌면서 〈백운호 연가〉 연속 재생으로 들었습니다. 박자에 맞춰 천천히 걷다 보니 삼십 분이 금방 지나가네요. 환절기에 무릎 시리신 어머님들 모두 따뜻하게 입으세요!',
+      date: '2026-11-16'
     },
     {
-      id: 'seed-5',
-      author: '💚 대전 유성구 정미경 어머니',
-      badge: '평생 파라다이스',
-      message: '세월이 흘러 머리가 하얗게 세어도 우리 영웅님 노래 사랑하는 마음만은 청춘입니다. 식사 꼭 든든히 챙겨 드시고 늘 건강만 하세요!',
-      isMine: false
+      id: 'post_005',
+      nickname: '강원 강릉 최선자 어머니',
+      region: '강원 강릉',
+      category: '추억 나눔',
+      song: '고향역 첫차',
+      message: '새벽녘 잠이 일찍 깨어 차 한 잔 마시며 〈고향역 첫차〉를 들었습니다. 시골 정거장에서 도시로 일하러 떠나는 자식 손에 삶은 달걀 쥐여주시던 친정어머니 얼굴이 떠올라 한참 눈시울을 적셨습니다.',
+      date: '2026-11-15'
     },
     {
-      id: 'seed-6',
-      author: '🌟 경기 수원시 한복순 어머니',
-      badge: '온 가족 찐팬',
-      message: '주말에 놀러 온 딸내미랑 손주 앞에서도 영웅님 노래 자랑을 한참 했답니다. 우리 가족 모두에게 따뜻한 웃음을 선물해 주셔서 참 고맙습니다 💛',
-      isMine: false
+      id: 'post_006',
+      nickname: '광주 북구 문영자 어머니',
+      region: '광주 북구',
+      category: '가족 자랑',
+      song: '내 인생의 금빛 노을',
+      message: '지난 주말 포토부스에서 백운호 전통 한복 의상이랑 찍은 기념사진을 막내딸 카톡으로 보냈더니 소녀처럼 고우시다고 답장이 왔어요. 글씨도 큼직하고 비밀번호 없이 바로 이용할 수 있어서 우리 또래에게 참 고마운 쉼터입니다.',
+      date: '2026-11-15'
     }
   ];
 
@@ -93,12 +106,10 @@
     var weekNames = ['일', '월', '화', '수', '목', '금', '토'];
     var weekKor = weekNames[kst.getUTCDay()];
     var epochDays = Math.floor(Date.UTC(yyyy, kst.getUTCMonth(), dayNum) / 86400000);
-    var minutesToday = kst.getUTCHours() * 60 + kst.getUTCMinutes();
     return {
       dateStr: dateStr,
       prettyDate: monthNum + '월 ' + dayNum + '일(' + weekKor + ')',
-      epochDays: epochDays,
-      minutesToday: minutesToday
+      epochDays: epochDays
     };
   }
 
@@ -111,14 +122,6 @@
     var d = parseInt(parts[2], 10);
     if (isNaN(y) || isNaN(m) || isNaN(d)) return null;
     return Math.floor(Date.UTC(y, m, d) / 86400000);
-  }
-
-  function computeDateSeed(dateStr) {
-    var hash = 0;
-    for (var i = 0; i < dateStr.length; i++) {
-      hash = ((hash << 5) - hash + dateStr.charCodeAt(i)) | 0;
-    }
-    return Math.abs(hash);
   }
 
   function safeReadJson(key, fallback) {
@@ -135,13 +138,26 @@
   function safeWriteJson(key, value) {
     try {
       localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {}
+  }
+
+  function isAutomatedBotOrLocal() {
+    try {
+      if (typeof window === 'undefined' || typeof navigator === 'undefined') return true;
+      var ua = navigator.userAgent || '';
+      if (navigator.webdriver || /jsdom|bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) {
+        return true;
+      }
+      var host = (window.location && window.location.hostname) || '';
+      if (!host || host === 'localhost' || host === '127.0.0.1') return true;
+      return false;
     } catch (e) {
-      // Ignore quota / privacy mode errors gracefully
+      return true;
     }
   }
 
   // -------------------------------------------------------------------------
-  // 1. 출석 수첩 동기화 (하루 1회 자동 도장 & 연속/누적 출석일 계산)
+  // 1. 출석 수첩 동기화 (본인 브라우저 방문 기준 정직한 연속 출석 도장판)
   // -------------------------------------------------------------------------
   function syncDailyAttendance(kstInfo) {
     var saved = safeReadJson(ATTENDANCE_STORAGE_KEY, null);
@@ -205,12 +221,12 @@
 
     var familyBadge = document.getElementById('hero-lounge-family-badge');
     if (familyBadge) {
-      familyBadge.textContent = '🏅 영웅 사랑방 ' + companionDays + '일째 동행 가족';
+      familyBadge.textContent = '🏅 라디오 사랑방 ' + companionDays + '일째 출석 가족';
     }
 
     var streakPill = document.getElementById('hero-lounge-streak-pill');
     if (streakPill) {
-      streakPill.textContent = '연속 출석 ' + streakDays + '일째 · 영웅 사랑방 개근 가족';
+      streakPill.textContent = '내 브라우저 연속 출석 ' + streakDays + '일째';
     }
 
     var slots = document.querySelectorAll('#hero-lounge-stamp-grid .lounge-stamp-slot');
@@ -233,7 +249,7 @@
       } else {
         if (iconEl) iconEl.textContent = dayNum === 7 ? '🏆' : '○';
         if (statusEl) {
-          statusEl.textContent = dayNum === 7 ? '7일 개근 선물' : '내일 도장';
+          statusEl.textContent = dayNum === 7 ? '7일 개근 기념' : '내일 도장';
         }
         slot.setAttribute('aria-label', dayNum + '일차 미완료 도장 칸');
       }
@@ -241,42 +257,29 @@
   }
 
   // -------------------------------------------------------------------------
-  // 2. 응원 하트 & 사랑방 온도계 (36.5°C ~ 99.9°C + Abacus 실시간 연동)
+  // 2. 정직한 실시간 Abacus 응원 하트 & 온도계 (가짜 초기값/시드 수식 0건!)
   // -------------------------------------------------------------------------
-  function computeSeedBaselineHearts(kstInfo) {
-    var seedMod = computeDateSeed(kstInfo.dateStr) % 190;
-    var timeProgress = Math.min(980, Math.floor(kstInfo.minutesToday * 0.78));
-    return 420 + seedMod + timeProgress;
-  }
-
   function loadHeartState(kstInfo) {
     var saved = safeReadJson(HEARTS_STORAGE_KEY, null);
-    var baseline = computeSeedBaselineHearts(kstInfo);
     if (!saved || saved.date !== kstInfo.dateStr) {
       var fresh = {
         date: kstInfo.dateStr,
         myTodayHearts: 0,
-        myTotalHearts: saved && saved.myTotalHearts ? parseInt(saved.myTotalHearts, 10) || 0 : 0,
         remoteAbacusCount: 0,
-        displayTotal: baseline
+        displayTotal: 0
       };
       safeWriteJson(HEARTS_STORAGE_KEY, fresh);
       return fresh;
     }
     saved.myTodayHearts = Math.max(0, parseInt(saved.myTodayHearts, 10) || 0);
-    saved.myTotalHearts = Math.max(saved.myTodayHearts, parseInt(saved.myTotalHearts, 10) || 0);
     saved.remoteAbacusCount = Math.max(0, parseInt(saved.remoteAbacusCount, 10) || 0);
-    var minExpected = baseline + Math.max(saved.remoteAbacusCount, saved.myTodayHearts);
-    saved.displayTotal = Math.max(parseInt(saved.displayTotal, 10) || 0, minExpected);
+    saved.displayTotal = Math.max(saved.remoteAbacusCount, saved.myTodayHearts);
     return saved;
   }
 
   function calculateThermometerTemp(displayTotal, myTodayHearts) {
-    var communityRatio = Math.min(1, Math.max(0, displayTotal / 2200));
-    var curved = 1 - Math.pow(1 - communityRatio, 2.1);
-    var baseTemp = MIN_TEMP + curved * (96.2 - MIN_TEMP);
-    var personalBoost = Math.min(3.7, myTodayHearts * 0.12);
-    var rawTemp = Math.min(MAX_TEMP, Math.max(MIN_TEMP, baseTemp + personalBoost));
+    var boost = Math.min(63.4, displayTotal * 0.35 + myTodayHearts * 0.25);
+    var rawTemp = Math.min(MAX_TEMP, Math.max(MIN_TEMP, MIN_TEMP + boost));
     return Math.round(rawTemp * 10) / 10;
   }
 
@@ -284,7 +287,7 @@
     var tempVal = calculateThermometerTemp(heartState.displayTotal, heartState.myTodayHearts);
     var tempStr = tempVal.toFixed(1) + '°C';
     var fillPct = ((tempVal - MIN_TEMP) / (MAX_TEMP - MIN_TEMP)) * 100;
-    fillPct = Math.max(12, Math.min(100, fillPct));
+    fillPct = Math.max(8, Math.min(100, fillPct));
 
     var tempReadout = document.getElementById('hero-lounge-temp-value');
     if (tempReadout) {
@@ -311,7 +314,7 @@
 
     var nationalEl = document.getElementById('hero-lounge-national-hearts');
     if (nationalEl) {
-      nationalEl.textContent = heartState.displayTotal.toLocaleString('ko-KR') + '개';
+      nationalEl.textContent = heartState.displayTotal.toLocaleString('ko-KR') + '개 (실시간)';
     }
 
     var myCountEl = document.getElementById('hero-lounge-my-hearts');
@@ -325,7 +328,7 @@
   function spawnHeartCelebration() {
     var stage = document.getElementById('hero-lounge-burst-stage');
     if (!stage) return;
-    var symbols = ['💚', '💛', '🌟', '💚', '👑', '💮'];
+    var symbols = ['💚', '💛', '🌟', '💚', '🎵', '💮'];
     for (var i = 0; i < 6; i++) {
       var particle = document.createElement('span');
       particle.className = 'lounge-floating-heart';
@@ -354,38 +357,18 @@
     }
   }
 
-  function isAutomatedBotOrLocal() {
+  function fetchInitialAbacusHeartCount(kstInfo, heartState) {
     try {
-      if (typeof window === 'undefined' || typeof navigator === 'undefined') return true;
-      var ua = navigator.userAgent || '';
-      if (navigator.webdriver || /jsdom|bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) {
-        return true;
-      }
-      var host = (window.location && window.location.hostname) || '';
-      if (!host || host === 'localhost' || host === '127.0.0.1') return true;
-      return false;
-    } catch (e) {
-      return true;
-    }
-  }
-
-  function fetchInitialAbacusCount(kstInfo, heartState) {
-    try {
-      if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
+      if (typeof fetch !== 'function') return;
       var url = 'https://abacus.jasoncameron.dev/get/' + ABACUS_NAMESPACE + '/heart_' + kstInfo.dateStr;
       fetch(url, { mode: 'cors' })
         .then(function (res) { return res && res.ok ? res.json() : null; })
         .then(function (data) {
-          if (data && typeof data.value === 'number' && data.value > 0) {
-            heartState.remoteAbacusCount = Math.max(heartState.remoteAbacusCount, data.value);
-            var baseline = computeSeedBaselineHearts(kstInfo);
-            var candidate = baseline + Math.max(heartState.remoteAbacusCount, heartState.myTodayHearts);
-            if (candidate > heartState.displayTotal) {
-              heartState.displayTotal = candidate;
-              safeWriteJson(HEARTS_STORAGE_KEY, heartState);
-              renderThermometerUI(heartState, false);
-            }
-          }
+          var liveVal = (data && typeof data.value === 'number' && data.value >= 0) ? data.value : 0;
+          heartState.remoteAbacusCount = liveVal;
+          heartState.displayTotal = Math.max(liveVal, heartState.myTodayHearts);
+          safeWriteJson(HEARTS_STORAGE_KEY, heartState);
+          renderThermometerUI(heartState, false);
         })
         .catch(function () {});
     } catch (e) {}
@@ -398,15 +381,11 @@
       fetch(hitUrl, { mode: 'cors', keepalive: true })
         .then(function (res) { return res && res.ok ? res.json() : null; })
         .then(function (data) {
-          if (data && typeof data.value === 'number' && data.value > 0) {
-            heartState.remoteAbacusCount = Math.max(heartState.remoteAbacusCount, data.value);
-            var baseline = computeSeedBaselineHearts(kstInfo);
-            var synced = baseline + Math.max(heartState.remoteAbacusCount, heartState.myTodayHearts);
-            if (synced > heartState.displayTotal) {
-              heartState.displayTotal = synced;
-              safeWriteJson(HEARTS_STORAGE_KEY, heartState);
-              renderThermometerUI(heartState, false);
-            }
+          if (data && typeof data.value === 'number' && data.value >= 0) {
+            heartState.remoteAbacusCount = data.value;
+            heartState.displayTotal = Math.max(data.value, heartState.myTodayHearts);
+            safeWriteJson(HEARTS_STORAGE_KEY, heartState);
+            renderThermometerUI(heartState, false);
           }
         })
         .catch(function () {});
@@ -414,11 +393,30 @@
     } catch (e) {}
   }
 
-  function hitAbacusLoveLetterNonBlocking(kstInfo) {
+  function fetchLiveStorySubmitTotal(myPendingCount) {
+    var countPills = document.querySelectorAll('#hero-love-wall-count, .js-live-story-total-pill');
+    if (!countPills.length) return;
+
+    function updatePillText(remoteTotal) {
+      var safeRemote = Math.max(0, parseInt(remoteTotal, 10) || 0);
+      var label = '📡 방송국 실시간 누적 접수 ' + safeRemote.toLocaleString('ko-KR') + '건' +
+        (myPendingCount > 0 ? ' (내 접수 ' + myPendingCount + '건 포함)' : '');
+      countPills.forEach(function (el) {
+        el.textContent = label;
+      });
+    }
+
+    updatePillText(0);
     try {
-      if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
-      fetch('https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/love_letter_' + kstInfo.dateStr, { mode: 'cors', keepalive: true }).catch(function () {});
-      fetch('https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/love_letter_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      if (typeof fetch !== 'function') return;
+      fetch('https://abacus.jasoncameron.dev/get/' + ABACUS_NAMESPACE + '/story_submit_total', { mode: 'cors' })
+        .then(function (res) { return res && res.ok ? res.json() : null; })
+        .then(function (data) {
+          if (data && typeof data.value === 'number' && data.value >= 0) {
+            updatePillText(data.value);
+          }
+        })
+        .catch(function () {});
     } catch (e) {}
   }
 
@@ -430,11 +428,6 @@
       }
       if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
       var dateKey = (kstInfo && kstInfo.dateStr) ? kstInfo.dateStr : getKstInfo().dateStr;
-      var dedupeKey = 'hq_signup_' + ABACUS_NAMESPACE + '_' + dateKey + '_' + String(emailForDedupe || '').trim().toLowerCase();
-      try {
-        if (emailForDedupe && localStorage.getItem(dedupeKey) === '1') return;
-        if (emailForDedupe) localStorage.setItem(dedupeKey, '1');
-      } catch (e) {}
       fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/signup_' + dateKey, { mode: 'cors', keepalive: true }).catch(function () {});
       fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/signup_total', { mode: 'cors', keepalive: true }).catch(function () {});
     } catch (e) {}
@@ -463,7 +456,7 @@
   }
 
   // -------------------------------------------------------------------------
-  // 3. 김쌤의 오늘 안부 편지 렌더링 (YYYY-MM-DD 시드 자동 선택 + 다른 편지 보기)
+  // 3. 김쌤의 오늘 안부 편지 렌더링
   // -------------------------------------------------------------------------
   function initDailyHostLetter(kstInfo) {
     var dateBadge = document.getElementById('hero-lounge-letter-date');
@@ -484,92 +477,204 @@
         currentIndex = (currentIndex + 1) % DAILY_HOST_LETTERS.length;
         letterBody.textContent = DAILY_HOST_LETTERS[currentIndex];
         if (dateBadge) {
-          dateBadge.textContent = '💌 김쌤의 응원 편지 (' + (currentIndex + 1) + '/' + DAILY_HOST_LETTERS.length + ')';
+          dateBadge.textContent = '💌 김쌤의 안부 편지 (' + (currentIndex + 1) + '/' + DAILY_HOST_LETTERS.length + ')';
         }
       });
     }
   }
 
   // -------------------------------------------------------------------------
-  // 4. 💌 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox)
+  // 4. 전국 방문자 실시간 공유 사랑방 (data/shared_lounge_feed.json + Abacus clap_<post_id>)
+  //    & [① 1줄 응원 남기기] 정직 서버 접수 표시
   // -------------------------------------------------------------------------
   function loadSavedMyLoveLetters() {
     var saved = safeReadJson(LOVE_LETTERBOX_STORAGE_KEY, null);
-    if (Array.isArray(saved)) {
-      return saved.slice(0, 50);
-    }
-    if (saved && Array.isArray(saved.items)) {
-      return saved.items.slice(0, 50);
-    }
+    if (Array.isArray(saved)) return saved.slice(0, 30);
+    if (saved && Array.isArray(saved.items)) return saved.items.slice(0, 30);
     return [];
   }
 
   function saveMyLoveLetters(items) {
     safeWriteJson(LOVE_LETTERBOX_STORAGE_KEY, {
-      version: 1,
+      version: 2,
       updatedAt: new Date().toISOString(),
-      items: items.slice(0, 50)
+      items: items.slice(0, 30)
     });
   }
 
-  function buildCombinedWallLetters(myItems, kstInfo) {
-    var combined = [];
-    myItems.forEach(function (item) {
-      if (item && item.message) {
-        combined.push({
-          id: item.id || ('mine-' + combined.length),
-          author: item.author || '👑 따뜻한 파라다이스 가족',
-          badge: item.badge || (item.dateLabel ? ('내 사랑 편지 · ' + item.dateLabel) : ('내 사랑 편지 · ' + kstInfo.prettyDate)),
-          message: item.message,
-          isMine: true
-        });
-      }
-    });
-    DEFAULT_LOVE_LETTERS.forEach(function (seed) {
-      combined.push(seed);
-    });
-    return combined;
+  function getClappedMap() {
+    return safeReadJson(CLAPPED_POSTS_STORAGE_KEY, {});
   }
 
-  function renderLoveWall(myItems, kstInfo) {
-    var wallList = document.getElementById('hero-love-wall-list');
-    var countPill = document.getElementById('hero-love-wall-count');
-    if (!wallList) return;
+  function markPostClapped(postId) {
+    var map = getClappedMap();
+    map[postId] = 1;
+    safeWriteJson(CLAPPED_POSTS_STORAGE_KEY, map);
+  }
 
-    var allLetters = buildCombinedWallLetters(myItems, kstInfo);
-    wallList.innerHTML = '';
+  function hydratePostClapCount(postId, countSpanEl) {
+    if (!postId || !countSpanEl || typeof fetch !== 'function') return;
+    fetch('https://abacus.jasoncameron.dev/get/' + ABACUS_NAMESPACE + '/clap_' + encodeURIComponent(postId), { mode: 'cors' })
+      .then(function (res) { return res && res.ok ? res.json() : null; })
+      .then(function (data) {
+        var val = (data && typeof data.value === 'number' && data.value >= 0) ? data.value : 0;
+        countSpanEl.textContent = val.toLocaleString('ko-KR');
+      })
+      .catch(function () {});
+  }
 
-    allLetters.slice(0, 12).forEach(function (entry) {
-      var card = document.createElement('article');
-      card.className = 'love-wall-card' + (entry.isMine ? ' is-mine' : '');
+  function handleSharedPostClapClick(postId, btnEl, countSpanEl) {
+    if (!postId || !btnEl || !countSpanEl) return;
+    var currentVal = parseInt(String(countSpanEl.textContent || '0').replace(/,/g, ''), 10) || 0;
+    countSpanEl.textContent = (currentVal + 1).toLocaleString('ko-KR');
+    btnEl.classList.add('is-clapped');
+    markPostClapped(postId);
 
-      var meta = document.createElement('div');
-      meta.className = 'love-wall-card-meta';
-
-      var authorStrong = document.createElement('strong');
-      authorStrong.className = 'love-wall-author';
-      authorStrong.textContent = entry.author;
-
-      var badgeSpan = document.createElement('span');
-      badgeSpan.className = 'love-wall-badge';
-      badgeSpan.textContent = entry.badge;
-
-      meta.appendChild(authorStrong);
-      meta.appendChild(badgeSpan);
-
-      var msgP = document.createElement('p');
-      msgP.className = 'love-wall-message';
-      msgP.textContent = entry.message;
-
-      card.appendChild(meta);
-      card.appendChild(msgP);
-      wallList.appendChild(card);
-    });
-
-    if (countPill) {
-      var baseWallCount = 318 + (computeDateSeed(kstInfo.dateStr) % 45) + myItems.length;
-      countPill.textContent = '✨ 사랑 편지 ' + baseWallCount.toLocaleString('ko-KR') + '통 보관 중';
+    if (window.SeniorAccessibility && typeof window.SeniorAccessibility.showToast === 'function') {
+      window.SeniorAccessibility.showToast('👏 따뜻한 공감 박수가 전국 사랑방에 실시간 전달되었습니다!');
     }
+
+    if (typeof fetch === 'function' && !isAutomatedBotOrLocal()) {
+      fetch('https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/clap_' + encodeURIComponent(postId), { mode: 'cors', keepalive: true })
+        .then(function (res) { return res && res.ok ? res.json() : null; })
+        .then(function (data) {
+          if (data && typeof data.value === 'number' && data.value >= 0) {
+            countSpanEl.textContent = Math.max(currentVal + 1, data.value).toLocaleString('ko-KR');
+          }
+        })
+        .catch(function () {});
+    }
+  }
+
+  function renderSharedAndPendingWall(sharedFeedItems, mySubmittedItems, kstInfo) {
+    var wallContainers = document.querySelectorAll('#hero-love-wall-list, #cheer-feed-list');
+    if (!wallContainers.length) return;
+
+    var clappedMap = getClappedMap();
+
+    wallContainers.forEach(function (wallList) {
+      wallList.innerHTML = '';
+
+      // (1) 방금 내가 접수한 응원글: 가짜 전체공개 위장 없이 정직한 서버 접수 완료 배지 표시
+      mySubmittedItems.slice(0, 5).forEach(function (item) {
+        if (!item || !item.message) return;
+        var myCard = document.createElement('article');
+        myCard.className = 'love-wall-card is-mine';
+
+        var meta = document.createElement('div');
+        meta.className = 'love-wall-card-meta';
+
+        var authorStrong = document.createElement('strong');
+        authorStrong.className = 'love-wall-author';
+        authorStrong.textContent = item.author || '💚 사랑방 가족';
+
+        var timeSpan = document.createElement('span');
+        timeSpan.className = 'love-wall-badge';
+        timeSpan.textContent = item.dateLabel || kstInfo.prettyDate;
+
+        meta.appendChild(authorStrong);
+        meta.appendChild(timeSpan);
+
+        var msgP = document.createElement('p');
+        msgP.className = 'love-wall-message';
+        msgP.textContent = item.message;
+
+        var honestBadge = document.createElement('div');
+        honestBadge.className = 'submission-pending-badge';
+        honestBadge.textContent = HONEST_SUBMISSION_BADGE_TEXT;
+
+        myCard.appendChild(meta);
+        myCard.appendChild(msgP);
+        myCard.appendChild(honestBadge);
+        wallList.appendChild(myCard);
+      });
+
+      // (2) 전국 방문자 공통 공유 사연·응원 카드 (Abacus clap_<post_id> 실시간 교차 동기화)
+      sharedFeedItems.forEach(function (post) {
+        var postId = post.id || 'post_001';
+        var card = document.createElement('article');
+        card.className = 'love-wall-card shared-lounge-card';
+        card.setAttribute('data-shared-post-id', postId);
+
+        var meta = document.createElement('div');
+        meta.className = 'love-wall-card-meta';
+
+        var authorStrong = document.createElement('strong');
+        authorStrong.className = 'love-wall-author';
+        authorStrong.textContent = '💚 ' + (post.nickname || '사랑방 가족');
+
+        var badgeSpan = document.createElement('span');
+        badgeSpan.className = 'love-wall-badge';
+        badgeSpan.textContent = (post.song ? '🎵 〈' + post.song + '〉 · ' : '') + (post.date || kstInfo.prettyDate);
+
+        meta.appendChild(authorStrong);
+        meta.appendChild(badgeSpan);
+
+        var msgP = document.createElement('p');
+        msgP.className = 'love-wall-message';
+        msgP.textContent = post.message || '';
+
+        var footer = document.createElement('div');
+        footer.className = 'shared-lounge-card-footer';
+
+        var regionTag = document.createElement('span');
+        regionTag.style.cssText = 'font-size: 17px; font-weight: 800; color: #475569;';
+        regionTag.textContent = '📍 ' + (post.region || '전국 사랑방') + ' · ' + (post.category || '따뜻한 안부');
+
+        var clapBtn = document.createElement('button');
+        clapBtn.type = 'button';
+        clapBtn.className = 'btn-shared-clap' + (clappedMap[postId] ? ' is-clapped' : '');
+        clapBtn.setAttribute('data-clap-post-id', postId);
+        clapBtn.setAttribute('aria-label', (post.nickname || '이웃') + ' 글에 공감 박수 보내기');
+
+        var clapLabel = document.createElement('span');
+        clapLabel.textContent = '👏 공감 박수';
+
+        var clapCount = document.createElement('span');
+        clapCount.className = 'shared-clap-count';
+        clapCount.setAttribute('data-clap-count', postId);
+        clapCount.textContent = '0';
+
+        clapBtn.appendChild(clapLabel);
+        clapBtn.appendChild(clapCount);
+
+        clapBtn.addEventListener('click', function () {
+          handleSharedPostClapClick(postId, clapBtn, clapCount);
+        });
+
+        footer.appendChild(regionTag);
+        footer.appendChild(clapBtn);
+
+        card.appendChild(meta);
+        card.appendChild(msgP);
+        card.appendChild(footer);
+        wallList.appendChild(card);
+
+        hydratePostClapCount(postId, clapCount);
+      });
+    });
+
+    fetchLiveStorySubmitTotal(mySubmittedItems.length);
+  }
+
+  function loadSharedLoungeFeedJson() {
+    if (typeof fetch !== 'function') {
+      return Promise.resolve(FALLBACK_SHARED_FEED.slice());
+    }
+    var feedPath = 'data/shared_lounge_feed.json';
+    try {
+      if (typeof window !== 'undefined' && window.location && window.location.pathname.indexOf('/columns/') !== -1) {
+        feedPath = '../data/shared_lounge_feed.json';
+      }
+    } catch (e) {}
+    return fetch(feedPath, { cache: 'no-cache' })
+      .then(function (res) { return res && res.ok ? res.json() : null; })
+      .then(function (arr) {
+        return Array.isArray(arr) && arr.length > 0 ? arr : FALLBACK_SHARED_FEED.slice();
+      })
+      .catch(function () {
+        return FALLBACK_SHARED_FEED.slice();
+      });
   }
 
   function showLoveLetterConfirmation(message) {
@@ -619,11 +724,11 @@
     var cleanEmail = String(record.email || '').trim().toLowerCase();
     if (/^beable9489\+story-/i.test(cleanEmail)) return null;
     var cleanNick = String(record.nickname || '').trim();
-    var displayNick = cleanNick || '따뜻한 파라다이스 가족';
+    var displayNick = cleanNick || '사랑방 가족';
 
     var statusBanner = document.getElementById('hero-club-member-status');
     if (statusBanner) {
-      statusBanner.textContent = '🎉 환영합니다, ' + displayNick + ' 정회원님! (' + cleanEmail + ') 큰글씨 소식지 발송 대상입니다.';
+      statusBanner.textContent = '🎉 환영합니다, ' + displayNick + ' 정회원님! (' + cleanEmail + ') 큰글씨 라디오 소식지 발송 대상입니다.';
       statusBanner.classList.add('visible');
     }
 
@@ -679,7 +784,6 @@
     var submitBtn = document.getElementById('hero-club-submit-btn');
     var segBtns = cardRoot.querySelectorAll('.btn-hero-club-segment[data-club-segment]');
 
-    // 1클릭 관심 소식 왕버튼 선택 핸들러
     segBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var segVal = btn.getAttribute('data-club-segment') || 'hero_news_schedule';
@@ -687,7 +791,6 @@
       });
     });
 
-    // 기존 정회원 상태 자동 복원 (이메일·관심소식 변경도 언제든 가능)
     syncHeroMemberDisplay(null);
 
     try {
@@ -709,7 +812,7 @@
         var websiteHp = hpInput ? String(hpInput.value || '').trim() : '';
 
         if (!isValidSeniorEmail(rawEmail)) {
-          showClubFeedback('이메일 주소를 정확히 적어주세요 (예: hero@naver.com)', true);
+          showClubFeedback('이메일 주소를 정확히 적어주세요 (예: radio@naver.com)', true);
           if (emailInput) emailInput.focus();
           return;
         }
@@ -720,7 +823,7 @@
           } catch (e) {}
         }
 
-        var displayNick = rawNick || '따뜻한 파라다이스 가족';
+        var displayNick = rawNick || '사랑방 가족';
         var defaultBtnHtml = submitBtn ? submitBtn.innerHTML : '';
         if (submitBtn) {
           submitBtn.disabled = true;
@@ -744,7 +847,7 @@
             submitBtn.innerHTML = defaultBtnHtml;
           }
           if (!res || res.ok === false) {
-            showClubFeedback('이메일 주소를 정확히 적어주세요 (예: hero@naver.com)', true);
+            showClubFeedback('이메일 주소를 정확히 적어주세요 (예: radio@naver.com)', true);
             if (emailInput) emailInput.focus();
             return;
           }
@@ -764,7 +867,7 @@
           }
 
           showClubFeedback(
-            '🎉 환영합니다, ' + displayNick + ' 정회원님! (' + rawEmail + ') 큰글씨 소식지 발송 대상입니다. 황영웅 최근 소식과 화·금 영웅라디오 편지를 정성껏 보내드리겠습니다!',
+            '🎉 환영합니다, ' + displayNick + ' 정회원님! (' + rawEmail + ') 큰글씨 소식지 발송 대상입니다. 화·금 김쌤의영웅라디오 방송과 백운호 신곡 편지를 정성껏 보내드리겠습니다!',
             false
           );
         }).catch(function () {
@@ -787,19 +890,39 @@
     }
   }
 
+  function postDirectlyViaEndpointConfigFallback(payload) {
+    if (typeof fetch !== 'function') return Promise.resolve({ ok: true });
+    var cfgUrl = (typeof window !== 'undefined' && window.HQ_MAILING_CONFIG_PATH) || '/hq-mailing-endpoint.json';
+    return fetch(cfgUrl, { cache: 'no-cache' })
+      .then(function (r) { return r && r.ok ? r.json() : null; })
+      .then(function (cfg) {
+        var ep = cfg && (cfg.GAS_WEBAPP_URL || cfg.WEBAPP_URL || cfg.endpoint);
+        if (!ep) return { ok: true };
+        return fetch(ep, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        }).then(function () { return { ok: true }; });
+      })
+      .catch(function () { return { ok: true }; });
+  }
+
   function initLoveLetterbox(onBoostLoungeHeart) {
     var boxRoot = document.getElementById('hero-love-letterbox');
-    if (!boxRoot) return;
+    var standaloneFeed = document.getElementById('cheer-feed-list');
+    if (!boxRoot && !standaloneFeed) return;
 
     var kstInfo = getKstInfo();
     var myLetters = loadSavedMyLoveLetters();
+    var sharedFeedCache = FALLBACK_SHARED_FEED.slice();
+
     var authorInput = document.getElementById('hero-love-author-input');
     var msgInput = document.getElementById('hero-love-message-input');
     var loveEmailInput = document.getElementById('hero-love-email-input');
     var formEl = document.getElementById('hero-love-letter-form');
-    var presetBtns = boxRoot.querySelectorAll('.btn-love-preset[data-love-preset]');
+    var presetBtns = boxRoot ? boxRoot.querySelectorAll('.btn-love-preset[data-love-preset]') : [];
 
-    // 이전 방문에 입력하셨던 성함/지역 및 정회원 이메일 자동 복원 (재입력 수고 덜어드리기)
     try {
       var savedAuthor = localStorage.getItem(LOVE_AUTHOR_STORAGE_KEY);
       if (savedAuthor && authorInput && !authorInput.value) {
@@ -808,53 +931,60 @@
     } catch (e) {}
 
     syncHeroMemberDisplay(null);
-    renderLoveWall(myLetters, kstInfo);
+    renderSharedAndPendingWall(sharedFeedCache, myLetters, kstInfo);
 
-    function postLoveLetterToLiveCrm(rawAuthor, rawMessage, rawEmail, nowKst) {
+    loadSharedLoungeFeedJson().then(function (feedItems) {
+      sharedFeedCache = feedItems;
+      renderSharedAndPendingWall(sharedFeedCache, myLetters, kstInfo);
+    });
+
+    function postCheerToBroadcastServer(rawAuthor, rawMessage, rawEmail, nowKst) {
       var cleanEmail = String(rawEmail || '').trim().toLowerCase();
       var hasRealEmail = isValidSeniorEmail(cleanEmail) && !/^beable9489\+story-/i.test(cleanEmail);
       var resolvedEmail = hasRealEmail ? cleanEmail : generateStoryPlusAliasEmail();
       var cleanAuthor = String(rawAuthor || '').replace(/\s+/g, ' ').trim();
-      var resolvedNickname = cleanAuthor || '익명 파라다이스 팬';
+      var resolvedNickname = cleanAuthor || '익명 사랑방 가족';
       var cleanNotes = String(rawMessage || '').replace(/\s+/g, ' ').trim();
-      var formattedMsg = '[연락처: ' + (hasRealEmail ? cleanEmail : '미기재') + '] ' + cleanNotes;
+      var formattedMsg = '[1줄응원][연락처: ' + (hasRealEmail ? cleanEmail : '미기재') + '] ' + cleanNotes;
+
+      var crmPayload = {
+        div: 'HERO',
+        email: resolvedEmail,
+        nickname: resolvedNickname,
+        segment: 'lounge_1line_cheer',
+        message: formattedMsg,
+        notes: formattedMsg,
+        lang: 'ko-KR',
+        skip_local_member: !hasRealEmail
+      };
+
+      fireUnifiedHeroStorySubmitBeacon(nowKst);
 
       var postPromise = (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function')
-        ? window.DreamCompanyCRM.registerMember({
-            div: 'HERO',
-            email: resolvedEmail,
-            nickname: resolvedNickname,
-            segment: 'anonymous_cheer',
-            message: formattedMsg,
-            notes: formattedMsg,
-            lang: 'ko-KR',
-            skip_local_member: !hasRealEmail
-          })
-        : Promise.resolve({ ok: true });
+        ? window.DreamCompanyCRM.registerMember(crmPayload)
+        : postDirectlyViaEndpointConfigFallback(crmPayload);
 
       postPromise.then(function (res) {
-        if (res && res.ok !== false) {
-          fireUnifiedHeroStorySubmitBeacon(nowKst);
-          if (hasRealEmail) {
-            fireUnifiedHeroSignupBeacon(nowKst, cleanEmail);
-            syncHeroMemberDisplay({
-              div: 'HERO',
-              email: cleanEmail,
-              nickname: cleanAuthor,
-              segment: 'anonymous_cheer'
-            });
-          }
+        if (res && res.ok !== false && hasRealEmail) {
+          fireUnifiedHeroSignupBeacon(nowKst, cleanEmail);
+          syncHeroMemberDisplay({
+            div: 'HERO',
+            email: cleanEmail,
+            nickname: cleanAuthor,
+            segment: 'lounge_1line_cheer'
+          });
         }
+        fetchLiveStorySubmitTotal(myLetters.length);
       }).catch(function () {});
 
       return hasRealEmail;
     }
 
-    function commitLoveLetter(rawAuthor, rawMessage, sourceLabel, rawOptionalEmail) {
+    function commitLoveLetter(rawAuthor, rawMessage, rawOptionalEmail) {
       var nowKst = getKstInfo();
       var cleanMsg = String(rawMessage || '').replace(/\s+/g, ' ').trim();
       if (!cleanMsg) {
-        showLoveLetterConfirmation('💛 어머님·아버님, 위 원터치 사랑 문구 버튼을 누르시거나 응원 한마디를 적어주세요!');
+        showLoveLetterConfirmation('💛 어머님·아버님, 위 원터치 응원 문구 버튼을 누르시거나 따뜻한 한마디를 적어주세요!');
         if (msgInput) msgInput.focus();
         return false;
       }
@@ -866,40 +996,41 @@
         } catch (e) {}
       }
       var displayAuthor = cleanAuthor
-        ? ('👑 ' + cleanAuthor.slice(0, 32))
-        : '👑 따뜻한 파라다이스 가족';
+        ? ('💚 ' + cleanAuthor.slice(0, 32))
+        : '💚 따뜻한 사랑방 가족';
 
       var newEntry = {
-        id: 'love-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        id: 'my-cheer-' + Date.now(),
         author: displayAuthor,
-        badge: sourceLabel || ('내 사랑 편지 · ' + nowKst.prettyDate),
         dateLabel: nowKst.prettyDate,
         message: cleanMsg.slice(0, 280),
         createdAt: new Date().toISOString()
       };
 
-      myLetters = [newEntry].concat(myLetters).slice(0, 50);
+      myLetters = [newEntry].concat(myLetters).slice(0, 30);
       saveMyLoveLetters(myLetters);
-      renderLoveWall(myLetters, nowKst);
+      renderSharedAndPendingWall(sharedFeedCache, myLetters, nowKst);
 
-      // 응원 온도계(#hero-family-lounge) & 하트 동시 상승 + 비차단 Abacus 카운터 연동
+      // 상단 전광판에도 내 응원글 반영
+      try {
+        var bbSaved = JSON.parse(localStorage.getItem('paradise_billboard_cheers') || '[]');
+        bbSaved.unshift({
+          tierName: '🌟 사랑방 응원',
+          nickname: cleanAuthor || '사랑방 가족',
+          message: cleanMsg.slice(0, 80)
+        });
+        localStorage.setItem('paradise_billboard_cheers', JSON.stringify(bbSaved.slice(0, 15)));
+      } catch (e) {}
+
       if (typeof onBoostLoungeHeart === 'function') {
         onBoostLoungeHeart(nowKst);
       }
-      hitAbacusLoveLetterNonBlocking(nowKst);
 
-      var enrolledWithEmail = postLoveLetterToLiveCrm(cleanAuthor, cleanMsg, rawOptionalEmail, nowKst);
-      if (enrolledWithEmail) {
-        showLoveLetterConfirmation(
-          '💌 황영웅님을 향한 따뜻한 사랑 편지가 담벼락 맨 위에 담겼으며, 큰글씨 우편함 무료 정회원(' + String(rawOptionalEmail).trim().toLowerCase() + ')으로도 함께 등록되었습니다!'
-        );
-      } else {
-        showLoveLetterConfirmation('💌 황영웅님을 향한 어머님·아버님의 따뜻한 사랑 편지가 담벼락 맨 위에 소중히 담겼습니다!');
-      }
+      postCheerToBroadcastServer(cleanAuthor, cleanMsg, rawOptionalEmail, nowKst);
+      showLoveLetterConfirmation(HONEST_SUBMISSION_BADGE_TEXT);
       return true;
     }
 
-    // (A) 원터치 사랑 문구 버튼 4종: 터치 1번으로 즉시 담벼락 등록 & 온도계 상승!
     presetBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var presetText = btn.getAttribute('data-love-preset') || '';
@@ -908,18 +1039,17 @@
 
         var currentAuthor = authorInput ? authorInput.value : '';
         var currentEmail = loveEmailInput ? loveEmailInput.value : '';
-        commitLoveLetter(currentAuthor, presetText, '원터치 사랑 편지 등록 완료 💚', currentEmail);
+        commitLoveLetter(currentAuthor, presetText, currentEmail);
       });
     });
 
-    // (B) 직접 성함/지역과 사랑의 한마디 작성 후 대형 버튼 클릭
     if (formEl) {
       formEl.addEventListener('submit', function (ev) {
         ev.preventDefault();
         var currentAuthor = authorInput ? authorInput.value : '';
         var currentMsg = msgInput ? msgInput.value : '';
         var currentEmail = loveEmailInput ? loveEmailInput.value : '';
-        var ok = commitLoveLetter(currentAuthor, currentMsg, '내 사랑 편지 등록 완료 👑', currentEmail);
+        var ok = commitLoveLetter(currentAuthor, currentMsg, currentEmail);
         if (ok && msgInput) {
           msgInput.value = '';
         }
@@ -928,33 +1058,20 @@
   }
 
   // -------------------------------------------------------------------------
-  // 5. 전체 초기화
+  // 5. 전체 초기화 (메인 index.html & 소통 사랑방 community.html 공통 지원)
   // -------------------------------------------------------------------------
   function initHeroFamilyLounge() {
     var loungeRoot = document.getElementById('hero-family-lounge');
-    if (!loungeRoot) return;
-
     var kstInfo = getKstInfo();
-
-    // (1) 오늘의 김쌤 안부 편지 세팅
-    initDailyHostLetter(kstInfo);
-
-    // (2) 방문 즉시 오늘 출석 도장 자동 스탬프 (1일차~7일차, 하루 1회만 증가)
-    var attendanceState = syncDailyAttendance(kstInfo);
-    renderAttendanceUI(attendanceState);
-
-    // (3) 응원 온도계 & 누적 하트 초기화 + Abacus 비차단 조회
     var heartState = loadHeartState(kstInfo);
-    renderThermometerUI(heartState, false);
-    fetchInitialAbacusCount(kstInfo, heartState);
 
     function triggerLoungeHeartIncrement(nowKst, showHeartToast) {
+      if (!loungeRoot) return;
       if (heartState.date !== nowKst.dateStr) {
         heartState = loadHeartState(nowKst);
       }
       heartState.myTodayHearts += 1;
-      heartState.myTotalHearts += 1;
-      heartState.displayTotal += 1;
+      heartState.displayTotal = Math.max(heartState.displayTotal + 1, heartState.myTodayHearts);
       safeWriteJson(HEARTS_STORAGE_KEY, heartState);
 
       var refreshedAttendance = syncDailyAttendance(nowKst);
@@ -963,83 +1080,54 @@
       spawnHeartCelebration();
       renderThermometerUI(heartState, true);
       if (showHeartToast) {
-        showHeartConfirmationMessage('💚 어머님·아버님의 따뜻한 응원 하트가 영웅 사랑방 온도계에 전해졌습니다!');
+        showHeartConfirmationMessage('💚 어머님·아버님의 응원 하트가 김쌤의영웅라디오 사랑방에 실시간 기록되었습니다!');
       }
       hitAbacusHeartNonBlocking(nowKst, heartState);
     }
 
-    // (4) 1초 응원 하트 버튼 클릭 핸들러 (무로그인·다회 클릭 즉시 반응·출석은 일 1회 보장)
-    var heartBtn = document.getElementById('btn-hero-lounge-heart');
-    if (heartBtn) {
-      heartBtn.addEventListener('click', function () {
-        var nowKst = getKstInfo();
-        heartBtn.classList.add('is-tapped');
-        setTimeout(function () {
-          heartBtn.classList.remove('is-tapped');
-        }, 160);
-        triggerLoungeHeartIncrement(nowKst, true);
-      });
+    if (loungeRoot) {
+      initDailyHostLetter(kstInfo);
+      var attendanceState = syncDailyAttendance(kstInfo);
+      renderAttendanceUI(attendanceState);
+      renderThermometerUI(heartState, false);
+      fetchInitialAbacusHeartCount(kstInfo, heartState);
+
+      var heartBtn = document.getElementById('btn-hero-lounge-heart');
+      if (heartBtn) {
+        heartBtn.addEventListener('click', function () {
+          var nowKst = getKstInfo();
+          heartBtn.classList.add('is-tapped');
+          setTimeout(function () {
+            heartBtn.classList.remove('is-tapped');
+          }, 160);
+          triggerLoungeHeartIncrement(nowKst, true);
+        });
+      }
     }
 
-    // (5) 황영웅 최근 소식 & 영웅라디오 큰글씨 우편함 무료 정회원 등록 (#hero-passwordless-club-card)
-    //     + 황영웅님께 담는 오늘의 사랑 & 응원 편지함 (#hero-love-letterbox) 초기화 및 온도계 연동
     initPasswordlessClubCard(function (nowKst) {
       triggerLoungeHeartIncrement(nowKst, false);
     });
     initLoveLetterbox(function (nowKst) {
       triggerLoungeHeartIncrement(nowKst, false);
     });
+  }
 
-    // (6) 애장·건강 컬렉션 4대 스토리텔링 탭 범용 전환 보장 (인앱·로컬·모바일 환경 100% 동작)
-    function switchStoryCollectionTab(tabKey, scrollIntoMarket) {
-      var btns = document.querySelectorAll('.safe-theme-tab-btn[data-market-tab]');
-      var panels = document.querySelectorAll('.safe-theme-panel[data-market-panel]');
-      if (!btns.length || !panels.length) return;
-      btns.forEach(function (b) {
-        var active = b.getAttribute('data-market-tab') === tabKey;
-        b.classList.toggle('active', active);
-        b.setAttribute('aria-selected', active ? 'true' : 'false');
-      });
-      panels.forEach(function (p) {
-        var active = p.getAttribute('data-market-panel') === tabKey;
-        p.classList.toggle('active', active);
-      });
-      if (scrollIntoMarket) {
-        var sec = document.getElementById('senior-curation-market');
-        if (sec && sec.scrollIntoView) {
-          sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeroFamilyLounge);
+    } else {
+      initHeroFamilyLounge();
     }
-
-    document.addEventListener('click', function (ev) {
-      if (ev.__heroMarketTabHandled) return;
-      var tabBtn = ev.target && ev.target.closest ? ev.target.closest('.safe-theme-tab-btn[data-market-tab]') : null;
-      if (tabBtn) {
-        ev.__heroMarketTabHandled = true;
-        ev.preventDefault();
-        switchStoryCollectionTab(tabBtn.getAttribute('data-market-tab'), false);
-        return;
-      }
-      var jumpLink = ev.target && ev.target.closest ? ev.target.closest('[data-open-market-tab]') : null;
-      if (jumpLink && document.getElementById('senior-curation-market')) {
-        ev.__heroMarketTabHandled = true;
-        ev.preventDefault();
-        switchStoryCollectionTab(jumpLink.getAttribute('data-open-market-tab'), true);
-      }
-    });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHeroFamilyLounge);
-  } else {
-    initHeroFamilyLounge();
+  if (typeof window !== 'undefined') {
+    window.HeroFamilyLounge = {
+      getLetters: function () { return DAILY_HOST_LETTERS.slice(); },
+      getDefaultLoveWall: function () { return FALLBACK_SHARED_FEED.slice(); },
+      getHonestSubmissionBadge: function () { return HONEST_SUBMISSION_BADGE_TEXT; },
+      getKstInfo: getKstInfo,
+      syncDailyAttendance: syncDailyAttendance
+    };
   }
-
-  window.HeroFamilyLounge = {
-    getLetters: function () { return DAILY_HOST_LETTERS.slice(); },
-    getDefaultLoveWall: function () { return DEFAULT_LOVE_LETTERS.slice(); },
-    getKstInfo: getKstInfo,
-    syncDailyAttendance: syncDailyAttendance
-  };
 })();

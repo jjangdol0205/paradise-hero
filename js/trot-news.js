@@ -1,232 +1,225 @@
 /**
  * trot-news.js
- * Division 4: Hwang Young-woong Exclusive News Portal Client Engine.
+ * Division 4: @김쌤의영웅라디오 화·금 정규 방송 편성표 & 가상 트로트 가수 백운호 신곡·사연 소식란 엔진
  * Target: paradise-hero.com (@김쌤의영웅라디오)
  *
- * Features:
- * 1. 6 Hwang Young-woong Exclusive Category Tabs (전체, 신곡·음반, 콘서트·공연, 나눔·선행, 방송·라디오, 팬덤·파라다이스)
- * 2. Instant Search Keyword Filtering
- * 3. Hero Breaking Spotlight Card & Responsive Card Feed
- * 4. Senior Easy-Read Modal Viewer (24px+ text, High Contrast #FAFAF8, Text Scaler)
- * 5. Contextual Interstitial CTA Cards (100% Free Photo Booth & Kim Teacher's Radio)
- * 6. Dual-layer fallback (fetches data/trot_news.json -> falls back to embedded SEED_NEWS)
- * 7. WCAG AAA Senior Ergonomics (Min 60px touch target, Accessible Keyboard & Focus Traps)
+ * - 가짜 신문사 기사 및 2024~2025 구 기사 0건
+ * - 6대 정직 카테고리: 전체, 정규방송·편성표, 백운호 대표곡, 사랑방 사연소식, 시니어 건강상식, 라디오 이용안내
+ * - 큰글씨 요약 모달(24px -> 28px -> 32px) + 김쌤의 콘서트·응원 안심 준비물관 공정위 문구 준수
  */
 
 (function (global) {
   'use strict';
 
-  // 가수 황영웅 전용 6대 소식 카테고리
   const SINGER_LIST = [
     '전체',
-    '신곡·음반',
-    '콘서트·공연',
-    '나눔·선행',
-    '방송·라디오',
-    '팬덤·파라다이스'
+    '정규방송·편성표',
+    '백운호 대표곡',
+    '사랑방 사연소식',
+    '시니어 건강상식',
+    '라디오 이용안내'
   ];
 
-  // Embedded Offline Fallback News Seed Bundle (100% 가수 황영웅 소식 20선)
   const SEED_NEWS = [
     {
-      id: 'hyw_news_album_001',
-      title: '황영웅, 정규 1집 \'당신 편\' 초동 63만 장 대기록 돌파… 전국 파라다이스 팬심 감동',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EB%8B%B9%EC%8B%A0%ED%8E%B8&sort=1',
-      pubDate: '2026-11-11T09:00:00Z',
-      source: '파라다이스 뉴스룸',
-      summary: '가수 황영웅의 첫 정규앨범 \'당신 편\'이 초동 63만 장 돌파라는 대기록을 세우며 뜨거운 사랑을 입증했다. 황영웅은 변함없이 곁을 지켜준 공식 팬덤 파라다이스 어머님들께 깊은 큰절과 진심 어린 감사의 인사를 전했다.',
-      image_url: 'assets/hero_main.png',
-      singer_tag: '신곡·음반'
+      id: 'radio_sched_001',
+      title: '[정규 편성 안내] 매주 화요일·금요일 저녁 6시 유튜브 @김쌤의영웅라디오 15분 본방송',
+      link: 'https://www.youtube.com/@%EA%B9%80%EC%8C%A4%EC%9D%98%EC%98%81%EC%9B%85%EB%9D%BC%EB%94%94%EC%98%A4',
+      pubDate: '2026-11-17T09:00:00Z',
+      source: '김쌤의영웅라디오 편성실',
+      summary: '매주 화요일과 금요일 저녁 6시, 한 주 동안 접수된 어머님·아버님들의 따뜻한 인생 사연과 전속 가상 트로트 가수 백운호의 중저음 대표곡을 엮은 15분 정규 라디오 방송이 유튜브 채널에 공개됩니다.',
+      image_url: 'assets/baek_woon_ho_main.png',
+      singer_tag: '정규방송·편성표'
     },
     {
-      id: 'hyw_news_album_002',
-      title: '황영웅 명곡 \'당신 편\' · \'해바라기\' 음원 차트 역주행… 5070 어머님 눈물샘 적셨다',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0&sort=1',
-      pubDate: '2026-11-10T14:20:00Z',
-      source: '연예포커스',
-      summary: '가수 황영웅의 대표 감성곡 \'당신 편\'과 \'해바라기\'가 심야 청취자들의 사연 신청 쇄도로 주요 음원 플랫폼 스트리밍 순위에서 가파른 상승세를 기록 중이다. 고단한 삶을 어루만지는 따뜻한 노랫말이 깊은 울림을 전하고 있다.',
-      image_url: 'assets/characters/thumb_hwang_young_woong.png',
-      singer_tag: '신곡·음반'
-    },
-    {
-      id: 'hyw_news_album_003',
-      title: '황영웅 미니앨범 \'꽃구경\' · \'인사동 찻집\', 공식 영상 누적 재생 1,500만 뷰 돌파',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EA%BD%83%EA%B5%AC%EA%B2%BD&sort=1',
-      pubDate: '2026-11-09T11:10:00Z',
-      source: 'K-트롯 데일리',
-      summary: '황영웅의 짙은 사모곡 감성이 담긴 \'꽃구경\'과 \'인사동 찻집\' 공식 무대 영상이 누적 1,500만 회 재생을 돌파했다. 세월이 흘러도 질리지 않는 정통 동굴 중저음 보컬의 진가가 다시 한번 빛을 발했다.',
-      image_url: 'assets/og_booth_share.jpg',
-      singer_tag: '신곡·음반'
-    },
-    {
-      id: 'hyw_news_album_004',
-      title: '황영웅 수록곡 \'함께해요\' · \'황금빛 인생\', 어머님들이 뽑은 아침 힐링송 1위 선정',
-      link: 'https://paradise-hero.com/columns/index.html',
-      pubDate: '2026-11-07T08:40:00Z',
-      source: '뮤직투데이',
-      summary: '가수 황영웅의 따뜻한 희망가 \'함께해요\'가 시니어 팬들이 매일 아침 가장 먼저 재생하는 활력 응원곡으로 꼽혔다. 다정하게 손을 내미는 듯한 보이스 컬러가 하루의 든든한 시작을 열어준다는 호평이 이어진다.',
-      image_url: 'assets/og_vip_gift.jpg',
-      singer_tag: '신곡·음반'
-    },
-    {
-      id: 'hyw_news_concert_001',
-      title: '황영웅 전국 투어 콘서트 감동 후기 쇄도… 공연장 수놓은 \'에메랄드 응원 물결\'',
-      link: 'https://paradise-hero.com/columns/index.html',
-      pubDate: '2026-11-11T07:30:00Z',
-      source: '스포츠한국',
-      summary: '전국 각지에서 모인 파라다이스 팬들이 에메랄드빛 응원봉 물결로 객석을 가득 메우며 가수 황영웅과 하나 되는 명장면을 연출했다. 황영웅은 흔들림 없는 3시간 라이브 가창력과 다정한 눈맞춤으로 최고의 하루를 선물했다.',
-      image_url: 'assets/og_booth_share.jpg',
-      singer_tag: '콘서트·공연'
-    },
-    {
-      id: 'hyw_news_concert_002',
-      title: '황영웅 콘서트 현장 어머님 배려 서비스 화제… 큰 글씨 안내판부터 따뜻한 쉼터까지',
-      link: 'https://paradise-hero.com/columns/index.html',
-      pubDate: '2026-11-09T16:00:00Z',
-      source: '문화포커스',
-      summary: '가수 황영웅의 공연장이 중장년·시니어 관객들의 안전과 편의를 세심하게 배려한 운영으로 귀감이 되고 있다. 넉넉한 대기 좌석과 친절한 길 안내 요원 배치로 자녀들도 안심하고 부모님 효도 선물을 예매한다는 반응이다.',
-      image_url: 'assets/hero_main.png',
-      singer_tag: '콘서트·공연'
-    },
-    {
-      id: 'hyw_news_concert_003',
-      title: '황영웅 앙코르 무대 \'비상\' 열창에 객석 눈물바다… 1만 관객 기립박수 장관',
-      link: 'https://paradise-hero.com/columns/index.html',
-      pubDate: '2026-11-08T13:15:00Z',
-      source: '스타뉴스',
-      summary: '황영웅이 콘서트 앙코르 곡으로 선보인 \'비상\' 라이브 무대가 관객들의 가슴에 잊지 못할 전율을 안겼다. 시련을 딛고 다시 날아오르는 가사 하나하나에 진심을 실어 부른 열창에 전 객석에서 뜨거운 기립박수가 터져 나왔다.',
-      image_url: 'assets/characters/thumb_hwang_young_woong.png',
-      singer_tag: '콘서트·공연'
-    },
-    {
-      id: 'hyw_news_concert_004',
-      title: '황영웅 팬미팅 현장에서 전한 진심… \'어머님들 건강이 제게는 가장 큰 선물입니다\'',
-      link: 'https://paradise-hero.com/columns/index.html',
-      pubDate: '2026-11-06T10:30:00Z',
-      source: '일간연예',
-      summary: '가수 황영웅이 현장을 찾은 어머님 팬들의 환절기 건강을 살뜰히 챙기며 효자 가수다운 면모를 보였다. 공연이 끝난 뒤에도 한참 동안 무대 구석구석을 돌며 허리 숙여 인사하는 모습에 팬들의 감동이 이어졌다.',
-      image_url: 'assets/og_vip_gift.jpg',
-      singer_tag: '콘서트·공연'
-    },
-    {
-      id: 'hyw_news_charity_001',
-      title: '황영웅, 공식 팬카페 \'파라다이스\'와 함께한 온기 나눔 성료… 선한 영향력 확산',
-      link: 'https://paradise-hero.com/columns/index.html',
-      pubDate: '2026-11-10T18:30:00Z',
-      source: '스타투데이',
-      summary: '가수 황영웅과 공식 팬덤 \'파라다이스\'가 전국 홀몸 어르신 및 취약계층을 위한 따뜻한 나눔 봉사활동을 성공적으로 마쳤다. 황영웅은 팬 여러분의 사랑이 더 큰 온기로 번져나갈 수 있어 진심으로 감사드린다고 전했다.',
-      image_url: 'assets/og_vip_gift.jpg',
-      singer_tag: '나눔·선행'
-    },
-    {
-      id: 'hyw_news_charity_002',
-      title: '황영웅 팬덤 파라다이스 지역 모임, 겨울맞이 김장·연탄 나눔 릴레이 훈훈',
-      link: 'https://paradise-hero.com/columns/index.html',
-      pubDate: '2026-11-09T09:50:00Z',
-      source: '나눔경제',
-      summary: '서울·경기부터 부산·대구·호남까지 전국의 황영웅 팬모임 회원들이 자발적인 김장 김치 및 방한용품 기탁을 이어가고 있다. 가수의 이름을 빛내는 성숙하고 품격 있는 기부 문화가 지역사회에 귀감이 되고 있다.',
-      image_url: 'assets/hero_main.png',
-      singer_tag: '나눔·선행'
-    },
-    {
-      id: 'hyw_news_charity_003',
-      title: '황영웅 데뷔 및 음반 발매 기념 성금 기탁… 소외 이웃에 전달된 희망의 손길',
-      link: 'https://paradise-hero.com/columns/index.html',
-      pubDate: '2026-11-07T15:20:00Z',
-      source: '복지타임즈',
-      summary: '황영웅의 음악으로 위로를 받은 팬들이 십시일반 모은 성금과 생필품을 지역 복지관에 전달했다. 복지관 관계자는 매년 잊지 않고 따뜻한 손길을 내밀어 주시는 황영웅 가수와 파라다이스 팬분들께 깊이 감사드린다고 밝혔다.',
-      image_url: 'assets/og_booth_share.jpg',
-      singer_tag: '나눔·선행'
-    },
-    {
-      id: 'hyw_news_charity_004',
-      title: '황영웅 노래교실 재능기부 봉사단 화제… 어르신 경로당에 울려 퍼진 \'당신 편\'',
-      link: 'https://paradise-hero.com/columns/index.html',
-      pubDate: '2026-11-05T11:45:00Z',
-      source: '시니어일보',
-      summary: '황영웅을 사랑하는 팬들로 구성된 봉사단이 지역 경로당을 찾아 황영웅의 대표곡을 함께 부르고 다과를 나누는 뜻깊은 시간을 가졌다. 노래로 웃음꽃을 피우는 정겨운 현장이 큰 감동을 전하고 있다.',
-      image_url: 'assets/characters/thumb_hwang_young_woong.png',
-      singer_tag: '나눔·선행'
-    },
-    {
-      id: 'hyw_news_radio_001',
-      title: '김쌤의 영웅라디오 사연 신청 폭주… 황영웅 노래로 다시 웃음 찾은 어머님들 감동 실화',
-      link: 'https://paradise-hero.com/radio.html',
-      pubDate: '2026-11-11T06:00:00Z',
-      source: '김쌤의 영웅라디오',
-      summary: '유튜브 \'@김쌤의영웅라디오\'와 파라다이스 사연 복덕방에 전국 어머님들의 진솔한 인생 사연이 줄을 잇고 있다. 병상에서, 혹은 외로운 저녁 시간에 황영웅의 목소리로 큰 위로를 받았다는 편지들이 깊은 공감을 자아낸다.',
-      image_url: 'assets/og_vip_gift.jpg',
-      singer_tag: '방송·라디오'
-    },
-    {
-      id: 'hyw_news_radio_002',
-      title: '보컬 전문가들이 분석한 황영웅 중저음의 비밀… \'듣는 이의 심장 박동과 닮은 치유 주파수\'',
+      id: 'radio_sched_002',
+      title: '[1화 다시듣기] 남편 떠난 빈집을 적신 중저음 위로 · 백운호 〈어머니의 봄날〉 특집 방송',
       link: 'https://paradise-hero.com/radio.html?ep=1',
-      pubDate: '2026-11-10T10:15:00Z',
-      source: '사운드저널',
-      summary: '소리 전문가들은 가수 황영웅 특유의 깊고 풍부한 중저음 발성이 중장년 청취자들에게 심리적 안정감과 카타르시스를 동시에 선사한다고 호평했다. 기교보다 진심을 앞세운 호흡이 독보적 호소력의 비결로 꼽힌다.',
-      image_url: 'assets/hero_main.png',
-      singer_tag: '방송·라디오'
+      pubDate: '2026-11-17T08:00:00Z',
+      source: '유튜브 @김쌤의영웅라디오',
+      summary: '홀로 맞이하는 계절을 따뜻하게 감싸 안아드리는 1화 사연 방송입니다. 가족을 위해 평생을 바치신 어머님께 바치는 백운호의 타이틀곡 〈어머니의 봄날〉과 함께 깊은 위로를 만나보세요.',
+      image_url: 'assets/baek_woon_ho_main.png',
+      singer_tag: '정규방송·편성표'
     },
     {
-      id: 'hyw_news_radio_003',
-      title: '황영웅 대표 리메이크 무대 다시보기 열풍… 심야 라디오 단골 신청곡 등극',
-      link: 'https://search.naver.com/search.naver?where=news&query=%ED%99%A9%EC%98%81%EC%9B%85+%EB%AC%B4%EB%8C%80+%EC%98%81%EC%83%81&sort=1',
-      pubDate: '2026-11-08T19:00:00Z',
-      source: '방송연예뉴스',
-      summary: '잠 못 이루는 밤 라디오 주파수를 맞추는 시니어 애청자들 사이에서 황영웅의 정통 트로트 무대 음원이 부동의 인기 신청곡으로 사랑받고 있다. 한 소절만 들어도 가슴이 뻥 뚫린다는 애청자 후기가 이어진다.',
-      image_url: 'assets/characters/thumb_hwang_young_woong.png',
-      singer_tag: '방송·라디오'
-    },
-    {
-      id: 'hyw_news_radio_004',
-      title: '파라다이스 사연 복덕방 음성 받아쓰기 인기… \'글자 치기 힘들어도 말로 사연 보내요\'',
-      link: 'https://paradise-hero.com/story.html',
-      pubDate: '2026-11-06T14:10:00Z',
-      source: '파라다이스 뉴스룸',
-      summary: '스마트폰 작은 자판 입력이 불편했던 어머님들이 파라다이스 히어로의 \'말씀으로 편하게 적기\' 기능을 통해 손쉽게 방송 사연을 접수하고 있다. 접수된 사연은 매주 김쌤의 영웅라디오 정규 방송에서 따뜻하게 낭독된다.',
+      id: 'radio_sched_003',
+      title: '[2화·3화 다시듣기] 무릎 재활 산책길 동행 사연 & 시집가는 막내딸 축원 라디오 방송',
+      link: 'https://paradise-hero.com/radio.html?ep=2',
+      pubDate: '2026-11-16T18:00:00Z',
+      source: '유튜브 @김쌤의영웅라디오',
+      summary: '재활 걷기 운동을 버티게 해준 〈백운호 연가〉 사연(2화)과 막내딸을 시집보낸 저녁의 먹먹한 마음을 달래준 〈다시 피는 동백꽃〉 사연(3화)을 공식 유튜브 영상으로 바로 감상하실 수 있습니다.',
       image_url: 'assets/og_booth_share.jpg',
-      singer_tag: '방송·라디오'
+      singer_tag: '정규방송·편성표'
     },
     {
-      id: 'hyw_news_fandom_001',
-      title: '파라다이스 히어로, 황영웅 10대 시그니처 의상 무료 투샷 포토부스 전면 개방 화제',
-      link: 'https://paradise-hero.com/booth.html',
-      pubDate: '2026-11-11T08:00:00Z',
-      source: '파라다이스 뉴스룸',
-      summary: '가수 황영웅 팬 쉼터 \'파라다이스 히어로\'가 에메랄드 콘서트 수트부터 순백 턱시도, 한복룩까지 황영웅의 10가지 의상과 함께 기념사진을 찍는 온라인 포토부스를 회원가입·결제 없이 100% 무제한 무료로 개방해 큰 호응을 얻고 있다.',
-      image_url: 'assets/og_booth_share.jpg',
-      singer_tag: '팬덤·파라다이스'
-    },
-    {
-      id: 'hyw_news_fandom_002',
-      title: '어머님들 카톡 프로필 사진 열풍… 황영웅 무료 선물제작소 달력·효도 안부카드 인기',
-      link: 'https://paradise-hero.com/vip.html',
-      pubDate: '2026-11-10T12:30:00Z',
-      source: '디지털시니어',
-      summary: '내 이름이 새겨진 파라다이스 평생 동행 증서와 큰 글씨 월간 달력 배경화면, 자녀·친구에게 보내는 황영웅 안부 카드를 무료로 만들 수 있는 \'무료 선물제작소\'가 어머님 팬들의 카카오톡 단톡방 필수 코스로 자리 잡았다.',
+      id: 'radio_sched_004',
+      title: '[4화·5화 다시듣기] 칠순에 찾은 새 봄날 & 새벽 첫차 어머님 손길 추억 라디오 방송',
+      link: 'https://paradise-hero.com/radio.html?ep=4',
+      pubDate: '2026-11-15T18:00:00Z',
+      source: '유튜브 @김쌤의영웅라디오',
+      summary: '평생 가족 뒷바라지 끝에 맞이한 〈내 인생의 금빛 노을〉(4화)과 새벽 기차역의 추억이 담긴 〈고향역 첫차〉·〈항구의 등불〉(5화) 본방송을 광고 걱정 없이 편안하게 이어 들으실 수 있습니다.',
       image_url: 'assets/og_vip_gift.jpg',
-      singer_tag: '팬덤·파라다이스'
+      singer_tag: '정규방송·편성표'
     },
     {
-      id: 'hyw_news_fandom_003',
-      title: '칠순에 다시 찾은 청춘… 황영웅 응원하며 스마트폰 스밍·투표 배운 어머님들의 봄날',
+      id: 'baek_song_001',
+      title: '[오리지널 타이틀곡 해설] 백운호 〈어머니의 봄날〉 — 평생 가족 위해 헌신하신 당신께 바치는 헌정곡',
       link: 'https://paradise-hero.com/stream.html',
-      pubDate: '2026-11-08T09:20:00Z',
-      source: '라이프투데이',
-      summary: '평생 가족 뒷바라지만 하며 살아온 6070 어머님들이 가수 황영웅을 응원하면서 음원 스트리밍과 팬 커뮤니티 소통을 배우며 제2의 청춘 활력을 되찾고 있다. 자녀들 역시 밝아진 어머니 모습에 함께 응원을 보태고 있다.',
-      image_url: 'assets/hero_main.png',
-      singer_tag: '팬덤·파라다이스'
+      pubDate: '2026-11-17T07:30:00Z',
+      source: '백운호 음반 제작노트',
+      summary: '김쌤의영웅라디오 전속 가상 트로트 가수 백운호의 대표 타이틀곡 〈어머니의 봄날〉은 거친 세월을 묵묵히 견뎌내신 어머님·아버님의 오늘이 가장 따뜻한 봄날임을 노래하는 정통 중저음 트로트 곡입니다.',
+      image_url: 'assets/characters/thumb_hero_style_01.png',
+      singer_tag: '백운호 대표곡'
     },
     {
-      id: 'hyw_news_fandom_004',
-      title: '파라다이스 사랑방 일일 출석 응원 열기… \'오늘도 황영웅님 꽃길만 걸으세요\'',
+      id: 'baek_song_002',
+      title: '[대표곡 이야기] 〈백운호 연가〉 & 〈항구의 등불〉 — 산책길과 저녁 쉼터를 채우는 잔잔한 선율',
+      link: 'https://paradise-hero.com/stream.html',
+      pubDate: '2026-11-16T11:00:00Z',
+      source: '백운호 음반 제작노트',
+      summary: '흰 구름 머무는 고요한 호수처럼 마음을 다독이는 〈백운호 연가〉와 먼바다 배를 맞이하는 등대처럼 든든한 위로를 전하는 〈항구의 등불〉은 아침·저녁 걷기 운동 때 듣기 좋은 대표 애창곡입니다.',
+      image_url: 'assets/characters/thumb_hero_style_03.png',
+      singer_tag: '백운호 대표곡'
+    },
+    {
+      id: 'baek_song_003',
+      title: '[대표곡 이야기] 〈다시 피는 동백꽃〉 & 〈고향역 첫차〉 — 그리운 시절과 다시 피어날 내일의 노래',
+      link: 'https://paradise-hero.com/stream.html',
+      pubDate: '2026-11-15T11:00:00Z',
+      source: '백운호 음반 제작노트',
+      summary: '찬 바람 속에서도 붉은 꽃망울을 터뜨리는 〈다시 피는 동백꽃〉과 고향 정거장의 아련한 정취를 담은 〈고향역 첫차〉는 5070 시니어 청취자분들이 사연 신청곡으로 가장 많이 찾아주시는 곡입니다.',
+      image_url: 'assets/characters/thumb_hero_style_04.png',
+      singer_tag: '백운호 대표곡'
+    },
+    {
+      id: 'baek_song_004',
+      title: '[대표곡 이야기] 〈내 인생의 금빛 노을〉 — 인생 2막 황혼을 가장 빛나는 시간으로 응원합니다',
+      link: 'https://paradise-hero.com/stream.html',
+      pubDate: '2026-11-14T11:00:00Z',
+      source: '백운호 음반 제작노트',
+      summary: '한낮의 뜨거운 태양보다 저녁 하늘을 물들이는 노을이 더욱 깊고 아름답듯, 자녀들을 다 키우고 맞이한 어머님·아버님의 인생 2막을 축복하는 따뜻한 정통 트로트 세레나데입니다.',
+      image_url: 'assets/characters/thumb_hero_style_05.png',
+      singer_tag: '백운호 대표곡'
+    },
+    {
+      id: 'lounge_story_001',
+      title: '[사연 접수 안내] 이메일·비밀번호 없이도 1분 만에 라디오 사연과 1줄 응원을 남기실 수 있습니다',
+      link: 'https://paradise-hero.com/story.html',
+      pubDate: '2026-11-17T06:30:00Z',
+      source: '김쌤의영웅라디오 작가실',
+      summary: '복잡한 회원가입 없이 성함(또는 별명)과 사연만 적어 보내주시면 방송국 서버에 즉시 접수됩니다. 타자 입력이 불편하신 분들을 위해 마이크로 말씀하시면 글자로 적어주는 음성 받아쓰기 기능도 지원합니다.',
+      image_url: 'assets/characters/thumb_hero_style_06.png',
+      singer_tag: '사랑방 사연소식'
+    },
+    {
+      id: 'lounge_story_002',
+      title: '[전국 가족 담벼락] 부산·대구·강릉·익산 전국 사랑방 가족들의 실시간 공감 박수 소통 안내',
       link: 'https://paradise-hero.com/community.html',
-      pubDate: '2026-11-05T17:00:00Z',
-      source: '파라다이스 뉴스룸',
-      summary: '복잡한 회원가입 없이 닉네임 하나로 매일 따뜻한 응원 한마디를 남기는 파라다이스 사랑방 출석 게시판이 전국 팬들의 다정한 안부 인사로 북적이고 있다. 서로의 건강을 챙기며 황영웅을 응원하는 성숙한 팬 문화가 빛난다.',
-      image_url: 'assets/characters/thumb_hwang_young_woong.png',
-      singer_tag: '팬덤·파라다이스'
+      pubDate: '2026-11-16T09:30:00Z',
+      source: '김쌤의영웅라디오 사랑방',
+      summary: '사랑방 담벼락에 게시된 이웃 사연의 공감 박수 버튼을 누르시면 전국 어디서 접속하든 실시간으로 따뜻한 응원 박수 숫자가 함께 올라갑니다. 새로 보내주신 응원글은 스팸 확인 후 정식 게시됩니다.',
+      image_url: 'assets/baek_woon_ho_main.png',
+      singer_tag: '사랑방 사연소식'
+    },
+    {
+      id: 'lounge_story_003',
+      title: '[이달의 사연 주제] 내 인생 가장 고마웠던 한 사람 & 가을 산책길에 떠오르는 추억 모집',
+      link: 'https://paradise-hero.com/story.html',
+      pubDate: '2026-11-15T09:30:00Z',
+      source: '김쌤의영웅라디오 작가실',
+      summary: '평생 곁을 지켜준 배우자, 멀리 사는 자녀, 그리운 친정어머니, 혹은 여고 시절 단짝 친구에게 전하고 싶은 짧은 편지를 남겨주세요. 화·금 저녁 6시 정규 방송에서 김쌤이 정성껏 읽어드립니다.',
+      image_url: 'assets/characters/thumb_hero_style_02.png',
+      singer_tag: '사랑방 사연소식'
+    },
+    {
+      id: 'lounge_story_004',
+      title: '[정직 운영 원칙] 본 사랑방은 실존 연예인 팬카페가 아닌 오리지널 가상 가수 백운호 라디오 쉼터입니다',
+      link: 'https://paradise-hero.com/index.html',
+      pubDate: '2026-11-14T09:30:00Z',
+      source: '김쌤의영웅라디오 운영팀',
+      summary: '김쌤의영웅라디오의 영웅은 가족을 위해 평생을 바치신 어머님·아버님 여러분을 뜻합니다. 실존 연예인 사칭이나 혼동 없이, 순수 창작 가상 트로트 가수 백운호의 음악과 청취자 사연으로 정직하게 운영합니다.',
+      image_url: 'assets/baek_woon_ho_main.png',
+      singer_tag: '사랑방 사연소식'
+    },
+    {
+      id: 'senior_health_001',
+      title: '[환절기 건강 상식] 아침·저녁 기온 차 큰 계절, 시니어 심혈관·혈압 관리 및 산책 수칙',
+      link: 'https://www.kdca.go.kr',
+      pubDate: '2026-11-16T08:00:00Z',
+      source: '질병관리청 건강정보 안내',
+      summary: '기온이 급격히 내려가는 이른 새벽 산책보다는 햇살이 퍼지는 오전 10시 이후 얇은 옷을 여러 겹 겹쳐 입고 가벼운 보폭으로 걸으시는 것이 혈관 건강과 체온 유지에 큰 도움이 됩니다.',
+      image_url: 'assets/og_vip_gift.jpg',
+      singer_tag: '시니어 건강상식'
+    },
+    {
+      id: 'senior_health_002',
+      title: '[청취·눈 건강 가이드] 스마트폰 라디오 시청 시 눈 피로와 귀 피로를 줄이는 생활 습관',
+      link: 'https://www.nhis.or.kr',
+      pubDate: '2026-11-15T08:00:00Z',
+      source: '국민건강보험 건강자료 안내',
+      summary: '스마트폰 화면은 눈에서 30cm 이상 띄우고 본 사랑방 상단의 글자 크게 버튼을 활용해 눈의 긴장을 덜어주세요. 이어폰 음량은 최대 볼륨의 60% 이하로 맞추고 50분 청취 후 10분 휴식을 권장합니다.',
+      image_url: 'assets/og_booth_share.jpg',
+      singer_tag: '시니어 건강상식'
+    },
+    {
+      id: 'senior_health_003',
+      title: '[목·호흡기 관리] 건조한 실내에서 노래를 따라 부르실 때 미지근한 수분 섭취가 중요한 이유',
+      link: 'https://www.nhis.or.kr',
+      pubDate: '2026-11-14T08:00:00Z',
+      source: '국민건강보험 건강자료 안내',
+      summary: '난방이 시작되는 계절에는 성대 점막이 쉽게 마를 수 있습니다. 카페인이 많은 진한 커피 대신 미지근한 물이나 따뜻한 도라지·배차를 조금씩 자주 드시면 목 잠김 예방에 좋습니다.',
+      image_url: 'assets/baek_woon_ho_main.png',
+      singer_tag: '시니어 건강상식'
+    },
+    {
+      id: 'senior_health_004',
+      title: '[어르신 문화·복지 정보] 보건복지상담센터(국번없이 129) 및 지역 어르신 문화 프로그램 확인하기',
+      link: 'https://www.129.go.kr',
+      pubDate: '2026-11-13T08:00:00Z',
+      source: '보건복지상담센터 공공안내',
+      summary: '우리 동네 노인복지관의 무료 건강교실, 노래교실, 예방접종 일정 및 일상 돌봄 상담이 필요하실 때는 보건복지상담센터 공식 누리집이나 국번 없이 129번을 통해 친절히 안내받으실 수 있습니다.',
+      image_url: 'assets/og_vip_gift.jpg',
+      singer_tag: '시니어 건강상식'
+    },
+    {
+      id: 'radio_guide_001',
+      title: '[화면 사용법] 돋보기 없이 편안하게! 상단 글자 크게 3단계 조절 버튼과 하단 미니 라디오 사용법',
+      link: 'https://paradise-hero.com/radio.html',
+      pubDate: '2026-11-17T06:00:00Z',
+      source: '사랑방 도우미 안내',
+      summary: '화면 맨 위 오른쪽의 글자 크게 버튼을 누르실 때마다 글씨가 큼직하게 커집니다. 화면 아래쪽 얇은 라디오 바에서 재생 버튼을 누르시면 다른 글을 읽으시는 동안에도 음악이 끊기지 않고 흐릅니다.',
+      image_url: 'assets/characters/thumb_hero_style_06.png',
+      singer_tag: '라디오 이용안내'
+    },
+    {
+      id: 'radio_guide_002',
+      title: '[무료 포토부스 안내] 백운호 6대 무대 의상(에메랄드 정장~한복·DJ룩)과 다정한 기념사진 찍는 법',
+      link: 'https://paradise-hero.com/booth.html',
+      pubDate: '2026-11-16T06:00:00Z',
+      source: '사랑방 도우미 안내',
+      summary: '기념 촬영관에서 에메랄드 정장, 화이트 턱시도, 클래식 네이비 수트, 가을 코트, 전통 한복, 라디오 DJ룩 중 마음에 드는 의상을 고르고 내 사진만 올리시면 무료로 고화질 기념사진을 저장하실 수 있습니다.',
+      image_url: 'assets/og_booth_share.jpg',
+      singer_tag: '라디오 이용안내'
+    },
+    {
+      id: 'radio_guide_003',
+      title: '[무료 선물관 안내] 카톡 아침 안부카드 · 큰글씨 달력 · 백운호 명곡 가사카드 100% 무료 저장',
+      link: 'https://paradise-hero.com/vip.html',
+      pubDate: '2026-11-15T06:00:00Z',
+      source: '사랑방 도우미 안내',
+      summary: '유료 결제나 회원가입 없이 누구나 무료로 이용하실 수 있는 디지털 선물관입니다. 친구와 자녀 단톡방에 보내기 좋은 요일별 꽃 안부카드와 음력 표시 큰글씨 달력을 바로 휴대폰에 담아보세요.',
+      image_url: 'assets/og_vip_gift.jpg',
+      singer_tag: '라디오 이용안내'
+    },
+    {
+      id: 'radio_guide_004',
+      title: '[3초 무료 우편함] 비밀번호 없이 이메일만 적으면 화·금 라디오 방송 소식을 편지로 보내드립니다',
+      link: 'https://paradise-hero.com/index.html#hero-passwordless-club-card',
+      pubDate: '2026-11-14T06:00:00Z',
+      source: '사랑방 도우미 안내',
+      summary: '아이디나 비밀번호를 외우실 필요 없이 이메일 주소 하나로 무료 우편함 회원이 되실 수 있습니다. 매주 새 라디오 사연 방송 소식과 계절 건강 편지를 큰글씨로 보내드리며 언제든 1클릭 수신거부가 가능합니다.',
+      image_url: 'assets/baek_woon_ho_main.png',
+      singer_tag: '라디오 이용안내'
     }
   ];
 
@@ -236,7 +229,7 @@
       this.activeSinger = '전체';
       this.searchQuery = '';
       this.currentModalArticle = null;
-      this.modalFontLevel = 'normal'; // 'normal' (24px), 'large' (28px), 'xlarge' (32px)
+      this.modalFontLevel = 'normal';
       this.isModalOpen = false;
     }
 
@@ -269,7 +262,7 @@
     setSingerFilter(singer) {
       if (SINGER_LIST.includes(singer) || singer === '전체') {
         this.activeSinger = singer;
-      } else if (singer === '황영웅') {
+      } else {
         this.activeSinger = '전체';
       }
       return this.getFilteredArticles();
@@ -284,12 +277,12 @@
       let filtered = this.articles;
 
       if (this.activeSinger && this.activeSinger !== '전체') {
-        filtered = filtered.filter(item => item.singer_tag === this.activeSinger);
+        filtered = filtered.filter((item) => item.singer_tag === this.activeSinger);
       }
 
       if (this.searchQuery) {
         const q = this.searchQuery.toLowerCase();
-        filtered = filtered.filter(item => {
+        filtered = filtered.filter((item) => {
           const t = (item.title || '').toLowerCase();
           const s = (item.summary || '').toLowerCase();
           const src = (item.source || '').toLowerCase();
@@ -302,7 +295,7 @@
     }
 
     getArticleById(id) {
-      return this.articles.find(a => a.id === id) || null;
+      return this.articles.find((a) => a.id === id) || null;
     }
 
     openModal(id) {
@@ -371,10 +364,6 @@
       try {
         const d = new Date(isoStr);
         if (isNaN(d.getTime())) return isoStr;
-        const now = new Date();
-        const diffHours = Math.floor((now - d) / (1000 * 60 * 60));
-        if (diffHours >= 0 && diffHours < 1) return '방금 전';
-        if (diffHours >= 1 && diffHours < 24) return `${diffHours}시간 전`;
         return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
       } catch (e) {
         return isoStr;
@@ -385,7 +374,7 @@
       if (!pillsContainer) return;
       pillsContainer.innerHTML = '';
 
-      SINGER_LIST.forEach(category => {
+      SINGER_LIST.forEach((category) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'pill-btn' + (engine.activeSinger === category ? ' active' : '');
@@ -414,16 +403,16 @@
       const formattedDate = formatDate(article.pubDate);
 
       heroContainer.innerHTML = `
-        <article class="hero-spotlight-card senior-card" aria-label="가수 황영웅 오늘의 주요 소식">
+        <article class="hero-spotlight-card senior-card" aria-label="김쌤의영웅라디오 주요 편성 및 소식">
           <div class="hero-badge-row">
-            <span class="spotlight-tag" aria-label="속보">💚 오늘의 황영웅 주요 소식</span>
+            <span class="spotlight-tag">📻 김쌤의영웅라디오 주요 안내</span>
             <span class="singer-tag-badge">${article.singer_tag}</span>
             <span class="outlet-badge">${article.source}</span>
             <span class="date-badge">${formattedDate}</span>
           </div>
           <div class="hero-content-split">
             <div class="hero-thumb-wrapper">
-              <img src="${article.image_url}" alt="${article.title} 사진" class="hero-thumb-img" onerror="this.onerror=null;this.src='assets/og_booth_share.jpg';">
+              <img src="${article.image_url}" alt="${article.title} 안내 이미지" class="hero-thumb-img" onerror="this.onerror=null;this.src='assets/baek_woon_ho_main.png';">
             </div>
             <div class="hero-text-col">
               <h2 class="hero-news-title">
@@ -434,8 +423,8 @@
                 <button type="button" class="senior-btn btn-primary btn-read-large" data-id="${article.id}" aria-label="${article.title} 큰 글씨로 편하게 읽기">
                   <span aria-hidden="true">🔍</span> 큰 글씨로 편하게 읽기
                 </button>
-                <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="senior-btn btn-outline" aria-label="원문 소식 새 창에서 보기">
-                  <span aria-hidden="true">🌐</span> 원문 소식 보기
+                <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="senior-btn btn-outline" aria-label="관련 페이지 바로 열기">
+                  <span aria-hidden="true">🌐</span> 바로 이동하기
                 </a>
               </div>
             </div>
@@ -444,95 +433,21 @@
       `;
     }
 
-    function renderFeed(articles) {
-      if (!feedContainer) return;
-      feedContainer.innerHTML = '';
-
-      if (articles.length === 0) {
-        feedContainer.innerHTML = `
-          <div class="no-results-card senior-card">
-            <p class="no-results-icon" aria-hidden="true">🔎</p>
-            <h3 class="no-results-title">검색된 황영웅 소식이 없습니다</h3>
-            <p class="no-results-desc">다른 분야 버튼을 누르시거나 검색어를 지워주세요.</p>
-            <button type="button" class="senior-btn btn-gold btn-reset-filters">
-              <span>전체 황영웅 소식 보기</span>
-            </button>
-          </div>
-        `;
-        const resetBtn = feedContainer.querySelector('.btn-reset-filters');
-        if (resetBtn) {
-          resetBtn.addEventListener('click', () => {
-            if (searchInput) searchInput.value = '';
-            engine.setSearchQuery('');
-            engine.setSingerFilter('전체');
-            updateUI();
-          });
-        }
-        return;
-      }
-
-      const displayList = articles.length > 1 ? articles.slice(1) : articles;
-
-      displayList.forEach((article, idx) => {
-        if (idx === 1) {
-          feedContainer.appendChild(createOneTapShopBanner(engine.activeSinger || article.singer_tag));
-        }
-        if (idx === 2) {
-          feedContainer.appendChild(createPhotoBoothCTA());
-        }
-        if (idx === 6) {
-          feedContainer.appendChild(createRadioCTA());
-        }
-
-        const card = document.createElement('article');
-        card.className = 'news-card senior-card';
-        card.setAttribute('aria-label', `${article.singer_tag} 소식: ${article.title}`);
-
-        const formattedDate = formatDate(article.pubDate);
-
-        card.innerHTML = `
-          <div class="news-card-inner">
-            <div class="news-card-thumb-wrap">
-              <img src="${article.image_url}" alt="가수 황영웅 ${article.singer_tag} 소식 이미지" class="news-card-thumb" onerror="this.onerror=null;this.src='assets/og_booth_share.jpg';">
-              <span class="card-singer-badge">${article.singer_tag}</span>
-            </div>
-            <div class="news-card-body">
-              <div class="news-card-meta">
-                <span class="card-outlet">${article.source}</span>
-                <span class="card-date">${formattedDate}</span>
-              </div>
-              <h3 class="news-card-title">
-                <a href="#view-${article.id}" class="card-title-link" data-id="${article.id}">${article.title}</a>
-              </h3>
-              <p class="news-card-excerpt">${article.summary}</p>
-              <div class="news-card-actions">
-                <button type="button" class="senior-btn btn-gold-outline btn-read-large" data-id="${article.id}" aria-label="${article.title} 큰 글씨로 읽기">
-                  <span aria-hidden="true">📖</span> 큰 글씨 요약 보기
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-
-        feedContainer.appendChild(card);
-      });
-    }
-
     function createPhotoBoothCTA() {
       const banner = document.createElement('aside');
       banner.className = 'news-interstitial-cta cta-booth senior-card';
-      banner.setAttribute('aria-label', '가수 황영웅과 함께하는 무료 투샷 사진관 바로가기');
+      banner.setAttribute('aria-label', '가상 트로트 가수 백운호 무료 투샷 사진관 바로가기');
       banner.innerHTML = `
         <div class="cta-inner">
           <div class="cta-icon-col" aria-hidden="true">📸</div>
           <div class="cta-text-col">
-            <span class="cta-kicker">100% 무제한 무료 개방</span>
-            <h3 class="cta-heading">가수 황영웅님과 다정한 기념 투샷 무료 촬영!</h3>
-            <p class="cta-description">회원가입이나 결제 없이 누구나 평생 무제한 무료! 황영웅님의 10가지 무대·일상 의상과 함께 세상에 하나뿐인 사진을 만드세요.</p>
+            <span class="cta-kicker">회원가입 없는 무료 기념관</span>
+            <h3 class="cta-heading">가상 트로트 가수 백운호 6대 무대 의상 투샷 포토부스</h3>
+            <p class="cta-description">에메랄드 정장, 화이트 턱시도, 전통 한복, 라디오 DJ룩 등 6가지 의상과 함께 기념사진을 무료로 남겨보세요.</p>
           </div>
           <div class="cta-btn-col">
             <a href="booth.html" class="senior-btn btn-gold cta-action-btn">
-              <span>무료 사진 찍으러 가기 👉</span>
+              <span>무료 기념사진 찍기 👉</span>
             </a>
           </div>
         </div>
@@ -543,14 +458,14 @@
     function createRadioCTA() {
       const banner = document.createElement('aside');
       banner.className = 'news-interstitial-cta cta-radio senior-card';
-      banner.setAttribute('aria-label', '김쌤의 영웅 라디오 방송 듣기');
+      banner.setAttribute('aria-label', '김쌤의영웅라디오 방송 듣기');
       banner.innerHTML = `
         <div class="cta-inner">
           <div class="cta-icon-col" aria-hidden="true">📻</div>
           <div class="cta-text-col">
-            <span class="cta-kicker">김쌤의 영웅 라디오</span>
-            <h3 class="cta-heading">가슴을 울리는 황영웅 사연과 명곡 연속 방송</h3>
-            <p class="cta-description">전국 파라다이스 어머님들의 눈물과 감동이 담긴 편지, 황영웅 가수의 명품 무대 이야기를 지금 바로 편안하게 들어보세요.</p>
+            <span class="cta-kicker">유튜브 @김쌤의영웅라디오</span>
+            <h3 class="cta-heading">백운호 〈어머니의 봄날〉과 따뜻한 인생 사연 연속 방송</h3>
+            <p class="cta-description">화요일·금요일 저녁 6시 정규 라디오 방송과 지난 1~5화 사연 방송을 지금 바로 편안하게 들어보세요.</p>
           </div>
           <div class="cta-btn-col">
             <a href="radio.html" class="senior-btn btn-primary cta-action-btn">
@@ -564,68 +479,46 @@
 
     function getContextShopItems(tag) {
       const t = String(tag || '');
-      if (t.indexOf('콘서트') !== -1) {
+      if (t.indexOf('건강') !== -1) {
         return [
           {
-            img: 'assets/shop/item_cushion.svg',
-            badge: '콘서트 필수 1위',
-            title: '공연장 푹신 방석 · 보온 텀블러 안심관',
-            reason: '3시간 공연 내내 허리·무릎이 편안하고 따뜻한 물을 챙기실 수 있습니다.',
+            img: 'assets/shop/item_lutein.svg',
+            badge: '청취 건강 케어',
+            title: '눈 침침함 케어 루테인 지아잔틴',
+            reason: '스마트폰으로 라디오 사연을 읽으실 때 침침한 눈 건강을 챙겨드립니다.',
             url: 'https://cshop.naver.com/paradiseshop',
             bg: '#03C75A',
-            cta: '🟢 터치 1번으로 공식 판매처 바로가기 (네이버페이) 👉'
+            cta: '🟢 공식 판매처 보러가기 (네이버페이) 👉'
           },
           {
-            img: 'assets/shop/item_battery.svg',
-            badge: '사진·라디오 연속재생',
-            title: '대용량 고속 보조배터리 (쿠팡 로켓배송)',
-            reason: '공연장 기념 촬영과 24시간 라디오 청취에도 배터리 걱정이 없습니다.',
-            url: 'https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero_news&pageKey=%EB%8C%80%EC%9A%A9%EB%9F%89+%EA%B3%A0%EC%86%8D+%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC',
-            bg: '#DC2626',
-            cta: '🚀 터치 1번으로 공식 판매처 바로가기 (내일 도착) 👉'
-          }
-        ];
-      }
-      if (t.indexOf('음반') !== -1 || t.indexOf('신곡') !== -1) {
-        return [
-          {
-            img: 'assets/shop/item_album.svg',
-            badge: '차트 100% 공식 반영',
-            title: '황영웅 정품 음반 · 포토북 모음 (YES24)',
-            reason: '구입 즉시 공식 음반 판매량에 집계되어 가수님께 큰 힘이 됩니다.',
-            url: 'https://click.linkprice.com/click.php?m=yes24&a=A100708867&l=9999&l_cd1=3&l_cd2=0&tu=https%3A%2F%2Fwww.yes24.com%2FProduct%2FSearch%3Fdomain%3DALL%26query%3D%25ED%2599%25A9%25EC%2598%2581%25EC%259B%2585',
-            bg: '#D97706',
-            cta: '💿 터치 1번으로 공식 판매처 바로가기 (YES24) 👉'
-          },
-          {
-            img: 'assets/shop/item_usb.svg',
-            badge: '전원만 켜면 바로 재생',
-            title: '영웅라디오 효도 스피커 · 공식 추천관',
-            reason: '작은 글씨 누를 필요 없이 버튼 하나로 거실에서 명곡을 듣습니다.',
-            url: 'https://influencers.coupang.com/s/paradisehero',
-            bg: '#03C75A',
-            cta: '🚀 터치 1번으로 공식 판매처 바로가기 (쿠팡 공식관) 👉'
+            img: 'assets/shop/item_doraji.svg',
+            badge: '청취 건강 케어',
+            title: '목이 편안한 도라지배즙 스틱',
+            reason: '트로트 명곡을 따라 부르실 때 칼칼한 목을 촉촉하게 보호해 드립니다.',
+            url: 'https://link.coupang.com/re/AFFSRP?lptag=AF7865143&subid=paradisehero_news&pageKey=%EB%8F%84%EB%9D%BC%EC%A7%80%EB%B0%B0%EC%A6%99+%EC%8A%A4%ED%8B%B1',
+            bg: '#B91C1C',
+            cta: '🚀 공식 판매처 보러가기 (쿠팡) 👉'
           }
         ];
       }
       return [
         {
-          img: 'assets/shop/item_ginseng.svg',
-          badge: '어머님 목건강 · 면역 1위',
-          title: '따뜻한 도라지배즙 · 발효홍삼 안심관',
-          reason: '노래 따라 부르실 때 칼칼한 목을 촉촉하고 든든하게 지켜드립니다.',
+          img: 'assets/shop/item_speaker.svg',
+          badge: '음반·청취 필수품',
+          title: '백운호·정통 트로트 감상용 효도 블루투스 라디오 스피커',
+          reason: '큼직한 버튼 하나로 거실 가득 풍성한 중저음 라디오를 들으실 수 있습니다.',
           url: 'https://cshop.naver.com/paradiseshop',
           bg: '#03C75A',
-          cta: '🟢 터치 1번으로 공식 판매처 바로가기 (네이버페이) 👉'
+          cta: '🟢 공식 판매처 보러가기 (네이버페이) 👉'
         },
         {
-          img: 'assets/shop/item_usb.svg',
-          badge: '어머님 인기 베스트',
-          title: '황영웅 정품 음반 · 효도 스피커 공식관',
-          reason: '전국 파라다이스 어머님들이 가장 많이 찾으시는 응원 필수품입니다.',
+          img: 'assets/shop/item_cushion.svg',
+          badge: '공연·나들이 준비물',
+          title: '3시간 공연장 푹신 메모리폼 방석',
+          reason: '오래 앉아 계셔도 허리와 무릎 부담을 덜어주는 접이식 메모리폼 방석입니다.',
           url: 'https://influencers.coupang.com/s/paradisehero',
           bg: '#B91C1C',
-          cta: '🚀 터치 1번으로 공식 판매처 바로가기 (쿠팡 공식관) 👉'
+          cta: '🚀 공식 판매처 보러가기 (쿠팡 공식관) 👉'
         }
       ];
     }
@@ -652,17 +545,91 @@
       const items = getContextShopItems(tag);
       const banner = document.createElement('aside');
       banner.className = 'news-interstitial-cta senior-card';
-      banner.setAttribute('aria-label', '어머님 맞춤 원터치 공식 판매처 추천 준비물');
+      banner.setAttribute('aria-label', '김쌤의 콘서트·응원 안심 준비물관');
       banner.style.cssText = 'background:#FFFFFF;border:3px solid #D4AF37;border-radius:18px;padding:22px;margin:20px 0;';
       banner.innerHTML = `
-        <div style="font-size:23px;font-weight:900;color:#0E2820;margin-bottom:6px;">🛍️ 이 소식과 딱 맞는 어머님 베스트 추천 2선</div>
-        <p style="margin:0 0 16px;font-size:19px;color:#374151;font-weight:700;">중간 창이나 회원가입 없이, 아래 큰 버튼 한 번만 누르시면 공식 판매처로 바로 이동합니다.</p>
+        <div style="font-size:23px;font-weight:900;color:#0E2820;margin-bottom:6px;">💚 김쌤의 콘서트·응원 안심 준비물관 추천 2선</div>
+        <p style="margin:0 0 14px;font-size:19px;color:#374151;font-weight:700;">라디오 청취와 공연 나들이 때 꼭 필요한 실속 준비물을 에디터 큐레이션으로 모았습니다.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;">
           ${renderShopCardsInnerHtml(items)}
         </div>
-        <p style="margin:12px 0 0;font-size:15px;color:#6B7280;">ℹ️ 네이버 쇼핑 커넥트 · 쿠팡 파트너스(AF7865143) · 링크프라이스(A100708867) 제휴 활동으로 일정액의 수수료를 제공받으나 구매자 가격은 동일합니다.</p>
+        <p class="ftc-inline-disclosure" style="margin:12px 0 0;">※ 네이버 쇼핑 커넥트·쿠팡 파트너스 활동의 일환으로 판매 발생 시 일정액의 수수료를 제공받습니다.</p>
       `;
       return banner;
+    }
+
+    function renderFeed(articles) {
+      if (!feedContainer) return;
+      feedContainer.innerHTML = '';
+
+      if (articles.length === 0) {
+        feedContainer.innerHTML = `
+          <div class="no-results-card senior-card">
+            <p class="no-results-icon" aria-hidden="true">🔎</p>
+            <h3 class="no-results-title">검색된 라디오·편성 소식이 없습니다</h3>
+            <p class="no-results-desc">다른 분야 버튼을 누르시거나 검색어를 지워주세요.</p>
+            <button type="button" class="senior-btn btn-gold btn-reset-filters">
+              <span>전체 편성·소식 보기</span>
+            </button>
+          </div>
+        `;
+        const resetBtn = feedContainer.querySelector('.btn-reset-filters');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            if (searchInput) searchInput.value = '';
+            engine.setSearchQuery('');
+            engine.setSingerFilter('전체');
+            updateUI();
+          });
+        }
+        return;
+      }
+
+      const displayList = articles.length > 1 ? articles.slice(1) : articles;
+
+      displayList.forEach((article, idx) => {
+        if (idx === 1) {
+          feedContainer.appendChild(createOneTapShopBanner(engine.activeSinger || article.singer_tag));
+        }
+        if (idx === 3) {
+          feedContainer.appendChild(createPhotoBoothCTA());
+        }
+        if (idx === 6) {
+          feedContainer.appendChild(createRadioCTA());
+        }
+
+        const card = document.createElement('article');
+        card.className = 'news-card senior-card';
+        card.setAttribute('aria-label', `${article.singer_tag}: ${article.title}`);
+
+        const formattedDate = formatDate(article.pubDate);
+
+        card.innerHTML = `
+          <div class="news-card-inner">
+            <div class="news-card-thumb-wrap">
+              <img src="${article.image_url}" alt="${article.singer_tag} 안내 이미지" class="news-card-thumb" onerror="this.onerror=null;this.src='assets/baek_woon_ho_main.png';">
+              <span class="card-singer-badge">${article.singer_tag}</span>
+            </div>
+            <div class="news-card-body">
+              <div class="news-card-meta">
+                <span class="card-outlet">${article.source}</span>
+                <span class="card-date">${formattedDate}</span>
+              </div>
+              <h3 class="news-card-title">
+                <a href="#view-${article.id}" class="card-title-link" data-id="${article.id}">${article.title}</a>
+              </h3>
+              <p class="news-card-excerpt">${article.summary}</p>
+              <div class="news-card-actions">
+                <button type="button" class="senior-btn btn-gold-outline btn-read-large" data-id="${article.id}" aria-label="${article.title} 큰 글씨로 읽기">
+                  <span aria-hidden="true">📖</span> 큰 글씨 요약 보기
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        feedContainer.appendChild(card);
+      });
     }
 
     function showModalForArticle(id) {
@@ -687,10 +654,11 @@
           const items = getContextShopItems(article.singer_tag);
           shopSlot.innerHTML = `
             <div style="background:#FFFFFF;border:2.5px solid #D4AF37;border-radius:16px;padding:18px;">
-              <div style="font-size:21px;font-weight:900;color:#0E2820;margin-bottom:10px;">🛍️ 이 기사와 함께 많이 보시는 어머님 추천 준비물</div>
+              <div style="font-size:21px;font-weight:900;color:#0E2820;margin-bottom:10px;">💚 김쌤의 콘서트·응원 안심 준비물관</div>
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;">
                 ${renderShopCardsInnerHtml(items)}
               </div>
+              <p class="ftc-inline-disclosure" style="margin:10px 0 0;">※ 네이버 쇼핑 커넥트·쿠팡 파트너스 활동의 일환으로 판매 발생 시 일정액의 수수료를 제공받습니다.</p>
             </div>
           `;
         }
@@ -759,7 +727,7 @@
         if (modalBodyEl) {
           modalBodyEl.style.fontSize = `${sizePx}px`;
         }
-        modalFontScalerBtn.setAttribute('aria-label', `기사 글자 크기 조절 (현재 ${sizePx}px)`);
+        modalFontScalerBtn.setAttribute('aria-label', `소식 글자 크기 조절 (현재 ${sizePx}px)`);
         modalFontScalerBtn.innerHTML = `<span aria-hidden="true">🔍</span> 글자 크기: <strong>${sizePx}px</strong>`;
       });
     }
@@ -770,17 +738,15 @@
         if (!article) return;
 
         const shareData = {
-          title: `[황영웅 소식방] ${article.title}`,
-          text: `${article.summary}\n\n출처: 파라다이스 히어로`,
+          title: `[김쌤의영웅라디오 소식란] ${article.title}`,
+          text: `${article.summary}\n\n출처: 김쌤의영웅라디오 가족 사랑방`,
           url: window.location.href
         };
 
         if (navigator.share) {
           try {
             await navigator.share(shareData);
-          } catch (err) {
-            // Cancelled
-          }
+          } catch (err) {}
         } else if (navigator.clipboard) {
           try {
             await navigator.clipboard.writeText(`${shareData.title}\n${shareData.url}`);
@@ -828,16 +794,15 @@
     }
   }
 
+  global.TrotNewsEngine = TrotNewsEngine;
+  global.SEED_NEWS = SEED_NEWS;
+  global.SINGER_LIST = SINGER_LIST;
+
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
       TrotNewsEngine,
       SEED_NEWS,
       SINGER_LIST
     };
-  } else {
-    global.TrotNewsEngine = TrotNewsEngine;
-    global.SEED_NEWS = SEED_NEWS;
-    global.SINGER_LIST = SINGER_LIST;
   }
-
-})(typeof window !== 'undefined' ? window : globalThis);
+})(typeof window !== 'undefined' ? window : global);
