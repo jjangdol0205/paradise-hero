@@ -39,7 +39,13 @@ URL_LIST = [
     f"https://{HOST}/community.html",
     f"https://{HOST}/stream.html",
     f"https://{HOST}/vip.html",
-    f"https://{HOST}/news.html"
+    f"https://{HOST}/news.html",
+    f"https://{HOST}/columns/",
+    f"https://{HOST}/columns/baek-woon-ho-debut-story.html",
+    f"https://{HOST}/columns/mothers-spring-day-lyric-story.html",
+    f"https://{HOST}/columns/baek-woon-ho-yeonga-radio-note.html",
+    f"https://{HOST}/columns/blooming-camellia-again-hope.html",
+    f"https://{HOST}/columns/senior-radio-concert-wellness-guide.html",
 ]
 
 
@@ -121,14 +127,14 @@ def verify_live_domain(url: str = f"https://{HOST}/", timeout: int = 10) -> Dict
             code = resp.getcode()
             body = resp.read().decode('utf-8', errors='replace')
             result["status"] = code
-            has_brand = ("파라다이스" in body or "황영웅" in body)
+            has_brand = ("백운호" in body and "김쌤의영웅라디오" in body)
             result["brand_verified"] = has_brand
             if code == 200 and has_brand:
                 result["live"] = True
-                result["message"] = f"HTTP {code} OK (Paradise Hero Verified)"
+                result["message"] = f"HTTP {code} OK (Baek Woon-ho & Hero Radio Verified)"
             elif code == 200:
                 result["live"] = False
-                result["message"] = f"HTTP {code} OK (Content mismatch - missing '파라다이스' brand content)"
+                result["message"] = f"HTTP {code} OK (Content mismatch - missing '백운호' brand content)"
             else:
                 result["live"] = False
                 result["message"] = f"HTTP {code}"

@@ -32,7 +32,7 @@ assert.ok(masterContent.includes('어머니의 봄날'), 'Must cover title song 
 assert.ok(!masterContent.includes(BANNED_HWANG), 'Must NOT contain real celebrity name');
 assert.ok(masterContent.includes('https://cshop.naver.com/paradiseshop'), 'Must document Naver Creator Shop URL');
 assert.ok(masterContent.includes('AF7865143'), 'Must document Coupang Partners ID AF7865143');
-assert.ok(!masterContent.includes('296100'), 'Must NOT contain retired overseas Store');
+assert.ok(!masterContent.includes('296' + '100'), 'Must NOT contain retired overseas Store');
 assert.ok(playbookContent.includes('https://paradise-hero.com/booth.html'), 'Playbook pinned comment must include booth.html');
 assert.ok(playbookContent.includes('https://cshop.naver.com/paradiseshop'), 'Playbook pinned comment must include cshop.naver.com/paradiseshop');
 

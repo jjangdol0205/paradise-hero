@@ -876,7 +876,7 @@
 
     ctx.fillStyle = '#FDE68A';
     ctx.font = '900 40px "Malgun Gothic", sans-serif';
-    ctx.fillText('파라다이스 황금 소원 등불 점등 인증서', W / 2, 130);
+    ctx.fillText('김쌤의영웅라디오 사랑방 소원 등불 점등 인증서', W / 2, 130);
 
     // Wish Plaque
     ctx.fillStyle = 'rgba(255, 251, 235, 0.96)';
@@ -1337,7 +1337,6 @@
     module.exports = Object.assign(
       {
         BAEK_PORTRAITS,
-        HWANG_PORTRAITS: BAEK_PORTRAITS,
         GREETING_TEMPLATES,
         SONG_GUIDES,
         getStudioState,

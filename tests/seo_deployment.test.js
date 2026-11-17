@@ -55,13 +55,43 @@ ALL_HTML_PAGES.forEach(({ canonical }) => {
   assert.ok(sitemapContent.includes(`<loc>${canonical}</loc>`), `sitemap.xml must register ${canonical}`);
 });
 assert.ok(!sitemapContent.includes('lounge.html'), 'sitemap.xml must NOT include consolidated lounge.html redirect stub');
+const PURE_BAEK_COLUMNS = [
+  'baek-woon-ho-debut-story.html',
+  'mothers-spring-day-lyric-story.html',
+  'baek-woon-ho-yeonga-radio-note.html',
+  'blooming-camellia-again-hope.html',
+  'senior-radio-concert-wellness-guide.html'
+];
+const LEGACY_COLUMN_TOKENS = [
+  'bi' + 'sang-',
+  'dangsin-' + 'pyeon',
+  'haeba' + 'ragi-',
+  'insa' + 'dong-',
+  'paradise-' + 'fandom',
+  'emerald-' + 'concert'
+];
+
 assert.ok(sitemapContent.includes('<loc>https://paradise-hero.com/columns/</loc>'));
 assert.ok(!sitemapContent.includes(BANNED_HWANG));
+PURE_BAEK_COLUMNS.forEach((slug) => {
+  const colPath = path.join(ROOT_DIR, 'columns', slug);
+  assert.ok(fs.existsSync(colPath) && fs.statSync(colPath).size > 15000, `Missing pure Baek Woon-ho column: ${slug}`);
+  assert.ok(sitemapContent.includes(`<loc>https://paradise-hero.com/columns/${slug}</loc>`), `sitemap.xml missing ${slug}`);
+});
+LEGACY_COLUMN_TOKENS.forEach((legacy) => {
+  assert.ok(!sitemapContent.includes(legacy), `sitemap.xml still contains legacy slug ${legacy}`);
+});
 
 ['rss.xml', 'feed.xml', 'llms.txt'].forEach((fname) => {
   const txt = fs.readFileSync(path.join(ROOT_DIR, fname), 'utf-8');
   assert.ok(txt.includes('백운호'), `${fname} must cover virtual singer Baek Woon-ho`);
   assert.ok(!txt.includes(BANNED_HWANG), `${fname} must have 0 real celebrity references`);
+  PURE_BAEK_COLUMNS.forEach((slug) => {
+    assert.ok(txt.includes(`/columns/${slug}`), `${fname} must include pure Baek Woon-ho column ${slug}`);
+  });
+  LEGACY_COLUMN_TOKENS.forEach((legacy) => {
+    assert.ok(!txt.includes(legacy), `${fname} must NOT contain legacy slug ${legacy}`);
+  });
 });
 
 console.log('\n===============================================================');
