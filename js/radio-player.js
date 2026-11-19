@@ -89,9 +89,57 @@
   const WATCH_BEACON_SENT_KEY = 'hq_radio_5m30s_sent';
   const WATCH_TARGET_SECONDS = 330;
 
+  // 정식 대표 롱폼 [1화] (18분 풀버전 — 유튜브 @김쌤의영웅라디오 업로드 즉시 youtubeVideoId 입력 시 자동 전환, 빈 값일 때는 깨진 iframe 0건 + 무광고 연속 스튜디오 스트림 즉시 재생)
+  const FLAGSHIP_EP1_CONFIG = {
+    title: '[1화] 어머님 감동 사연 2편 & 백운호 대표곡 3곡 연속 듣기 | 어머니의 봄날 · 백운호 연가',
+    youtubeVideoId: '',
+    channelUrl: 'https://www.youtube.com/@%EA%B9%80%EC%8C%A4%EC%9D%98%EC%98%81%EC%9B%85%EB%9D%BC%EB%94%94%EC%98%A4',
+    poster: 'assets/ep1_flagship_thumb_1280x720.png',
+    continuousTracks: [
+      {
+        label: '[1화 · 사연 1편] 대구 달서구 이순자 어머님의 봄날 편지',
+        audioSrc: 'assets/audio/baek_woon_ho_ep01.mp3',
+        poster: 'assets/ep1_flagship_thumb_1280x720.png',
+        caption: '💌 [사연 1편] 자식들 다 키워 보내고 텅 빈 새벽 부엌에서 맞이한 어머님의 봄날 편지가 흐르고 있습니다.'
+      },
+      {
+        label: '[1화 · 대표곡 1곡 풀버전] 백운호 — 〈어머니의 봄날〉',
+        audioSrc: 'assets/audio/baek_woonho_debut_sample.mp3',
+        poster: 'assets/ep1_flagship_thumb_1280x720.png',
+        caption: '🎵 [대표곡 1곡 풀버전] 백운호 — 〈어머니의 봄날〉 (찬 서리 내리던 새벽 부엌에, 보리차 끓이시던 고운 그 손길)'
+      },
+      {
+        label: '[1화 · 사연 2편] 아버님이 챙겨두신 약봉지와 황혼의 산책',
+        audioSrc: 'assets/audio/baek_woon_ho_ep02.mp3',
+        poster: 'assets/ep1_flagship_thumb_1280x720.png',
+        caption: '💌 [사연 2편] 무뚝뚝하던 아버님이 어머님 건강을 챙기며 함께 걷는 따뜻한 저녁 사연입니다.'
+      },
+      {
+        label: '[1화 · 대표곡 2곡 풀버전] 백운호 — 〈백운호 연가〉',
+        audioSrc: 'assets/audio/baek_woonho_yeonga_full.mp3',
+        poster: 'assets/ep1_flagship_thumb_1280x720.png',
+        caption: '🎵 [대표곡 2곡 풀버전] 백운호 — 〈백운호 연가〉 (흰 구름 쉬어 가는 고요한 백운호에, 노을빛 물결 따라)'
+      },
+      {
+        label: '[1화 · 건강 안부 쉼표] 나들이 무릎·목 보온 & 세월의 응원',
+        audioSrc: 'assets/audio/baek_woon_ho_ep03.mp3',
+        poster: 'assets/ep1_flagship_thumb_1280x720.png',
+        caption: '💚 [김쌤의 건강 쉼표] 외출·공연 시 스카프 보온과 발목 10번 당기기로 무릎 건강을 꼭 챙기세요.'
+      },
+      {
+        label: '[1화 · 대표곡 3곡 풀버전] 백운호 — 〈다시 피는 동백꽃〉',
+        audioSrc: 'assets/audio/baek_woonho_camellia_full.mp3',
+        poster: 'assets/ep1_flagship_thumb_1280x720.png',
+        caption: '🎵 [대표곡 3곡 풀버전] 백운호 — 〈다시 피는 동백꽃〉 (매서운 겨울바람 이겨내고 활짝 피어나는 인생 2막)'
+      }
+    ]
+  };
+
   let currentIndex = 0;
   let isPlaying = false;
   let customBannerTitle = '';
+  let flagshipQueueActive = false;
+  let flagshipQueueIdx = 0;
   let accumulatedPlaySeconds = 0;
   let watchIntervalId = null;
 
@@ -202,7 +250,11 @@
         }
       });
       audio.addEventListener('ended', function () {
-        nextEpisode();
+        if (flagshipQueueActive) {
+          advanceFlagshipEp1Queue();
+        } else {
+          nextEpisode();
+        }
       });
       audio.addEventListener('timeupdate', function () {
         syncProgressAndCaptions(audio);
@@ -229,6 +281,13 @@
       scrubber.value = String(Math.min(1000, Math.round((cur / dur) * 1000)));
     }
     const capEl = document.getElementById('studio-live-caption');
+    if (flagshipQueueActive) {
+      const fTrack = FLAGSHIP_EP1_CONFIG.continuousTracks[flagshipQueueIdx];
+      if (capEl && fTrack && capEl.textContent !== fTrack.caption) {
+        capEl.textContent = fTrack.caption;
+      }
+      return;
+    }
     if (capEl && Array.isArray(ep.captions) && ep.captions.length > 0) {
       let activeText = ep.captions[0].text;
       for (let i = 0; i < ep.captions.length; i += 1) {
@@ -551,6 +610,7 @@
   }
 
   function nextEpisode() {
+    flagshipQueueActive = false;
     customBannerTitle = '';
     currentIndex = (currentIndex + 1) % RADIO_EPISODES.length;
     loadAndPlayCurrentEpisode(true);
@@ -558,11 +618,76 @@
 
   function playEpisodeByIndex(idx, optionalCustomTitle) {
     if (idx >= 0 && idx < RADIO_EPISODES.length) {
+      flagshipQueueActive = false;
       customBannerTitle = optionalCustomTitle || '';
       currentIndex = idx;
       loadAndPlayCurrentEpisode(true);
       focusStudioSection();
     }
+  }
+
+  function playFlagshipTrackAtIndex(qIdx) {
+    const tracks = FLAGSHIP_EP1_CONFIG.continuousTracks;
+    if (!Array.isArray(tracks) || tracks.length === 0) return;
+    flagshipQueueActive = true;
+    flagshipQueueIdx = ((qIdx % tracks.length) + tracks.length) % tracks.length;
+    const tr = tracks[flagshipQueueIdx];
+    customBannerTitle = tr.label;
+
+    const audio = ensureStudioAudioElement();
+    if (!audio) return;
+    audio.setAttribute('src', tr.audioSrc);
+    try { audio.load(); } catch (e) {}
+
+    const posterEl = typeof document !== 'undefined' ? document.getElementById('studio-stage-poster') : null;
+    if (posterEl && tr.poster) {
+      posterEl.setAttribute('src', tr.poster);
+    }
+    const capEl = typeof document !== 'undefined' ? document.getElementById('studio-live-caption') : null;
+    if (capEl) {
+      capEl.textContent = tr.caption;
+    }
+    const statusBadge = typeof document !== 'undefined' ? document.getElementById('hero-ep1-showcase-status') : null;
+    if (statusBadge) {
+      statusBadge.textContent = '🔴 지금 재생 중 (' + String(flagshipQueueIdx + 1) + '/' + String(tracks.length) + ') · ' + tr.label;
+    }
+
+    isPlaying = true;
+    saveState();
+    syncUiState(true);
+    const p = audio.play();
+    if (p && typeof p.catch === 'function') {
+      p.catch(function () {
+        isPlaying = false;
+        syncUiState(false);
+      });
+    }
+  }
+
+  function advanceFlagshipEp1Queue() {
+    const nextIdx = (flagshipQueueIdx + 1) % FLAGSHIP_EP1_CONFIG.continuousTracks.length;
+    playFlagshipTrackAtIndex(nextIdx);
+  }
+
+  function activateFlagshipEpisode1() {
+    if (typeof document === 'undefined') return;
+    const vid = (FLAGSHIP_EP1_CONFIG.youtubeVideoId || '').trim();
+    const mount = document.getElementById('hero-ep1-video-mount');
+    if (vid && /^[A-Za-z0-9_-]{11}$/.test(vid) && mount) {
+      try {
+        const audio = document.getElementById('baek-studio-audio');
+        if (audio && !audio.paused) audio.pause();
+      } catch (e) {}
+      mount.innerHTML =
+        '<div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:3px solid #D4AF37;background:#000;">' +
+        '<iframe src="https://www.youtube-nocookie.com/embed/' + vid + '?autoplay=1&rel=0" ' +
+        'title="' + FLAGSHIP_EP1_CONFIG.title.replace(/"/g, '&quot;') + '" ' +
+        'style="position:absolute;inset:0;width:100%;height:100%;border:0;" ' +
+        'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+      return;
+    }
+    playFlagshipTrackAtIndex(0);
+    focusStudioSection();
   }
 
   function initRadioPlayer() {
@@ -651,6 +776,12 @@
         }
       });
     });
+    document.querySelectorAll('[data-play-flagship-ep1]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        activateFlagshipEpisode1();
+      });
+    });
   }
 
   if (typeof document !== 'undefined') {
@@ -662,11 +793,14 @@
   }
 
   if (typeof window !== 'undefined') {
+    window.HERO_FLAGSHIP_EP1_CONFIG = FLAGSHIP_EP1_CONFIG;
     window.ParadiseRadio = {
       episodes: RADIO_EPISODES,
+      flagshipEp1: FLAGSHIP_EP1_CONFIG,
       togglePlay: togglePlay,
       nextEpisode: nextEpisode,
       playEpisode: playEpisodeByIndex,
+      playFlagshipEp1: activateFlagshipEpisode1,
       applyQueryDeepLink: applyQueryDeepLink,
       getAccumulatedPlaySeconds: function () { return accumulatedPlaySeconds; }
     };
@@ -674,7 +808,8 @@
 
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-      RADIO_EPISODES
+      RADIO_EPISODES,
+      FLAGSHIP_EP1_CONFIG
     };
   }
 })();

@@ -1,0 +1,133 @@
+{
+  "schema_version": "2026.11.19-phase2c-canonical-v1",
+  "artist_profile": {
+    "artist_id": "baek_woon_ho",
+    "name_ko": "백운호",
+    "name_hanja": "白雲湖",
+    "name_en": "Baek Woon-ho",
+    "meaning": "흰 구름 쉬어 가는 고요한 호수처럼 5070 시니어 가족의 세월을 따뜻하게 안아주는 오리지널 가상 트로트 아티스트",
+    "pure_original_virtual_ip": true,
+    "real_celebrity_references": 0,
+    "channel_handle": "@김쌤의영웅라디오",
+    "instagram_handle": "@paradise_hero1",
+    "official_lounge_url": "https://paradise-hero.com"
+  },
+  "locked_facial_and_physical_identity": {
+    "apparent_age": "38-year-old dignified Korean gentleman baritone",
+    "face_structure": "Warm compassionate oval-square jawline, clean-shaven, gentle smile crinkles at outer eye corners, kind empathetic gaze",
+    "hair_spec": "Neat side-parted swept-back natural raven-dark hair with soft volume, zero messy strands, classic broadcast grooming",
+    "posture_and_demeanor": "Calm dignified posture, vintage chrome condenser/stand microphone held warmly near chest/chin, gentle respectful bow or hand over heart; strictly avoid uncanny exaggerated front AI lip-sync jaw distortion",
+    "canonical_prompt_anchor_en": "Dignified warm-hearted 38-year-old Korean gentleman baritone trot singer Baek Woon-ho (fictional original character), neat side-parted swept-back natural dark hair, warm gentle eyes with soft smile crinkles, clean-shaven"
+  },
+  "locked_attire_wardrobe": {
+    "cream_studio_blazer": {
+      "id": "cream_studio_blazer",
+      "label_ko": "크림 캐시미어 터틀넥 & 차콜/버건디 라디오 스튜디오 자켓",
+      "primary_hex": "#F5EFE6",
+      "secondary_hex": "#5B1E2D",
+      "accent_hex": "#D4AF37",
+      "prompt_en": "wearing a warm cream-ivory cashmere turtleneck under a tailored deep burgundy-wine or charcoal wool blazer with a subtle gold camellia lapel pin",
+      "reference_assets": [
+        "D:/드림컴퍼니/4사업부/assets/watercolor_drama/baek_ref_cream_burgundy_portrait.png",
+        "D:/드림컴퍼니/shorts_automation_hq/assets/hero_looks/look_04.jpg"
+      ]
+    },
+    "burgundy_velvet_stage": {
+      "id": "burgundy_velvet_stage",
+      "label_ko": "버건디 벨벳 정통 트로트 헌정 무대 수트",
+      "primary_hex": "#641C2C",
+      "secondary_hex": "#FAF6EE",
+      "accent_hex": "#EAB308",
+      "prompt_en": "wearing a tailored deep burgundy-wine velvet stage dinner jacket over a warm cream dress shirt with a small gold camellia lapel pin",
+      "reference_assets": [
+        "D:/드림컴퍼니/4사업부/assets/watercolor_drama/ep1_ch3_baek_watercolor_stage_burgundy.png",
+        "D:/드림컴퍼니/shorts_automation_hq/assets/hero_looks/look_05.jpg"
+      ]
+    },
+    "emerald_signature_stage": {
+      "id": "emerald_signature_stage",
+      "label_ko": "에메랄드 벨벳 & 크림 셔츠 시그니처 무대 정장",
+      "primary_hex": "#133B2E",
+      "secondary_hex": "#FBF7EE",
+      "accent_hex": "#D4AF37",
+      "prompt_en": "wearing a tailored deep forest-emerald velvet stage jacket over a warm cream dress shirt with a gold camellia lapel pin and satin pocket square",
+      "reference_assets": [
+        "D:/드림컴퍼니/4사업부/assets/baek_woon_ho_main.png",
+        "D:/드림컴퍼니/shorts_automation_hq/assets/hero_looks/look_01.jpg",
+        "D:/드림컴퍼니/shorts_automation_hq/assets/hero_looks/look_02.jpg"
+      ]
+    }
+  },
+  "visual_pipeline_policy": {
+    "aesthetic_style": "Warm nostalgic Korean watercolor & gouache family-drama illustration blended with soft golden stage bokeh",
+    "max_front_portrait_ratio": 0.20,
+    "min_story_watercolor_ratio": 0.80,
+    "shorts_cut_allocation_5cuts": {
+      "total_cuts": 5,
+      "max_portrait_cuts": 1,
+      "min_story_or_posture_cuts": 4,
+      "rule_note": "At most 1 cut (<= 20%) may feature Baek Woon-ho portrait/stage; at least 4 cuts (>= 80%) must render warm nostalgic Korean watercolor family-drama story art or exact senior exercise postures."
+    },
+    "camera_motion": {
+      "type": "ffmpeg_ken_burns_slow_zoom_pan",
+      "zoom_range": [1.0, 1.075],
+      "fps": 30
+    },
+    "bottom_audio_waveform": {
+      "enabled": true,
+      "ffmpeg_filter": "showwaves",
+      "colors_hex": ["#F59E0B", "#FFE600"],
+      "description": "Golden/amber reactive bottom audio waveform synced to real narration & singing track"
+    },
+    "health_wellness_posture_matching": {
+      "required_exact_match_ratio": 1.0,
+      "canonical_postures": {
+        "ankle_pumps": {
+          "ko_keywords": ["발목", "발끝", "발목 돌리기", "발목 펌프"],
+          "asset_9x16": "D:/드림컴퍼니/4사업부/assets/watercolor_drama/health_posture_ankle_pumps.png",
+          "prompt_en": "Warm Korean watercolor senior health guide illustration: smiling 68-year-old Korean mother seated upright on a sturdy wooden chair in a sunlit living room, clearly flexing and rotating both ankles up and down with feet slightly lifted, exact anatomical exercise posture, strictly no text on screen."
+        },
+        "chair_heel_raises": {
+          "ko_keywords": ["발뒤꿈치", "까치발", "의자 잡고", "종아리 근력"],
+          "asset_9x16": "D:/드림컴퍼니/4사업부/assets/watercolor_drama/health_posture_chair_heel_raises.png",
+          "prompt_en": "Warm Korean watercolor senior health guide illustration: healthy 68-year-old Korean mother standing behind a sturdy wooden dining chair holding the backrest lightly with both hands, raising both heels off the floor onto tiptoes to strengthen calves and knees, exact anatomical posture, strictly no text on screen."
+        },
+        "seated_knee_extensions": {
+          "ko_keywords": ["무릎 펴기", "허벅지", "다리 들어", "무릎 근력"],
+          "asset_9x16": "D:/드림컴퍼니/4사업부/assets/watercolor_drama/health_posture_seated_knee_extension.png",
+          "prompt_en": "Warm Korean watercolor senior health guide illustration: gentle 68-year-old Korean mother sitting upright on a wooden chair extending one leg straight forward parallel to the floor to strengthen thigh and knee muscles, exact anatomical posture, strictly no text on screen."
+        },
+        "neck_shoulder_stretches": {
+          "ko_keywords": ["목", "어깨", "스카프", "기지개", "스트레칭"],
+          "asset_9x16": "D:/드림컴퍼니/4사업부/assets/watercolor_drama/health_posture_neck_shoulder_stretch.png",
+          "prompt_en": "Warm Korean watercolor senior health guide illustration: serene 68-year-old Korean mother in a soft warm scarf sitting tall beside a sunlit window and teacup, gently tilting her head side-to-side to stretch neck and shoulder muscles, exact anatomical posture, strictly no text on screen."
+        }
+      }
+    }
+  },
+  "audio_caption_thumbnail_spec": {
+    "dj_voice": "ko-KR-InJoonNeural",
+    "dj_cadence_multiplier": 0.92,
+    "dj_edge_tts_rate": "-8%",
+    "inter_sentence_breath_pause_sec": 0.50,
+    "bgm_ducking_during_speech_db": -20.0,
+    "target_integrated_loudness_lufs": -14.0,
+    "ffmpeg_loudnorm_filter": "loudnorm=I=-14:TP=-1.0:LRA=11",
+    "shorts_safe_zone_caption": {
+      "canvas_size": [1080, 1920],
+      "y_min_px": 1150,
+      "y_max_px": 1420,
+      "backing_bar_rgba": [0, 0, 0, 204],
+      "backing_bar_css": "rgba(0, 0, 0, 0.80)",
+      "font_px_range": [68, 74],
+      "font_families": ["Malgun Gothic Bold", "Pretendard Bold"]
+    },
+    "senior_high_ctr_thumbnail": {
+      "bottom_band_ratio": 0.35,
+      "max_headline_chars": 12,
+      "headline_colors_hex": ["#FFE600", "#FFFFFF"],
+      "black_outline_stroke_px": [8, 10]
+    }
+  },
+  "composite_reference_sheet_png": "D:/드림컴퍼니/4사업부/assets/baek_woon_ho_character_sheet.png"
+}
