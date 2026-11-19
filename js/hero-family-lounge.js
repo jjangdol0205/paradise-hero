@@ -1190,6 +1190,93 @@
     initLoveLetterbox(function (nowKst) {
       triggerLoungeHeartIncrement(nowKst, false);
     });
+    initHonorPatronAndSongVote();
+  }
+
+  function initHonorPatronAndSongVote() {
+    if (typeof document === 'undefined') return;
+
+    // Restore cross-device magic_restore link if present
+    try {
+      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.decodeMagicRestoreParam === 'function' && window.location && window.location.search) {
+        var mObj = window.DreamCompanyCRM.decodeMagicRestoreParam(window.location.search);
+        if (mObj && mObj.div === 'HERO') {
+          var prevEl = document.getElementById('heroPatronPreviewBanner');
+          if (prevEl) {
+            prevEl.style.display = 'block';
+            prevEl.textContent = '🌟 [본방송 오프닝·엔딩 호명 등록 완료] "' + (mObj.name_region || '든든한 후원 가족') + '님, 따뜻한 응원과 사랑 깊이 감사드립니다!"';
+          }
+        }
+      }
+    } catch (_) {}
+
+    var patronForm = document.getElementById('heroHonorPatronForm');
+    if (patronForm) {
+      patronForm.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var nameReg = String((document.getElementById('heroPatronNameRegion') || {}).value || '든든한 영웅라디오 가족').trim();
+        var email = String((document.getElementById('heroPatronEmail') || {}).value || '').trim().toLowerCase();
+        var tierVal = String((document.getElementById('heroPatronTierSelect') || {}).value || 'hero_honor_9900');
+        var anniv = String((document.getElementById('heroPatronAnniversary') || {}).value || '').trim();
+        var banner = document.getElementById('heroPatronPreviewBanner');
+        var tierLabel = tierVal === 'hero_honor_4900' ? '응원 후원 가족 (월 4,900원)' : '명예 후원 가족 (월 9,900원)';
+
+        if (banner) {
+          banner.style.display = 'block';
+          banner.innerHTML =
+            '📺 [화·금 본방송 엔딩 호명 자막 미리보기]<br>' +
+            '“' + nameReg.replace(/</g, '&lt;') + '님, 우리 가수 백운호를 함께 키워주셔서 진심으로 감사드립니다!”' +
+            (anniv ? ('<br><span style="font-size:19px;color:#FDE68A;">🎂 기념일 축하카드 예약 접수: ' + anniv.replace(/</g, '&lt;') + '</span>') : '') +
+            (email ? ('<br><span style="font-size:18px;color:#E0E7FF;">(' + email.replace(/</g, '&lt;') + ' 우편함으로 영구 보관함 링크와 14일 안심 안내장을 보내드렸습니다)</span>') : '');
+        }
+
+        if (email && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) && window.DreamCompanyCRM) {
+          if (typeof window.DreamCompanyCRM.deliverPaidMagicPack === 'function') {
+            window.DreamCompanyCRM.deliverPaidMagicPack({
+              div: 'HERO',
+              email: email,
+              nickname: nameReg,
+              segment: tierVal,
+              plan_tier: tierLabel,
+              order_ref: 'HERO-PATRON-' + Date.now().toString(36).toUpperCase(),
+              base_url: 'https://paradise-hero.com/',
+              hash_anchor: 'hero-honor-patron-club',
+              profile_state: { name_region: nameReg, anniversary: anniv, tier: tierLabel }
+            });
+          }
+        }
+      });
+    }
+
+    var voteBtns = document.querySelectorAll('[data-hero-song-vote]');
+    var voteRes = document.getElementById('heroSongVoteResult');
+    var baseCounts = { '1': 42, '2': 35, '3': 29 };
+    for (var i = 0; i < voteBtns.length; i++) {
+      (function (btn) {
+        btn.addEventListener('click', function () {
+          var choice = btn.getAttribute('data-hero-song-vote') || '1';
+          baseCounts[choice] = (baseCounts[choice] || 30) + 1;
+          var tot = baseCounts['1'] + baseCounts['2'] + baseCounts['3'];
+          var p1 = Math.round((baseCounts['1'] / tot) * 100);
+          var p2 = Math.round((baseCounts['2'] / tot) * 100);
+          var p3 = 100 - p1 - p2;
+          if (voteRes) {
+            voteRes.style.display = 'block';
+            voteRes.innerHTML =
+              '👏 소중한 한 표가 반영되었습니다! 현재 실시간 집계:<br>' +
+              '• ① 〈고향역 봄편지〉: ' + p1 + '% &nbsp;|&nbsp; ② 〈인생은 지금부터〉: ' + p2 + '% &nbsp;|&nbsp; ③ 〈부부의 세월〉: ' + p3 + '%';
+          }
+          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.submitSatisfactionVote === 'function') {
+            window.DreamCompanyCRM.submitSatisfactionVote({ div: 'HERO', vote: 'up', context: 'next_song_vote_' + choice });
+          }
+        });
+      })(voteBtns[i]);
+    }
+
+    var satEl = document.getElementById('heroSatisfactionMount');
+    if (satEl && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.mountSatisfactionBar === 'function') {
+      window.DreamCompanyCRM.mountSatisfactionBar(satEl, { div: 'HERO', context: 'hero_lounge' });
+    }
   }
 
   if (typeof document !== 'undefined') {

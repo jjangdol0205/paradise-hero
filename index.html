@@ -588,6 +588,79 @@
         ※ 네이버 쇼핑 커넥트·쿠팡 파트너스 활동의 일환으로 판매 발생 시 일정액의 수수료를 제공받습니다.
       </p>
     </section>
+    <!-- 7. 백운호 품격 후원 멤버십 (#hero-honor-patron-club — 기본 라디오·사랑방·안부카드 평생 100% 무료 유지 원칙) -->
+    <section id="hero-honor-patron-club" class="senior-card" aria-labelledby="hero-patron-heading" style="margin-top: 24px; border: 3px solid #D97706; background: #FFFBEB;">
+      <div class="section-title-wrap" style="margin-bottom: 14px;">
+        <span class="section-badge" style="background: #78350F; color: #FEF3C7; font-size: 18px;">💛 내가 키운 우리 가수 · 백운호 명예 후원 가족</span>
+        <h2 id="hero-patron-heading" class="section-title" style="font-size: 25px; color: #451A03;">백운호 명예 후원 가족 안내 (월 4,900원 / 월 9,900원)</h2>
+        <p class="section-desc" style="font-size: 20px; line-height: 1.75; color: #1F2937; background: #FFFFFF; border: 2px solid #F59E0B; border-radius: 12px; padding: 14px 18px; margin-top: 10px;">
+          <strong>✅ 평생 무료 약속:</strong> 『김쌤의 영웅라디오』 20분 정규 방송 청취, 백운호 전곡 감상, 가족 사랑방, 안부카드는 <strong>앞으로도 평생 100% 무료</strong>로 열려 있습니다. 더 좋은 신곡과 사연 방송 제작에 마음을 보태주실 가족분들을 위한 자발적 명예 후원 모임입니다.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+        <div style="background: #FFFFFF; border: 2px solid #FCD34D; border-radius: 14px; padding: 20px; font-size: 20px; line-height: 1.7;">
+          <div style="font-weight: 800; color: #92400E; font-size: 19px;">🌱 응원 후원 가족</div>
+          <div style="font-size: 28px; font-weight: 900; color: #111827; margin: 6px 0;">월 4,900원</div>
+          <ul style="margin: 10px 0 0; padding-left: 22px;">
+            <li><strong>① 매주 화·금 본방송 오프닝·엔딩 성함·지역 감사 호명</strong> 자막 등재</li>
+            <li><strong>③ 『백운호』 다음 신곡 분위기·가사 선정 투표권</strong> ('내가 키운 가수')</li>
+          </ul>
+        </div>
+        <div style="background: #FFFFFF; border: 3px solid #D97706; border-radius: 14px; padding: 20px; font-size: 20px; line-height: 1.7;">
+          <div style="font-weight: 800; color: #7C2D12; font-size: 19px;">🌺 명예 후원 가족 (인기)</div>
+          <div style="font-size: 28px; font-weight: 900; color: #7C2D12; margin: 6px 0;">월 9,900원</div>
+          <ul style="margin: 10px 0 0; padding-left: 22px;">
+            <li><strong>① 매주 본방송 오프닝·엔딩 성함·지역 특별 감사 호명</strong></li>
+            <li><strong>② 가족 생신·결혼기념일 성함 호명 축하 음성·영상 카드</strong> (월 1회 우선 제작)</li>
+            <li><strong>③ 『백운호』 다음 신곡 분위기·가사 선정 투표권</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ① & ② 명예 후원 가족 호명 등록 & 기념일 축하카드 신청 -->
+      <div style="background: #FFFFFF; border: 2px solid #E5E7EB; border-radius: 14px; padding: 20px; margin-bottom: 20px;">
+        <h3 style="margin: 0 0 10px; font-size: 22px; color: #111827;">📝 명예 후원 가족 신청 &amp; 생신·결혼기념일 호명 등록</h3>
+        <form id="heroHonorPatronForm" novalidate style="display: grid; gap: 12px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+            <input type="text" id="heroPatronNameRegion" placeholder="지역·성함 (예: 부산 김영숙 어머님)" aria-label="지역 및 성함" style="min-height: 60px; font-size: 20px; padding: 12px 16px; border: 2px solid #9CA3AF; border-radius: 10px;">
+            <input type="email" id="heroPatronEmail" placeholder="안내장 받을 이메일 주소" aria-label="이메일 주소" style="min-height: 60px; font-size: 20px; padding: 12px 16px; border: 2px solid #9CA3AF; border-radius: 10px;">
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+            <select id="heroPatronTierSelect" aria-label="명예 후원 등급 선택" style="min-height: 60px; font-size: 20px; padding: 12px 16px; border: 2px solid #9CA3AF; border-radius: 10px; font-weight: 700;">
+              <option value="hero_honor_9900">명예 후원 가족 (월 9,900원 · 기념일 축하카드 포함)</option>
+              <option value="hero_honor_4900">응원 후원 가족 (월 4,900원 · 본방송 성함 호명)</option>
+            </select>
+            <input type="text" id="heroPatronAnniversary" placeholder="선택: 생신·결혼기념일 날짜 메모" aria-label="축하 기념일 메모" style="min-height: 60px; font-size: 20px; padding: 12px 16px; border: 2px solid #9CA3AF; border-radius: 10px;">
+          </div>
+          <button type="submit" class="senior-btn btn-primary" style="min-height: 64px; font-size: 21px; font-weight: 800;">
+            <span>💛 명예 후원 가족 안내장 받기 &amp; 내 방송 호명 미리보기 👉</span>
+          </button>
+        </form>
+        <div id="heroPatronPreviewBanner" role="status" aria-live="polite" style="display: none; margin-top: 14px; padding: 18px; background: #1E1B4B; color: #FEF08A; border-radius: 12px; font-size: 22px; font-weight: 800; text-align: center; line-height: 1.6;"></div>
+      </div>
+
+      <!-- ③ 내가 키운 가수 '백운호' 다음 신곡 분위기·가사 1터치 투표 -->
+      <div id="heroNextSongVoteBox" style="background: #FFFFFF; border: 2px solid #F59E0B; border-radius: 14px; padding: 20px;">
+        <h3 style="margin: 0 0 8px; font-size: 22px; color: #7C2D12;">🎵 [내가 키운 가수] 백운호 다음 신곡 분위기 1터치 투표</h3>
+        <p style="margin: 0 0 14px; font-size: 20px; color: #374151;">어머님·아버님이 골라주신 1위 주제로 백운호의 다음 달 정규 헌정 신곡 가사와 멜로디가 제작됩니다!</p>
+        <div style="display: grid; gap: 10px;">
+          <button type="button" data-hero-song-vote="1" class="senior-btn btn-outline" style="min-height: 62px; font-size: 20px; justify-content: flex-start; text-align: left; padding: 12px 18px;">
+            ① 〈고향역 봄편지〉 — 그리운 고향 어머니를 부르는 애절한 정통 트로트
+          </button>
+          <button type="button" data-hero-song-vote="2" class="senior-btn btn-outline" style="min-height: 62px; font-size: 20px; justify-content: flex-start; text-align: left; padding: 12px 18px;">
+            ② 〈인생은 지금부터〉 — 6070 청춘의 어깨가 들썩이는 신나는 리듬 트로트
+          </button>
+          <button type="button" data-hero-song-vote="3" class="senior-btn btn-outline" style="min-height: 62px; font-size: 20px; justify-content: flex-start; text-align: left; padding: 12px 18px;">
+            ③ 〈부부의 세월〉 — 평생 곁을 지켜준 동반자에게 바치는 따뜻한 부부 연가
+          </button>
+        </div>
+        <div id="heroSongVoteResult" role="status" aria-live="polite" style="display: none; margin-top: 14px; padding: 16px; background: #FFFBEB; border: 2px solid #F59E0B; border-radius: 10px; font-size: 20px; font-weight: 700; color: #78350F;"></div>
+      </div>
+
+      <div id="heroSatisfactionMount"></div>
+    </section>
+
     <!-- 공식 브랜드 협찬·광고 제휴 문의 창구 (#hero-brand-partnership-box) -->
     <section id="hero-brand-partnership-box" class="senior-card" aria-labelledby="brand-partner-heading" style="margin-top: 24px; border: 2.5px solid var(--brand-emerald); background: #F8FAFC;">
       <div class="section-title-wrap" style="margin-bottom: 12px;">
