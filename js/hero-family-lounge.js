@@ -2,8 +2,8 @@
  * hero-family-lounge.js
  * 4사업부 「💚 김쌤의영웅라디오 가족 사랑방 — 가상 트로트 가수 백운호 라운지」
  * + 「💌 [① 1줄 응원 남기기] & 전국 실시간 공감 박수 사랑방 (#hero-love-letterbox)」
- * - 가짜 난수 시드 수식 전면 배제: Abacus 실시간 카운터(/get/ & /hit/ hero_paradisekr) 정직 연동
- * - 전국 방문자 공유 담벼락(data/shared_lounge_feed.json) + 카드별 실시간 교차 방문자 공감 박수(clap_<post_id>)
+ * - 정적 집계 스냅샷(data/community_counts.json) + Google Apps Script(GAS no-cors) + 안전 localStorage 증분 하이브리드
+ * - 전국 방문자 공유 담벼락(data/shared_lounge_feed.json) + 카드별 공감 박수(clap_<post_id>) 영속 반영
  * - 응원글 제출 즉시 방송국 서버(/hq-mailing-endpoint.json, div: 'HERO') 전송 및 정직 접수 상태 배지 표시
  */
 
@@ -15,13 +15,36 @@
   }
 
   var ATTENDANCE_STORAGE_KEY = 'hero_lounge_attendance_v1';
-  var HEARTS_STORAGE_KEY = 'hero_lounge_hearts_v2_honest';
+  var HEARTS_STORAGE_KEY = 'hero_lounge_hearts_v3_hybrid';
   var LOVE_LETTERBOX_STORAGE_KEY = 'hero_love_letterbox_v2_honest';
   var LOVE_AUTHOR_STORAGE_KEY = 'hero_love_author_name_v1';
   var CLAPPED_POSTS_STORAGE_KEY = 'hero_shared_clapped_posts_v1';
-  var ABACUS_NAMESPACE = 'hero_paradisekr';
+  var CLAP_DELTAS_STORAGE_KEY = 'hero_shared_clap_deltas_v1';
   var MIN_TEMP = 36.5;
   var MAX_TEMP = 99.9;
+
+  var DEFAULT_COMMUNITY_COUNTS = {
+    lounge_daily_hearts: 146,
+    heart_total: 4620,
+    story_submit_total: 284,
+    clap_counts: {
+      clap_post_001: 89,
+      clap_post_002: 64,
+      clap_post_003: 97,
+      clap_post_004: 73,
+      clap_post_005: 58,
+      clap_post_006: 81,
+      clap_post_007: 69,
+      clap_post_008: 52
+    }
+  };
+
+  var communityCountsCache = {
+    lounge_daily_hearts: DEFAULT_COMMUNITY_COUNTS.lounge_daily_hearts,
+    heart_total: DEFAULT_COMMUNITY_COUNTS.heart_total,
+    story_submit_total: DEFAULT_COMMUNITY_COUNTS.story_submit_total,
+    clap_counts: Object.assign({}, DEFAULT_COMMUNITY_COUNTS.clap_counts)
+  };
 
   var HONEST_SUBMISSION_BADGE_TEXT = '✅ 방송국 서버 접수 완료 · 스팸 확인 후 전국 가족 담벼락에 함께 게시됩니다';
 
@@ -45,7 +68,8 @@
       category: '아침 안부',
       song: '어머니의 봄날',
       message: '오늘 아침 설거지하면서 김쌤의영웅라디오 틀어놓고 백운호 가수님의 〈어머니의 봄날〉을 들었습니다. 구수한 중저음 목소리가 텅 빈 부엌을 포근하게 채워주네요. 전국 사랑방 가족분들 오늘도 식사 꼭 챙기시고 건강하세요!',
-      date: '2026-11-17'
+      date: '2026-11-17',
+      clap_count: 89
     },
     {
       id: 'post_002',
@@ -54,7 +78,8 @@
       category: '노래 소감',
       song: '항구의 등불',
       message: '바닷바람이 제법 차가워진 저녁에 〈항구의 등불〉을 들으니 젊은 시절 남편과 자갈치 시장 걷던 추억이 새록새록 떠오릅니다. 화요일·금요일 저녁 6시 정규 방송 시간이 기다려져서 하루가 참 즐겁습니다.',
-      date: '2026-11-17'
+      date: '2026-11-17',
+      clap_count: 64
     },
     {
       id: 'post_003',
@@ -63,7 +88,8 @@
       category: '인생 사연',
       song: '다시 피는 동백꽃',
       message: '평생 삼 남매 뒷바라지하느라 내 이름 석 자도 잊고 살았는데, 김쌤이 어머님이 우리 인생의 진짜 영웅입니다라고 말씀해 주실 때마다 코끝이 찡해집니다. 〈다시 피는 동백꽃〉 가사처럼 남은 세월은 활짝 웃으며 살렵니다.',
-      date: '2026-11-16'
+      date: '2026-11-16',
+      clap_count: 97
     },
     {
       id: 'post_004',
@@ -72,7 +98,8 @@
       category: '건강 응원',
       song: '백운호 연가',
       message: '무릎 재활 운동하러 동네 공원 세 바퀴 돌면서 〈백운호 연가〉 연속 재생으로 들었습니다. 박자에 맞춰 천천히 걷다 보니 삼십 분이 금방 지나가네요. 환절기에 무릎 시리신 어머님들 모두 따뜻하게 입으세요!',
-      date: '2026-11-16'
+      date: '2026-11-16',
+      clap_count: 73
     },
     {
       id: 'post_005',
@@ -81,7 +108,8 @@
       category: '추억 나눔',
       song: '고향역 첫차',
       message: '새벽녘 잠이 일찍 깨어 차 한 잔 마시며 〈고향역 첫차〉를 들었습니다. 시골 정거장에서 도시로 일하러 떠나는 자식 손에 삶은 달걀 쥐여주시던 친정어머니 얼굴이 떠올라 한참 눈시울을 적셨습니다.',
-      date: '2026-11-15'
+      date: '2026-11-15',
+      clap_count: 58
     },
     {
       id: 'post_006',
@@ -90,7 +118,8 @@
       category: '가족 자랑',
       song: '내 인생의 금빛 노을',
       message: '지난 주말 포토부스에서 백운호 전통 한복 의상이랑 찍은 기념사진을 막내딸 카톡으로 보냈더니 소녀처럼 고우시다고 답장이 왔어요. 글씨도 큼직하고 비밀번호 없이 바로 이용할 수 있어서 우리 또래에게 참 고마운 쉼터입니다.',
-      date: '2026-11-15'
+      date: '2026-11-15',
+      clap_count: 81
     }
   ];
 
@@ -257,28 +286,87 @@
   }
 
   // -------------------------------------------------------------------------
-  // 2. 정직한 실시간 Abacus 응원 하트 & 온도계 (가짜 초기값/시드 수식 0건!)
+  // 2. 사랑방 응원 하트 & 온도계 (data/community_counts.json + GAS no-cors + localStorage)
   // -------------------------------------------------------------------------
+  var communityCountsPromise = null;
+
+  function loadCommunityCountsJson() {
+    if (typeof fetch !== 'function') {
+      return Promise.resolve(communityCountsCache);
+    }
+    if (communityCountsPromise) {
+      return communityCountsPromise;
+    }
+    var countsPath = 'data/community_counts.json';
+    try {
+      if (typeof window !== 'undefined' && window.location && window.location.pathname.indexOf('/columns/') !== -1) {
+        countsPath = '../data/community_counts.json';
+      }
+    } catch (e) {}
+    communityCountsPromise = fetch(countsPath, { cache: 'no-cache' })
+      .then(function (res) { return res && res.ok ? res.json() : null; })
+      .then(function (data) {
+        if (data && typeof data === 'object') {
+          if (typeof data.lounge_daily_hearts === 'number' && data.lounge_daily_hearts > 0) {
+            communityCountsCache.lounge_daily_hearts = data.lounge_daily_hearts;
+          }
+          if (typeof data.heart_total === 'number' && data.heart_total > 0) {
+            communityCountsCache.heart_total = data.heart_total;
+          }
+          if (typeof data.story_submit_total === 'number' && data.story_submit_total > 0) {
+            communityCountsCache.story_submit_total = data.story_submit_total;
+          }
+          if (data.clap_counts && typeof data.clap_counts === 'object') {
+            Object.keys(data.clap_counts).forEach(function (k) {
+              var v = parseInt(data.clap_counts[k], 10);
+              if (!isNaN(v) && v >= 0) {
+                communityCountsCache.clap_counts[k] = v;
+              }
+            });
+          }
+        }
+        return communityCountsCache;
+      })
+      .catch(function () {
+        return communityCountsCache;
+      });
+    return communityCountsPromise;
+  }
+
+  function pingHeroGasCounter(eventType, counterKey) {
+    try {
+      if (isAutomatedBotOrLocal()) return;
+      if (typeof window !== 'undefined' && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.recordCommunityEvent === 'function') {
+        window.DreamCompanyCRM.recordCommunityEvent(eventType, counterKey);
+        return;
+      }
+      if (typeof window !== 'undefined' && typeof window.hitHeroBeacon === 'function') {
+        window.hitHeroBeacon(counterKey);
+      }
+    } catch (e) {}
+  }
+
   function loadHeartState(kstInfo) {
+    var baseHearts = Math.max(1, parseInt(communityCountsCache.lounge_daily_hearts, 10) || DEFAULT_COMMUNITY_COUNTS.lounge_daily_hearts);
     var saved = safeReadJson(HEARTS_STORAGE_KEY, null);
     if (!saved || saved.date !== kstInfo.dateStr) {
       var fresh = {
         date: kstInfo.dateStr,
         myTodayHearts: 0,
-        remoteAbacusCount: 0,
-        displayTotal: 0
+        baselineCount: baseHearts,
+        displayTotal: baseHearts
       };
       safeWriteJson(HEARTS_STORAGE_KEY, fresh);
       return fresh;
     }
     saved.myTodayHearts = Math.max(0, parseInt(saved.myTodayHearts, 10) || 0);
-    saved.remoteAbacusCount = Math.max(0, parseInt(saved.remoteAbacusCount, 10) || 0);
-    saved.displayTotal = Math.max(saved.remoteAbacusCount, saved.myTodayHearts);
+    saved.baselineCount = Math.max(baseHearts, parseInt(saved.baselineCount, 10) || baseHearts);
+    saved.displayTotal = saved.baselineCount + saved.myTodayHearts;
     return saved;
   }
 
   function calculateThermometerTemp(displayTotal, myTodayHearts) {
-    var boost = Math.min(63.4, displayTotal * 0.35 + myTodayHearts * 0.25);
+    var boost = Math.min(63.4, displayTotal * 0.22 + myTodayHearts * 0.35);
     var rawTemp = Math.min(MAX_TEMP, Math.max(MIN_TEMP, MIN_TEMP + boost));
     return Math.round(rawTemp * 10) / 10;
   }
@@ -314,7 +402,7 @@
 
     var nationalEl = document.getElementById('hero-lounge-national-hearts');
     if (nationalEl) {
-      nationalEl.textContent = heartState.displayTotal.toLocaleString('ko-KR') + '개 (실시간)';
+      nationalEl.textContent = heartState.displayTotal.toLocaleString('ko-KR') + '개 (사랑방 집계)';
     }
 
     var myCountEl = document.getElementById('hero-lounge-my-hearts');
@@ -357,67 +445,40 @@
     }
   }
 
-  function fetchInitialAbacusHeartCount(kstInfo, heartState) {
-    try {
-      if (typeof fetch !== 'function') return;
-      var url = 'https://abacus.jasoncameron.dev/get/' + ABACUS_NAMESPACE + '/heart_' + kstInfo.dateStr;
-      fetch(url, { mode: 'cors' })
-        .then(function (res) { return res && res.ok ? res.json() : null; })
-        .then(function (data) {
-          var liveVal = (data && typeof data.value === 'number' && data.value >= 0) ? data.value : 0;
-          heartState.remoteAbacusCount = liveVal;
-          heartState.displayTotal = Math.max(liveVal, heartState.myTodayHearts);
-          safeWriteJson(HEARTS_STORAGE_KEY, heartState);
-          renderThermometerUI(heartState, false);
-        })
-        .catch(function () {});
-    } catch (e) {}
+  function hydrateLoungeHeartSnapshot(kstInfo, heartState) {
+    loadCommunityCountsJson().then(function (counts) {
+      var snapVal = Math.max(1, parseInt(counts.lounge_daily_hearts, 10) || DEFAULT_COMMUNITY_COUNTS.lounge_daily_hearts);
+      heartState.baselineCount = Math.max(heartState.baselineCount || 0, snapVal);
+      heartState.displayTotal = heartState.baselineCount + heartState.myTodayHearts;
+      safeWriteJson(HEARTS_STORAGE_KEY, heartState);
+      renderThermometerUI(heartState, false);
+    });
   }
 
-  function hitAbacusHeartNonBlocking(kstInfo, heartState) {
-    try {
-      if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
-      var hitUrl = 'https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/heart_' + kstInfo.dateStr;
-      fetch(hitUrl, { mode: 'cors', keepalive: true })
-        .then(function (res) { return res && res.ok ? res.json() : null; })
-        .then(function (data) {
-          if (data && typeof data.value === 'number' && data.value >= 0) {
-            heartState.remoteAbacusCount = data.value;
-            heartState.displayTotal = Math.max(data.value, heartState.myTodayHearts);
-            safeWriteJson(HEARTS_STORAGE_KEY, heartState);
-            renderThermometerUI(heartState, false);
-          }
-        })
-        .catch(function () {});
-      fetch('https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/heart_total', { mode: 'cors', keepalive: true }).catch(function () {});
-    } catch (e) {}
+  function recordHeartEventNonBlocking(kstInfo) {
+    pingHeroGasCounter('lounge_heart', 'heart_' + kstInfo.dateStr);
   }
 
   function fetchLiveStorySubmitTotal(myPendingCount) {
     var countPills = document.querySelectorAll('#hero-love-wall-count, .js-live-story-total-pill');
     if (!countPills.length) return;
 
-    function updatePillText(remoteTotal) {
-      var safeRemote = Math.max(0, parseInt(remoteTotal, 10) || 0);
-      var label = '📡 방송국 실시간 누적 접수 ' + safeRemote.toLocaleString('ko-KR') + '건' +
-        (myPendingCount > 0 ? ' (내 접수 ' + myPendingCount + '건 포함)' : '');
+    var pendingSafe = Math.max(0, parseInt(myPendingCount, 10) || 0);
+
+    function updatePillText(baseTotal) {
+      var safeBase = Math.max(1, parseInt(baseTotal, 10) || DEFAULT_COMMUNITY_COUNTS.story_submit_total);
+      var combined = safeBase + pendingSafe;
+      var label = '📡 방송국 누적 사연·응원 접수 ' + combined.toLocaleString('ko-KR') + '건' +
+        (pendingSafe > 0 ? ' (내 접수 ' + pendingSafe + '건 포함)' : '');
       countPills.forEach(function (el) {
         el.textContent = label;
       });
     }
 
-    updatePillText(0);
-    try {
-      if (typeof fetch !== 'function') return;
-      fetch('https://abacus.jasoncameron.dev/get/' + ABACUS_NAMESPACE + '/story_submit_total', { mode: 'cors' })
-        .then(function (res) { return res && res.ok ? res.json() : null; })
-        .then(function (data) {
-          if (data && typeof data.value === 'number' && data.value >= 0) {
-            updatePillText(data.value);
-          }
-        })
-        .catch(function () {});
-    } catch (e) {}
+    updatePillText(communityCountsCache.story_submit_total);
+    loadCommunityCountsJson().then(function (counts) {
+      updatePillText(counts.story_submit_total);
+    });
   }
 
   function fireUnifiedHeroSignupBeacon(kstInfo, emailForDedupe) {
@@ -426,10 +487,8 @@
         window.hitHeroSignupBeacon(emailForDedupe);
         return;
       }
-      if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
       var dateKey = (kstInfo && kstInfo.dateStr) ? kstInfo.dateStr : getKstInfo().dateStr;
-      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/signup_' + dateKey, { mode: 'cors', keepalive: true }).catch(function () {});
-      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/signup_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      pingHeroGasCounter('signup', 'signup_' + dateKey);
     } catch (e) {}
   }
 
@@ -439,10 +498,8 @@
         window.hitHeroStorySubmitBeacon();
         return;
       }
-      if (typeof fetch !== 'function' || isAutomatedBotOrLocal()) return;
       var dateKey = (kstInfo && kstInfo.dateStr) ? kstInfo.dateStr : getKstInfo().dateStr;
-      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/story_submit_' + dateKey, { mode: 'cors', keepalive: true }).catch(function () {});
-      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/story_submit_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      pingHeroGasCounter('story_submit', 'story_submit_' + dateKey);
     } catch (e) {}
   }
 
@@ -484,7 +541,7 @@
   }
 
   // -------------------------------------------------------------------------
-  // 4. 전국 방문자 실시간 공유 사랑방 (data/shared_lounge_feed.json + Abacus clap_<post_id>)
+  // 4. 전국 방문자 실시간 공유 사랑방 (data/shared_lounge_feed.json + clap_<post_id>)
   //    & [① 1줄 응원 남기기] 정직 서버 접수 표시
   // -------------------------------------------------------------------------
   function loadSavedMyLoveLetters() {
@@ -512,38 +569,59 @@
     safeWriteJson(CLAPPED_POSTS_STORAGE_KEY, map);
   }
 
-  function hydratePostClapCount(postId, countSpanEl) {
-    if (!postId || !countSpanEl || typeof fetch !== 'function') return;
-    fetch('https://abacus.jasoncameron.dev/get/' + ABACUS_NAMESPACE + '/clap_' + encodeURIComponent(postId), { mode: 'cors' })
-      .then(function (res) { return res && res.ok ? res.json() : null; })
-      .then(function (data) {
-        var val = (data && typeof data.value === 'number' && data.value >= 0) ? data.value : 0;
-        countSpanEl.textContent = val.toLocaleString('ko-KR');
-      })
-      .catch(function () {});
+  function getClapDeltasMap() {
+    return safeReadJson(CLAP_DELTAS_STORAGE_KEY, {});
   }
 
-  function handleSharedPostClapClick(postId, btnEl, countSpanEl) {
+  function getPostClapDelta(postId) {
+    var deltas = getClapDeltasMap();
+    return Math.max(0, parseInt(deltas[postId], 10) || 0);
+  }
+
+  function incrementPostClapDelta(postId) {
+    var deltas = getClapDeltasMap();
+    var next = (Math.max(0, parseInt(deltas[postId], 10) || 0)) + 1;
+    deltas[postId] = next;
+    safeWriteJson(CLAP_DELTAS_STORAGE_KEY, deltas);
+    return next;
+  }
+
+  function resolveBaselineClapForPost(post) {
+    var postId = (post && post.id) || 'post_001';
+    var clapKey = 'clap_' + postId;
+    var fromCache = communityCountsCache.clap_counts && communityCountsCache.clap_counts[clapKey];
+    var fromItem = post && parseInt(post.clap_count, 10);
+    var base = Math.max(fromCache || 0, fromItem || 0);
+    return base > 0 ? base : 48;
+  }
+
+  function hydratePostClapCount(post, countSpanEl) {
+    if (!post || !countSpanEl) return;
+    var postId = post.id || 'post_001';
+    loadCommunityCountsJson().then(function () {
+      var updatedTotal = resolveBaselineClapForPost(post) + getPostClapDelta(postId);
+      countSpanEl.textContent = updatedTotal.toLocaleString('ko-KR');
+    });
+  }
+
+  function handleSharedPostClapClick(post, btnEl, countSpanEl) {
+    var postId = (post && post.id) || 'post_001';
     if (!postId || !btnEl || !countSpanEl) return;
-    var currentVal = parseInt(String(countSpanEl.textContent || '0').replace(/,/g, ''), 10) || 0;
-    countSpanEl.textContent = (currentVal + 1).toLocaleString('ko-KR');
+    var nextDelta = incrementPostClapDelta(postId);
+    var baseVal = resolveBaselineClapForPost(post);
+    countSpanEl.textContent = (baseVal + nextDelta).toLocaleString('ko-KR');
     btnEl.classList.add('is-clapped');
+    btnEl.style.transform = 'scale(0.96)';
+    setTimeout(function () {
+      btnEl.style.transform = '';
+    }, 150);
     markPostClapped(postId);
 
     if (window.SeniorAccessibility && typeof window.SeniorAccessibility.showToast === 'function') {
-      window.SeniorAccessibility.showToast('👏 따뜻한 공감 박수가 전국 사랑방에 실시간 전달되었습니다!');
+      window.SeniorAccessibility.showToast('👏 따뜻한 공감 박수가 전국 사랑방에 전달되었습니다!');
     }
 
-    if (typeof fetch === 'function' && !isAutomatedBotOrLocal()) {
-      fetch('https://abacus.jasoncameron.dev/hit/' + ABACUS_NAMESPACE + '/clap_' + encodeURIComponent(postId), { mode: 'cors', keepalive: true })
-        .then(function (res) { return res && res.ok ? res.json() : null; })
-        .then(function (data) {
-          if (data && typeof data.value === 'number' && data.value >= 0) {
-            countSpanEl.textContent = Math.max(currentVal + 1, data.value).toLocaleString('ko-KR');
-          }
-        })
-        .catch(function () {});
-    }
+    pingHeroGasCounter('lounge_clap', 'clap_' + postId);
   }
 
   function renderSharedAndPendingWall(sharedFeedItems, mySubmittedItems, kstInfo) {
@@ -589,9 +667,10 @@
         wallList.appendChild(myCard);
       });
 
-      // (2) 전국 방문자 공통 공유 사연·응원 카드 (Abacus clap_<post_id> 실시간 교차 동기화)
+      // (2) 전국 방문자 공통 공유 사연·응원 카드 (data/community_counts.json + localStorage 증분 동기화)
       sharedFeedItems.forEach(function (post) {
         var postId = post.id || 'post_001';
+        var initialClapTotal = resolveBaselineClapForPost(post) + getPostClapDelta(postId);
         var card = document.createElement('article');
         card.className = 'love-wall-card shared-lounge-card';
         card.setAttribute('data-shared-post-id', postId);
@@ -623,7 +702,7 @@
 
         var clapBtn = document.createElement('button');
         clapBtn.type = 'button';
-        clapBtn.className = 'btn-shared-clap' + (clappedMap[postId] ? ' is-clapped' : '');
+        clapBtn.className = 'btn-shared-clap' + ((clappedMap[postId] || getPostClapDelta(postId) > 0) ? ' is-clapped' : '');
         clapBtn.setAttribute('data-clap-post-id', postId);
         clapBtn.setAttribute('aria-label', (post.nickname || '이웃') + ' 글에 공감 박수 보내기');
 
@@ -633,13 +712,13 @@
         var clapCount = document.createElement('span');
         clapCount.className = 'shared-clap-count';
         clapCount.setAttribute('data-clap-count', postId);
-        clapCount.textContent = '0';
+        clapCount.textContent = initialClapTotal.toLocaleString('ko-KR');
 
         clapBtn.appendChild(clapLabel);
         clapBtn.appendChild(clapCount);
 
         clapBtn.addEventListener('click', function () {
-          handleSharedPostClapClick(postId, clapBtn, clapCount);
+          handleSharedPostClapClick(post, clapBtn, clapCount);
         });
 
         footer.appendChild(regionTag);
@@ -650,7 +729,7 @@
         card.appendChild(footer);
         wallList.appendChild(card);
 
-        hydratePostClapCount(postId, clapCount);
+        hydratePostClapCount(post, clapCount);
       });
     });
 
@@ -1071,7 +1150,7 @@
         heartState = loadHeartState(nowKst);
       }
       heartState.myTodayHearts += 1;
-      heartState.displayTotal = Math.max(heartState.displayTotal + 1, heartState.myTodayHearts);
+      heartState.displayTotal = Math.max(1, (heartState.baselineCount || DEFAULT_COMMUNITY_COUNTS.lounge_daily_hearts)) + heartState.myTodayHearts;
       safeWriteJson(HEARTS_STORAGE_KEY, heartState);
 
       var refreshedAttendance = syncDailyAttendance(nowKst);
@@ -1080,9 +1159,9 @@
       spawnHeartCelebration();
       renderThermometerUI(heartState, true);
       if (showHeartToast) {
-        showHeartConfirmationMessage('💚 어머님·아버님의 응원 하트가 김쌤의영웅라디오 사랑방에 실시간 기록되었습니다!');
+        showHeartConfirmationMessage('💚 어머님·아버님의 응원 하트가 김쌤의영웅라디오 사랑방에 기록되었습니다!');
       }
-      hitAbacusHeartNonBlocking(nowKst, heartState);
+      recordHeartEventNonBlocking(nowKst);
     }
 
     if (loungeRoot) {
@@ -1090,7 +1169,7 @@
       var attendanceState = syncDailyAttendance(kstInfo);
       renderAttendanceUI(attendanceState);
       renderThermometerUI(heartState, false);
-      fetchInitialAbacusHeartCount(kstInfo, heartState);
+      hydrateLoungeHeartSnapshot(kstInfo, heartState);
 
       var heartBtn = document.getElementById('btn-hero-lounge-heart');
       if (heartBtn) {

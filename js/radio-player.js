@@ -168,8 +168,11 @@
       if (!host || host === 'localhost' || host === '127.0.0.1') return;
 
       const kstDate = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
-      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/radio_5m30s_' + kstDate, { mode: 'cors', keepalive: true }).catch(function () {});
-      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/radio_5m30s_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      if (typeof window !== 'undefined' && typeof window.hitHeroBeacon === 'function') {
+        window.hitHeroBeacon('radio_5m30s_' + kstDate);
+      } else if (typeof window !== 'undefined' && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.recordCommunityEvent === 'function') {
+        window.DreamCompanyCRM.recordCommunityEvent('radio_5m30s', 'radio_5m30s_' + kstDate);
+      }
     } catch (e) {}
   }
 

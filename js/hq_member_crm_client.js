@@ -290,12 +290,55 @@
     });
   }
 
+  function recordCommunityEvent(eventType, counterKey, meta) {
+    try {
+      if (typeof fetch !== 'function') return Promise.resolve({ ok: true, skipped: true });
+      var ua = (global.navigator && global.navigator.userAgent) ? global.navigator.userAgent : '';
+      var host = (global.location && global.location.hostname) ? global.location.hostname : '';
+      if (
+        (global.navigator && global.navigator.webdriver) ||
+        /jsdom|bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua) ||
+        !host || host === 'localhost' || host === '127.0.0.1'
+      ) {
+        return Promise.resolve({ ok: true, skipped: true });
+      }
+      var payload = {
+        action: 'community_counter_hit',
+        div: 'HERO',
+        event_type: String(eventType || 'interaction'),
+        counter_key: String(counterKey || ''),
+        meta: meta || {},
+        source_url: (global.location && global.location.href) ? global.location.href : '',
+        client_ts: new Date().toISOString()
+      };
+      return resolveEndpointUrl().then(function (execUrl) {
+        if (!execUrl) return { ok: true, queued: false };
+        return fetch(execUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).then(function () {
+          return { ok: true };
+        }).catch(function () {
+          return { ok: true };
+        });
+      }).catch(function () {
+        return { ok: true };
+      });
+    } catch (_) {
+      return Promise.resolve({ ok: true });
+    }
+  }
+
   global.DreamCompanyCRM = {
     registerMember: registerMember,
     buildStoryAliasEmail: buildStoryAliasEmail,
     enrollKfgPaidVip: enrollKfgPaidVip,
     submitKfgVipCheckin: submitKfgVipCheckin,
     getLocalMember: getLocalMember,
-    flushPendingQueue: flushPendingQueue
+    flushPendingQueue: flushPendingQueue,
+    recordCommunityEvent: recordCommunityEvent
   };
 })(typeof window !== 'undefined' ? window : this);

@@ -508,7 +508,7 @@
   };
 })();
 
-/* === HQ Edge Real-Human Visitor & Conversion KPI Tracker (hero_paradisekr ONLY) === */
+/* === HQ Edge Real-Human Visitor & Conversion KPI Tracker (GAS no-cors + Safe Local Persistence) === */
 (function () {
   'use strict';
   try {
@@ -517,6 +517,9 @@
     window.__HQ_BEACON_SENT_hero_paradisekr__ = true;
 
     var ns = 'hero_paradisekr';
+    var LOCAL_METRICS_KEY = 'hq_local_metrics_hero_v1';
+    var cachedGasUrl = '';
+
     function getKstDateStr() {
       return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
     }
@@ -532,33 +535,86 @@
       location.hostname === '127.0.0.1'
     );
 
+    function bumpLocalCounter(metricKey) {
+      try {
+        var map = JSON.parse(localStorage.getItem(LOCAL_METRICS_KEY) || '{}');
+        map[metricKey] = (parseInt(map[metricKey], 10) || 0) + 1;
+        localStorage.setItem(LOCAL_METRICS_KEY, JSON.stringify(map));
+      } catch (e) {}
+    }
+
+    function sendGasNoCorsPing(eventType, counterKey) {
+      try {
+        if (isAutomatedOrLocal || typeof fetch !== 'function') return;
+        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.recordCommunityEvent === 'function') {
+          window.DreamCompanyCRM.recordCommunityEvent(eventType, counterKey);
+          return;
+        }
+        var firePost = function (execUrl) {
+          if (!execUrl) return;
+          fetch(execUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({
+              action: 'community_counter_hit',
+              div: 'HERO',
+              event_type: eventType,
+              counter_key: counterKey,
+              source_url: (location && location.href) ? location.href : '',
+              client_ts: new Date().toISOString()
+            }),
+            keepalive: true
+          }).catch(function () {});
+        };
+        if (cachedGasUrl) {
+          firePost(cachedGasUrl);
+          return;
+        }
+        var cfgPath = window.HQ_MAILING_CONFIG_PATH || '/hq-mailing-endpoint.json';
+        fetch(cfgPath, { cache: 'force-cache' })
+          .then(function (r) { return r && r.ok ? r.json() : null; })
+          .then(function (cfg) {
+            if (cfg && cfg.webapp_exec_url && String(cfg.webapp_exec_url).indexOf('https://script.google.com/macros/s/') === 0) {
+              cachedGasUrl = String(cfg.webapp_exec_url).trim();
+              firePost(cachedGasUrl);
+            }
+          })
+          .catch(function () {});
+      } catch (e) {}
+    }
+
     function hitMetric(key) {
-      if (!key || isAutomatedOrLocal || typeof fetch !== 'function') return;
+      if (!key) return;
       var kstNow = getKstDateStr();
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/' + key + '_' + kstNow, { mode: 'cors', keepalive: true }).catch(function () {});
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/' + key + '_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      bumpLocalCounter(key + '_' + kstNow);
+      bumpLocalCounter(key + '_total');
+      if (isAutomatedOrLocal) return;
+      sendGasNoCorsPing(key, ns + ':' + key + '_' + kstNow);
     }
     window.__hitParadiseHeroMetric = hitMetric;
     window.hitHeroBeacon = hitMetric;
 
     function hitSignupMetric(emailForDedupe) {
-      if (isAutomatedOrLocal || typeof fetch !== 'function') return;
       var kstNow = getKstDateStr();
       var dedupeKey = 'hq_signup_' + ns + '_' + kstNow + '_' + String(emailForDedupe || '').trim().toLowerCase();
       try {
         if (emailForDedupe && localStorage.getItem(dedupeKey) === '1') return;
         if (emailForDedupe) localStorage.setItem(dedupeKey, '1');
       } catch (e) {}
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kstNow, { mode: 'cors', keepalive: true }).catch(function () {});
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      bumpLocalCounter('signup_' + kstNow);
+      bumpLocalCounter('signup_total');
+      if (isAutomatedOrLocal) return;
+      sendGasNoCorsPing('signup', ns + ':signup_' + kstNow);
     }
     window.hitHeroSignupBeacon = hitSignupMetric;
 
     function hitStorySubmitMetric() {
-      if (isAutomatedOrLocal || typeof fetch !== 'function') return;
       var kstNow = getKstDateStr();
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/story_submit_' + kstNow, { mode: 'cors', keepalive: true }).catch(function () {});
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/story_submit_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      bumpLocalCounter('story_submit_' + kstNow);
+      bumpLocalCounter('story_submit_total');
+      if (isAutomatedOrLocal) return;
+      sendGasNoCorsPing('story_submit', ns + ':story_submit_' + kstNow);
     }
     window.hitHeroStorySubmitBeacon = hitStorySubmitMetric;
 
@@ -631,16 +687,16 @@
     if (isAutomatedOrLocal) return;
 
     var kst = getKstDateStr();
-    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
-    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function () {});
+    bumpLocalCounter('pv_' + kst);
     try {
       if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
         localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
-        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, { mode: 'cors', keepalive: true }).catch(function () {});
+        bumpLocalCounter('uv_' + kst);
+        sendGasNoCorsPing('daily_uv', ns + ':uv_' + kst);
       }
       if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {
         localStorage.setItem('hq_uv_ever_' + ns, '1');
-        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', { mode: 'cors', keepalive: true }).catch(function () {});
+        bumpLocalCounter('uv_total');
       }
     } catch (e) {}
 
@@ -671,8 +727,6 @@
         hitShopAndReferral('aff_coupang');
       } else if (href.indexOf('linkprice.com') !== -1 || href.indexOf('kr.iherb.com') !== -1 || href.indexOf('myrealt.rip') !== -1 || href.indexOf('naver.me/') !== -1) {
         hitShopAndReferral('aff_partner_store');
-      } else if (href.indexOf('#gold-vip-membership') !== -1 || (href.indexOf('mailto:beable9489@gmail.com') !== -1 && href.indexOf('vip') !== -1)) {
-        hitMetric('vip_supporter_click');
       } else if (onclick.indexOf('vipdigitalstudio.download') !== -1) {
         hitMetric('gift_download');
       }

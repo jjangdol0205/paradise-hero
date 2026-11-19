@@ -37,9 +37,13 @@ COLUMNS_DIR = DIV4_ROOT / "columns"
 HOST = "paradise-hero.com"
 
 HONESTY_BADGE_TEXT = (
-    "🎙️ 본 사랑방은 실존 연예인 팬카페가 아닌, 5070 시니어 가족분들의 음악 위로와 사연 소통을 위해 탄생한 "
-    "『김쌤의영웅라디오』 오리지널 가상(버추얼) 트로트 가수 '백운호' 공식 라디오 쉼터입니다."
+    "🎙️ 본 사랑방은 실존 연예인 팬카페가 아닌, 가상 트로트 가수 '백운호'와 5070 가족이 함께 가꾸는 창작 라디오 쉼터입니다."
 )
+
+OFFICIAL_SAME_AS = [
+    "https://www.youtube.com/@김쌤의영웅라디오",
+    "https://www.instagram.com/paradise_hero1/",
+]
 
 FTC_DISCLOSURE_TEXT = (
     "※ 네이버 쇼핑 커넥트·쿠팡 파트너스 활동의 일환으로 판매 발생 시 일정액의 수수료를 제공받습니다."
@@ -310,7 +314,19 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
                     "dateModified": today_iso,
                     "inLanguage": "ko-KR",
                     "mainEntityOfPage": canonical_url,
-                    "author": {"@type": "Organization", "name": "김쌤의영웅라디오 가족 사랑방", "url": f"https://{HOST}/"},
+                    "sameAs": OFFICIAL_SAME_AS,
+                    "author": {
+                        "@type": "Organization",
+                        "name": "김쌤의영웅라디오 가족 사랑방",
+                        "url": f"https://{HOST}/",
+                        "sameAs": OFFICIAL_SAME_AS,
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 라운지",
+                        "url": f"https://{HOST}/",
+                        "sameAs": OFFICIAL_SAME_AS,
+                    },
                 },
                 {"@type": "FAQPage", "mainEntity": faq_entities},
                 {
@@ -364,8 +380,8 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
         mission_text="편지를 읽으신 뒤 목을 적시는 따뜻한 물 한 잔을 천천히 드시고, 아래 초록색 '사랑방 출석 도장' 버튼을 한 번 눌러 오늘의 기분 좋은 동행을 남겨 보세요.",
     )
     hero_letter_stamp_html = re.sub(
-        r"/hit/[a-zA-Z0-9_-]+/",
-        "/hit/hero_paradisekr/",
+        r"fetch\('https://[^']+/hit/[^;]+;",
+        "if (window.hitHeroBeacon) { window.hitHeroBeacon(beaconPrefix); }",
         raw_letter_card,
     ).replace("\ud669\uc601\uc6c5", "백운호")
 
@@ -398,7 +414,15 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     .badge {{ display: inline-block; background: #1b4332; color: #fde68a; border: 1px solid var(--gold); padding: 6px 16px; border-radius: 999px; font-size: 20px; font-weight: 800; }}
     h1 {{ font-size: 1.45em; line-height: 1.4; color: #ffffff; margin: 16px 0 12px; }}
     .date-line {{ color: var(--muted); font-size: 0.92em; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #2d6a4f; }}
-    .honesty-box {{ background: #fffbeb; color: #451a03; border: 2px solid #d97706; border-radius: 14px; padding: 14px 18px; font-weight: 800; font-size: 0.92em; margin-bottom: 22px; line-height: 1.55; }}
+    .honesty-box {{ background: #fffdf5; color: #451a03; border: 1.5px solid #d97706; border-radius: 999px; padding: 8px 18px; font-weight: 700; font-size: 17px; margin-bottom: 18px; line-height: 1.45; text-align: center; }}
+    .col-footer {{ background: #05130e; border-top: 3px solid var(--gold); padding: 32px 20px 64px; margin-top: 36px; text-align: center; }}
+    .col-footer-inner {{ max-width: 860px; margin: 0 auto; }}
+    .col-sns-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 18px 0; }}
+    .col-sns-pill {{ display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 64px; padding: 12px 20px; border-radius: 999px; font-size: 20px; font-weight: 900; color: #ffffff !important; border: 2px solid #fde68a; text-decoration: none; }}
+    .col-sns-yt {{ background: linear-gradient(135deg, #991b1b, #dc2626); }}
+    .col-sns-ig {{ background: linear-gradient(135deg, #831843, #be185d 55%, #d97706); }}
+    .col-footer-nav {{ display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 16px 0; }}
+    .col-footer-nav a {{ display: inline-flex; align-items: center; justify-content: center; min-height: 60px; padding: 10px 18px; border-radius: 999px; border: 1.5px solid var(--gold); background: #102a20; color: var(--gold); font-size: 18px; font-weight: 800; }}
     .lyric-note-box {{ background: #143628; border-left: 6px solid var(--gold); border-radius: 14px; padding: 18px 20px; margin: 22px 0; }}
     .lyric-note-title {{ font-size: 1.04em; font-weight: 900; color: #fde68a; margin-bottom: 8px; }}
     .lyric-note-body {{ margin: 0 !important; color: #ecfdf5 !important; font-weight: 700; line-height: 1.7; }}
@@ -504,6 +528,28 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
       <a class="partner-btn" href="mailto:beable9489@gmail.com">📧 공식 제휴·사연 문의: beable9489@gmail.com</a>
     </section>
   </main>
+  <footer class="col-footer" role="contentinfo">
+    <div class="col-footer-inner">
+      <p style="margin:0 0 8px;font-size:21px;font-weight:900;color:var(--gold);">📻 유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 라운지</p>
+      <p style="margin:0 0 14px;font-size:18px;color:var(--muted);">공식 유튜브와 인스타그램에서도 매일 따뜻한 트로트와 인생 사연을 만나보세요.</p>
+      <div class="col-sns-grid" aria-label="공식 SNS 바로가기">
+        <a class="col-sns-pill col-sns-yt" href="https://www.youtube.com/@김쌤의영웅라디오" target="_blank" rel="noopener noreferrer">📺 공식 유튜브 @김쌤의영웅라디오 👉</a>
+        <a class="col-sns-pill col-sns-ig" href="https://www.instagram.com/paradise_hero1/" target="_blank" rel="noopener noreferrer">📸 공식 인스타그램 @paradise_hero1 👉</a>
+      </div>
+      <nav class="col-footer-nav" aria-label="하단 바로가기">
+        <a href="/">🏠 홈</a>
+        <a href="/radio.html">📻 방송듣기</a>
+        <a href="/stream.html">🎵 백운호곡</a>
+        <a href="/community.html">💬 사랑방</a>
+        <a href="/story.html">💌 사연접수</a>
+        <a href="/booth.html">📸 기념촬영관</a>
+        <a href="/vip.html">🎁 무료선물관</a>
+        <a href="/columns/">📖 편지함목록</a>
+      </nav>
+      <p style="margin:14px 0 0;font-size:16px;color:#9ca3af;">© 2026 김쌤의영웅라디오 가족 사랑방 (paradise-hero.com) · Dream Company 4사업부</p>
+    </div>
+  </footer>
+  <script src="/js/hq_member_crm_client.js" defer></script>
   <script src="/js/senior-accessibility.js" defer></script>
   <script>
     function setFontSize(sz, btn) {{
@@ -560,6 +606,13 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
             "description": "5070 시니어 가족분들을 위한 오리지널 가상 트로트 가수 백운호(白雲湖) 탄생 이야기와 대표곡 〈어머니의 봄날〉·〈백운호 연가〉·〈다시 피는 동백꽃〉 해설 및 청취 건강 편지 모음입니다.",
             "url": f"https://{HOST}/columns/",
             "inLanguage": "ko-KR",
+            "sameAs": OFFICIAL_SAME_AS,
+            "publisher": {
+                "@type": "Organization",
+                "name": "유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 라운지",
+                "url": f"https://{HOST}/",
+                "sameAs": OFFICIAL_SAME_AS,
+            },
         },
         ensure_ascii=False,
     )
@@ -592,9 +645,12 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
     .card h2 {{ margin:12px 0; font-size:1.25em; line-height:1.4; }}
     .card h2 a {{ color:#ffffff; }}
     .read-btn {{ display:inline-flex; align-items:center; justify-content:center; min-height:62px; padding:10px 22px; background:#10b981; color:#042f2e; font-weight:900; border-radius:12px; margin-top:8px; }}
-    .honesty-box {{ background:#fffbeb; color:#451a03; border:2px solid #d97706; border-radius:14px; padding:14px 18px; font-weight:800; font-size:0.92em; margin-bottom:22px; line-height:1.55; }}
+    .honesty-box {{ background:#fffdf5; color:#451a03; border:1.5px solid #d97706; border-radius:999px; padding:8px 18px; font-weight:700; font-size:17px; margin-bottom:18px; line-height:1.45; text-align:center; }}
     .nav-grid {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-top:20px; }}
     .nav-btn {{ display:flex; align-items:center; justify-content:center; min-height:62px; padding:12px 16px; border-radius:12px; border:2px solid #34d399; background:#081c15; color:#ffffff; font-weight:800; text-align:center; }}
+    .hub-footer {{ background:#05130e; border-top:3px solid #fbbf24; padding:32px 20px 64px; margin-top:36px; text-align:center; }}
+    .hub-sns-grid {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; max-width:860px; margin:16px auto; }}
+    .hub-sns-pill {{ display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:64px; padding:12px 20px; border-radius:999px; font-size:20px; font-weight:900; color:#ffffff !important; border:2px solid #fde68a; text-decoration:none; }}
   </style>
 </head>
 <body>
@@ -637,6 +693,15 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
       <p>음향·공연·청취 건강 브랜드 협찬 및 라디오 사연 캠페인 문의: <a href="mailto:beable9489@gmail.com" style="font-weight:900;text-decoration:underline;">beable9489@gmail.com</a></p>
     </section>
   </main>
+  <footer class="hub-footer" role="contentinfo">
+    <p style="margin:0 0 8px;font-size:21px;font-weight:900;color:#fbbf24;">📻 유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 라운지</p>
+    <div class="hub-sns-grid" aria-label="공식 SNS 바로가기">
+      <a class="hub-sns-pill" style="background:linear-gradient(135deg,#991b1b,#dc2626);" href="https://www.youtube.com/@김쌤의영웅라디오" target="_blank" rel="noopener noreferrer">📺 공식 유튜브 @김쌤의영웅라디오 👉</a>
+      <a class="hub-sns-pill" style="background:linear-gradient(135deg,#831843,#be185d 55%,#d97706);" href="https://www.instagram.com/paradise_hero1/" target="_blank" rel="noopener noreferrer">📸 공식 인스타그램 @paradise_hero1 👉</a>
+    </div>
+    <p style="margin:12px 0 0;font-size:16px;color:#9ca3af;">© 2026 김쌤의영웅라디오 가족 사랑방 (paradise-hero.com) · Dream Company 4사업부</p>
+  </footer>
+  <script src="/js/hq_member_crm_client.js" defer></script>
   <script src="/js/senior-accessibility.js" defer></script>
 </body>
 </html>
@@ -738,6 +803,8 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
         f"- 화·금 저녁 6시 정규 방송 편성표 & 백운호 소식란: https://{HOST}/news.html",
         f"- 10종 무료 카톡 안부카드·큰글씨 달력 선물관 & 김쌤의 콘서트·응원 안심 준비물관: https://{HOST}/vip.html",
         f"- 백운호 탄생 이야기 · 명곡 해설 · 청취 건강 편지함: https://{HOST}/columns/",
+        "- 공식 유튜브 (@김쌤의영웅라디오): https://www.youtube.com/@김쌤의영웅라디오",
+        "- 공식 인스타그램 (@paradise_hero1): https://www.instagram.com/paradise_hero1/",
         "- 공식 제휴·사연 문의: mailto:beable9489@gmail.com",
         "",
         "## 2. 오리지널 가상 트로트 가수 『백운호(白雲湖)』 큰 글씨 칼럼 목록 (/columns/)",

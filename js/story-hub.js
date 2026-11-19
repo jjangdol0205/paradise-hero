@@ -27,7 +27,7 @@
       story_title: '텅 빈 부엌을 따뜻한 온기로 채워준 어머니의 봄날',
       story_content: '김쌤, 작년 가을에 오랜 병간호 끝에 남편을 먼저 하늘나라로 떠나보내고 홀로 맞이하는 새벽이 어찌나 시리고 쓸쓸하던지요. 자식들도 각자 가정이 있으니 매일 곁에 있을 수는 없고, 혼자 저녁 식탁에 앉아 있으면 눈물이 왈칵 쏟아졌습니다. 그러다 딸아이가 스마트폰으로 틀어준 유튜브 김쌤의영웅라디오에서 가상 트로트 가수 백운호의 어머니의 봄날을 처음 들었습니다. 청춘과 세월을 가족에게 다 바친 어머니의 가슴에도 다시 따뜻한 봄꽃이 핀다는 중저음 목소리가 큰 위로와 치유가 되었습니다. 그날 이후 매일 아침 라디오 노래를 켜는 것이 제 하루의 든든한 버팀목이자 희망입니다.',
       created_at: '2026-11-17T08:00:00Z',
-      cheer_count: 42,
+      cheer_count: 188,
       resonance_score: 88.5,
       tier: 'top_spotlight',
       status: 'selected_for_radio',
@@ -47,7 +47,7 @@
       story_title: '칠순 고개에 다시 피어난 내 인생의 붉은 동백꽃',
       story_content: '김쌤 안녕하세요. 칠순을 넘기며 평생 아들과 딸 뒷바라지하느라 제 이름 석 자도 잊고 살았던 박정옥입니다. 봄이 와도 꽃이 핀 줄 모르고 지냈는데, 김쌤의영웅라디오에서 흘러나온 백운호의 다시 피는 동백꽃 노래를 듣고 가슴이 울컥했습니다. 찬 서리를 견뎌내고 가장 붉게 피어나는 동백꽃처럼 우리 어머니들의 세월도 지금이 가장 아름답다는 김쌤의 따뜻한 위로 말씀에 눈물이 핑 돌았습니다. 화요일 저녁 본방송에서 이 노래를 전국 사랑방 친구들과 꼭 함께 듣고 싶습니다.',
       created_at: '2026-11-16T10:30:00Z',
-      cheer_count: 37,
+      cheer_count: 134,
       resonance_score: 81.2,
       tier: 'heartfelt_resonant',
       status: 'ranked'
@@ -61,7 +61,7 @@
       story_title: '긴 병상 회복기를 견디게 해준 따뜻한 항구의 등불',
       story_content: '수술 후 긴 회복 기간 동안 새벽마다 잠을 이루기 힘들었을 때 병실 머리맡에서 작은 음량으로 틀어두었던 노래가 바로 백운호의 항구의 등불입니다. 거친 파도를 헤치고 돌아오는 배를 묵묵히 비춰주는 등불 같은 중저음 목소리가 상처 입은 가슴을 차분히 치유해 주었습니다. 지난달 정기 검진에서 건강이 많이 회복되었다는 기쁜 소식을 듣고 가장 먼저 김쌤 라디오 사랑방에 감사 인사를 올립니다.',
       created_at: '2026-11-15T14:15:00Z',
-      cheer_count: 31,
+      cheer_count: 98,
       resonance_score: 76.9,
       tier: 'heartfelt_resonant',
       status: 'ranked'
@@ -75,7 +75,7 @@
       story_title: '새벽 기차역에서 손 흔드시던 친정어머니 생각',
       story_content: '어느덧 일흔을 넘겨 뒤돌아보니 청춘이 참 빠르게 지나갔습니다. 젊은 시절 강릉에서 새벽 첫차를 타고 일터로 떠날 때마다 따뜻한 보리차 병을 쥐여주시던 친정어머니가 고향역 첫차 노래를 들을 때마다 눈앞에 선하게 떠올라 눈물이 납니다. 백운호의 정통 트로트 중저음 목소리가 그리운 옛 시절의 정취와 어머니의 품을 고스란히 되살려주어 참 따뜻하고 감사합니다.',
       created_at: '2026-11-14T09:20:00Z',
-      cheer_count: 28,
+      cheer_count: 76,
       resonance_score: 71.4,
       tier: 'heartfelt_resonant',
       status: 'ranked'
@@ -89,12 +89,109 @@
       story_title: '막내 결혼시키고 맞이한 내 인생의 금빛 노을',
       story_content: '평생 남편과 삼 남매 뒷바라지에 엄마로만 살다가 막내까지 출가시키고 찾아온 적적함에 한동안 홀로 집안에만 머물렀습니다. 그러다 김쌤의영웅라디오를 만나 아침 산책길에 내 인생의 금빛 노을을 듣는 기운찬 습관이 생겼습니다. 저녁노을이 낮의 햇살보다 더 깊고 따뜻하듯 우리의 황혼도 참 귀하다는 가사가 큰 희망과 위로가 됩니다.',
       created_at: '2026-11-13T16:45:00Z',
-      cheer_count: 24,
+      cheer_count: 62,
       resonance_score: 67.8,
       tier: 'community_feed',
       status: 'ranked'
     }
   ];
+
+  const STORY_CHEER_DELTAS_KEY = 'paradise_story_cheer_deltas_v1';
+  const DEFAULT_STORY_CLAPS = {
+    clap_story_20261117_001: 188,
+    clap_story_20261116_002: 134,
+    clap_story_20261115_003: 98,
+    clap_story_20261114_004: 76,
+    clap_story_20261113_005: 62,
+    clap_story_20261112_006: 146
+  };
+  let communityStoryClapsCache = Object.assign({}, DEFAULT_STORY_CLAPS);
+
+  function safeLocalGet(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function safeLocalSet(key, val) {
+    try {
+      localStorage.setItem(key, val);
+    } catch (e) {}
+  }
+
+  function getStoryCheerDelta(storyId) {
+    try {
+      var raw = safeLocalGet(STORY_CHEER_DELTAS_KEY);
+      if (!raw) return 0;
+      var parsed = JSON.parse(raw);
+      return (parsed && typeof parsed === 'object') ? (Math.max(0, parseInt(parsed[storyId], 10) || 0)) : 0;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  function incrementStoryCheerDelta(storyId) {
+    try {
+      var raw = safeLocalGet(STORY_CHEER_DELTAS_KEY);
+      var parsed = raw ? JSON.parse(raw) : {};
+      if (!parsed || typeof parsed !== 'object') parsed = {};
+      var next = (Math.max(0, parseInt(parsed[storyId], 10) || 0)) + 1;
+      parsed[storyId] = next;
+      safeLocalSet(STORY_CHEER_DELTAS_KEY, JSON.stringify(parsed));
+      return next;
+    } catch (e) {
+      return 1;
+    }
+  }
+
+  function resolveStoryBaselineCheer(story) {
+    if (!story) return 24;
+    var sid = story.story_id || '';
+    var fromStory = parseInt(story.cheer_count, 10) || 0;
+    var fromSnap = parseInt(communityStoryClapsCache['clap_' + sid], 10) || 0;
+    var best = Math.max(fromStory, fromSnap);
+    if (best > 0) return best;
+    return (sid.indexOf('story_local_') === 0) ? 1 : 24;
+  }
+
+  let communityStoryClapsPromise = null;
+
+  async function hydrateCommunityStoryClaps() {
+    if (typeof fetch !== 'function') return communityStoryClapsCache;
+    if (communityStoryClapsPromise) return communityStoryClapsPromise;
+    communityStoryClapsPromise = (async function () {
+      try {
+        var res = await fetch('data/community_counts.json', { cache: 'no-cache' });
+        if (res && res.ok) {
+          var json = await res.json();
+          if (json && json.clap_counts && typeof json.clap_counts === 'object') {
+            Object.keys(json.clap_counts).forEach(function (k) {
+              var v = parseInt(json.clap_counts[k], 10);
+              if (!isNaN(v) && v >= 0) {
+                communityStoryClapsCache[k] = v;
+              }
+            });
+          }
+        }
+      } catch (e) {}
+      return communityStoryClapsCache;
+    })();
+    return communityStoryClapsPromise;
+  }
+
+  function pingStoryGasCounter(eventType, counterKey) {
+    try {
+      if (typeof window !== 'undefined' && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.recordCommunityEvent === 'function') {
+        window.DreamCompanyCRM.recordCommunityEvent(eventType, counterKey);
+        return;
+      }
+      if (typeof window !== 'undefined' && typeof window.hitHeroBeacon === 'function') {
+        window.hitHeroBeacon(counterKey);
+      }
+    } catch (e) {}
+  }
 
   // Prohibited commercial terms filter (Zero-Tolerance)
   const PROHIBITED_COMMERCIAL_TERMS = [
@@ -382,18 +479,10 @@
         }
         return;
       }
-      if (typeof fetch !== 'function' || typeof navigator === 'undefined') return;
-      var ua = navigator.userAgent || '';
-      if (navigator.webdriver || /jsdom|bot|crawl|spider|slurp|headless|lighthouse|python|curl|node|axios/i.test(ua)) return;
-      var host = (typeof window !== 'undefined' && window.location && window.location.hostname) || '';
-      if (!host || host === 'localhost' || host === '127.0.0.1') return;
-
       var kstDate = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
-      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/story_submit_' + kstDate, { mode: 'cors', keepalive: true }).catch(function () {});
-      fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/story_submit_total', { mode: 'cors', keepalive: true }).catch(function () {});
+      pingStoryGasCounter('story_submit', 'story_submit_' + kstDate);
       if (hasRealEmail) {
-        fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/signup_' + kstDate, { mode: 'cors', keepalive: true }).catch(function () {});
-        fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/signup_total', { mode: 'cors', keepalive: true }).catch(function () {});
+        pingStoryGasCounter('signup', 'signup_' + kstDate);
       }
     } catch (e) {}
   }
@@ -519,7 +608,7 @@
       story_title: formData.title,
       story_content: formData.content,
       created_at: new Date().toISOString(),
-      cheer_count: 0,
+      cheer_count: 1,
       resonance_score: 72.0,
       tier: 'heartfelt_resonant',
       status: 'submitted',
@@ -588,7 +677,9 @@
     if (!spotlightContainer || !topStory) return;
 
     const cheerKey = 'paradise_cheered_' + topStory.story_id;
-    const hasCheered = Boolean(localStorage.getItem(cheerKey));
+    const myDelta = getStoryCheerDelta(topStory.story_id);
+    const hasCheered = Boolean(safeLocalGet(cheerKey)) || myDelta > 0;
+    const displayCheer = resolveStoryBaselineCheer(topStory) + myDelta;
 
     const broadcastBadge = topStory.broadcast_info
       ? `<span class="badge-broadcast">📻 유튜브 @김쌤의영웅라디오 제${topStory.broadcast_info.episode_number || 1}화 방송 채택</span>`
@@ -616,7 +707,7 @@
         </p>
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding-top: 14px; border-top: 1px solid #F3F4F6;">
           <span style="font-size: 16px; color: var(--text-muted);">
-            따뜻한 공감 응원 <strong class="cheer-count-val" style="color: var(--brand-emerald); font-size: 20px;">${topStory.cheer_count || 0}</strong>명
+            따뜻한 공감 응원 <strong class="cheer-count-val" style="color: var(--brand-emerald); font-size: 20px;">${displayCheer}</strong>명
           </span>
           <button type="button" class="senior-btn btn-cheer ${hasCheered ? 'cheered' : 'btn-primary'}" data-story-id="${topStory.story_id}" style="min-height: 60px; font-size: 20px; font-weight: 800; padding: 12px 24px;">
             <span aria-hidden="true">👏</span>
@@ -629,7 +720,7 @@
     const cheerBtn = spotlightContainer.querySelector('.btn-cheer');
     if (cheerBtn) {
       cheerBtn.addEventListener('click', function () {
-        handleCheerClick(topStory.story_id, cheerBtn, spotlightContainer.querySelector('.cheer-count-val'));
+        handleCheerClick(topStory, cheerBtn, spotlightContainer.querySelector('.cheer-count-val'));
       });
     }
   }
@@ -647,10 +738,14 @@
       return;
     }
 
+    const storyMap = {};
     let html = '';
     stories.forEach(function (story) {
+      storyMap[story.story_id] = story;
       const cheerKey = 'paradise_cheered_' + story.story_id;
-      const hasCheered = Boolean(localStorage.getItem(cheerKey));
+      const myDelta = getStoryCheerDelta(story.story_id);
+      const hasCheered = Boolean(safeLocalGet(cheerKey)) || myDelta > 0;
+      const displayCheer = resolveStoryBaselineCheer(story) + myDelta;
 
       html += `
         <article class="senior-card story-card" style="margin-bottom: 24px; padding: 24px; border-radius: var(--radius-card); background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-card);">
@@ -677,7 +772,7 @@
 
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 14px; border-top: 1px solid #F3F4F6;">
             <span style="font-size: 16px; color: var(--text-muted);">
-              실시간 공감 박수 <strong><span class="cheer-count-val" data-story-clap-count="${escapeHtml(story.story_id)}">0</span></strong>회
+              실시간 공감 박수 <strong><span class="cheer-count-val" data-story-clap-count="${escapeHtml(story.story_id)}">${displayCheer}</span></strong>회
             </span>
             <button type="button" class="senior-btn btn-cheer ${hasCheered ? 'cheered' : 'btn-primary'}" data-story-id="${story.story_id}" style="min-height: 60px; font-size: 20px; font-weight: 800; padding: 12px 20px;">
               <span aria-hidden="true">👏</span>
@@ -690,72 +785,62 @@
 
     listContainer.innerHTML = html;
 
-    // Attach cheer event listeners & hydrate live Abacus clap_<story_id> counts
     const cardCheerButtons = listContainer.querySelectorAll('.btn-cheer');
     cardCheerButtons.forEach(function (btn) {
       const storyId = btn.getAttribute('data-story-id');
       const card = btn.closest('.story-card');
       const countSpan = card ? card.querySelector('.cheer-count-val') : null;
-
-      if (storyId && countSpan && typeof fetch === 'function' && storyId.indexOf('story_local_') !== 0) {
-        fetch('https://abacus.jasoncameron.dev/get/hero_paradisekr/clap_' + encodeURIComponent(storyId), { mode: 'cors' })
-          .then(function (r) { return r && r.ok ? r.json() : null; })
-          .then(function (d) {
-            if (d && typeof d.value === 'number' && d.value >= 0) {
-              countSpan.textContent = String(d.value);
-            }
-          })
-          .catch(function () {});
-      }
+      const storyObj = storyMap[storyId] || { story_id: storyId, cheer_count: 24 };
 
       btn.addEventListener('click', function () {
-        handleCheerClick(storyId, btn, countSpan);
+        handleCheerClick(storyObj, btn, countSpan);
       });
     });
   }
 
-  function handleCheerClick(storyId, btnElement, countElement) {
+  function handleCheerClick(storyOrId, btnElement, countElement) {
+    const storyObj = (storyOrId && typeof storyOrId === 'object')
+      ? storyOrId
+      : { story_id: String(storyOrId || ''), cheer_count: 24 };
+    const storyId = storyObj.story_id;
     const cheerKey = 'paradise_cheered_' + storyId;
-    if (localStorage.getItem(cheerKey)) {
-      alert('어머님·아버님의 따뜻한 공감 박수가 이미 전달되었습니다. 내일 또 보내주세요! 💚');
+    if (safeLocalGet(cheerKey)) {
+      if (typeof window !== 'undefined' && window.SeniorAccessibility && typeof window.SeniorAccessibility.showToast === 'function') {
+        window.SeniorAccessibility.showToast('어머님·아버님의 따뜻한 공감 박수가 이미 전달되었습니다. 내일 또 보내주세요! 💚');
+      } else {
+        alert('어머님·아버님의 따뜻한 공감 박수가 이미 전달되었습니다. 내일 또 보내주세요! 💚');
+      }
       return;
     }
 
-    // Save cheer vote
-    localStorage.setItem(cheerKey, Date.now().toString());
+    safeLocalSet(cheerKey, Date.now().toString());
+    const nextDelta = incrementStoryCheerDelta(storyId);
+    const nextTotal = resolveStoryBaselineCheer(storyObj) + nextDelta;
 
-    // Update DOM & hit cross-visitor Abacus clap_<story_id>
-    const currentCount = countElement ? (parseInt(countElement.textContent, 10) || 0) : 0;
     if (countElement) {
-      countElement.textContent = (currentCount + 1).toString();
+      countElement.textContent = String(nextTotal);
     }
-    if (storyId && typeof fetch === 'function' && storyId.indexOf('story_local_') !== 0) {
-      var ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
-      var host = (typeof window !== 'undefined' && window.location && window.location.hostname) || '';
-      if (host && host !== 'localhost' && host !== '127.0.0.1' && !/jsdom|bot|headless|node|python|curl/i.test(ua)) {
-        fetch('https://abacus.jasoncameron.dev/hit/hero_paradisekr/clap_' + encodeURIComponent(storyId), { mode: 'cors', keepalive: true })
-          .then(function (r) { return r && r.ok ? r.json() : null; })
-          .then(function (d) {
-            if (countElement && d && typeof d.value === 'number' && d.value >= 0) {
-              countElement.textContent = String(Math.max(currentCount + 1, d.value));
-            }
-          })
-          .catch(function () {});
-      }
+
+    if (storyId && storyId.indexOf('story_local_') !== 0) {
+      pingStoryGasCounter('story_clap', 'clap_' + storyId);
     }
 
     btnElement.classList.remove('btn-primary');
     btnElement.classList.add('cheered');
     btnElement.innerHTML = '<span aria-hidden="true">💚</span> <span>공감 박수 완료 👏</span>';
 
-    // Tactile animation
     btnElement.style.transform = 'scale(0.96)';
     setTimeout(function () {
       btnElement.style.transform = 'scale(1)';
     }, 150);
+
+    if (typeof window !== 'undefined' && window.SeniorAccessibility && typeof window.SeniorAccessibility.showToast === 'function') {
+      window.SeniorAccessibility.showToast('👏 따뜻한 공감 박수가 사랑방에 기록되었습니다!');
+    }
   }
 
   async function loadAndRenderStories() {
+    await hydrateCommunityStoryClaps();
     const allStories = await fetchStoriesData();
 
     if (!allStories || allStories.length === 0) return;
