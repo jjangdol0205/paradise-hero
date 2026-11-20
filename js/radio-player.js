@@ -14,7 +14,7 @@
   const RADIO_EPISODES = [
     {
       id: 'ep01',
-      title: '1화: [사연라디오] 내 인생의 사계절을 안아주는 백운호의 중저음 — 어머니의 봄날',
+      title: '1화 미리듣기 (1분): [사연라디오] 내 인생의 사계절을 안아주는 백운호의 중저음 — 어머니의 봄날',
       song: '어머니의 봄날 · 백운호 연가',
       duration: '01:08',
       audioSrc: 'assets/audio/baek_woon_ho_ep01.mp3',
@@ -28,7 +28,7 @@
     },
     {
       id: 'ep02',
-      title: '2화: [저녁사연극] 앞치마는 잠시 내려놓으세요 — 김쌤과 백운호가 띄우는 사연 열차',
+      title: '2화 미리듣기 (1분): [저녁사연극] 앞치마는 잠시 내려놓으세요 — 김쌤과 백운호가 띄우는 사연 열차',
       song: '백운호 연가 · 항구의 등불',
       duration: '01:06',
       audioSrc: 'assets/audio/baek_woon_ho_ep02.mp3',
@@ -42,7 +42,7 @@
     },
     {
       id: 'ep03',
-      title: '3화: [감동사연] 찬 서리 견디고 피어난 어머님들의 세월 — 다시 피는 동백꽃',
+      title: '3화 미리듣기 (1분): [감동사연] 찬 서리 견디고 피어난 어머님들의 세월 — 다시 피는 동백꽃',
       song: '다시 피는 동백꽃 · 내 인생의 금빛 노을',
       duration: '01:05',
       audioSrc: 'assets/audio/baek_woon_ho_ep03.mp3',
@@ -56,7 +56,7 @@
     },
     {
       id: 'ep04',
-      title: '4화: [인생사연] 새벽 정거장 보리차 병의 기억 — 고향역 첫차와 따뜻한 위로',
+      title: '4화 미리듣기 (1분): [인생사연] 새벽 정거장 보리차 병의 기억 — 고향역 첫차와 따뜻한 위로',
       song: '고향역 첫차 · 어머니의 봄날',
       duration: '01:04',
       audioSrc: 'assets/audio/baek_woon_ho_ep04.mp3',
@@ -70,7 +70,7 @@
     },
     {
       id: 'ep05',
-      title: '5화: [명곡해설] 심야 스튜디오에서 백운호가 전하는 6대 오리지널 트로트 이야기',
+      title: '5화 미리듣기 (1분): [명곡해설] 심야 스튜디오에서 백운호가 전하는 6대 오리지널 트로트 이야기',
       song: '항구의 등불 · 내 인생의 금빛 노을',
       duration: '01:10',
       audioSrc: 'assets/audio/baek_woon_ho_ep05.mp3',
@@ -91,8 +91,8 @@
 
   // 정식 대표 롱폼 [1화] (18분 풀버전 — 유튜브 @김쌤의영웅라디오 업로드 즉시 youtubeVideoId 입력 시 자동 전환, 빈 값일 때는 깨진 iframe 0건 + 무광고 연속 스튜디오 스트림 즉시 재생)
   const FLAGSHIP_EP1_CONFIG = {
-    title: '[1화] 어머님 감동 사연 2편 & 백운호 대표곡 3곡 연속 듣기 | 어머니의 봄날 · 백운호 연가',
-    youtubeVideoId: '',
+    title: '[1화 정규 14분 본방송] 어머님 감동 사연 2편 & 백운호 대표곡 3곡 연속 듣기 | 어머니의 봄날 · 백운호 연가',
+    youtubeVideoId: 'lUQWTtVW3PM',
     channelUrl: 'https://www.youtube.com/@%EA%B9%80%EC%8C%A4%EC%9D%98%EC%98%81%EC%9B%85%EB%9D%BC%EB%94%94%EC%98%A4',
     poster: 'assets/ep1_flagship_thumb_1280x720.png',
     continuousTracks: [

@@ -181,32 +181,46 @@
 
   const portraitCache = {};
 
+  let fallbackMainPortrait = null;
+
+  function isImgReady(img) {
+    return Boolean(img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0);
+  }
+
   function preloadPortraits(callback) {
-    let loaded = 0;
+    const mainImg = new Image();
+    mainImg.src = 'assets/baek_woon_ho_main.png';
+    mainImg.onload = () => {
+      fallbackMainPortrait = mainImg;
+      if (!portraitCache[1]) portraitCache[1] = mainImg;
+      if (typeof callback === 'function') callback();
+    };
     BAEK_PORTRAITS.forEach((p) => {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
       img.src = p.src;
       img.onload = () => {
-        portraitCache[p.idx] = img;
-        loaded++;
-        if (loaded === 1 && typeof callback === 'function') callback();
+        if (isImgReady(img)) {
+          portraitCache[p.idx] = img;
+          if (typeof callback === 'function') callback();
+        }
       };
       img.onerror = () => {
-        loaded++;
+        if (isImgReady(fallbackMainPortrait)) {
+          portraitCache[p.idx] = fallbackMainPortrait;
+          if (typeof callback === 'function') callback();
+        }
       };
     });
   }
 
   function resolvePortraitFromValue(val) {
-    if (!val) return portraitCache[1];
-    const s = String(val);
+    const s = String(val || '1');
     const m = s.match(/([1-6])/);
-    if (m) {
-      const idx = parseInt(m[1], 10);
-      if (portraitCache[idx]) return portraitCache[idx];
-    }
-    return portraitCache[1];
+    const idx = m ? parseInt(m[1], 10) : 1;
+    if (isImgReady(portraitCache[idx])) return portraitCache[idx];
+    if (isImgReady(portraitCache[1])) return portraitCache[1];
+    if (isImgReady(fallbackMainPortrait)) return fallbackMainPortrait;
+    return null;
   }
 
   function getStudioState() {
@@ -1240,16 +1254,29 @@
   function shareCanvasImage(canvasId, itemLabel) {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
-    try {
-      const dataUrl = canvas.toDataURL('image/png');
-      if (typeof window !== 'undefined' && window.ParadiseKakaoBookmark && typeof window.ParadiseKakaoBookmark.shareDataUrl === 'function') {
-        window.ParadiseKakaoBookmark.shareDataUrl(dataUrl, itemLabel || '백운호 기념 선물');
-        return;
-      }
-      triggerDirectDownload(canvasId, '백운호_카톡선물', itemLabel);
-    } catch (e) {
-      triggerDirectDownload(canvasId, '백운호_카톡선물', itemLabel);
+    const title = itemLabel || '백운호 카톡 아침 안부카드';
+    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function' && typeof canvas.toBlob === 'function') {
+      canvas.toBlob(async (blob) => {
+        try {
+          if (blob && typeof File === 'function') {
+            const file = new File([blob], 'baek_woonho_greeting.png', { type: 'image/png' });
+            if (!navigator.canShare || navigator.canShare({ files: [file] })) {
+              await navigator.share({
+                files: [file],
+                title: title,
+                text: '김쌤의영웅라디오 · 가상 트로트 가수 백운호 무료 안부 선물 (paradise-hero.com)'
+              });
+              return;
+            }
+          }
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+        }
+        triggerDirectDownload(canvasId, '백운호_카톡선물', title);
+      }, 'image/png');
+      return;
     }
+    triggerDirectDownload(canvasId, '백운호_카톡선물', title);
   }
 
   function initVipDigitalStudio() {
