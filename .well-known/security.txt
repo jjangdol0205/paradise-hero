@@ -1,0 +1,4 @@
+Contact: mailto:radio@paradise-hero.com
+Expires: 2027-11-21T00:00:00.000Z
+Preferred-Languages: ko
+Canonical: https://paradise-hero.com/.well-known/security.txt
