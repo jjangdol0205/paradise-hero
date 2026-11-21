@@ -503,6 +503,11 @@
       if (typeof window.__hitParadiseHeroMetric === 'function') {
         window.__hitParadiseHeroMetric('gift_download');
       }
+      try {
+        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+          window.DreamCompanyCRM.trackFunnelEvent('HERO', 'gift_download', { event_meta: 'long_press_photo_modal' });
+        }
+      } catch (_) {}
       return openLongPressPhotoSaveModal(dataUrl, titleText);
     }
   };
@@ -590,7 +595,60 @@
       var kstNow = getKstDateStr();
       bumpLocalCounter(key + '_' + kstNow);
       bumpLocalCounter(key + '_total');
-      if (isAutomatedOrLocal) return;
+      // Cloudflare D1 AARRR Activation Telemetry (runs unconditionally; DreamCompanyCRM handles is_qa=1 cleanly)
+    var lastHeroAudioTrackTs = 0;
+    function trackHeroAudioPlay(sourceTag) {
+      var nowMs = Date.now();
+      if (nowMs - lastHeroAudioTrackTs < 1500) return;
+      lastHeroAudioTrackTs = nowMs;
+      hitMetric('audio_play');
+      try {
+        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+          window.DreamCompanyCRM.trackFunnelEvent('HERO', 'audio_play', { event_meta: sourceTag || 'radio_play' });
+        }
+      } catch (_) {}
+    }
+    var lastHeroGiftTrackTs = 0;
+    function trackHeroGiftDownload(sourceTag) {
+      var nowMs = Date.now();
+      if (nowMs - lastHeroGiftTrackTs < 1200) return;
+      lastHeroGiftTrackTs = nowMs;
+      hitMetric('gift_download');
+      try {
+        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+          window.DreamCompanyCRM.trackFunnelEvent('HERO', 'gift_download', { event_meta: sourceTag || 'gift_save' });
+        }
+      } catch (_) {}
+    }
+    document.addEventListener('play', function (ev) {
+      if (ev && ev.target && ev.target.tagName === 'AUDIO') {
+        trackHeroAudioPlay(ev.target.id || 'audio_element_play');
+      }
+    }, true);
+    document.addEventListener('click', function (ev) {
+      var el = ev.target && ev.target.closest ? ev.target.closest('a, button, [role="button"]') : null;
+      if (!el) return;
+      var tag = (el.getAttribute('onclick') || el.getAttribute('data-csp-tag') || el.getAttribute('data-csp-act') || '').toLowerCase();
+      var eid = String(el.id || '').toLowerCase();
+      if (eid === 'btn-studio-stage-play' || el.hasAttribute('data-play-episode') || el.hasAttribute('data-play-flagship-ep1')) {
+        trackHeroAudioPlay(eid || (el.hasAttribute('data-play-flagship-ep1') ? 'flagship_ep1' : 'episode_btn'));
+      } else if (tag.indexOf('vipdigitalstudio.download') !== -1 || el.hasAttribute('data-gift-download') || eid.indexOf('download') !== -1 || eid.indexOf('save-photo') !== -1) {
+        trackHeroGiftDownload(eid || tag || 'vip_download');
+      }
+    }, true);
+    document.addEventListener('submit', function (ev) {
+      var fid = ev.target && ev.target.id ? ev.target.id : '';
+      if (fid === 'auto-billboard-form' || fid === 'cheer-form') {
+        hitMetric('billboard_cheer');
+        try {
+          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+            window.DreamCompanyCRM.trackFunnelEvent('HERO', 'story_submit', { event_meta: fid });
+          }
+        } catch (_) {}
+      }
+    }, true);
+
+    if (isAutomatedOrLocal) return;
       sendGasNoCorsPing(key, ns + ':' + key + '_' + kstNow);
     }
     window.__hitParadiseHeroMetric = hitMetric;
@@ -728,20 +786,9 @@
         hitShopAndReferral('aff_coupang');
       } else if (href.indexOf('linkprice.com') !== -1 || href.indexOf('kr.iherb.com') !== -1 || href.indexOf('myrealt.rip') !== -1 || href.indexOf('naver.me/') !== -1) {
         hitShopAndReferral('aff_partner_store');
-      } else if (onclick.indexOf('vipdigitalstudio.download') !== -1) {
-        hitMetric('gift_download');
-        if (window.DreamCompanyCRM && window.DreamCompanyCRM.trackFunnelEvent) { window.DreamCompanyCRM.trackFunnelEvent('HERO', 'gift_download'); }
-      } else if (el.id === 'btn-studio-stage-play' || el.hasAttribute('data-play-episode')) {
-        if (window.DreamCompanyCRM && window.DreamCompanyCRM.trackFunnelEvent) { window.DreamCompanyCRM.trackFunnelEvent('HERO', 'audio_play'); }
       }
     }, true);
 
-    document.addEventListener('submit', function (e) {
-      var fid = e.target && e.target.id ? e.target.id : '';
-      if (fid === 'auto-billboard-form' || fid === 'cheer-form') {
-        hitMetric('billboard_cheer');
-        if (window.DreamCompanyCRM && window.DreamCompanyCRM.trackFunnelEvent) { window.DreamCompanyCRM.trackFunnelEvent('HERO', 'story_submit'); }
-      }
-    }, true);
+
   } catch (err) {}
 })();
