@@ -412,7 +412,7 @@
           </div>
           <div class="hero-content-split">
             <div class="hero-thumb-wrapper">
-              <img src="${article.image_url}" alt="${article.title} 안내 이미지" class="hero-thumb-img" onerror="this.onerror=null;this.src='assets/baek_woon_ho_main.png';">
+              <img src="${article.image_url}" alt="${article.title} 안내 이미지" class="hero-thumb-img" data-csp-fallback-src="assets/baek_woon_ho_main.png">
             </div>
             <div class="hero-text-col">
               <h2 class="hero-news-title">
@@ -607,7 +607,7 @@
         card.innerHTML = `
           <div class="news-card-inner">
             <div class="news-card-thumb-wrap">
-              <img src="${article.image_url}" alt="${article.singer_tag} 안내 이미지" class="news-card-thumb" onerror="this.onerror=null;this.src='assets/baek_woon_ho_main.png';">
+              <img src="${article.image_url}" alt="${article.singer_tag} 안내 이미지" class="news-card-thumb" data-csp-fallback-src="assets/baek_woon_ho_main.png">
               <span class="card-singer-badge">${article.singer_tag}</span>
             </div>
             <div class="news-card-body">

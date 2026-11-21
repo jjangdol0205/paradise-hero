@@ -719,7 +719,7 @@
       lastBeaconEl = el;
 
       var href = (el.getAttribute('href') || '').toLowerCase();
-      var onclick = (el.getAttribute('onclick') || '').toLowerCase();
+      var onclick = (el.getAttribute('onclick') || el.getAttribute('data-csp-tag') || el.getAttribute('data-csp-act') || '').toLowerCase();
       if (href.indexOf('cshop.naver.com/paradiseshop') !== -1 || href.indexOf('brandconnect.naver.com/affiliates/') !== -1) {
         hitShopAndReferral('aff_naver_cshop');
       } else if (href.indexOf('influencers.coupang.com/s/paradisehero') !== -1) {

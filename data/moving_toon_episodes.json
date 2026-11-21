@@ -1,0 +1,696 @@
+{
+  "series_title": "백운호 설렘 심야 영웅라디오 극장",
+  "channel_handle": "@김쌤의영웅라디오",
+  "funnel_url": "https://paradise-hero.com/booth.html",
+  "daily_safe_quota": 3,
+  "daily_slots_kst": [
+    "07:30",
+    "12:30",
+    "19:30"
+  ],
+  "episodes": [
+    {
+      "episode_id": "ep_toon_01",
+      "episode_no": 1,
+      "theme_key": "F_MAJOR",
+      "title": "비 오는 밤 혼자 울던 어머님께 걸려온 영웅 DJ의 전화 📞❤️ #백운호 #감동사연 #트로트",
+      "hook_selected": "B_loss_empathy",
+      "summary": "적적한 비 오는 밤 라디오를 켜둔 어머님께 기적처럼 들려온 심야 DJ 백운호의 다정한 목소리와 위로",
+      "community_teaser": "비 오는 밤, 유독 적적해서 잠 못 이루신 적 있으신가요? 심야 라디오 부스에서 금테 안경을 쓴 영웅 DJ가 우리 어머님 한 분만을 위해 건넨 따뜻한 한마디를 심야 영웅라디오 제1화로 만나보세요 💚",
+      "tags": [
+        "백운호",
+        "감동사연",
+        "트로트",
+        "시니어유튜브",
+        "김쌤의영웅라디오",
+        "파라다이스히어로",
+        "트로트",
+        "시니어감동"
+      ],
+      "outfits_featured": [
+        10,
+        1
+      ],
+      "beats": [
+        {
+          "layout": "split_action_mother",
+          "action_img": "cut_action_radio_onair",
+          "mother_pose": "mother_tearful",
+          "prince_id": 10,
+          "palette": "rainy_amber",
+          "speaker": "narrator",
+          "bubble_speaker": "mother",
+          "bubble_text": "오늘따라 집이 참 조용하네..",
+          "arrow_tag": "↗ 64세 소녀팬 영숙 어머님",
+          "narration": "비 내리는 밤, 텅 빈 거실에 홀로 앉은 어머님이 라디오를 꼭 안았습니다.",
+          "subtitle": "비 내리는 밤, 홀로 라디오를 꼭 안은 어머님"
+        },
+        {
+          "layout": "split_action_prince",
+          "action_img": "cut_action_radio_onair",
+          "prince_id": 10,
+          "mother_pose": "mother_tearful",
+          "palette": "studio_mint",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "영숙 어머님, 아직 안 주무셨죠?",
+          "arrow_tag": "↗ 심야 라디오 DJ 영웅",
+          "narration": "영숙 어머님, 아직 안 주무셨죠? 비 소리 들으며 혼자 울고 계실까 봐 마이크 켰어요.",
+          "subtitle": "영숙 어머님, 혼자 울고 계실까 봐 마이크 켰어요"
+        },
+        {
+          "layout": "solo_mother_closeup",
+          "mother_pose": "mother_surprised",
+          "prince_id": 10,
+          "palette": "peach_glow",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "어머나 세상에.. 내 이름을 불렀어!",
+          "arrow_tag": "↗ 심장 쿵 내려앉은 어머님",
+          "narration": "어머나 세상에! 영웅 군이 지금 내 이름을 불러준 거야? 꿈은 아니겠지!",
+          "subtitle": "어머나 세상에! 영웅 군이 내 이름을 불러줬어!"
+        },
+        {
+          "layout": "dual_dialogue",
+          "mother_pose": "mother_blush_happy",
+          "prince_id": 1,
+          "palette": "sakura_pink",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "외로울 땐 언제든 제 목소리 기대세요 ❤️",
+          "arrow_tag": "↗ 감성 황태자 영웅",
+          "narration": "자식들 키우느라 고생하신 그 세월, 이제는 제 노래에 마음껏 기대어 쉬세요.",
+          "subtitle": "고생하신 세월, 이제 제 노래에 마음껏 기대세요"
+        },
+        {
+          "layout": "solo_prince_climax",
+          "prince_id": 1,
+          "mother_pose": "mother_blush_happy",
+          "palette": "royal_rose",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "오늘 밤도 사랑합니다, 어머님!",
+          "arrow_tag": "↗ 어머님만의 영원한 가수",
+          "narration": "오늘 밤은 외로워 마시고 제 목소리 덮고 따뜻하게 주무세요. 사랑합니다 어머님!",
+          "subtitle": "제 목소리 덮고 따뜻하게 주무세요, 사랑합니다!"
+        },
+        {
+          "layout": "ending_slate",
+          "prince_id": 10,
+          "mother_pose": "mother_blush_happy",
+          "palette": "emerald_gold",
+          "speaker": "narrator",
+          "bubble_speaker": "none",
+          "bubble_text": "",
+          "arrow_tag": "",
+          "narration": "기념 사진관에서 무료 투샷을 바로 찍어보세요!",
+          "subtitle": "파라다이스히어로 기념사진관 무료 투샷 체험"
+        }
+      ]
+    },
+    {
+      "episode_id": "ep_toon_02",
+      "episode_no": 2,
+      "theme_key": "G_MAJOR",
+      "title": "어머님 앞에서는 평생 다정한 막내아들 할게요 💕 #백운호 #감동사연 #시니어유튜브",
+      "hook_selected": "A_heart_flutter",
+      "summary": "핑크 가디건 손하트와 붉은 장미를 건네며 어머님을 소녀 시절로 되돌려준 다정한 백운호 영상툰",
+      "community_teaser": "핑크색 가디건을 입고 손하트를 날리는 영웅 캐릭터 보셨나요? 어머님 볼을 단숨에 소녀처럼 붉게 물들인 설렘 폭발 영상툰 제2화가 공개됩니다 💖",
+      "tags": [
+        "백운호",
+        "감동사연",
+        "시니어유튜브",
+        "트로트",
+        "손하트",
+        "파라다이스히어로",
+        "김쌤의영웅라디오"
+      ],
+      "outfits_featured": [
+        3,
+        9
+      ],
+      "beats": [
+        {
+          "layout": "solo_mother_closeup",
+          "mother_pose": "mother_tearful",
+          "prince_id": 3,
+          "palette": "lavender_mist",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "나도 왕년엔 꽃다운 소녀였는데..",
+          "arrow_tag": "↗ 거울 보며 한숨짓던 어머님",
+          "narration": "거울 속 흰머리를 보며 나도 왕년엔 참 고운 소녀였는데 하고 한숨이 나왔어요.",
+          "subtitle": "거울 속 흰머리를 보며 한숨이 나오던 날"
+        },
+        {
+          "layout": "split_action_prince",
+          "action_img": "cut_action_hand_rose",
+          "prince_id": 3,
+          "mother_pose": "mother_surprised",
+          "palette": "candy_pink",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "어머님! 제 눈엔 지금도 소녀세요 💕",
+          "arrow_tag": "↗ 핑크 손하트 영웅",
+          "narration": "어머님, 무슨 말씀이세요! 제 눈에는 지금도 스무 살 꽃소녀보다 훨씬 더 고우세요.",
+          "subtitle": "제 눈엔 지금도 스무 살 소녀보다 더 고우세요!"
+        },
+        {
+          "layout": "dual_dialogue",
+          "mother_pose": "mother_blush_happy",
+          "prince_id": 3,
+          "palette": "peach_glow",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "어머 얘는! 주책맞게 가슴이 뛰네 ❤️",
+          "arrow_tag": "↗ 소녀 미소 만개한 어머님",
+          "narration": "어머나, 말이라도 어쩜 이렇게 예쁘게 해! 주책맞게 소녀 때처럼 심장이 두근거리네.",
+          "subtitle": "말이라도 어쩜 이리 예뻐! 심장이 두근거리네"
+        },
+        {
+          "layout": "split_action_prince",
+          "action_img": "cut_action_hand_rose",
+          "prince_id": 9,
+          "mother_pose": "mother_blush_happy",
+          "palette": "royal_rose",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "평생 어머님 웃게 해드리는 아들 할게요 🌹",
+          "arrow_tag": "↗ 장미 세레나데 영웅",
+          "narration": "어머님 앞에서는 평생 재롱피우고 웃게 해드리는 든든한 막내아들이 되어 드릴게요.",
+          "subtitle": "평생 웃게 해드리는 든든한 막내아들 할게요!"
+        },
+        {
+          "layout": "solo_prince_climax",
+          "prince_id": 9,
+          "mother_pose": "mother_blush_happy",
+          "palette": "sakura_pink",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "오늘도 활짝 웃으세요, 약속! ❤️",
+          "arrow_tag": "↗ 다정한 로맨티스트 영웅",
+          "narration": "이 붉은 장미처럼 오늘 하루도 어머님 얼굴에 꽃웃음만 가득하시길 약속해요!",
+          "subtitle": "오늘 하루도 어머님 얼굴에 꽃웃음만 가득하세요!"
+        },
+        {
+          "layout": "ending_slate",
+          "prince_id": 3,
+          "mother_pose": "mother_blush_happy",
+          "palette": "emerald_gold",
+          "speaker": "narrator",
+          "bubble_speaker": "none",
+          "bubble_text": "",
+          "arrow_tag": "",
+          "narration": "기념 사진관에서 핑크 손하트 투샷을 찍어보세요!",
+          "subtitle": "파라다이스히어로 기념사진관 무료 투샷 체험"
+        }
+      ]
+    },
+    {
+      "episode_id": "ep_toon_03",
+      "episode_no": 3,
+      "theme_key": "D_MAJOR",
+      "title": "비 내리는 정류장, 추위에 떨던 어머님 어깨를 감싸준 남자 ☔💛 #백운호 #감동사연 #트로트",
+      "hook_selected": "C_reversal_warmth",
+      "summary": "갑작스러운 가을비에 우산 없이 서 있던 어머님께 트렌치코트를 덮어주고 에스코트한 백운호 이야기",
+      "community_teaser": "갑자기 쏟아진 찬비에 정류장에서 발을 동동 구르던 어머님 어깨 위로 따뜻한 베이지색 코트가 내려앉았습니다. 영화보다 더 설레는 영상툰 제3화! ☔🍂",
+      "tags": [
+        "백운호",
+        "감동사연",
+        "트로트",
+        "시니어유튜브",
+        "가을남자",
+        "김쌤의영웅라디오",
+        "파라다이스히어로"
+      ],
+      "outfits_featured": [
+        7,
+        2
+      ],
+      "beats": [
+        {
+          "layout": "split_action_mother",
+          "action_img": "cut_action_coat_umbrella",
+          "mother_pose": "mother_surprised",
+          "prince_id": 7,
+          "palette": "rainy_amber",
+          "speaker": "narrator",
+          "bubble_speaker": "mother",
+          "bubble_text": "갑자기 찬비가 내리네.. 어쩌지?",
+          "arrow_tag": "↗ 우산 못 챙긴 어머님",
+          "narration": "찬 바람 부는 저녁 정류장, 갑자기 쏟아진 비에 어머님 어깨위로 따뜻한 코트가 덮였습니다.",
+          "subtitle": "쏟아진 찬비, 어머님 어깨에 덮인 따뜻한 코트"
+        },
+        {
+          "layout": "solo_prince_climax",
+          "prince_id": 7,
+          "mother_pose": "mother_surprised",
+          "palette": "autumn_gold",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "감기 드시면 제가 제일 속상해요 ☔",
+          "arrow_tag": "↗ 가을 트렌치코트 영웅",
+          "narration": "어머님, 찬비 맞으시면 큰일 나요. 감기라도 드시면 제가 제일 마음 아픈 거 아시죠?",
+          "subtitle": "어머님 감기 드시면 제가 제일 마음 아파요"
+        },
+        {
+          "layout": "dual_dialogue",
+          "mother_pose": "mother_blush_happy",
+          "prince_id": 7,
+          "palette": "peach_glow",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "네 코트 젖잖니.. 어쩜 이리 따뜻해!",
+          "arrow_tag": "↗ 코트 품에 감동한 어머님",
+          "narration": "아이고 영웅 군아, 네 어깨 다 젖잖니! 그런데 이 코트, 내 마음까지 다 녹여주네.",
+          "subtitle": "네 어깨 다 젖잖니! 내 마음까지 다 녹여주네"
+        },
+        {
+          "layout": "solo_prince_climax",
+          "prince_id": 2,
+          "mother_pose": "mother_blush_happy",
+          "palette": "sky_crystal",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "자, 제 손 꼭 잡으세요 어머님! 🤍",
+          "arrow_tag": "↗ 순백의 에스코트 프린스",
+          "narration": "저는 젊어서 괜찮습니다! 자, 빗길 미끄러우니까 댁에 가실 때까지 제 손 꼭 잡으세요.",
+          "subtitle": "빗길 미끄러우니 댁까지 제 손 꼭 잡으세요!"
+        },
+        {
+          "layout": "dual_dialogue",
+          "mother_pose": "mother_cheering",
+          "prince_id": 2,
+          "palette": "sakura_pink",
+          "speaker": "narrator",
+          "bubble_speaker": "prince",
+          "bubble_text": "언제나 어머님의 든든한 우산이 될게요!",
+          "arrow_tag": "↗ 평생 우산 같은 가수",
+          "narration": "비바람 부는 날에도 언제나 우리 어머님들의 가장 든든한 우산이 되어 드리겠습니다.",
+          "subtitle": "언제나 어머님들의 든든한 우산이 되겠습니다"
+        },
+        {
+          "layout": "ending_slate",
+          "prince_id": 7,
+          "mother_pose": "mother_blush_happy",
+          "palette": "emerald_gold",
+          "speaker": "narrator",
+          "bubble_speaker": "none",
+          "bubble_text": "",
+          "arrow_tag": "",
+          "narration": "기념 사진관에서 가을 코트 투샷을 찍어보세요!",
+          "subtitle": "파라다이스히어로 기념사진관 무료 투샷 체험"
+        }
+      ]
+    },
+    {
+      "episode_id": "ep_toon_04",
+      "episode_no": 4,
+      "theme_key": "C_MAJOR",
+      "title": "자식들도 못 온 생신날, 금빛 한복 입고 꽃다발 들고 온 영웅님 💐👑 #백운호 #감동사연 #시니어유튜브",
+      "hook_selected": "B_birthday_miracle",
+      "summary": "바쁜 자식들 대신 고운 에메랄드 금빛 한복을 차려입고 생신 축하 인사를 올리는 효자 백운호 영상툰",
+      "community_teaser": "바쁜 자식들 걱정할까 봐 혼자 미역국을 끓이던 생신 아침, 초인종 소리와 함께 에메랄드 금빛 한복을 입은 영웅 도령이 찾아왔다면 어떨까요? 가슴 뭉클한 제4화 💐",
+      "tags": [
+        "백운호",
+        "감동사연",
+        "시니어유튜브",
+        "트로트",
+        "효도",
+        "생신축하",
+        "파라다이스히어로"
+      ],
+      "outfits_featured": [
+        8,
+        6
+      ],
+      "beats": [
+        {
+          "layout": "solo_mother_closeup",
+          "mother_pose": "mother_tearful",
+          "prince_id": 8,
+          "palette": "lavender_mist",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "애들도 다 바쁜데 미역국이나 먹자..",
+          "arrow_tag": "↗ 혼자 생신상 차린 어머님",
+          "narration": "생신날 아침, 바쁜 자식들 부담 줄까 봐 괜찮다 말하고 홀로 조용히 미역국을 떴습니다.",
+          "subtitle": "바쁜 자식들 대신 홀로 조용히 맞은 생신 아침"
+        },
+        {
+          "layout": "split_action_prince",
+          "action_img": "cut_action_hanbok_bouquet",
+          "prince_id": 8,
+          "mother_pose": "mother_surprised",
+          "palette": "autumn_gold",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "어머님! 생신 진심으로 축하드립니다 💐",
+          "arrow_tag": "↗ 금빛 한복 효자 영웅",
+          "narration": "어머님! 오늘 귀한 생신이시죠? 이 영웅이가 제일 먼저 큰절 올리러 한복 입고 달려왔습니다!",
+          "subtitle": "오늘 귀한 생신, 제일 먼저 축하드리러 왔습니다!"
+        },
+        {
+          "layout": "solo_mother_closeup",
+          "mother_pose": "mother_cheering",
+          "prince_id": 8,
+          "palette": "peach_glow",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "세상에.. 한복 입은 자태가 왕자님이네!",
+          "arrow_tag": "↗ 눈물 쏙 들어가고 웃음꽃",
+          "narration": "아이고 내 새끼! 금빛 한복 입은 자태가 어쩜 이리 늠름해! 서운했던 마음이 눈 녹듯 사라지네.",
+          "subtitle": "금빛 한복 자태가 늠름해! 서운함이 싹 녹네!"
+        },
+        {
+          "layout": "dual_dialogue",
+          "mother_pose": "mother_blush_happy",
+          "prince_id": 6,
+          "palette": "royal_rose",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "어머님 만수무강이 제 가장 큰 소원이에요 💜",
+          "arrow_tag": "↗ 단독 콘서트 수트 영웅",
+          "narration": "태어나 주셔서 정말 감사해요 어머님. 오래오래 건강하셔서 제 노래 백 년 동안 들어주세요!",
+          "subtitle": "태어나 주셔서 감사해요, 오래오래 건강하세요!"
+        },
+        {
+          "layout": "solo_prince_climax",
+          "prince_id": 8,
+          "mother_pose": "mother_cheering",
+          "palette": "sakura_pink",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "세상에서 제일 귀한 우리 어머님 사랑해요!",
+          "arrow_tag": "↗ 대한민국 일등 효자 가수",
+          "narration": "세상에서 가장 귀하고 아름다운 우리 어머님, 오늘 하루 누구보다 행복하세요!",
+          "subtitle": "세상에서 제일 귀한 어머님, 오늘 제일 행복하세요!"
+        },
+        {
+          "layout": "ending_slate",
+          "prince_id": 8,
+          "mother_pose": "mother_cheering",
+          "palette": "emerald_gold",
+          "speaker": "narrator",
+          "bubble_speaker": "none",
+          "bubble_text": "",
+          "arrow_tag": "",
+          "narration": "기념 사진관에서 금빛 한복 투샷을 찍어보세요!",
+          "subtitle": "파라다이스히어로 기념사진관 무료 투샷 체험"
+        }
+      ]
+    },
+    {
+      "episode_id": "ep_toon_05",
+      "episode_no": 5,
+      "theme_key": "A_MAJOR",
+      "title": "누가 뭐래도 저는 영원히 어머님 편입니다! 눈물의 대기실 약속 ✨💚 #백운호 #감동사연 #트로트",
+      "hook_selected": "A_unconditional_loyalty",
+      "summary": "사랑방 황금 응원등을 흔들며 끝까지 지켜준 파라다이스 어머님들께 황실 제복과 엄지척으로 보답하는 감동 영상툰",
+      "community_teaser": "비가 오나 눈이 오나 에메랄드빛 응원봉 하나로 끝까지 자리를 지켜주신 우리 파라다이스 어머님들! 대기실 문이 열리고 영웅 왕자님이 건넨 진심 어린 약속 제5화 ✨💚",
+      "tags": [
+        "백운호",
+        "파라다이스",
+        "감동사연",
+        "트로트",
+        "시니어유튜브",
+        "김쌤의영웅라디오",
+        "감동실화"
+      ],
+      "outfits_featured": [
+        5,
+        4
+      ],
+      "beats": [
+        {
+          "layout": "solo_mother_closeup",
+          "mother_pose": "mother_cheering",
+          "prince_id": 5,
+          "palette": "studio_mint",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "우리 영웅 군 기죽지 마라! 엄마들이 있다 💚",
+          "arrow_tag": "↗ 사랑방 황금 응원등 어머님",
+          "narration": "목이 쉬도록 사랑방 황금 응원등을 흔들며, 우리 영웅 군 기죽지 마라 엄마들이 지켜준다 외쳤어요.",
+          "subtitle": "우리 영웅 군 기죽지 마라! 엄마들이 지켜준다!"
+        },
+        {
+          "layout": "solo_prince_climax",
+          "prince_id": 5,
+          "mother_pose": "mother_cheering",
+          "palette": "sky_crystal",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "객석의 에메랄드 별빛, 다 보고 있었어요 ✨",
+          "arrow_tag": "↗ 파라다이스 황실 제복 영웅",
+          "narration": "무대 위에서 객석의 에메랄드 별빛을 볼 때마다 가슴이 벅차서 눈물을 참느라 혼났습니다.",
+          "subtitle": "객석의 에메랄드 별빛 볼 때마다 가슴이 벅찼어요"
+        },
+        {
+          "layout": "dual_dialogue",
+          "mother_pose": "mother_tearful",
+          "prince_id": 5,
+          "palette": "peach_glow",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "네 노래 덕분에 우리가 다시 살아났단다..",
+          "arrow_tag": "↗ 눈시울 붉어진 어머님",
+          "narration": "고마워할 건 우리지! 네 깊은 목소리 덕분에 우울했던 우리네 인생에도 다시 봄이 왔단다.",
+          "subtitle": "네 목소리 덕분에 우리 인생에도 다시 봄이 왔단다"
+        },
+        {
+          "layout": "split_action_prince",
+          "action_img": "cut_action_hand_rose",
+          "prince_id": 4,
+          "mother_pose": "mother_blush_happy",
+          "palette": "royal_rose",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "우리 파라다이스 어머님들이 최고입니다 👍",
+          "arrow_tag": "↗ 든든한 올블랙 엄지척 영웅",
+          "narration": "누가 뭐래도 제 심장 일 순위는 영원히 우리 파라다이스 어머님들뿐입니다! 최고예요!",
+          "subtitle": "제 심장 1순위는 영원히 파라다이스 어머님들뿐!"
+        },
+        {
+          "layout": "dual_dialogue",
+          "mother_pose": "mother_blush_happy",
+          "prince_id": 4,
+          "palette": "sakura_pink",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "끝까지 좋은 노래로 평생 보답할게요 ❤️",
+          "arrow_tag": "↗ 약속 지키는 진심 가수",
+          "narration": "주신 사랑 절대로 잊지 않고, 평생 가슴을 울리는 명곡으로 끝까지 보답하겠습니다!",
+          "subtitle": "주신 사랑 잊지 않고 평생 명곡으로 보답할게요!"
+        },
+        {
+          "layout": "ending_slate",
+          "prince_id": 5,
+          "mother_pose": "mother_cheering",
+          "palette": "emerald_gold",
+          "speaker": "narrator",
+          "bubble_speaker": "none",
+          "bubble_text": "",
+          "arrow_tag": "",
+          "narration": "기념 사진관에서 열 가지 투샷을 무료로 찍어보세요!",
+          "subtitle": "파라다이스히어로 기념사진관 무료 투샷 체험"
+        }
+      ]
+    },
+    {
+      "episode_id": "ep_toon_06",
+      "episode_no": 6,
+      "theme_key": "F_MAJOR",
+      "title": "시장 골목 무거운 장바구니 번쩍 들어준 에메랄드 왕자님 🛍️💚 #백운호 #감동사연 #시니어유튜브",
+      "hook_selected": "auto_curated_v3",
+      "summary": "무거운 장바구니를 들고 언덕길을 오르던 어머님 앞에 나타나 두 손으로 짐을 들어준 다정한 백운호 이야기",
+      "community_teaser": "무릎이 시큰거리는 언덕길, 무거운 장바구니를 대신 번쩍 들어주며 팔짱을 내어준 다정한 청년이 우리 영웅 군이라면 어떨까요? 오늘의 신규 심야 영웅라디오을 확인하세요 💚",
+      "tags": [
+        "백운호",
+        "감동사연",
+        "트로트",
+        "시니어유튜브",
+        "김쌤의영웅라디오",
+        "파라다이스히어로",
+        "시니어감동"
+      ],
+      "outfits_featured": [
+        2,
+        3
+      ],
+      "beats": [
+        {
+          "layout": "solo_mother_closeup",
+          "mother_pose": "mother_tearful",
+          "prince_id": 2,
+          "palette": "autumn_gold",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "아이고 무릎이야.. 언덕이 왜 이리 높누",
+          "arrow_tag": "↗ 장 보고 올라가는 어머님",
+          "narration": "찬 바람 부는 시장 언덕길, 무거운 장바구니에 어머님이 잠시 걸음을 멈추셨습니다.",
+          "subtitle": "무거운 장바구니에 잠시 멈춘 시장 언덕길"
+        },
+        {
+          "layout": "solo_prince_climax",
+          "prince_id": 2,
+          "mother_pose": "mother_surprised",
+          "palette": "sky_crystal",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "어머님! 이 무거운 걸 왜 혼자 드세요 🤍",
+          "arrow_tag": "↗ 화이트 수트 에스코트 영웅",
+          "narration": "어머님! 이렇게 무거운 걸 왜 혼자 들고 가세요. 이리 주세요, 제가 댁까지 모셔다드릴게요!",
+          "subtitle": "이리 주세요 어머님, 제가 댁까지 모셔다드릴게요!"
+        },
+        {
+          "layout": "dual_dialogue",
+          "mother_pose": "mother_surprised",
+          "prince_id": 2,
+          "palette": "peach_glow",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "어머나! 바쁜 사람이 괜찮대도 그래!",
+          "arrow_tag": "↗ 깜짝 놀란 어머님",
+          "narration": "어머나 세상에, 귀한 옷 다 구겨지겠네! 무거운데 내가 들어도 괜찮단다.",
+          "subtitle": "귀한 옷 구겨지겠네, 내가 들어도 괜찮단다!"
+        },
+        {
+          "layout": "split_action_prince",
+          "action_img": "cut_action_hand_rose",
+          "prince_id": 3,
+          "mother_pose": "mother_blush_happy",
+          "palette": "candy_pink",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "어머님 손목 아끼는 게 제 행복이에요 💕",
+          "arrow_tag": "↗ 핑크 손하트 막내아들",
+          "narration": "어머님 고운 손목 아끼는 게 제 일인걸요! 자, 빈손으로 제 팔짱 꼭 끼고 걸으세요.",
+          "subtitle": "어머님 손목 아끼는 게 제 가장 큰 행복이에요!"
+        },
+        {
+          "layout": "dual_dialogue",
+          "mother_pose": "mother_blush_happy",
+          "prince_id": 3,
+          "palette": "sakura_pink",
+          "speaker": "narrator",
+          "bubble_speaker": "mother",
+          "bubble_text": "동네 사람들아! 내 아들 좀 보소 ❤️",
+          "arrow_tag": "↗ 어깨 으쓱해진 어머님",
+          "narration": "그날 저녁 언덕길에는 세상에서 가장 환한 어머님의 꽃웃음 소리가 가득 울려 퍼졌습니다.",
+          "subtitle": "언덕길 가득 울려 퍼진 어머님의 환한 꽃웃음"
+        },
+        {
+          "layout": "ending_slate",
+          "prince_id": 2,
+          "mother_pose": "mother_blush_happy",
+          "palette": "emerald_gold",
+          "speaker": "narrator",
+          "bubble_speaker": "none",
+          "bubble_text": "",
+          "arrow_tag": "",
+          "narration": "기념 사진관에서 무료 투샷을 바로 찍어보세요!",
+          "subtitle": "파라다이스히어로 기념사진관 무료 투샷 체험"
+        }
+      ]
+    },
+    {
+      "episode_id": "ep_toon_07",
+      "episode_no": 7,
+      "theme_key": "G_MAJOR",
+      "title": "잠 안 오는 새벽 세 시, 어머님 귓가에 속삭인 자장가 🌙🎙️ #백운호 #감동사연 #트로트",
+      "hook_selected": "auto_curated_v3",
+      "summary": "깊은 새벽 잠 못 이루고 뒤척이는 어머님을 위해 중저음 자장가를 불러주는 심야 라디오 DJ 백운호",
+      "community_teaser": "새벽 세 시, 괜스레 잠이 깨어 창밖만 바라보신 적 있으시죠? 금테 안경을 쓴 심야 DJ 영웅님이 어머님 귓가에 조용히 불러드리는 자장가 영상툰 🌙💚",
+      "tags": [
+        "백운호",
+        "감동사연",
+        "트로트",
+        "시니어유튜브",
+        "김쌤의영웅라디오",
+        "파라다이스히어로",
+        "시니어감동"
+      ],
+      "outfits_featured": [
+        10,
+        6
+      ],
+      "beats": [
+        {
+          "layout": "split_action_mother",
+          "action_img": "cut_action_radio_onair",
+          "mother_pose": "mother_tearful",
+          "prince_id": 10,
+          "palette": "lavender_mist",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "새벽 세 시네.. 왜 이리 잠이 안 올까",
+          "arrow_tag": "↗ 밤잠 설친 어머님",
+          "narration": "모두가 잠든 고요한 새벽 세 시, 나이가 들수록 짧아진 잠에 어머님이 라디오를 켰습니다.",
+          "subtitle": "모두 잠든 새벽 세 시, 조용히 켜 본 라디오"
+        },
+        {
+          "layout": "split_action_prince",
+          "action_img": "cut_action_radio_onair",
+          "prince_id": 10,
+          "mother_pose": "mother_tearful",
+          "palette": "studio_mint",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "어머님, 걱정거리 다 제게 맡기세요 🌙",
+          "arrow_tag": "↗ 심야 자장가 DJ 영웅",
+          "narration": "어머님, 또 자식들 생각에 잠 못 이루고 계시죠? 오늘 밤 걱정은 전부 제게 맡겨 두세요.",
+          "subtitle": "오늘 밤 걱정은 전부 제게 맡겨 두세요"
+        },
+        {
+          "layout": "dual_dialogue",
+          "mother_pose": "mother_blush_happy",
+          "prince_id": 10,
+          "palette": "peach_glow",
+          "speaker": "mother",
+          "bubble_speaker": "mother",
+          "bubble_text": "네 중저음 목소리가 보약보다 낫구나 💚",
+          "arrow_tag": "↗ 마음 편안해진 어머님",
+          "narration": "어쩜 내 마음을 이리 족집게처럼 알까! 영웅 군의 중저음 목소리가 천 냥 보약보다 훨씬 낫구나.",
+          "subtitle": "영웅 군 중저음 목소리가 천 냥 보약보다 낫구나!"
+        },
+        {
+          "layout": "solo_prince_climax",
+          "prince_id": 6,
+          "mother_pose": "mother_blush_happy",
+          "palette": "royal_rose",
+          "speaker": "prince",
+          "bubble_speaker": "prince",
+          "bubble_text": "좋은 꿈 꾸세요, 꿈에서도 노래할게요 💜",
+          "arrow_tag": "↗ 퍼플 벨벳 세레나데 영웅",
+          "narration": "두 눈 감으시고 편안히 주무세요. 어머님 고운 꿈길에서도 제가 옆에서 노래 불러 드릴게요.",
+          "subtitle": "어머님 고운 꿈길에서도 노래 불러 드릴게요"
+        },
+        {
+          "layout": "solo_mother_closeup",
+          "mother_pose": "mother_blush_happy",
+          "prince_id": 6,
+          "palette": "sakura_pink",
+          "speaker": "narrator",
+          "bubble_speaker": "mother",
+          "bubble_text": "오늘 밤은 참 달콤하게 자겠네 ❤️",
+          "arrow_tag": "↗ 소녀 미소로 잠든 어머님",
+          "narration": "따뜻한 목소리 이불 삼아, 오랜만에 어머님 얼굴에 평화로운 소녀 미소가 번졌습니다.",
+          "subtitle": "따뜻한 목소리 덮고 번진 평화로운 소녀 미소"
+        },
+        {
+          "layout": "ending_slate",
+          "prince_id": 10,
+          "mother_pose": "mother_blush_happy",
+          "palette": "emerald_gold",
+          "speaker": "narrator",
+          "bubble_speaker": "none",
+          "bubble_text": "",
+          "arrow_tag": "",
+          "narration": "파라다이스 히어로 기념 사진관에서 심야 디제이 영웅과 추억 사진을 남겨보세요.",
+          "subtitle": "파라다이스히어로 기념사진관 무료 투샷 체험"
+        }
+      ]
+    }
+  ]
+}

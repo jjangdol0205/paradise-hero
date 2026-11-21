@@ -819,7 +819,7 @@
                     '<div style="background:#FAFAF8;border:4px solid #D4AF37;border-radius:20px;max-width:520px;width:100%;padding:22px;text-align:center;">' +
                     '<p style="font-size:23px;font-weight:900;color:#111827;line-height:1.5;margin:0 0 14px;">📱 손가락으로 그림을 2초간 꾹~ 눌러 [사진 저장]을 누르세요!</p>' +
                     '<img id="kakao-fallback-save-img" src="" alt="완성된 기념사진" style="max-width:100%;max-height:58vh;border-radius:12px;border:3px solid #1B4D3E;display:block;margin:0 auto 14px;" />' +
-                    '<button type="button" onclick="this.closest(\'#kakao-longpress-save-modal\').style.display=\'none\'" style="width:100%;min-height:60px;font-size:22px;font-weight:900;background:#1B4D3E;color:#FFF;border:none;border-radius:14px;cursor:pointer;">닫기</button>' +
+                    '<button type="button" data-csp-hide="#kakao-longpress-save-modal" style="width:100%;min-height:60px;font-size:22px;font-weight:900;background:#1B4D3E;color:#FFF;border:none;border-radius:14px;cursor:pointer;">닫기</button>' +
                     '</div>';
                   document.body.appendChild(fallbackModal);
                 }
