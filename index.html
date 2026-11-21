@@ -25,6 +25,17 @@
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 라운지", "description": "가족을 위해 평생을 바치신 어머님·아버님, 당신이 우리 인생의 진짜 영웅입니다! 오리지널 가상 트로트 가수 백운호의 〈어머니의 봄날〉과 따뜻한 인생 사연이 흐르는 김쌤의 라디오 사랑방.", "url": "https://paradise-hero.com/", "inLanguage": "ko-KR", "sameAs": ["https://www.youtube.com/@김쌤의영웅라디오", "https://www.instagram.com/paradise_hero1/"], "publisher": {"@type": "Organization", "name": "유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 라운지", "url": "https://paradise-hero.com/", "sameAs": ["https://www.youtube.com/@김쌤의영웅라디오", "https://www.instagram.com/paradise_hero1/"]}}</script>
   <link rel="stylesheet" href="css/senior-style.css?v=20261119b">
   <script src="/assets/csp/csp-events.js"></script>
+  <style>
+    /* HERO_MOBILE_ATF_VALUE_LADDER */
+    @media (max-width: 540px) {
+      .hero-top-disclaimer { font-size: 13px !important; padding: 6px 10px !important; margin-bottom: 8px !important; }
+      .hero-card, .hero-atf-card { padding: 14px 14px 16px !important; }
+      .hero-portrait-wrap img, .baek-hero-portrait { max-height: 155px !important; width: auto !important; margin: 0 auto !important; }
+      .hero-title, h1 { font-size: 22px !important; line-height: 1.32 !important; margin: 8px 0 !important; }
+      .hero-subtitle, .hero-desc { font-size: 15px !important; line-height: 1.48 !important; margin-bottom: 10px !important; }
+      #btn-hero-radio-now { min-height: 54px !important; font-size: 18px !important; padding: 10px 14px !important; }
+    }
+  </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">본문 바로가기</a>
@@ -234,6 +245,216 @@
       </div>
     </section>
 
+    <!-- 6. 백운호 6대 무대 의상 무료 포토부스 & 10대 무료 디지털 선물관 안내 -->
+    <section class="senior-card" aria-labelledby="free-joy-heading" style="margin-top: 24px;">
+      <div class="section-title-wrap">
+        <span class="section-badge">🎁 100% 무료 시니어 문화 쉼터</span>
+        <h2 id="free-joy-heading" class="section-title">백운호 6벌 의상 투샷 촬영관 &amp; 카톡 아침 안부카드 선물관</h2>
+        <p class="section-desc">
+          회원가입이나 유료 결제 없이 에메랄드 정장, 화이트 턱시도, 클래식 네이비 수트, 가을 코트, 전통 한복, 라디오 DJ룩 6가지 의상으로 기념사진과 카톡 안부카드를 만들어 보세요.
+        </p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+        <a href="booth.html" class="senior-btn btn-primary" style="min-height: 66px; font-size: 20px; text-decoration: none;">
+          <span>📸 백운호 6벌 의상 무료 기념촬영관 👉</span>
+        </a>
+        <a href="vip.html" class="senior-btn btn-gold" style="min-height: 66px; font-size: 20px; text-decoration: none;">
+          <span>🎁 카톡 안부카드·큰글씨 달력 무료 선물관 👉</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 5. 비밀번호 없는 3초 무료 라디오 우편함 (#hero-passwordless-club-card) -->
+    <section id="hero-passwordless-club-card" class="hero-passwordless-club-card" aria-labelledby="hero-club-heading" style="margin-top: 24px;">
+      <div class="section-title-wrap" style="margin-bottom: 14px;">
+        <span class="section-badge" style="background: #0E2820; color: #FEF08A;">📮 비밀번호 없는 3초 무료 우편함</span>
+        <h2 id="hero-club-heading" class="section-title">화·금 @김쌤의영웅라디오 본방송 &amp; 백운호 신곡 큰글씨 소식지</h2>
+        <p class="section-desc">
+          어려운 비밀번호 입력 없이 <strong>이메일 주소 하나</strong>만 적어주시면 매주 화·금 정규 라디오 방송과 건강 편지를 큰글씨 우편함으로 보내드립니다.
+        </p>
+      </div>
+
+      <div id="hero-club-member-status" class="hero-club-feedback-banner" role="status" aria-live="polite"></div>
+
+      <form id="hero-passwordless-club-form" novalidate>
+        <input type="text" name="website_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;" aria-hidden="true">
+        <input type="hidden" id="hero-club-segment" value="hero_news_schedule">
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-bottom: 14px;" role="radiogroup" aria-label="받고 싶은 소식 선택">
+          <button type="button" class="btn-hero-club-segment active" data-club-segment="hero_news_schedule" role="radio" aria-checked="true" style="min-height: 62px; padding: 12px 16px; border-radius: 14px; border: 2.5px solid #1B4D3E; background: #ECFDF5; font-size: 19px; font-weight: 800; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+            <span>📻 화·금 정규 라디오 &amp; 백운호 신곡</span>
+            <span class="hero-club-segment-check" style="color: #065F46;">선택됨 ✓</span>
+          </button>
+          <button type="button" class="btn-hero-club-segment" data-club-segment="hero_senior_health" role="radio" aria-checked="false" style="min-height: 62px; padding: 12px 16px; border-radius: 14px; border: 2px solid #CBD5E1; background: #FFFFFF; font-size: 19px; font-weight: 800; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+            <span>🌿 시니어 산책·수면·청취 건강 편지</span>
+            <span class="hero-club-segment-check" style="color: #475569;">선택하기</span>
+          </button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 14px;">
+          <div>
+            <label for="hero-club-nickname" style="display: block; font-size: 19px; font-weight: 800; margin-bottom: 6px;">성함 또는 별명 (선택)</label>
+            <input type="text" id="hero-club-nickname" maxlength="32" placeholder="예: 부산 김영희 어머니" style="width: 100%; min-height: 60px; padding: 12px 14px; font-size: 20px; border: 2px solid #9CA3AF; border-radius: 12px;">
+          </div>
+          <div>
+            <label for="hero-club-email" style="display: block; font-size: 19px; font-weight: 800; margin-bottom: 6px;">이메일 주소 (필수)</label>
+            <input type="email" id="hero-club-email" inputmode="email" autocomplete="email" required placeholder="예: radio@naver.com" style="width: 100%; min-height: 60px; padding: 12px 14px; font-size: 20px; border: 2px solid #1B4D3E; border-radius: 12px;">
+          </div>
+        </div>
+
+        <button type="submit" id="hero-club-submit-btn" class="btn-hero-club-submit" style="width: 100%; min-height: 66px;">
+          <span>📮 비밀번호 없이 3초 만에 무료 소식지 받기 👉</span>
+        </button>
+      </form>
+
+      <div id="hero-club-feedback" class="hero-club-feedback-banner" role="status" aria-live="polite"></div>
+      <p class="hero-club-safe-note">🔒 스팸 광고 없이 정직한 라디오 소식만 보내드리며, 모든 편지 하단에서 1클릭 수신거부가 가능합니다.</p>
+    </section>
+
+    <!-- 💚 김쌤의 콘서트·응원 안심 준비물관 (3대 테마 7종 정선 · 무관 품목 0건 · 공정위 문구 인접 배치) -->
+    <section id="senior-curation-market" class="safe-special-store-section" aria-labelledby="safe-store-heading-home" style="margin-top: 28px;">
+      <div class="safe-special-store-header">
+        <span class="safe-special-store-badge">💚 에디터 큐레이션 · 라디오 청취 &amp; 공연 나들이 맞춤 준비물</span>
+        <h2 id="safe-store-heading-home" class="safe-special-store-title">💚 김쌤의 콘서트·응원 안심 준비물관</h2>
+        <p class="safe-special-store-desc">
+          복잡한 영문 결제창 없이 평소 쓰시던 <strong>네이버페이(Npay)</strong>와 <strong>쿠팡 공식관</strong>에서 라디오 청취·공연 관람·목과 눈 건강에 꼭 필요한 7가지 실속 준비물만 정직하게 모았습니다.
+        </p>
+      </div>
+
+      <div id="hero-4step-value-ladder-bar" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px;margin:0 0 18px;padding:14px;background:#FFFFFF;border:2px solid #0E2820;border-radius:14px;font-size:16px;line-height:1.45;">
+        <div style="padding:10px;border-radius:10px;background:#ECFDF5;border:1.5px solid #059669;color:#064E3B;"><strong>1단계 · 평생 무료 (0원)</strong><br>백운호 6곡 · 카톡 안부카드 · 우편함 ✓</div>
+        <div style="padding:10px;border-radius:10px;background:#F8FAFC;border:1.5px solid #CBD5E1;color:#0F172A;"><strong>2단계 · 매일 효도 (1~2만원대)</strong><br>도라지배즙 · 루테인 · 방석</div>
+        <div style="padding:10px;border-radius:10px;background:#F8FAFC;border:1.5px solid #CBD5E1;color:#0F172A;"><strong>3단계 · 청취 장비 (3~6만원대)</strong><br>효도 라디오 · 골전도 · 배터리</div>
+        <div style="padding:10px;border-radius:10px;background:#FEFCE8;border:1.5px solid #D97706;color:#78350F;"><strong>4단계 · 공식 브랜드 협찬</strong><br><a href="#hero-brand-partnership-box" style="color:#92400E;font-weight:900;text-decoration:underline;">라디오 사연 협찬 문의 &rarr;</a></div>
+      </div>
+      <p class="ftc-inline-disclosure">
+        ※ 네이버 쇼핑 커넥트·쿠팡 파트너스 활동의 일환으로 판매 발생 시 일정액의 수수료를 제공받습니다.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 20px;">
+        <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-cshop" style="margin: 0;">
+          <span>💚 김쌤의 콘서트·응원 안심 준비물관 (네이버페이 공식관) 👉</span>
+        </a>
+        <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-influencer" style="margin: 0;">
+          <span>📻 김쌤의 콘서트·응원 안심 준비물관 (쿠팡 공식관) 👉</span>
+        </a>
+      </div>
+
+      <!-- 테마 1: 음반·청취 필수품 (3종) -->
+      <div class="curation-subhead-pill" style="margin-top: 8px;">
+        📻 테마 1. 음반·청취 필수품 (거실·산책길 중저음 라디오 감상)
+      </div>
+      <div class="safe-visual-card-grid" style="margin-bottom: 18px;">
+        <article class="safe-visual-product-card">
+          <img src="assets/shop/prod_1_speaker.png" alt="백운호·정통 트로트 감상용 효도 블루투스 라디오 스피커" class="safe-visual-thumb" loading="lazy">
+          <div class="safe-visual-body">
+            <h3 class="safe-visual-title">① 백운호·정통 트로트 감상용 효도 블루투스 라디오 스피커</h3>
+            <p class="safe-visual-reason">큼직한 버튼과 풍성한 중저음 울림으로 거실이나 부엌에서 라디오 사연과 트로트를 편안하게 들으실 수 있습니다.</p>
+            <div class="safe-visual-cta-stack">
+              <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 공식 판매처 보러가기 👉</a>
+              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
+            </div>
+            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
+          </div>
+        </article>
+
+        <article class="safe-visual-product-card">
+          <img src="assets/shop/prod_2_battery.png" alt="라디오 장시간 청취 대용량 보조배터리" class="safe-visual-thumb" loading="lazy">
+          <div class="safe-visual-body">
+            <h3 class="safe-visual-title">② 라디오 장시간 청취 대용량 보조배터리</h3>
+            <p class="safe-visual-reason">외출이나 공원 산책 중 유튜브 라디오를 오래 켜두셔도 배터리 방전 걱정 없이 든든하게 사용하실 수 있습니다.</p>
+            <div class="safe-visual-cta-stack">
+              <a href="https://brandconnect.naver.com/affiliates/1016189312116331?channelProductNo=12310241816&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 혜택가 확인 👉</a>
+              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
+            </div>
+            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
+          </div>
+        </article>
+
+        <article class="safe-visual-product-card">
+          <img src="assets/shop/prod_3_earphone.png" alt="귀 편한 큰글씨 골전도·유선 이어폰" class="safe-visual-thumb" loading="lazy">
+          <div class="safe-visual-body">
+            <h3 class="safe-visual-title">③ 귀 편한 큰글씨 골전도·유선 이어폰</h3>
+            <p class="safe-visual-reason">귀 안을 답답하게 막지 않아 오래 라디오 사연을 들어도 귀가 편안하고 주변 소리도 안전하게 들립니다.</p>
+            <div class="safe-visual-cta-stack">
+              <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 공식 판매처 보러가기 👉</a>
+              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
+            </div>
+            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- 테마 2: 공연·나들이 준비물 (2종) -->
+      <div class="curation-subhead-pill coupang-pill">
+        🪑 테마 2. 공연·나들이 준비물 (오래 앉아도 편안한 허리·체온 보호)
+      </div>
+      <div class="safe-visual-card-grid" style="margin-bottom: 18px;">
+        <article class="safe-visual-product-card">
+          <img src="assets/shop/prod_4_cushion.png" alt="거실 라디오 청취·나들이용 푹신 방석" class="safe-visual-thumb" loading="lazy">
+          <div class="safe-visual-body">
+            <h3 class="safe-visual-title">④ 거실 라디오 청취·나들이용 푹신 방석</h3>
+            <p class="safe-visual-reason">딱딱한 의자에서도 허리와 엉덩이 배김을 덜어주며 가볍게 접어 가방에 넣기 좋은 휴대용 방석입니다.</p>
+            <div class="safe-visual-cta-stack">
+              <a href="https://brandconnect.naver.com/affiliates/1016189312116327?channelProductNo=13398073355&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 혜택가 확인 👉</a>
+              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
+            </div>
+            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
+          </div>
+        </article>
+
+        <article class="safe-visual-product-card">
+          <img src="assets/shop/prod_5_shawl.png" alt="환절기 경량 보온 숄·무릎담요" class="safe-visual-thumb" loading="lazy">
+          <div class="safe-visual-body">
+            <h3 class="safe-visual-title">⑤ 환절기 경량 보온 숄·무릎담요</h3>
+            <p class="safe-visual-reason">실내 냉방이나 아침·저녁 쌀쌀한 바람에 어깨와 무릎이 시리지 않도록 포근하게 감싸주는 경량 보온 숄입니다.</p>
+            <div class="safe-visual-cta-stack">
+              <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 공식 판매처 보러가기 👉</a>
+              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
+            </div>
+            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- 테마 3: 청취 건강 케어 (2종) -->
+      <div class="curation-subhead-pill">
+        🍵 테마 3. 청취 건강 케어 (스마트폰 눈 보호 &amp; 따라 부르는 목 케어)
+      </div>
+      <div class="safe-visual-card-grid" style="margin-bottom: 14px;">
+        <article class="safe-visual-product-card">
+          <img src="assets/shop/prod_6_lutein.png" alt="눈 침침함 케어 루테인 지아잔틴" class="safe-visual-thumb" loading="lazy">
+          <div class="safe-visual-body">
+            <h3 class="safe-visual-title">⑥ 눈 침침함 케어 루테인 지아잔틴</h3>
+            <p class="safe-visual-reason">스마트폰으로 사연과 가사를 읽으실 때 노화로 감소할 수 있는 황반색소 밀도 유지를 돕는 눈 건강 제품입니다.</p>
+            <div class="safe-visual-cta-stack">
+              <a href="https://brandconnect.naver.com/affiliates/1016189312116335?channelProductNo=13702186002&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 혜택가 확인 👉</a>
+              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
+            </div>
+            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
+          </div>
+        </article>
+
+        <article class="safe-visual-product-card">
+          <img src="assets/shop/prod_7_doraji.png" alt="목이 편안한 도라지배즙 스틱" class="safe-visual-thumb" loading="lazy">
+          <div class="safe-visual-body">
+            <h3 class="safe-visual-title">⑦ 목이 편안한 도라지배즙 스틱</h3>
+            <p class="safe-visual-reason">건조한 환절기나 트로트 애창곡을 따라 부르신 뒤 칼칼한 목을 부드럽고 촉촉하게 적셔주는 스틱형 건강음료입니다.</p>
+            <div class="safe-visual-cta-stack">
+              <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 공식 판매처 보러가기 👉</a>
+              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
+            </div>
+            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
+          </div>
+        </article>
+      </div>
+
+      <p class="ftc-inline-disclosure" style="margin-bottom: 0;">
+        ※ 네이버 쇼핑 커넥트·쿠팡 파트너스 활동의 일환으로 판매 발생 시 일정액의 수수료를 제공받습니다.
+      </p>
+    </section>
+
+
     <!-- 3. 영웅 가족 사랑방 (#hero-family-lounge — 사랑방 정적 스냅샷 + GAS 하이브리드 집계) -->
     <section id="hero-family-lounge" class="senior-card highlight-card" aria-labelledby="family-lounge-heading" style="border: 3px solid var(--brand-gold);">
       <div class="section-title-wrap">
@@ -364,71 +585,9 @@
       <div id="hero-love-wall-list" class="love-wall-grid" aria-live="polite"></div>
     </section>
 
-    <!-- 5. 비밀번호 없는 3초 무료 라디오 우편함 (#hero-passwordless-club-card) -->
-    <section id="hero-passwordless-club-card" class="hero-passwordless-club-card" aria-labelledby="hero-club-heading" style="margin-top: 24px;">
-      <div class="section-title-wrap" style="margin-bottom: 14px;">
-        <span class="section-badge" style="background: #0E2820; color: #FEF08A;">📮 비밀번호 없는 3초 무료 우편함</span>
-        <h2 id="hero-club-heading" class="section-title">화·금 @김쌤의영웅라디오 본방송 &amp; 백운호 신곡 큰글씨 소식지</h2>
-        <p class="section-desc">
-          어려운 비밀번호 입력 없이 <strong>이메일 주소 하나</strong>만 적어주시면 매주 화·금 정규 라디오 방송과 건강 편지를 큰글씨 우편함으로 보내드립니다.
-        </p>
-      </div>
 
-      <div id="hero-club-member-status" class="hero-club-feedback-banner" role="status" aria-live="polite"></div>
 
-      <form id="hero-passwordless-club-form" novalidate>
-        <input type="text" name="website_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;" aria-hidden="true">
-        <input type="hidden" id="hero-club-segment" value="hero_news_schedule">
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-bottom: 14px;" role="radiogroup" aria-label="받고 싶은 소식 선택">
-          <button type="button" class="btn-hero-club-segment active" data-club-segment="hero_news_schedule" role="radio" aria-checked="true" style="min-height: 62px; padding: 12px 16px; border-radius: 14px; border: 2.5px solid #1B4D3E; background: #ECFDF5; font-size: 19px; font-weight: 800; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-            <span>📻 화·금 정규 라디오 &amp; 백운호 신곡</span>
-            <span class="hero-club-segment-check" style="color: #065F46;">선택됨 ✓</span>
-          </button>
-          <button type="button" class="btn-hero-club-segment" data-club-segment="hero_senior_health" role="radio" aria-checked="false" style="min-height: 62px; padding: 12px 16px; border-radius: 14px; border: 2px solid #CBD5E1; background: #FFFFFF; font-size: 19px; font-weight: 800; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-            <span>🌿 시니어 산책·수면·청취 건강 편지</span>
-            <span class="hero-club-segment-check" style="color: #475569;">선택하기</span>
-          </button>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 14px;">
-          <div>
-            <label for="hero-club-nickname" style="display: block; font-size: 19px; font-weight: 800; margin-bottom: 6px;">성함 또는 별명 (선택)</label>
-            <input type="text" id="hero-club-nickname" maxlength="32" placeholder="예: 부산 김영희 어머니" style="width: 100%; min-height: 60px; padding: 12px 14px; font-size: 20px; border: 2px solid #9CA3AF; border-radius: 12px;">
-          </div>
-          <div>
-            <label for="hero-club-email" style="display: block; font-size: 19px; font-weight: 800; margin-bottom: 6px;">이메일 주소 (필수)</label>
-            <input type="email" id="hero-club-email" inputmode="email" autocomplete="email" required placeholder="예: radio@naver.com" style="width: 100%; min-height: 60px; padding: 12px 14px; font-size: 20px; border: 2px solid #1B4D3E; border-radius: 12px;">
-          </div>
-        </div>
-
-        <button type="submit" id="hero-club-submit-btn" class="btn-hero-club-submit" style="width: 100%; min-height: 66px;">
-          <span>📮 비밀번호 없이 3초 만에 무료 소식지 받기 👉</span>
-        </button>
-      </form>
-
-      <div id="hero-club-feedback" class="hero-club-feedback-banner" role="status" aria-live="polite"></div>
-      <p class="hero-club-safe-note">🔒 스팸 광고 없이 정직한 라디오 소식만 보내드리며, 모든 편지 하단에서 1클릭 수신거부가 가능합니다.</p>
-    </section>
-
-    <!-- 6. 백운호 6대 무대 의상 무료 포토부스 & 10대 무료 디지털 선물관 안내 -->
-    <section class="senior-card" aria-labelledby="free-joy-heading" style="margin-top: 24px;">
-      <div class="section-title-wrap">
-        <span class="section-badge">🎁 100% 무료 시니어 문화 쉼터</span>
-        <h2 id="free-joy-heading" class="section-title">백운호 6벌 의상 투샷 촬영관 &amp; 카톡 아침 안부카드 선물관</h2>
-        <p class="section-desc">
-          회원가입이나 유료 결제 없이 에메랄드 정장, 화이트 턱시도, 클래식 네이비 수트, 가을 코트, 전통 한복, 라디오 DJ룩 6가지 의상으로 기념사진과 카톡 안부카드를 만들어 보세요.
-        </p>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
-        <a href="booth.html" class="senior-btn btn-primary" style="min-height: 66px; font-size: 20px; text-decoration: none;">
-          <span>📸 백운호 6벌 의상 무료 기념촬영관 👉</span>
-        </a>
-        <a href="vip.html" class="senior-btn btn-gold" style="min-height: 66px; font-size: 20px; text-decoration: none;">
-          <span>🎁 카톡 안부카드·큰글씨 달력 무료 선물관 👉</span>
-        </a>
-      </div>
-    </section>
 
     <!-- 7. 가상 트로트 가수 백운호 탄생 이야기 & 명곡 해설 큰글씨 편지 5선 -->
     <section id="hero-baek-columns-showcase" class="senior-card" aria-labelledby="baek-columns-heading" style="margin-top: 24px; border: 2.5px solid var(--brand-gold);">
@@ -461,142 +620,7 @@
       </a>
     </section>
 
-    <!-- 💚 김쌤의 콘서트·응원 안심 준비물관 (3대 테마 7종 정선 · 무관 품목 0건 · 공정위 문구 인접 배치) -->
-    <section id="senior-curation-market" class="safe-special-store-section" aria-labelledby="safe-store-heading-home" style="margin-top: 28px;">
-      <div class="safe-special-store-header">
-        <span class="safe-special-store-badge">💚 에디터 큐레이션 · 라디오 청취 &amp; 공연 나들이 맞춤 준비물</span>
-        <h2 id="safe-store-heading-home" class="safe-special-store-title">💚 김쌤의 콘서트·응원 안심 준비물관</h2>
-        <p class="safe-special-store-desc">
-          복잡한 영문 결제창 없이 평소 쓰시던 <strong>네이버페이(Npay)</strong>와 <strong>쿠팡 공식관</strong>에서 라디오 청취·공연 관람·목과 눈 건강에 꼭 필요한 7가지 실속 준비물만 정직하게 모았습니다.
-        </p>
-      </div>
 
-      <p class="ftc-inline-disclosure">
-        ※ 네이버 쇼핑 커넥트·쿠팡 파트너스 활동의 일환으로 판매 발생 시 일정액의 수수료를 제공받습니다.
-      </p>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 20px;">
-        <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-naver-cshop" style="margin: 0;">
-          <span>💚 김쌤의 콘서트·응원 안심 준비물관 (네이버페이 공식관) 👉</span>
-        </a>
-        <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-coupang-influencer" style="margin: 0;">
-          <span>📻 김쌤의 콘서트·응원 안심 준비물관 (쿠팡 공식관) 👉</span>
-        </a>
-      </div>
-
-      <!-- 테마 1: 음반·청취 필수품 (3종) -->
-      <div class="curation-subhead-pill" style="margin-top: 8px;">
-        📻 테마 1. 음반·청취 필수품 (거실·산책길 중저음 라디오 감상)
-      </div>
-      <div class="safe-visual-card-grid" style="margin-bottom: 18px;">
-        <article class="safe-visual-product-card">
-          <img src="assets/shop/prod_1_speaker.png" alt="백운호·정통 트로트 감상용 효도 블루투스 라디오 스피커" class="safe-visual-thumb" loading="lazy">
-          <div class="safe-visual-body">
-            <h3 class="safe-visual-title">① 백운호·정통 트로트 감상용 효도 블루투스 라디오 스피커</h3>
-            <p class="safe-visual-reason">큼직한 버튼과 풍성한 중저음 울림으로 거실이나 부엌에서 라디오 사연과 트로트를 편안하게 들으실 수 있습니다.</p>
-            <div class="safe-visual-cta-stack">
-              <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 공식 판매처 보러가기 👉</a>
-              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
-            </div>
-            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
-          </div>
-        </article>
-
-        <article class="safe-visual-product-card">
-          <img src="assets/shop/prod_2_battery.png" alt="라디오 장시간 청취 대용량 보조배터리" class="safe-visual-thumb" loading="lazy">
-          <div class="safe-visual-body">
-            <h3 class="safe-visual-title">② 라디오 장시간 청취 대용량 보조배터리</h3>
-            <p class="safe-visual-reason">외출이나 공원 산책 중 유튜브 라디오를 오래 켜두셔도 배터리 방전 걱정 없이 든든하게 사용하실 수 있습니다.</p>
-            <div class="safe-visual-cta-stack">
-              <a href="https://brandconnect.naver.com/affiliates/1016189312116331?channelProductNo=12310241816&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 혜택가 확인 👉</a>
-              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
-            </div>
-            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
-          </div>
-        </article>
-
-        <article class="safe-visual-product-card">
-          <img src="assets/shop/prod_3_earphone.png" alt="귀 편한 큰글씨 골전도·유선 이어폰" class="safe-visual-thumb" loading="lazy">
-          <div class="safe-visual-body">
-            <h3 class="safe-visual-title">③ 귀 편한 큰글씨 골전도·유선 이어폰</h3>
-            <p class="safe-visual-reason">귀 안을 답답하게 막지 않아 오래 라디오 사연을 들어도 귀가 편안하고 주변 소리도 안전하게 들립니다.</p>
-            <div class="safe-visual-cta-stack">
-              <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 공식 판매처 보러가기 👉</a>
-              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
-            </div>
-            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
-          </div>
-        </article>
-      </div>
-
-      <!-- 테마 2: 공연·나들이 준비물 (2종) -->
-      <div class="curation-subhead-pill coupang-pill">
-        🪑 테마 2. 공연·나들이 준비물 (오래 앉아도 편안한 허리·체온 보호)
-      </div>
-      <div class="safe-visual-card-grid" style="margin-bottom: 18px;">
-        <article class="safe-visual-product-card">
-          <img src="assets/shop/prod_4_cushion.png" alt="거실 라디오 청취·나들이용 푹신 방석" class="safe-visual-thumb" loading="lazy">
-          <div class="safe-visual-body">
-            <h3 class="safe-visual-title">④ 거실 라디오 청취·나들이용 푹신 방석</h3>
-            <p class="safe-visual-reason">딱딱한 의자에서도 허리와 엉덩이 배김을 덜어주며 가볍게 접어 가방에 넣기 좋은 휴대용 방석입니다.</p>
-            <div class="safe-visual-cta-stack">
-              <a href="https://brandconnect.naver.com/affiliates/1016189312116327?channelProductNo=13398073355&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 혜택가 확인 👉</a>
-              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
-            </div>
-            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
-          </div>
-        </article>
-
-        <article class="safe-visual-product-card">
-          <img src="assets/shop/prod_5_shawl.png" alt="환절기 경량 보온 숄·무릎담요" class="safe-visual-thumb" loading="lazy">
-          <div class="safe-visual-body">
-            <h3 class="safe-visual-title">⑤ 환절기 경량 보온 숄·무릎담요</h3>
-            <p class="safe-visual-reason">실내 냉방이나 아침·저녁 쌀쌀한 바람에 어깨와 무릎이 시리지 않도록 포근하게 감싸주는 경량 보온 숄입니다.</p>
-            <div class="safe-visual-cta-stack">
-              <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 공식 판매처 보러가기 👉</a>
-              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
-            </div>
-            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
-          </div>
-        </article>
-      </div>
-
-      <!-- 테마 3: 청취 건강 케어 (2종) -->
-      <div class="curation-subhead-pill">
-        🍵 테마 3. 청취 건강 케어 (스마트폰 눈 보호 &amp; 따라 부르는 목 케어)
-      </div>
-      <div class="safe-visual-card-grid" style="margin-bottom: 14px;">
-        <article class="safe-visual-product-card">
-          <img src="assets/shop/prod_6_lutein.png" alt="눈 침침함 케어 루테인 지아잔틴" class="safe-visual-thumb" loading="lazy">
-          <div class="safe-visual-body">
-            <h3 class="safe-visual-title">⑥ 눈 침침함 케어 루테인 지아잔틴</h3>
-            <p class="safe-visual-reason">스마트폰으로 사연과 가사를 읽으실 때 노화로 감소할 수 있는 황반색소 밀도 유지를 돕는 눈 건강 제품입니다.</p>
-            <div class="safe-visual-cta-stack">
-              <a href="https://brandconnect.naver.com/affiliates/1016189312116335?channelProductNo=13702186002&amp;ac=crtshp&amp;cid=1016094238062720" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 혜택가 확인 👉</a>
-              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
-            </div>
-            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
-          </div>
-        </article>
-
-        <article class="safe-visual-product-card">
-          <img src="assets/shop/prod_7_doraji.png" alt="목이 편안한 도라지배즙 스틱" class="safe-visual-thumb" loading="lazy">
-          <div class="safe-visual-body">
-            <h3 class="safe-visual-title">⑦ 목이 편안한 도라지배즙 스틱</h3>
-            <p class="safe-visual-reason">건조한 환절기나 트로트 애창곡을 따라 부르신 뒤 칼칼한 목을 부드럽고 촉촉하게 적셔주는 스틱형 건강음료입니다.</p>
-            <div class="safe-visual-cta-stack">
-              <a href="https://cshop.naver.com/paradiseshop" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-npay">🟢 네이버페이 공식 판매처 보러가기 👉</a>
-              <a href="https://influencers.coupang.com/s/paradisehero" target="_blank" rel="noopener noreferrer sponsored" class="btn-1sec-coupang">🚀 쿠팡 공식 판매처 보러가기 👉</a>
-            </div>
-            <p class="card-ftc-note" style="margin:8px 0 0;font-size:13px;color:#6B7280;line-height:1.45;">※ 네이버 쇼핑커넥트·쿠팡 파트너스 활동으로 수수료를 제공받을 수 있습니다.</p>
-          </div>
-        </article>
-      </div>
-
-      <p class="ftc-inline-disclosure" style="margin-bottom: 0;">
-        ※ 네이버 쇼핑 커넥트·쿠팡 파트너스 활동의 일환으로 판매 발생 시 일정액의 수수료를 제공받습니다.
-      </p>
-    </section>
         <!-- 7. 평생 100% 무료 백운호 사랑방 — [내가 키운 가수] 다음 신곡 1터치 투표 (Cloudflare D1 영구 저장) -->
     <section id="hero-free-fan-vote" class="senior-card" aria-labelledby="hero-free-vote-heading" style="margin-top: 24px; border: 3px solid #0E2820; background: #FFFBEB;">
       <div class="section-title-wrap" style="margin-bottom: 14px;">

@@ -730,6 +730,9 @@
         hitShopAndReferral('aff_partner_store');
       } else if (onclick.indexOf('vipdigitalstudio.download') !== -1) {
         hitMetric('gift_download');
+        if (window.DreamCompanyCRM && window.DreamCompanyCRM.trackFunnelEvent) { window.DreamCompanyCRM.trackFunnelEvent('HERO', 'gift_download'); }
+      } else if (el.id === 'btn-studio-stage-play' || el.hasAttribute('data-play-episode')) {
+        if (window.DreamCompanyCRM && window.DreamCompanyCRM.trackFunnelEvent) { window.DreamCompanyCRM.trackFunnelEvent('HERO', 'audio_play'); }
       }
     }, true);
 
@@ -737,6 +740,7 @@
       var fid = e.target && e.target.id ? e.target.id : '';
       if (fid === 'auto-billboard-form' || fid === 'cheer-form') {
         hitMetric('billboard_cheer');
+        if (window.DreamCompanyCRM && window.DreamCompanyCRM.trackFunnelEvent) { window.DreamCompanyCRM.trackFunnelEvent('HERO', 'story_submit'); }
       }
     }, true);
   } catch (err) {}
