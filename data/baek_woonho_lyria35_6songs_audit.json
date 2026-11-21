@@ -1,0 +1,165 @@
+{
+  "artist": "백운호 (白雲湖)",
+  "model": "lyria-3.5",
+  "api_endpoint": "POST https://generativelanguage.googleapis.com/v1beta/interactions",
+  "api_revision": "2026-05-20",
+  "updated_at_kst": "2026-11-21T10:19:28.051390+09:00",
+  "songs": {
+    "mothers_spring": {
+      "track_no": 1,
+      "title": "어머니의 봄날",
+      "badge": "타이틀곡",
+      "filename": "baek_woonho_01_mothers_spring.mp3",
+      "alias": "baek_woonho_debut_sample.mp3",
+      "model": "lyria-3.5",
+      "api_meta": {
+        "interaction_id": "cached_lyria35_raw_try1",
+        "status": "completed",
+        "mime_type": "audio/mpeg",
+        "raw_bytes": 3971224,
+        "generated_at_kst": "2026-11-21T10:14:15.174630+09:00"
+      },
+      "metrics": {
+        "duration_sec": 165.17,
+        "sample_rate": 44100,
+        "channels": "stereo",
+        "energy_above_5khz_pct": 3.8,
+        "rms": 0.2282,
+        "size_kb": 3871.9,
+        "raw_energy_above_5khz_pct": 1.62,
+        "broadcast_shelf_db": 3.5
+      },
+      "pass": true
+    },
+    "baek_woon_ho_yeonga": {
+      "track_no": 2,
+      "title": "백운호 연가",
+      "badge": "산책길 애창곡",
+      "filename": "baek_woonho_02_yeonga.mp3",
+      "alias": "baek_woonho_yeonga_full.mp3",
+      "model": "lyria-3.5",
+      "api_meta": {
+        "interaction_id": "v1_ChdmUEFBYTY3bENlcWVyZmNQMXIyb29RWRIXZlBBQWE2N2xDZXFlcmZjUDFyMm9vUVk",
+        "status": "completed",
+        "mime_type": "audio/mpeg",
+        "raw_bytes": 3974358,
+        "generated_at_kst": "2026-11-21T10:15:07.751725+09:00"
+      },
+      "metrics": {
+        "duration_sec": 165.3,
+        "sample_rate": 44100,
+        "channels": "stereo",
+        "energy_above_5khz_pct": 3.45,
+        "rms": 0.2262,
+        "size_kb": 3874.9,
+        "raw_energy_above_5khz_pct": 1.19,
+        "broadcast_shelf_db": 4.5
+      },
+      "pass": true
+    },
+    "harbor_light": {
+      "track_no": 3,
+      "title": "항구의 등불",
+      "badge": "저녁 위로곡",
+      "filename": "baek_woonho_03_harbor_light.mp3",
+      "alias": "",
+      "model": "lyria-3.5",
+      "api_meta": {
+        "interaction_id": "v1_ChdyX0FBYTctQkY4dnpyZmNQbkpIZnFBVRIXcl9BQWE3LUJGOHZ6cmZjUG5KSGZxQVU",
+        "status": "completed",
+        "mime_type": "audio/mpeg",
+        "raw_bytes": 4025767,
+        "generated_at_kst": "2026-11-21T10:15:58.011593+09:00"
+      },
+      "metrics": {
+        "duration_sec": 167.44,
+        "sample_rate": 44100,
+        "channels": "stereo",
+        "energy_above_5khz_pct": 3.25,
+        "rms": 0.2252,
+        "size_kb": 3925.1,
+        "raw_energy_above_5khz_pct": 1.17,
+        "broadcast_shelf_db": 4.5
+      },
+      "pass": true
+    },
+    "blooming_camellia": {
+      "track_no": 4,
+      "title": "다시 피는 동백꽃",
+      "badge": "희망 응원곡",
+      "filename": "baek_woonho_04_camellia.mp3",
+      "alias": "baek_woonho_camellia_full.mp3",
+      "model": "lyria-3.5",
+      "api_meta": {
+        "interaction_id": "v1_Chc0dkFBYTdxc0hlbncycm9QMV82MW1BWRIXNHZBQWE3cXNIZW53MnJvUDFfNjFtQVk",
+        "status": "completed",
+        "mime_type": "audio/mpeg",
+        "raw_bytes": 3990659,
+        "generated_at_kst": "2026-11-21T10:17:01.029891+09:00"
+      },
+      "metrics": {
+        "duration_sec": 165.98,
+        "sample_rate": 44100,
+        "channels": "stereo",
+        "energy_above_5khz_pct": 3.88,
+        "rms": 0.2302,
+        "size_kb": 3890.9,
+        "raw_energy_above_5khz_pct": 1.63,
+        "broadcast_shelf_db": 3.5
+      },
+      "pass": true
+    },
+    "hometown_first_train": {
+      "track_no": 5,
+      "title": "고향역 첫차",
+      "badge": "향수 사모곡",
+      "filename": "baek_woonho_05_hometown_train.mp3",
+      "alias": "",
+      "model": "lyria-3.5",
+      "api_meta": {
+        "interaction_id": "v1_ChdHdkVBYS1ic0hxRE8xZThQN082NzBBcxIXR3ZFQWEtYnNIcURPMWU4UDdPNjcwQXM",
+        "status": "completed",
+        "mime_type": "audio/mpeg",
+        "raw_bytes": 4001944,
+        "generated_at_kst": "2026-11-21T10:18:05.850321+09:00"
+      },
+      "metrics": {
+        "duration_sec": 166.45,
+        "sample_rate": 44100,
+        "channels": "stereo",
+        "energy_above_5khz_pct": 3.05,
+        "rms": 0.229,
+        "size_kb": 3901.9,
+        "raw_energy_above_5khz_pct": 0.94,
+        "broadcast_shelf_db": 5.5
+      },
+      "pass": true
+    },
+    "golden_sunset_of_life": {
+      "track_no": 6,
+      "title": "내 인생의 금빛 노을",
+      "badge": "황혼 세레나데",
+      "filename": "baek_woonho_06_golden_sunset.mp3",
+      "alias": "",
+      "model": "lyria-3.5",
+      "api_meta": {
+        "interaction_id": "v1_ChdhZkVBYV9tSkdjeTEycm9QcGJHdTJRYxIXYWZFQWFfbUpHY3kxMnJvUHBiR3UyUWM",
+        "status": "completed",
+        "mime_type": "audio/mpeg",
+        "raw_bytes": 4073415,
+        "generated_at_kst": "2026-11-21T10:19:07.768085+09:00"
+      },
+      "metrics": {
+        "duration_sec": 169.43,
+        "sample_rate": 44100,
+        "channels": "stereo",
+        "energy_above_5khz_pct": 3.33,
+        "rms": 0.2271,
+        "size_kb": 3971.7,
+        "raw_energy_above_5khz_pct": 1.15,
+        "broadcast_shelf_db": 4.5
+      },
+      "pass": true
+    }
+  }
+}

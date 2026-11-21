@@ -14,72 +14,86 @@
   const RADIO_EPISODES = [
     {
       id: 'ep01',
-      title: '1화 미리듣기 (1분): [사연라디오] 내 인생의 사계절을 안아주는 백운호의 중저음 — 어머니의 봄날',
-      song: '어머니의 봄날 · 백운호 연가',
-      duration: '01:08',
-      audioSrc: 'assets/audio/baek_woon_ho_ep01.mp3',
+      title: '1곡 [완곡 02:45]: 백운호 타이틀곡 — 〈어머니의 봄날〉 (Lyria 3.5 스튜디오 정규 음원)',
+      song: '어머니의 봄날 (완곡 02:45)',
+      duration: '02:45',
+      audioSrc: 'assets/audio/baek_woonho_01_mothers_spring.mp3',
       poster: 'assets/baek_woon_ho_main.png',
       captions: [
-        { at: 0, text: '🎙️ 김쌤: 가족을 위해 평생을 바치신 어머님·아버님들의 따뜻한 쉼터, 김쌤의 영웅 라디오 1화 본방송입니다.' },
-        { at: 13, text: '💌 대구 이순자 어머님 사연: 홀로 맞이하던 시린 새벽 부엌, 백운호의 〈어머니의 봄날〉이 다시 살아갈 힘이 되었습니다.' },
-        { at: 28, text: '🎵 백운호: 거친 세월 앞치마에 눈물을 닦으시며 자식들 키워내신 어머님의 오늘이 가장 눈부신 봄날입니다.' },
-        { at: 44, text: '🎶 〈어머니의 봄날〉 — 이제는 무거운 짐 내려놓으시고 꽃길만 걸으세요, 어머니의 봄날이 지금 피어납니다.' }
+        { at: 0, text: '🎙️ 백운호 타이틀곡 〈어머니의 봄날〉 — 찬 서리 내리던 새벽 부엌에, 보리차 끓이시던 고운 그 손길' },
+        { at: 42, text: '🎶 어머니 내 어머니 이제 울지 마세요 · 모진 겨울 다 지나고 꽃이 핍니다' },
+        { at: 90, text: '🎵 장터 길 찬 바람에 옷깃 여미며 내 이름 석 자조차 잊고 산 세월, 오늘 밤 내 가슴을 적시네' },
+        { at: 120, text: '🎶 주름진 두 손 잡고 함께 걸어갈 어머니의 봄날이 오늘 피어납니다' }
       ]
     },
     {
       id: 'ep02',
-      title: '2화 미리듣기 (1분): [저녁사연극] 앞치마는 잠시 내려놓으세요 — 김쌤과 백운호가 띄우는 사연 열차',
-      song: '백운호 연가 · 항구의 등불',
-      duration: '01:06',
-      audioSrc: 'assets/audio/baek_woon_ho_ep02.mp3',
+      title: '2곡 [완곡 02:45]: 백운호 산책길 애창곡 — 〈백운호 연가〉 (Lyria 3.5 스튜디오 정규 음원)',
+      song: '백운호 연가 (완곡 02:45)',
+      duration: '02:45',
+      audioSrc: 'assets/audio/baek_woonho_02_yeonga.mp3',
       poster: 'assets/characters/hero_style_02.png',
       captions: [
-        { at: 0, text: '🎙️ 김쌤: 대전 유성구 오정숙 어머님께서 무릎 재활 산책길에 〈백운호 연가〉를 들으시며 보내주신 사연입니다.' },
-        { at: 13, text: '💌 오정숙 어머님: 동네 공원 세 바퀴 돌 때마다 잔잔한 중저음 가락이 발걸음을 참 가볍게 해줍니다.' },
-        { at: 26, text: '🎵 백운호: 매일 저녁 포기하지 않고 걸으시는 그 걸음마다 건강한 기운이 가득 차오르길 응원합니다.' },
-        { at: 42, text: '🎶 〈백운호 연가 · 항구의 등불〉 — 흰 구름 머무는 호수처럼 당신의 저녁에 따뜻한 등불을 밝혀 드립니다.' }
+        { at: 0, text: '🎙️ 백운호 대표곡 〈백운호 연가〉 — 흰 구름 쉬어 가는 고요한 호수에 노을빛 물결 따라 세월이 흐르네' },
+        { at: 42, text: '🎶 쉬어 가세요 내 사람아 넓은 품 안에서 · 거친 바람 지나는 날 내가 막아 드리리' },
+        { at: 90, text: '🎵 표현은 서툴러도 마음만은 진국인 무뚝뚝한 그대 손이 내 평생 버팀목' },
+        { at: 120, text: '🎶 한낮보다 아름다운 우리의 금빛 노을 · 두 손 꼭 잡고 걷는 호숫가 연가여라' }
       ]
     },
     {
       id: 'ep03',
-      title: '3화 미리듣기 (1분): [감동사연] 찬 서리 견디고 피어난 어머님들의 세월 — 다시 피는 동백꽃',
-      song: '다시 피는 동백꽃 · 내 인생의 금빛 노을',
-      duration: '01:05',
-      audioSrc: 'assets/audio/baek_woon_ho_ep03.mp3',
-      poster: 'assets/characters/hero_style_04.png',
+      title: '3곡 [완곡 02:47]: 백운호 저녁 위로곡 — 〈항구의 등불〉 (Lyria 3.5 스튜디오 정규 음원)',
+      song: '항구의 등불 (완곡 02:47)',
+      duration: '02:47',
+      audioSrc: 'assets/audio/baek_woonho_03_harbor_light.mp3',
+      poster: 'assets/characters/hero_style_03.png',
       captions: [
-        { at: 0, text: '🎙️ 김쌤: 전북 익산의 박정옥 어머님께서 칠순 고개에 보내주신 가슴 뭉클한 편지를 소개합니다.' },
-        { at: 13, text: '💌 박정옥 어머님: 삼 남매 뒷바라지에 잊고 살던 내 이름 석 자, 이제는 활짝 웃으며 살렵니다.' },
-        { at: 26, text: '🎵 백운호: 겨울 찬 바람을 이겨내고 가장 붉게 피어나는 동백꽃은 바로 어머님의 인생을 닮았습니다.' },
-        { at: 42, text: '🎶 〈다시 피는 동백꽃〉 — 눈보라 스쳐 간 가지 끝에 누구보다 붉고 고운 꽃망울을 터뜨리네.' }
+        { at: 0, text: '🎙️ 백운호 저녁 위로곡 〈항구의 등불〉 — 밤안개 내려앉은 부둣가에 거친 파도 헤쳐 온 연락선이 쉬어가네' },
+        { at: 42, text: '🎶 불을 켜라 항구의 등불 어두운 밤바다에 · 지친 어선 길 비추는 따뜻한 등대처럼' },
+        { at: 90, text: '🎵 새벽 별 보며 나가 달빛 안고 돌아오던 굳은살 박인 손에 들려 있던 작은 봉투' },
+        { at: 120, text: '🎶 이제는 닻을 내리고 편안히 쉬어 가세요 · 당신이 우리 집의 꺼지지 않는 등불이라' }
       ]
     },
     {
       id: 'ep04',
-      title: '4화 미리듣기 (1분): [인생사연] 새벽 정거장 보리차 병의 기억 — 고향역 첫차와 따뜻한 위로',
-      song: '고향역 첫차 · 어머니의 봄날',
-      duration: '01:04',
-      audioSrc: 'assets/audio/baek_woon_ho_ep04.mp3',
-      poster: 'assets/characters/hero_style_03.png',
+      title: '4곡 [완곡 02:46]: 백운호 희망 응원곡 — 〈다시 피는 동백꽃〉 (Lyria 3.5 스튜디오 정규 음원)',
+      song: '다시 피는 동백꽃 (완곡 02:46)',
+      duration: '02:46',
+      audioSrc: 'assets/audio/baek_woonho_04_camellia.mp3',
+      poster: 'assets/characters/hero_style_04.png',
       captions: [
-        { at: 0, text: '🎙️ 김쌤: 강원 강릉 최선자 어머님께서 새벽녘 〈고향역 첫차〉를 듣고 보내주신 그리움의 편지입니다.' },
-        { at: 13, text: '💌 최선자 어머님: 도시로 떠나는 딸 손에 따뜻한 보리차 병을 쥐여주시던 친정어머니가 눈앞에 선합니다.' },
-        { at: 27, text: '🎵 백운호: 친정어머님이 쥐여주시던 보리차 병의 온기가 오늘 어머님의 다정한 마음으로 이어져 있습니다.' },
-        { at: 42, text: '🎶 〈고향역 첫차〉 — 희미한 가로등 불빛 아래 기적 소리 울리면 손 흔드시던 우리 어머니 두 손이 그리워.' }
+        { at: 0, text: '🎙️ 백운호 희망 응원곡 〈다시 피는 동백꽃〉 — 매서운 겨울바람 스쳐 가도 가지 끝에 붉게 맺힌 동백 꽃망울' },
+        { at: 42, text: '🎶 활짝 피어나세요 다시 피는 동백꽃 · 당신의 인생 이 막 지금이 청춘입니다' },
+        { at: 90, text: '🎵 지나온 모진 세월 훈장처럼 빛나고 웃음꽃 피어나는 오늘이 선물이라' },
+        { at: 120, text: '🎶 고운 스카프 두르고 봄바람 마주하며 가벼운 발걸음으로 꽃길을 걸어가네' }
       ]
     },
     {
       id: 'ep05',
-      title: '5화 미리듣기 (1분): [명곡해설] 심야 스튜디오에서 백운호가 전하는 6대 오리지널 트로트 이야기',
-      song: '항구의 등불 · 내 인생의 금빛 노을',
-      duration: '01:10',
-      audioSrc: 'assets/audio/baek_woon_ho_ep05.mp3',
+      title: '5곡 [완곡 02:46]: 백운호 향수 사모곡 — 〈고향역 첫차〉 (Lyria 3.5 스튜디오 정규 음원)',
+      song: '고향역 첫차 (완곡 02:46)',
+      duration: '02:46',
+      audioSrc: 'assets/audio/baek_woonho_05_hometown_train.mp3',
+      poster: 'assets/characters/hero_style_03.png',
+      captions: [
+        { at: 0, text: '🎙️ 백운호 향수 사모곡 〈고향역 첫차〉 — 희미한 가로등 불 새벽 안개 정거장에 보리차 따뜻한 병 안겨 주시던 손' },
+        { at: 42, text: '🎶 기적 소리 울리며 달려가는 고향역 첫차 · 차창 밖에 스쳐 가는 그리운 고향 산천아' },
+        { at: 90, text: '🎵 삶은 달걀 두 알에 소금 종이 접어 넣고 막차 타면 추울세라 목도리 여며 주셨지' },
+        { at: 120, text: '🎶 세월 지나 백발 되어 그 정거장 다시 서니 따스하던 어머니 손길 가슴 시리게 그립네' }
+      ]
+    },
+    {
+      id: 'ep06',
+      title: '6곡 [완곡 02:49]: 백운호 황혼 세레나데 — 〈내 인생의 금빛 노을〉 (Lyria 3.5 스튜디오 정규 음원)',
+      song: '내 인생의 금빛 노을 (완곡 02:49)',
+      duration: '02:49',
+      audioSrc: 'assets/audio/baek_woonho_06_golden_sunset.mp3',
       poster: 'assets/characters/hero_style_05.png',
       captions: [
-        { at: 0, text: '🎙️ 김쌤: 수원 한상철 아버님과 양천구 정명숙 님께서 부부 산책길에 〈내 인생의 금빛 노을〉을 신청해 주셨습니다.' },
-        { at: 15, text: '🎵 백운호: 한낮의 뜨거운 태양보다 저녁 하늘을 물들이는 노을이 훨씬 더 깊고 아름답습니다.' },
-        { at: 31, text: '🎶 〈어머니의 봄날〉부터 〈내 인생의 금빛 노을〉까지 백운호가 늘 어머님·아버님 곁에서 노래하겠습니다.' },
-        { at: 48, text: '📻 김쌤: 매주 화요일·금요일 저녁 6시 김쌤의 영웅 라디오 사랑방에서 따뜻한 사연으로 함께하겠습니다.' }
+        { at: 0, text: '🎙️ 백운호 황혼 세레나데 〈내 인생의 금빛 노을〉 — 한낮의 뜨거운 해 서산 너머 기울어 갈 때 온 하늘 물들이는 금빛 노을아' },
+        { at: 42, text: '🎶 아름다워라 내 인생의 눈부신 금빛 노을 · 수고했다 내 어깨야 참 잘 살아왔구나' },
+        { at: 90, text: '🎵 은빛 머리칼 위에 저녁 햇살 내려앉으면 주름진 눈가에도 따뜻한 미소 번지네' },
+        { at: 120, text: '🎶 나란히 발맞추어 저녁 산책 걸어가는 오늘 이 시간들이 하늘이 준 축복이라' }
       ]
     }
   ];
@@ -270,7 +284,7 @@
     if (!audio || typeof document === 'undefined') return;
     const ep = RADIO_EPISODES[currentIndex];
     const cur = audio.currentTime || 0;
-    const dur = isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 68;
+    const dur = isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 166;
 
     const timeEl = document.getElementById('studio-time-readout');
     if (timeEl) {
