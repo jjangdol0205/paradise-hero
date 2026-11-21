@@ -20,5 +20,6 @@ data/master_hq_bridge_state.json
 .wrangler/
 cf_dist/
 flow_shorts_studio/
+models_src/
 *.zip
 *.mp4
