@@ -667,8 +667,25 @@
         wallList.appendChild(myCard);
       });
 
-      // (2) 전국 방문자 공통 공유 사연·응원 카드 (data/community_counts.json + localStorage 증분 동기화)
-      sharedFeedItems.forEach(function (post) {
+      // (2) 전국 방문자 공통 공유 사연·응원 카드 (메인 담벼락 2건 우선 노출 + 나머지 큰글씨 접기)
+      var isCompactHomeWall = wallList.id === 'hero-love-wall-list' && sharedFeedItems.length > 2;
+      var moreDetails = null;
+      var moreGrid = null;
+      if (isCompactHomeWall) {
+        moreDetails = document.createElement('details');
+        moreDetails.id = 'hero-love-wall-more-details';
+        moreDetails.className = 'hero-senior-accordion';
+        moreDetails.style.cssText = 'grid-column: 1 / -1; margin-top: 8px; border: 2px solid #0E2820; border-radius: 14px; background: #FFFDF5; padding: 10px 14px;';
+        var moreSummary = document.createElement('summary');
+        moreSummary.style.cssText = 'cursor: pointer; min-height: 60px; display: flex; align-items: center; justify-content: space-between; font-size: 20px; font-weight: 900; color: #0E2820; list-style: none;';
+        moreSummary.textContent = '💬 어머님·아버님 사연 ' + (sharedFeedItems.length - 2) + '건 더 펼쳐보기 ▼';
+        moreGrid = document.createElement('div');
+        moreGrid.className = 'love-wall-grid';
+        moreGrid.style.marginTop = '12px';
+        moreDetails.appendChild(moreSummary);
+        moreDetails.appendChild(moreGrid);
+      }
+      sharedFeedItems.forEach(function (post, postIdx) {
         var postId = post.id || 'post_001';
         var initialClapTotal = resolveBaselineClapForPost(post) + getPostClapDelta(postId);
         var card = document.createElement('article');
@@ -727,10 +744,17 @@
         card.appendChild(meta);
         card.appendChild(msgP);
         card.appendChild(footer);
-        wallList.appendChild(card);
+        if (isCompactHomeWall && postIdx >= 2 && moreGrid) {
+          moreGrid.appendChild(card);
+        } else {
+          wallList.appendChild(card);
+        }
 
         hydratePostClapCount(post, clapCount);
       });
+      if (isCompactHomeWall && moreDetails) {
+        wallList.appendChild(moreDetails);
+      }
     });
 
     fetchLiveStorySubmitTotal(mySubmittedItems.length);
