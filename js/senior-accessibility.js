@@ -544,6 +544,7 @@
     }
 
     function sendGasNoCorsPing(eventType, counterKey) {
+      return; // Rule B-6: GAS disabled (Cloudflare D1 funnel_events active; 0 CSP violations)
       try {
         if (isAutomatedOrLocal || typeof fetch !== 'function') return;
         if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.recordCommunityEvent === 'function') {
