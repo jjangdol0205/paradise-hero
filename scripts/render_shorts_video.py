@@ -16,7 +16,7 @@ render_shorts_video.py
 4. 화면 생동감 (30fps 리얼 모션):
    - 부드러운 카메라 줌인/패닝 (Ken Burns 1.00x -> 1.07x)
    - 빗방울(rain) 및 따뜻한 조명 파티클(warm_light) 실시간 모션
-   - 초록 벨벳 수트 등 가수 황영웅 10대 시그니처 화보 일러스트 결합
+   - 초록 벨벳 수트 등 가수 백운호 10대 시그니처 화보 일러스트 결합
 5. 듀얼 출력:
    - 유튜브 쇼츠 마스터 MP4 (--out)
    - 네이버 클립(Clip) & 쇼핑 커넥트(cshop.naver.com/paradiseshop) 동시 업로드용 클린 MP4 (--naver-clip-out)
@@ -317,7 +317,7 @@ def draw_youtube_ending_callout(draw: ImageDraw.ImageDraw):
     cta_box = [64, 1545, WIDTH - 64, 1705]
     draw.rounded_rectangle(cta_box, radius=30, fill=(18, 56, 44, 242), outline=(255, 224, 82, 255), width=4)
 
-    t1 = "황영웅 무료 투샷 사진관: paradise-hero.com"
+    t1 = "백운호 무료 투샷 사진관: paradise-hero.com"
     b1 = draw.textbbox((0, 0), t1, font=f_main, stroke_width=5)
     draw.text(
         ((WIDTH - (b1[2] - b1[0])) // 2, 1574),

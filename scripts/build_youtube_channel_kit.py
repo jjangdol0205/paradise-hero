@@ -54,8 +54,8 @@ def build_profile_800():
 
     # Load DJ / Hero character illustration if available
     char_candidates = [
+        DIV4_DIR / "assets" / "baek_woon_ho_main.png",
         DIV4_DIR / "assets" / "characters" / "raw_prince_10.png",
-        DIV4_DIR / "assets" / "characters" / "sprite_hwang_young_woong.png",
         DIV4_DIR / "assets" / "hero_main.png",
     ]
     for cp in char_candidates:
@@ -85,7 +85,7 @@ def build_profile_800():
 
     # Top pill badge
     draw.rounded_rectangle((220, 56, 580, 118), radius=30, fill=(180, 35, 24, 235), outline=(255, 215, 100, 255), width=3)
-    draw_text_with_stroke(draw, (400, 87), "ON AIR · 황영웅 힐링방송", get_korean_font(28, True), (255, 248, 220), stroke_width=3)
+    draw_text_with_stroke(draw, (400, 87), "ON AIR · 백운호 힐링방송", get_korean_font(28, True), (255, 248, 220), stroke_width=3)
 
     # Bottom title text
     draw_text_with_stroke(draw, (400, 600), "김쌤의", get_korean_font(74, True), (255, 230, 140), stroke_width=8)

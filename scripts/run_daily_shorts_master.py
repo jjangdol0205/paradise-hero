@@ -6,10 +6,10 @@ run_daily_shorts_master.py
 @김쌤의영웅라디오 — 시니어 맞춤 쇼츠 & 네이버 클립 일일 마스터 오케스트레이터 (2026-11-11 개조판)
 
 핵심 규격:
-1. 해시태그 고정: #황영웅 #파라다이스 #트로트 #감동사연 #시니어유튜브
+1. 해시태그 고정: #백운호 #김쌤의영웅라디오 #트로트 #감동사연 #시니어유튜브
    - 절대 금지 태그(#영상툰, #애니메이션, #웹툰, '트롯 10대 왕자', 타 가수명) 원천 차단
 2. 제목 공식 (50자 이내):
-   [눈물주의/심야라디오/감동실화/단독소식] "직접 인용구" #황영웅 #파라다이스
+   [눈물주의/심야라디오/감동실화/단독소식] "직접 인용구" #백운호 #김쌤의영웅라디오
 3. 쇼츠 관련 동영상(Related Video) 브릿지:
    - 채널 최신 롱폼 라디오 영상(기본값 lGkMncY4u1o)으로 자동 연결
 4. 예약 발행 시각 고정 (publishAt):
@@ -40,7 +40,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 DIVISION_DIR = SCRIPT_DIR.parent
 
 KST = timezone(timedelta(hours=9))
-FIXED_HASHTAGS = ["#황영웅", "#파라다이스", "#트로트", "#감동사연", "#시니어유튜브"]
+FIXED_HASHTAGS = ["#백운호", "#김쌤의영웅라디오", "#트로트", "#감동사연", "#시니어유튜브"]
 DEFAULT_RELATED_LONGFORM_VIDEO_ID = "lGkMncY4u1o"
 
 
@@ -81,14 +81,14 @@ def package_multiplatform_metadata(
         })
         accum += beat_durs[idx] if idx < len(beat_durs) else beat.get("target_duration_sec", 3.8)
 
-    yt_title = script_data.get("youtube_title") or script_data.get("title") or '[심야라디오] "엄마 이제 제가 당신 편이오" #황영웅 #파라다이스'
+    yt_title = script_data.get("youtube_title") or script_data.get("title") or '[심야라디오] "엄마 이제 제가 당신 편이오" #백운호 #김쌤의영웅라디오'
     yt_title = yt_title[:50]
 
     hashtags_line = " ".join(FIXED_HASHTAGS)
     yt_description = (
         f"📻 김쌤의 심야 영웅라디오 제{episode:02d}화\n"
-        f"가수 황영웅 님의 깊은 목소리와 파라다이스 어머님들의 따뜻한 인생 사연을 전해드립니다.\n\n"
-        f"💚 [황영웅 무료 화보 투샷 사진관 & 공식 팬 쉼터]\n"
+        f"가수 백운호의 깊은 목소리와 영웅 가족 어머님들의 따뜻한 인생 사연을 전해드립니다.\n\n"
+        f"💚 [백운호 무료 화보 투샷 사진관 & 공식 팬 쉼터]\n"
         f"👉 https://paradise-hero.com/booth.html\n\n"
         f"💌 [김쌤 라디오에 내 사연 보내기]\n"
         f"👉 https://paradise-hero.com/story.html\n\n"
@@ -102,7 +102,7 @@ def package_multiplatform_metadata(
     yt_tags = FIXED_HASHTAGS.copy()
 
     ig_caption = (
-        f"📻 [김쌤의 심야 영웅라디오] 어머님들의 마음을 따뜻하게 안아주는 가수 황영웅 이야기 💚\n\n"
+        f"📻 [김쌤의 심야 영웅라디오] 어머님들의 마음을 따뜻하게 안아주는 가수 백운호 이야기 💚\n\n"
         f"지금 프로필 링크(paradise-hero.com)에서 영웅님 10종 의상 무료 화보 기념사진도 편하게 찍어보세요!\n\n"
         f"@kimteacher_heroradio\n"
         f"{hashtags_line}"

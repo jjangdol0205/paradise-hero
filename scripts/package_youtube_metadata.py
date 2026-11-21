@@ -5,7 +5,7 @@ package_youtube_metadata.py
 @김쌤의영웅라디오 — 12~20분 보이는 사연 라디오 롱폼 메타데이터 & 고정 댓글 패키저 (2026-11-11 개조판)
 
 핵심 규격:
-1. 필수 고정 태그: #황영웅 #파라다이스 #트로트 #감동사연 #시니어유튜브
+1. 필수 고정 태그: #백운호 #김쌤의영웅라디오 #트로트 #감동사연 #시니어유튜브
    - 절대 금지 태그(#영상툰, #애니메이션, #웹툰, '트롯 10대 왕자', 타 가수명) 원천 배제
 2. 롱폼 첫 번째 고정 댓글(Pinned Comment) 자동 등록 문안:
    - 공식 응원·사연 사랑방 브릿지: https://paradise-hero.com/story.html
@@ -36,20 +36,20 @@ except ImportError:
     ImageFont = None
 
 KST = timezone(timedelta(hours=9))
-FIXED_HASHTAGS = ["#황영웅", "#파라다이스", "#트로트", "#감동사연", "#시니어유튜브"]
+FIXED_HASHTAGS = ["#백운호", "#김쌤의영웅라디오", "#트로트", "#감동사연", "#시니어유튜브"]
 
-LONGFORM_PINNED_COMMENT = """💬 든든한 우리 영웅 가족 여러분! 오늘 밤 가장 듣고 싶은 황영웅 님의 인생 명곡 1곡과 따뜻한 응원 한마디(💚)를 댓글 사랑방에 남겨주세요! 다음 방송에서 김쌤이 정성껏 읽어드립니다 📻
+LONGFORM_PINNED_COMMENT = """💬 든든한 우리 영웅 가족 여러분! 오늘 밤 가장 듣고 싶은 백운호의 인생 명곡 1곡과 따뜻한 응원 한마디(💚)를 댓글 사랑방에 남겨주세요! 다음 방송에서 김쌤이 정성껏 읽어드립니다 📻
 
-💌 황영웅 님을 향한 관심과 사랑을 홈페이지 응원·사연 사랑방에 큰 글씨로 담아주세요!
+💌 백운호을 향한 관심과 사랑을 홈페이지 응원·사연 사랑방에 큰 글씨로 담아주세요!
 👉 파라다이스 히어로 응원·사연 사랑방 바로가기: https://paradise-hero.com/story.html
 
-🛍️ 황영웅 님을 향한 사랑과 온기를 담은 애장·건강 상품 (공연 응원준비물 · 정품 음반 · 관절/눈/홍삼 건강선물)!
+🛍️ 백운호을 향한 사랑과 온기를 담은 애장·건강 상품 (공연 응원준비물 · 정품 음반 · 관절/눈/홍삼 건강선물)!
 👉 paradise-hero.com 원터치 쇼핑 바로가기: https://paradise-hero.com
 
 🟢 카드 번호 입력 없이 네이버페이 1초 결제! [김쌤의 사랑·건강 안심 혜택관]
 👉 네이버페이(Npay)로 편하게 보러가기: https://cshop.naver.com/paradiseshop
 
-💿 황영웅 정품 음반('당신 편'·'가을, 그리움') · 효도 오디오 · 콘서트 애장 준비물 내일 도착
+💿 백운호 정품 음반('당신 편'·'가을, 그리움') · 효도 오디오 · 콘서트 애장 준비물 내일 도착
 👉 영웅라디오 쿠팡 공식 판매처 보러가기: https://influencers.coupang.com/s/paradisehero
 (네이버 쇼핑 커넥트 활동의 일환으로 판매 발생 시 소정의 수수료를 제공받으며, 쿠팡 파트너스 활동의 일환으로 이에 따른 일정액의 수수료를 제공받습니다.)"""
 
@@ -89,9 +89,9 @@ def build_youtube_metadata(script_data: Dict[str, Any], video_plan: Dict[str, An
 
     if ep_num >= 6 and script_data.get("episode_title"):
         base_title = script_data["episode_title"].strip()
-        if "황영웅" not in base_title:
-            base_title = f"{base_title} (황영웅 [{song_short}])"
-        suffix = " #황영웅 #파라다이스"
+        if "백운호" not in base_title:
+            base_title = f"{base_title} (백운호 [{song_short}])"
+        suffix = " #백운호 #김쌤의영웅라디오"
         max_base = 98 - len(suffix)
         if len(base_title) > max_base:
             base_title = base_title[:max_base - 1].rstrip() + "…"
@@ -99,7 +99,7 @@ def build_youtube_metadata(script_data: Dict[str, Any], video_plan: Dict[str, An
     else:
         title = (
             f"[심야라디오 {ep_num}화] \"어머니, 이제 제가 당신 편이 되어드릴게요\" "
-            f"황영웅 [{song_short}] 사연 3편 & 주요 소식 #황영웅 #파라다이스"
+            f"백운호 [{song_short}] 사연 3편 & 주요 소식 #백운호 #김쌤의영웅라디오"
         )
 
     chapter_icons = ["🌸", "🎙️", "🎵", "💌", "💚", "🌙"]
@@ -116,7 +116,7 @@ def build_youtube_metadata(script_data: Dict[str, Any], video_plan: Dict[str, An
             })
     else:
         std_times = [
-            ("00:00", "🌸 오프닝 — 파라다이스 어머님들, 저녁 진지 드셨습니까?"),
+            ("00:00", "🌸 오프닝 — 영웅 가족 어머님들, 저녁 진지 드셨습니까?"),
             ("02:00", "🎙️ 영웅 이야기 & 첫 번째 소식 — 모진 비바람을 견뎌낸 깊은 목소리"),
             ("05:45", "🎵 명곡 해설 & 두 번째 사연 — [당신 편] 가사 속 눈물의 약속"),
             ("09:30", "💌 파라다이스 우체통 — 대구 이순자 어머님의 사연 전문 낭독"),
@@ -133,24 +133,24 @@ def build_youtube_metadata(script_data: Dict[str, Any], video_plan: Dict[str, An
     timestamp_block = "\n".join([ts["label"] for ts in timestamps])
     hashtags_line = " ".join(FIXED_HASHTAGS)
 
-    description = f"""든든한 우리 영웅 가족 여러분, 그리고 사랑하는 파라다이스 어머님들, 김쌤의 영웅 라디오 사랑방에 오신 것을 진심으로 환영합니다 💚
+    description = f"""든든한 우리 영웅 가족 여러분, 그리고 사랑하는 영웅 가족 어머님들, 김쌤의 영웅 라디오 사랑방에 오신 것을 진심으로 환영합니다 💚
 📅 정규 본방송 편성: 매주 화요일 · 금요일 저녁 6시 (화요 심야 사연 드라마 & 금요 명곡 해부학·친절 특집)
-💬 오늘 밤 가장 듣고 싶은 황영웅 님의 인생 명곡 1곡과 따뜻한 응원 한마디(💚)를 댓글 사랑방에 남겨주시면 다음 방송에서 김쌤이 함께 소개해 드립니다!
-오늘 밤 방송에서는 어머님들의 감동 사연 3편과 황영웅 뉴스룸 주요 소식 2건을 따뜻한 진공관 라디오 부스에서 정성껏 읽어드립니다.
+💬 오늘 밤 가장 듣고 싶은 백운호의 인생 명곡 1곡과 따뜻한 응원 한마디(💚)를 댓글 사랑방에 남겨주시면 다음 방송에서 김쌤이 함께 소개해 드립니다!
+오늘 밤 방송에서는 어머님들의 감동 사연 3편과 백운호 뉴스룸 주요 소식 2건을 따뜻한 진공관 라디오 부스에서 정성껏 읽어드립니다.
 
-💌 [황영웅 님을 향한 관심과 사랑을 담는 홈페이지 응원·사연 사랑방]
+💌 [백운호을 향한 관심과 사랑을 담는 홈페이지 응원·사연 사랑방]
 👉 https://paradise-hero.com/story.html
 
-🛍️ [paradise-hero.com 원터치 쇼핑 바로가기 — 황영웅 님을 향한 사랑과 온기를 담은 애장·건강 상품]
+🛍️ [paradise-hero.com 원터치 쇼핑 바로가기 — 백운호을 향한 사랑과 온기를 담은 애장·건강 상품]
 👉 https://paradise-hero.com
 
 🟢 [카드 입력 없이 네이버페이 1초 결제! 김쌤 공식 네이버 크리에이터샵 안심 혜택관]
 👉 https://cshop.naver.com/paradiseshop
 
-💿 [황영웅 정품 음반 · 간편 효도오디오 · 콘서트 애장 준비물 — 쿠팡 내일 도착 공식관]
+💿 [백운호 정품 음반 · 간편 효도오디오 · 콘서트 애장 준비물 — 쿠팡 내일 도착 공식관]
 👉 https://influencers.coupang.com/s/paradisehero
 
-📰 [가수 황영웅 전용 큰글씨 뉴스룸]
+📰 [가수 백운호 전용 큰글씨 뉴스룸]
 👉 https://paradise-hero.com/news.html
 (네이버 쇼핑 커넥트 활동의 일환으로 판매 발생 시 소정의 수수료를 제공받으며, 쿠팡 파트너스 활동의 일환으로 이에 따른 일정액의 수수료를 제공받습니다.)
 
@@ -159,10 +159,10 @@ def build_youtube_metadata(script_data: Dict[str, Any], video_plan: Dict[str, An
 {timestamp_block}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🎧 [황영웅 가수의 공식 음원을 응원해 주세요]
-황영웅 가수의 모든 노래는 멜론, 지니, 벅스, 유튜브 뮤직의 공식 스트리밍을 이용해 주실 때 가수에게 가장 큰 힘과 날개가 됩니다.
+🎧 [백운호 가수의 공식 음원을 응원해 주세요]
+백운호 가수의 모든 노래는 멜론, 지니, 벅스, 유튜브 뮤직의 공식 스트리밍을 이용해 주실 때 가수에게 가장 큰 힘과 날개가 됩니다.
 
-※ 본 영상에 수록된 배경음악은 드림컴퍼니 자체 제작 서정적 어쿠스틱/피아노 로열티 프리 음원이며, 황영웅 가수의 모든 음원 권리를 100% 존중합니다.
+※ 본 영상의 가수 백운호는 김쌤의 영웅라디오 오리지널 가상(버추얼) 트로트 아티스트이며, 합성 음성·음원 기술(containsSyntheticMedia)이 사용되었습니다.
 ※ 공식 고객지원 및 제휴 문의: beable9489@gmail.com
 
 {hashtags_line}
@@ -181,7 +181,7 @@ def build_youtube_metadata(script_data: Dict[str, Any], video_plan: Dict[str, An
 
     thumbnail_spec = {
         "aspect_ratio": "16:9 (1920x1080)",
-        "layout_formula": "좌측 55% 가수 황영웅 감성 화보 클로즈업 + 우측 45% 진공관 부스 3단 왕글씨",
+        "layout_formula": "좌측 55% 가수 백운호 감성 화보 클로즈업 + 우측 45% 진공관 부스 3단 왕글씨",
         "program_format": prog_fmt,
         "top_amber_badge": badge_txt,
         "headline_line1": hl_line1,
@@ -222,9 +222,38 @@ def build_youtube_metadata(script_data: Dict[str, Any], video_plan: Dict[str, An
         "tags_count": len(tags),
         "timestamps": timestamps,
         "thumbnail_specification": thumbnail_spec,
+        "containsSyntheticMedia": True,
+        "status": {
+            "privacyStatus": "private",
+            "publishAt": publish_at_kst,
+            "selfDeclaredMadeForKids": False,
+            "containsSyntheticMedia": True,
+        },
     }
 
     return metadata
+
+
+def build_youtube_api_insert_body(meta: Dict[str, Any]) -> Dict[str, Any]:
+    """Builds YouTube Data API v3 `videos.insert` body with `status.containsSyntheticMedia = True` permanently enforced."""
+    status_in = dict(meta.get("status") or {})
+    status_in["selfDeclaredMadeForKids"] = False
+    status_in["containsSyntheticMedia"] = True
+    if not status_in.get("privacyStatus"):
+        status_in["privacyStatus"] = "private" if meta.get("publishAt") else "public"
+    if meta.get("publishAt") and status_in["privacyStatus"] == "private":
+        status_in["publishAt"] = meta["publishAt"]
+    return {
+        "snippet": {
+            "title": meta["title"][:100],
+            "description": meta["description"],
+            "tags": [t.lstrip("#") for t in meta.get("tags", FIXED_HASHTAGS)],
+            "categoryId": "10",
+            "defaultLanguage": "ko",
+            "defaultAudioLanguage": "ko",
+        },
+        "status": status_in,
+    }
 
 
 def render_sample_thumbnail(meta: Dict[str, Any], output_path: str):
@@ -260,7 +289,7 @@ def render_sample_thumbnail(meta: Dict[str, Any], output_path: str):
     ep_num = int(meta.get("episode_number", 1))
     assets_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "assets"))
     portrait_candidates = [
-        os.path.join(assets_root, "characters", "sprite_hwang_young_woong.png"),
+        os.path.join(assets_root, "baek_woon_ho_main.png"),
         os.path.join(assets_root, "hero_main.png"),
     ]
     chosen_portrait = portrait_candidates[(ep_num - 1) % len(portrait_candidates)] if ep_num >= 6 else portrait_candidates[0]
@@ -299,7 +328,7 @@ def render_sample_thumbnail(meta: Dict[str, Any], output_path: str):
     if "|" in sub_txt:
         s_part1, s_part2 = [x.strip() for x in sub_txt.split("|", 1)]
     elif ep_num == 1:
-        s_part1, s_part2 = "보이는 사연 라디오 3편", "& 황영웅 반가운 소식 2건"
+        s_part1, s_part2 = "보이는 사연 라디오 3편", "& 백운호 반가운 소식 2건"
     else:
         s_part1, s_part2 = sub_txt[:17], "화·금 저녁 6시 정규 본방송"
 

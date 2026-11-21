@@ -3,14 +3,14 @@
 """
 generate_shorts_script.py
 ================================================================================
-@김쌤의영웅라디오 — 6070 시니어 맞춤 황영웅 단독 사연·소식 쇼츠 대본 생성기 (2026-11-11 개조판)
+@김쌤의영웅라디오 — 6070 시니어 맞춤 백운호 단독 사연·소식 쇼츠 대본 생성기 (2026-11-11 개조판)
 paradise-hero.com | cshop.naver.com/paradiseshop
 
 핵심 규격:
-1. 가수 분산 금지: 100% '가수 황영웅 & 파라다이스 어머님 사연/소식' 원톱 구성
-2. 해시태그 고정: #황영웅 #파라다이스 #트로트 #감동사연 #시니어유튜브
+1. 가수 분산 금지: 100% '가수 백운호 & 영웅 가족 어머님 사연/소식' 원톱 구성
+2. 해시태그 고정: #백운호 #김쌤의영웅라디오 #트로트 #감동사연 #시니어유튜브
 3. 제목 공식 (50자 이내):
-   [눈물주의/심야라디오/감동실화/단독소식] + 어머님 심금을 울리는 직접 인용구 + #황영웅 #파라다이스
+   [눈물주의/심야라디오/감동실화/단독소식] + 어머님 심금을 울리는 직접 인용구 + #백운호 #김쌤의영웅라디오
 4. 러닝타임 & 호흡: 30~42초 (9컷 × 3.4~4.2초 자연스러운 호흡, 과속 금지, seg_dur >= tts_dur + 0.22s)
 5. 자막 규격: 한 줄 5~8어절 이내 (최대 2줄), 105~120pt 중앙 배치를 위한 간결한 호흡 분할
 ================================================================================
@@ -35,7 +35,7 @@ CHARACTERS_JSON_PATH = DIVISION_DIR / "data" / "characters.json"
 STORIES_JSON_PATH = DIVISION_DIR / "data" / "stories.json"
 NEWS_JSON_PATH = DIVISION_DIR / "data" / "trot_news.json"
 
-FIXED_HASHTAGS = ["#황영웅", "#파라다이스", "#트로트", "#감동사연", "#시니어유튜브"]
+FIXED_HASHTAGS = ["#백운호", "#김쌤의영웅라디오", "#트로트", "#감동사연", "#시니어유튜브"]
 
 OUTFIT_ROTATION = [
     "hwang_young_woong",
@@ -104,9 +104,9 @@ def load_story_and_news_seed(episode: int) -> Tuple[Dict[str, Any], Dict[str, An
 def enforce_quote_title_50(prefix_tag: str, quote_text: str) -> str:
     """
     Enforces <= 50-char YouTube Shorts title formula:
-    [눈물주의/심야라디오/감동실화/단독소식] "직접 인용구" #황영웅 #파라다이스
+    [눈물주의/심야라디오/감동실화/단독소식] "직접 인용구" #백운호 #김쌤의영웅라디오
     """
-    suffix = "#황영웅 #파라다이스"
+    suffix = "#백운호 #김쌤의영웅라디오"
     head = f"[{prefix_tag}]"
     max_quote_len = 50 - len(head) - len(suffix) - 4  # spaces + quotes
     clean_q = quote_text.strip().strip('"').strip("'")
@@ -160,7 +160,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
             "variant_id": "A_VS_CONTRAST",
             "name": "A안: 적막한 밤 vs 영웅님의 중저음 위로 대비 훅",
             "youtube_title": title_a,
-            "concept": "텅 빈 거실의 적막함과 황영웅 중저음 위로의 극적 대비로 6070 시니어 시청 유지율 극대화",
+            "concept": "텅 빈 거실의 적막함과 백운호 중저음 위로의 극적 대비로 6070 시니어 시청 유지율 극대화",
             "hook_type": "VS_COMPARISON",
             "rationale": "첫 3초 어머님들의 저녁 고독을 어루만지는 직접 인용구로 공감과 완주율 달성",
             "beats": [
@@ -174,7 +174,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "hook_chime",
                     "particle_mode": "rain",
                     "is_cta": False,
-                    "scene_description": "비 내리는 창가와 에메랄드 벨벳 수트 황영웅의 다정한 시선 줌인"
+                    "scene_description": "비 내리는 창가와 에메랄드 벨벳 수트 백운호의 다정한 시선 줌인"
                 },
                 {
                     "beat_idx": 1,
@@ -186,7 +186,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "cut_whoosh",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "심야 라디오 DJ 안경룩 황영웅과 따뜻한 진공관 조명"
+                    "scene_description": "심야 라디오 DJ 안경룩 백운호과 따뜻한 진공관 조명"
                 },
                 {
                     "beat_idx": 2,
@@ -198,19 +198,19 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "cut_whoosh",
                     "particle_mode": "rain",
                     "is_cta": False,
-                    "scene_description": "가을 트렌치코트 산책룩 황영웅과 잔잔한 빗방울 파티클"
+                    "scene_description": "가을 트렌치코트 산책룩 백운호과 잔잔한 빗방울 파티클"
                 },
                 {
                     "beat_idx": 3,
                     "target_duration_sec": 4.0,
                     "character_id": resolve_outfit_id(0, characters),
-                    "narration": f"그때 라디오에서 흘러나온 황영웅 님의 {song_short} 첫 소절이 가슴을 울렸습니다.",
+                    "narration": f"그때 라디오에서 흘러나온 백운호의 {song_short} 첫 소절이 가슴을 울렸습니다.",
                     "subtitle_l1": f"라디오에서 흐른 [{song_short}]",
-                    "subtitle_l2": "황영웅의 묵직한 첫 소절",
+                    "subtitle_l2": "백운호의 묵직한 첫 소절",
                     "sfx": "metric_ping",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "초록 벨벳 수트 황영웅 화보 일러스트 슬로우 줌인"
+                    "scene_description": "초록 벨벳 수트 백운호 화보 일러스트 슬로우 줌인"
                 },
                 {
                     "beat_idx": 4,
@@ -222,7 +222,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "metric_ping",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "순백의 프린스 턱시도 황영웅과 황금빛 조명 파티클"
+                    "scene_description": "순백의 프린스 턱시도 백운호과 황금빛 조명 파티클"
                 },
                 {
                     "beat_idx": 5,
@@ -234,7 +234,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "cut_whoosh",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "따뜻한 핑크 가디건 하트룩 황영웅의 포근한 미소"
+                    "scene_description": "따뜻한 핑크 가디건 하트룩 백운호의 포근한 미소"
                 },
                 {
                     "beat_idx": 6,
@@ -246,7 +246,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "cut_whoosh",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "퍼플 벨벳 디너쇼룩 황영웅과 은은한 무대 조명 패닝"
+                    "scene_description": "퍼플 벨벳 디너쇼룩 백운호과 은은한 무대 조명 패닝"
                 },
                 {
                     "beat_idx": 7,
@@ -258,7 +258,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "metric_ping",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "황금빛 명절 한복룩 황영웅의 깊은 큰절과 축복 조명"
+                    "scene_description": "황금빛 명절 한복룩 백운호의 깊은 큰절과 축복 조명"
                 },
                 {
                     "beat_idx": 8,
@@ -270,7 +270,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "outro_drop",
                     "particle_mode": "warm_light",
                     "is_cta": True,
-                    "scene_description": "초록 벨벳 수트 황영웅 엔딩 컷 및 공식 쉼터 안내"
+                    "scene_description": "초록 벨벳 수트 백운호 엔딩 컷 및 공식 쉼터 안내"
                 }
             ]
         },
@@ -286,13 +286,13 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "beat_idx": 0,
                     "target_duration_sec": 3.8,
                     "character_id": resolve_outfit_id(0, characters),
-                    "narration": "어머님들이 황영웅 님 노래만 들으면 하염없이 눈물 흘리시는 진짜 이유.",
+                    "narration": "어머님들이 백운호 노래만 들으면 하염없이 눈물 흘리시는 진짜 이유.",
                     "subtitle_l1": "영웅님 노래만 들으시면",
                     "subtitle_l2": "눈물 흘리시는 진짜 이유",
                     "sfx": "hook_chime",
                     "particle_mode": "rain",
                     "is_cta": False,
-                    "scene_description": "초록 벨벳 수트 황영웅의 깊은 눈빛 클로즈업"
+                    "scene_description": "초록 벨벳 수트 백운호의 깊은 눈빛 클로즈업"
                 },
                 {
                     "beat_idx": 1,
@@ -304,7 +304,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "cut_whoosh",
                     "particle_mode": "rain",
                     "is_cta": False,
-                    "scene_description": "시크 올블랙 수트 황영웅과 촉촉한 밤비 파티클"
+                    "scene_description": "시크 올블랙 수트 백운호과 촉촉한 밤비 파티클"
                 },
                 {
                     "beat_idx": 2,
@@ -316,19 +316,19 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "cut_whoosh",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "심야 라디오 DJ 황영웅과 따뜻한 부스 스탠드 불빛"
+                    "scene_description": "심야 라디오 DJ 백운호과 따뜻한 부스 스탠드 불빛"
                 },
                 {
                     "beat_idx": 3,
                     "target_duration_sec": 4.0,
                     "character_id": resolve_outfit_id(9, characters),
-                    "narration": "그 외로운 가슴에 황영웅 님의 진심 어린 목소리가 조용히 내려앉았습니다.",
+                    "narration": "그 외로운 가슴에 백운호의 진심 어린 목소리가 조용히 내려앉았습니다.",
                     "subtitle_l1": "외로운 가슴에 내려앉은",
-                    "subtitle_l2": "황영웅의 진심 어린 목소리",
+                    "subtitle_l2": "백운호의 진심 어린 목소리",
                     "sfx": "metric_ping",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "버건디 장미 세레나데룩 황영웅 슬로우 줌인"
+                    "scene_description": "버건디 장미 세레나데룩 백운호 슬로우 줌인"
                 },
                 {
                     "beat_idx": 4,
@@ -340,7 +340,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "metric_ping",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "초록 벨벳 수트 황영웅과 황금 조명 파티클"
+                    "scene_description": "초록 벨벳 수트 백운호과 황금 조명 파티클"
                 },
                 {
                     "beat_idx": 5,
@@ -352,19 +352,19 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "cut_whoosh",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "핑크 가디건 하트룩 황영웅의 환한 미소"
+                    "scene_description": "핑크 가디건 하트룩 백운호의 환한 미소"
                 },
                 {
                     "beat_idx": 6,
                     "target_duration_sec": 3.8,
                     "character_id": resolve_outfit_id(5, characters),
-                    "narration": "전국 파라다이스 어머님들이 손잡고 걸어가는 길은 이제 외롭지 않습니다.",
+                    "narration": "전국 영웅 가족 어머님들이 손잡고 걸어가는 길은 이제 외롭지 않습니다.",
                     "subtitle_l1": "파라다이스 가족이 함께해",
                     "subtitle_l2": "결코 외롭지 않은 꽃길",
                     "sfx": "cut_whoosh",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "로열 제복 스타일 황영웅과 에메랄드 응원 물결"
+                    "scene_description": "로열 제복 스타일 백운호과 에메랄드 응원 물결"
                 },
                 {
                     "beat_idx": 7,
@@ -376,7 +376,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "metric_ping",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "순백 턱시도 황영웅과 은은한 별빛 파티클"
+                    "scene_description": "순백 턱시도 백운호과 은은한 별빛 파티클"
                 },
                 {
                     "beat_idx": 8,
@@ -388,7 +388,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "outro_drop",
                     "particle_mode": "warm_light",
                     "is_cta": True,
-                    "scene_description": "초록 벨벳 수트 황영웅 엔딩 및 공식 팬 쉼터 안내"
+                    "scene_description": "초록 벨벳 수트 백운호 엔딩 및 공식 팬 쉼터 안내"
                 }
             ]
         },
@@ -404,13 +404,13 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "beat_idx": 0,
                     "target_duration_sec": 3.8,
                     "character_id": resolve_outfit_id(4, characters),
-                    "narration": "차가운 비바람 속에서도 황영웅 님이 다시 마이크를 잡은 단 하나의 이유.",
+                    "narration": "차가운 비바람 속에서도 백운호이 다시 마이크를 잡은 단 하나의 이유.",
                     "subtitle_l1": "모진 비바람을 이겨내고",
                     "subtitle_l2": "다시 마이크 잡은 진짜 이유",
                     "sfx": "hook_chime",
                     "particle_mode": "rain",
                     "is_cta": False,
-                    "scene_description": "빗방울 내리는 어두운 무대 뒤에서 빛으로 걸어 나오는 황영웅"
+                    "scene_description": "빗방울 내리는 어두운 무대 뒤에서 빛으로 걸어 나오는 백운호"
                 },
                 {
                     "beat_idx": 1,
@@ -422,7 +422,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "cut_whoosh",
                     "particle_mode": "rain",
                     "is_cta": False,
-                    "scene_description": "가을 트렌치코트 황영웅과 서서히 밝아오는 여명"
+                    "scene_description": "가을 트렌치코트 백운호과 서서히 밝아오는 여명"
                 },
                 {
                     "beat_idx": 2,
@@ -434,7 +434,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "cut_whoosh",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "초록 벨벳 콘서트 수트 황영웅 무대 조명 줌인"
+                    "scene_description": "초록 벨벳 콘서트 수트 백운호 무대 조명 줌인"
                 },
                 {
                     "beat_idx": 3,
@@ -446,7 +446,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "metric_ping",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "로열 제복 스타일 황영웅의 감격 어린 인사"
+                    "scene_description": "로열 제복 스타일 백운호의 감격 어린 인사"
                 },
                 {
                     "beat_idx": 4,
@@ -458,19 +458,19 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "metric_ping",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "순백 턱시도 황영웅과 찬란한 골드 조명 파티클"
+                    "scene_description": "순백 턱시도 백운호과 찬란한 골드 조명 파티클"
                 },
                 {
                     "beat_idx": 5,
                     "target_duration_sec": 3.8,
                     "character_id": resolve_outfit_id(8, characters),
-                    "narration": "나눔과 선행까지 함께 이어가는 파라다이스 팬덤의 품격이 빛납니다.",
+                    "narration": "나눔과 선행까지 함께 이어가는 영웅라디오 가족덤의 품격이 빛납니다.",
                     "subtitle_l1": "따뜻한 나눔으로 증명한",
                     "subtitle_l2": "자랑스러운 파라다이스 품격",
                     "sfx": "cut_whoosh",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "황금빛 한복룩 황영웅의 정중한 인사"
+                    "scene_description": "황금빛 한복룩 백운호의 정중한 인사"
                 },
                 {
                     "beat_idx": 6,
@@ -482,7 +482,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "cut_whoosh",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "퍼플 벨벳 디너쇼룩 황영웅 패닝 컷"
+                    "scene_description": "퍼플 벨벳 디너쇼룩 백운호 패닝 컷"
                 },
                 {
                     "beat_idx": 7,
@@ -494,7 +494,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "metric_ping",
                     "particle_mode": "warm_light",
                     "is_cta": False,
-                    "scene_description": "심야 라디오 DJ 안경룩 황영웅의 온화한 미소"
+                    "scene_description": "심야 라디오 DJ 안경룩 백운호의 온화한 미소"
                 },
                 {
                     "beat_idx": 8,
@@ -506,7 +506,7 @@ def build_episode_variants(episode: int, characters: Dict[str, Dict[str, Any]]) 
                     "sfx": "outro_drop",
                     "particle_mode": "warm_light",
                     "is_cta": True,
-                    "scene_description": "초록 벨벳 수트 황영웅 엔딩 및 무료 기념사진관 안내"
+                    "scene_description": "초록 벨벳 수트 백운호 엔딩 및 무료 기념사진관 안내"
                 }
             ]
         }

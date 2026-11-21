@@ -108,7 +108,7 @@ SCENE_PROMPTS = [
     {
         "chapter_index": 1,
         "chapter_id": "ch1_opening",
-        "title": "오프닝 — 파라다이스 어머님들, 저녁 진지 드셨습니까?",
+        "title": "오프닝 — 영웅 가족 어머님들, 저녁 진지 드셨습니까?",
         "art_prompt": (
             "Cinematic 16:9 wide shot, cozy retro Korean radio studio at late autumn twilight. "
             "Warm golden sunset streaming through large wooden window pane, vintage broadcast tube microphone on mahogany desk, "
@@ -146,7 +146,7 @@ SCENE_PROMPTS = [
     {
         "chapter_index": 4,
         "chapter_id": "ch4_fan_letter",
-        "title": "파라다이스 사연 우체통 — 대구 이순자 어머님의 눈물겨운 사연 낭독",
+        "title": "영웅 가족 사연 우체통 — 대구 이순자 어머님의 눈물겨운 사연 낭독",
         "art_prompt": (
             "Cinematic 16:9 still life, heartfelt handwritten letter on traditional Korean Hanji paper lying on wooden desk. "
             "Reading glasses folded neatly next to the letter, single flickering candle in brass holder casting dancing warm shadows. "
@@ -356,7 +356,7 @@ def create_studio_chapter_base(
 
     # Portrait caption
     draw.rounded_rectangle([76, 690, 512, 754], radius=14, fill=(22, 58, 44, 245), outline=(255, 215, 0, 220), width=2)
-    draw.text((98, 706), "가수 황영웅 · 심야 영웅라디오", font=f_badge, fill=(255, 240, 150, 255))
+    draw.text((98, 706), "가수 백운호 · 심야 영웅라디오", font=f_badge, fill=(255, 240, 150, 255))
 
     # Warm Vacuum-Tube Radio Dial Box (Left Bottom Y=772..994)
     draw.rounded_rectangle([76, 772, 512, 994], radius=18, fill=(34, 22, 14, 248), outline=(232, 155, 83, 230), width=3)
@@ -378,7 +378,7 @@ def create_studio_chapter_base(
     # Right Studio Giant 72pt+ Senior Story Stage (X=564..1864, Y=228..1016)
     stage_alpha = 148 if transparent_for_flow else 228
     draw.rounded_rectangle([564, 228, 1864, 1016], radius=26, fill=(14, 18, 26, stage_alpha), outline=(212, 175, 55, 235), width=3)
-    draw.text((602, 256), "📻 보이는 사연 라디오 · 사연 3편 & 황영웅 주요 소식 2건", font=f_ch, fill=(255, 224, 118, 255))
+    draw.text((602, 256), "📻 보이는 사연 라디오 · 사연 3편 & 백운호 주요 소식 2건", font=f_ch, fill=(255, 224, 118, 255))
     draw.text((602, 308), f"• 부스 분위기: {', '.join(visual_elements)}", font=f_meta, fill=(195, 235, 210, 255))
 
     return canvas
@@ -491,7 +491,7 @@ def render_cue_slide(
     else:
         draw.rounded_rectangle([596, 882, 1832, 992], radius=18, fill=(22, 28, 40, 232), outline=(120, 140, 165, 200), width=2)
         draw.text((628, 900), "“세상 모든 사람이 등을 돌려도, 나 하나만큼은 끝까지 당신 편이 되어드리겠습니다.”", font=get_font(29), fill=(255, 235, 165, 255))
-        draw.text((628, 944), "— 가수 황영웅 사연·소식 낭독 | 아래 고정 댓글에서 원터치 쇼핑 바로가기를 만나보세요", font=get_font(24), fill=(200, 220, 210, 255))
+        draw.text((628, 944), "— 가수 백운호 사연·소식 낭독 | 아래 고정 댓글에서 원터치 쇼핑 바로가기를 만나보세요", font=get_font(24), fill=(200, 220, 210, 255))
 
     return frame if keep_rgba else frame.convert("RGB")
 
@@ -544,7 +544,7 @@ def assemble_master_radio_mp4(script_data: Dict[str, Any], plan: Dict[str, Any],
         slide_counter += 1
         ch_intro_png = slides_dir / f"slide_{slide_counter:04d}.png"
         ep_song_short = (script_data.get("featured_song") or "당신 편").split(" (")[0].strip()
-        ch_intro_subline = script_data.get("program_badge") or f"황영웅 [{ep_song_short}] 특집 라디오 방송"
+        ch_intro_subline = script_data.get("program_badge") or f"백운호 [{ep_song_short}] 특집 라디오 방송"
         intro_img = render_cue_slide(
             ch_base,
             "📻 @김쌤의영웅라디오 — 정규 본방송",

@@ -6,7 +6,19 @@ tests/visual_output/stress/
 tests/_tmp_m3_frames/
 .youtube_studio_chrome_profile/
 output/
+outputs/
 *.mp4
 *.wav
 *.webm
 
+# Security Hardening: never track private paid PDFs or local secrets
+products/*.pdf
+data/telegram_config.json
+data/master_hq_bridge_state.json
+.youtube_studio_chrome_profile/
+
+.wrangler/
+cf_dist/
+flow_shorts_studio/
+*.zip
+*.mp4

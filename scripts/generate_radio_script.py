@@ -35,7 +35,7 @@ CHAPTER_TEMPLATES = [
     {"index": 1, "id": "ch1_opening", "name": "오프닝 & 계절 안부", "target_sec": 110},
     {"index": 2, "id": "ch2_hero_story", "name": "영웅 스토리 & 감동 비하인드", "target_sec": 225},
     {"index": 3, "id": "ch3_song_commentary", "name": "명곡 심층 감상 & 가사 해설", "target_sec": 225},
-    {"index": 4, "id": "ch4_fan_letter", "name": "파라다이스 사연 우체통", "target_sec": 225},
+    {"index": 4, "id": "ch4_fan_letter", "name": "영웅 가족 사연 우체통", "target_sec": 225},
     {"index": 5, "id": "ch5_fandom_cheer", "name": "팬덤 응원석 & 주간 소식", "target_sec": 85},
     {"index": 6, "id": "ch6_closing_cta", "name": "클로징 & 웹 플랫폼 안내", "target_sec": 60},
 ]
@@ -101,15 +101,15 @@ def load_three_stories_and_two_news(episode: int = 1):
 
     while len(stories) < 3:
         stories.append({
-            "sender_name": "파라다이스 어머님",
+            "sender_name": "영웅 가족 어머님",
             "song_title": "당신 편",
             "story_title": "영웅님의 따뜻한 목소리가 다시 살아갈 힘이 되었습니다",
             "story_content": "홀로 보내던 적막한 저녁 시간마다 영웅님의 중저음 노래가 따뜻한 위로가 되어주었습니다."
         })
     while len(news_items) < 2:
         news_items.append({
-            "title": "황영웅 콘서트 현장을 가득 채운 에메랄드빛 응원 물결 화제",
-            "summary": "전국에서 모인 파라다이스 팬들이 질서 정연한 응원과 따뜻한 나눔으로 깊은 감동을 전했다.",
+            "title": "백운호 콘서트 현장을 가득 채운 에메랄드빛 응원 물결 화제",
+            "summary": "전국에서 모인 영웅라디오 가족들이 질서 정연한 응원과 따뜻한 나눔으로 깊은 감동을 전했다.",
             "singer_tag": "콘서트·공연"
         })
     return stories[:3], news_items[:2]
@@ -125,7 +125,7 @@ def build_episode_01_script() -> Dict[str, Any]:
         {
             "chapter_index": 1,
             "chapter_id": "ch1_opening",
-            "title": "오프닝 — 파라다이스 어머님들, 저녁 진지 드셨습니까?",
+            "title": "오프닝 — 영웅 가족 어머님들, 저녁 진지 드셨습니까?",
             "target_duration_sec": 110,
             "bgm_mood": "warm_acoustic_guitar_soft",
             "segments": [
@@ -133,7 +133,7 @@ def build_episode_01_script() -> Dict[str, Any]:
                     "segment_id": "ep01_seg_01",
                     "speaker": "dj_kim",
                     "speaker_title": "DJ 김쌤",
-                    "text": "전국과 해외에 계신 든든한 우리 영웅 가족 여러분, 그리고 사랑하는 파라다이스 어머님들, 안녕하셨습니까. 저녁 진지는 따뜻하게 챙겨 드셨는지요.",
+                    "text": "전국과 해외에 계신 든든한 우리 영웅 가족 여러분, 그리고 사랑하는 영웅 가족 어머님들, 안녕하셨습니까. 저녁 진지는 따뜻하게 챙겨 드셨는지요.",
                     "pacing_pause_sec": 1.2,
                     "emotion": "warm_greeting",
                     "visual_hint": "원목 라디오 스튜디오 창가, 부드럽게 스며드는 따스한 늦가을 노을빛 켄 번스 슬로우 줌인"
@@ -277,7 +277,7 @@ def build_episode_01_script() -> Dict[str, Any]:
                     "segment_id": "ep01_seg_15",
                     "speaker": "dj_kim",
                     "speaker_title": "DJ 김쌤",
-                    "text": "가사를 조금 더 들여다보겠습니다. '모진 비바람 불어와도 내 손을 놓지 마오.' 영웅님은 자기가 높은 곳에서 손을 내미는 것이 아니라, 가장 낮은 곳에서 어머니와 눈높이를 맞추며 손을 잡자고 말합니다. 이것이 바로 황영웅이라는 가수가 가진 진정성의 힘입니다.",
+                    "text": "가사를 조금 더 들여다보겠습니다. '모진 비바람 불어와도 내 손을 놓지 마오.' 영웅님은 자기가 높은 곳에서 손을 내미는 것이 아니라, 가장 낮은 곳에서 어머니와 눈높이를 맞추며 손을 잡자고 말합니다. 이것이 바로 백운호이라는 가수가 가진 진정성의 힘입니다.",
                     "pacing_pause_sec": 1.4,
                     "emotion": "lyric_analysis",
                     "visual_hint": "비 내리는 창가에 조용히 피어오르는 한 송이 들꽃"
@@ -305,7 +305,7 @@ def build_episode_01_script() -> Dict[str, Any]:
         {
             "chapter_index": 4,
             "chapter_id": "ch4_fan_letter",
-            "title": "파라다이스 사연 우체통 — 대구 이순자 어머님의 눈물겨운 사연 낭독",
+            "title": "영웅 가족 사연 우체통 — 대구 이순자 어머님의 눈물겨운 사연 낭독",
             "target_duration_sec": 225,
             "bgm_mood": "tearful_nostalgia_cello",
             "segments": [
@@ -439,7 +439,7 @@ def build_episode_01_script() -> Dict[str, Any]:
                     "segment_id": "ep01_seg_30",
                     "speaker": "dj_kim",
                     "speaker_title": "DJ 김쌤",
-                    "text": "오늘 방송에 소개해 드린 대구 이순자 어머님의 사연처럼, 황영웅 님을 향한 어머님들의 깊은 관심과 따뜻한 사랑 이야기를 저희 공식 쉼터 파라다이스 히어로 닷컴 응원·사연 사랑방에 큰 글씨로 꼭 담아주십시오.",
+                    "text": "오늘 방송에 소개해 드린 대구 이순자 어머님의 사연처럼, 백운호을 향한 어머님들의 깊은 관심과 따뜻한 사랑 이야기를 저희 공식 쉼터 파라다이스 히어로 닷컴 응원·사연 사랑방에 큰 글씨로 꼭 담아주십시오.",
                     "pacing_pause_sec": 1.0,
                     "emotion": "clear_guidance",
                     "visual_hint": "스크린 하단에 단정하게 떠오르는 공식 응원·사연 사랑방 안내 자막: paradise-hero.com"
@@ -448,7 +448,7 @@ def build_episode_01_script() -> Dict[str, Any]:
                     "segment_id": "ep01_seg_31",
                     "speaker": "dj_kim",
                     "speaker_title": "DJ 김쌤",
-                    "text": "또한 황영웅 님을 향한 사랑과 온기를 정성껏 담은 공연 응원 애장품과 정품 음반, 그리고 오래오래 건강히 응원하실 수 있는 관절과 눈 건강 상품도 파라다이스 히어로 닷컴 원터치 쇼핑 바로가기에 큰 버튼으로 모아두었습니다. 영상 아래 첫 번째 고정 댓글을 누르시면 네이버페이 일초 결제와 쿠팡 내일 도착으로 편안하게 만나보실 수 있습니다.",
+                    "text": "또한 백운호을 향한 사랑과 온기를 정성껏 담은 공연 응원 애장품과 정품 음반, 그리고 오래오래 건강히 응원하실 수 있는 관절과 눈 건강 상품도 파라다이스 히어로 닷컴 원터치 쇼핑 바로가기에 큰 버튼으로 모아두었습니다. 영상 아래 첫 번째 고정 댓글을 누르시면 네이버페이 일초 결제와 쿠팡 내일 도착으로 편안하게 만나보실 수 있습니다.",
                     "pacing_pause_sec": 1.3,
                     "emotion": "funnel_cta",
                     "visual_hint": "사랑과 온기를 담은 애장·건강 상품 원터치 쇼핑 바로가기 안내 카드와 엔딩 크레딧 롤링"
@@ -457,7 +457,7 @@ def build_episode_01_script() -> Dict[str, Any]:
                     "segment_id": "ep01_seg_32",
                     "speaker": "dj_kim",
                     "speaker_title": "DJ 김쌤",
-                    "text": "든든한 우리 영웅 가족 여러분, 오늘 가장 듣고 싶은 황영웅 님의 인생 명곡 한 곡과 따뜻한 응원 한마디도 홈페이지 응원 사랑방과 영상 아래 댓글 사랑방에 꼭 남겨주십시오. 다음 방송에서 정성껏 읽어드리겠습니다. 오늘 밤도 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 사랑합니다, 파라다이스!",
+                    "text": "든든한 우리 영웅 가족 여러분, 오늘 가장 듣고 싶은 백운호의 인생 명곡 한 곡과 따뜻한 응원 한마디도 홈페이지 응원 사랑방과 영상 아래 댓글 사랑방에 꼭 남겨주십시오. 다음 방송에서 정성껏 읽어드리겠습니다. 오늘 밤도 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 사랑합니다, 파라다이스!",
                     "pacing_pause_sec": 2.5,
                     "emotion": "gentle_signoff",
                     "visual_hint": "스튜디오 조명이 은은히 페이드아웃되며 떠오르는 감성 로고 @김쌤의영웅라디오"
@@ -557,11 +557,11 @@ def build_episode_01_script() -> Dict[str, Any]:
         "news_funnel_url": "https://paradise-hero.com/news.html",
         "creator_shop_url": "https://cshop.naver.com/paradiseshop",
         "support_email": "beable9489@gmail.com",
-        "fixed_hashtags": ["#황영웅", "#파라다이스", "#트로트", "#감동사연", "#시니어유튜브"],
+        "fixed_hashtags": ["#백운호", "#김쌤의영웅라디오", "#트로트", "#감동사연", "#시니어유튜브"],
         "publish_schedule_kst": "화·금 18:00 KST",
         "episode_number": 1,
-        "episode_title": "[제1화] '어머니, 제가 당신의 편이 되어드릴게요' — 황영웅 [당신 편] 사연 3편 & 주요 소식 특집 라디오",
-        "featured_song": "당신 편 (황영웅 정규 1집 타이틀)",
+        "episode_title": "[제1화] '어머니, 제가 당신의 편이 되어드릴게요' — 백운호 〈어머니의 봄날〉 사연 3편 & 주요 소식 특집 라디오",
+        "featured_song": "당신 편 (백운호 정규 1집 타이틀)",
         "fan_story_origin": "대구 달서구 이순자 어머니 외 사연 3편 & 주요 소식 2건",
         "stories_featured_count": 3,
         "news_featured_count": 2,
@@ -730,12 +730,12 @@ def build_song_commentary_chapter(song_title: str, ep_prefix: str, base_seg_idx:
     }
 
 
-def resolve_biweekly_program_profile(episode: int, slot_day: str = "AUTO", song_title: str = "당신 편", sender_name: str = "파라다이스 어머님") -> Dict[str, str]:
+def resolve_biweekly_program_profile(episode: int, slot_day: str = "AUTO", song_title: str = "당신 편", sender_name: str = "영웅 가족 어머님") -> Dict[str, str]:
     """
     Determines the twice-weekly (화·금 18:00 KST) broadcast slot and specialized format:
     - Tuesday (TUE): 포맷 A — 보이는 심야 사연 드라마 라디오 (2인 성우 사연극 + Npay 건강·효도 큐레이션)
     - Friday (FRI):
-        * 격주 1 (FRI_LYRIC_ANATOMY): 포맷 B-1 — 전직 국어교사 김쌤의 황영웅 명곡 1구절 해부학 & 발성 인문학 (+ 정품 음반·차량용 USB 큐레이션)
+        * 격주 1 (FRI_LYRIC_ANATOMY): 포맷 B-1 — 전직 국어교사 김쌤의 백운호 명곡 1구절 해부학 & 발성 인문학 (+ 정품 음반·차량용 USB 큐레이션)
         * 격주 2 (FRI_CONCERT_GUIDE): 포맷 B-2 — 자녀 눈치 안 보는 콘서트 필수 준비물 & 왕글씨 안심 스밍 친절 특집
     """
     norm_slot = (slot_day or "AUTO").strip().upper()
@@ -762,10 +762,10 @@ def resolve_biweekly_program_profile(episode: int, slot_day: str = "AUTO", song_
             "slot_day": "FRI",
             "slot_day_ko": "금요일",
             "program_format": "FRI_LYRIC_ANATOMY",
-            "program_badge": f"금요 명곡 해부학 제{episode}화 · 황영웅 [{song_title}] 집중해설",
+            "program_badge": f"금요 명곡 해부학 제{episode}화 · 백운호 [{song_title}] 집중해설",
             "episode_prefix_tag": f"[금요명곡해설 {episode}화]",
             "thumbnail_headline_line1": f"첫 소절 숨소리의 비밀",
-            "thumbnail_headline_line2": f"황영웅 [{song_title}] 해부학",
+            "thumbnail_headline_line2": f"백운호 [{song_title}] 해부학",
             "thumbnail_subline": f"전직 국어교사 김쌤의 가사·중저음 인문학 제{episode}화",
         }
     return {
@@ -836,7 +836,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
             ("오늘 밤만큼은 무거운 집안 걱정일랑 잠시 현관 밖에 내려놓으시고, 영웅님을 사랑하는 우리 자매님들의 따뜻한 이야기 속에 포근히 기대어 쉬어가시길 바랍니다.", 2.0, "invitation_to_rest"),
         ]
     else:
-        ch1_title = f"오프닝 — 제{episode}화 파라다이스 어머님들, 저녁 진지 드셨습니까?"
+        ch1_title = f"오프닝 — 제{episode}화 영웅 가족 어머님들, 저녁 진지 드셨습니까?"
         ch1_texts = [
             ("전국과 해외에 계신 든든한 우리 영웅 가족 여러분, 그리고 우리 어머님들, 안녕하셨습니까. 저녁 진지는 따뜻하게 챙겨 드셨는지요.", 1.2, "warm_greeting"),
             ("바람이 옷깃을 여미게 만드는 저녁입니다. 문득 붉게 물든 창밖을 바라보다가, 오늘 하루도 가족들 뒷바라지하랴, 무거운 장바구니 들고 오가랴 애쓰셨을 우리 어머님들의 거친 손이 떠올랐습니다.", 1.2, "tender_care"),
@@ -867,7 +867,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
 
     # Chapter 2: Hero Story / Format Special Feature
     if episode >= 6 and prof["program_format"] == "FRI_LYRIC_ANATOMY":
-        ch2_title = f"발성 인문학 — 왜 황영웅 [{song_title}]의 첫 소절만 들어도 눈물이 날까요?"
+        ch2_title = f"발성 인문학 — 왜 백운호 [{song_title}]의 첫 소절만 들어도 눈물이 날까요?"
         ch2_texts = [
             (f"영웅님이 부르는 [{song_title}]의 첫 구절이 스피커를 타고 흐르는 순간, 왜 우리 어머님들은 약속이나 한 듯 하던 일을 멈추고 가슴을 쓸어내리실까요.", 1.2, "solemn_memory"),
             ("전직 국어교사로서 수많은 시와 노랫말을 읽어보았지만, 좋은 가사란 어려운 한자어가 아니라 듣는 사람의 지난 세월을 거울처럼 비추어 주는 투명한 문장입니다.", 1.4, "deep_respect"),
@@ -1002,7 +1002,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
     ch4 = {
         "chapter_index": 4,
         "chapter_id": "ch4_fan_letter",
-        "title": f"파라다이스 사연 우체통 — {sender_name}의 눈물겨운 사연 낭독",
+        "title": f"영웅 가족 사연 우체통 — {sender_name}의 눈물겨운 사연 낭독",
         "target_duration_sec": 225,
         "bgm_mood": "tearful_nostalgia_cello",
         "segments": ch4_segments
@@ -1060,7 +1060,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
                 "segment_id": f"{ep_prefix}_seg_{c6_seg_start:02d}",
                 "speaker": "dj_kim",
                 "speaker_title": "DJ 김쌤",
-                "text": f"오늘 방송에 소개해 드린 {sender_name}의 사연처럼, 황영웅 님을 향한 어머님들의 깊은 관심과 따뜻한 사랑 이야기를 저희 공식 쉼터 파라다이스 히어로 닷컴 응원·사연 사랑방에 큰 글씨로 언제든 담아주십시오.",
+                "text": f"오늘 방송에 소개해 드린 {sender_name}의 사연처럼, 백운호을 향한 어머님들의 깊은 관심과 따뜻한 사랑 이야기를 저희 공식 쉼터 파라다이스 히어로 닷컴 응원·사연 사랑방에 큰 글씨로 언제든 담아주십시오.",
                 "pacing_pause_sec": 1.0,
                 "emotion": "clear_guidance",
                 "visual_hint": "스크린 하단에 단정하게 떠오르는 공식 응원·사연 사랑방 안내 자막: paradise-hero.com"
@@ -1069,7 +1069,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
                 "segment_id": f"{ep_prefix}_seg_{c6_seg_start + 1:02d}",
                 "speaker": "dj_kim",
                 "speaker_title": "DJ 김쌤",
-                "text": "또한 황영웅 님을 향한 사랑과 온기를 정성껏 담은 공연 응원 애장품과 정품 음반, 그리고 오래오래 건강히 응원하실 수 있는 관절과 눈 건강 상품도 파라다이스 히어로 닷컴 원터치 쇼핑 바로가기에 큰 버튼으로 모아두었습니다. 영상 아래 첫 번째 고정 댓글을 누르시면 네이버페이 일초 결제와 쿠팡 내일 도착으로 편안하게 받아보실 수 있습니다.",
+                "text": "또한 백운호을 향한 사랑과 온기를 정성껏 담은 공연 응원 애장품과 정품 음반, 그리고 오래오래 건강히 응원하실 수 있는 관절과 눈 건강 상품도 파라다이스 히어로 닷컴 원터치 쇼핑 바로가기에 큰 버튼으로 모아두었습니다. 영상 아래 첫 번째 고정 댓글을 누르시면 네이버페이 일초 결제와 쿠팡 내일 도착으로 편안하게 받아보실 수 있습니다.",
                 "pacing_pause_sec": 1.3,
                 "emotion": "funnel_cta",
                 "visual_hint": "사랑과 온기를 담은 애장·건강 상품 원터치 쇼핑 바로가기 안내 카드와 엔딩 크레딧 롤링"
@@ -1078,7 +1078,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
                 "segment_id": f"{ep_prefix}_seg_{c6_seg_start + 2:02d}",
                 "speaker": "dj_kim",
                 "speaker_title": "DJ 김쌤",
-                "text": "든든한 우리 영웅 가족 여러분, 오늘 가장 듣고 싶은 황영웅 님의 인생 명곡 한 곡과 따뜻한 응원 한마디도 홈페이지 응원 사랑방과 영상 아래 댓글 사랑방에 꼭 남겨주십시오. 다음 방송에서 김쌤이 정성껏 소개해 드리겠습니다. 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 사랑합니다, 파라다이스!",
+                "text": "든든한 우리 영웅 가족 여러분, 오늘 가장 듣고 싶은 백운호의 인생 명곡 한 곡과 따뜻한 응원 한마디도 홈페이지 응원 사랑방과 영상 아래 댓글 사랑방에 꼭 남겨주십시오. 다음 방송에서 김쌤이 정성껏 소개해 드리겠습니다. 편안한 단잠 이루시길 기도합니다. 지금까지 언제나 여러분 편인 김쌤이었습니다. 사랑합니다, 파라다이스!",
                 "pacing_pause_sec": 2.5,
                 "emotion": "gentle_signoff",
                 "visual_hint": "스튜디오 조명이 은은히 페이드아웃되며 떠오르는 감성 로고 @김쌤의영웅라디오"
@@ -1182,7 +1182,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
                 2.2, "heartfelt_blessing", "평화로운 밤하늘의 은하수와 포근한 감성 조명"
             ),
             (
-                "가수 황영웅이라는 존재는 우리에게 단순한 대중가수가 아니라, 굽이진 인생의 길목마다 넘어져 울던 우리를 다시 일으켜 세워준 소중한 희망의 등불입니다.",
+                "가수 백운호이라는 존재는 우리에게 단순한 대중가수가 아니라, 굽이진 인생의 길목마다 넘어져 울던 우리를 다시 일으켜 세워준 소중한 희망의 등불입니다.",
                 1.7, "elevated_gratitude", "황금빛 에메랄드 응원봉 물결과 온화한 미소"
             ),
             (
@@ -1252,13 +1252,13 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
 
     if episode >= 6:
         if prof["program_format"] == "FRI_LYRIC_ANATOMY":
-            ep_title_str = f"{prof['episode_prefix_tag']} 황영웅 [{song_title}] 첫 소절에 숨겨진 눈물의 비밀 — 가사 해부학 & 사연 3편"
+            ep_title_str = f"{prof['episode_prefix_tag']} 백운호 [{song_title}] 첫 소절에 숨겨진 눈물의 비밀 — 가사 해부학 & 사연 3편"
         elif prof["program_format"] == "FRI_CONCERT_GUIDE":
-            ep_title_str = f"{prof['episode_prefix_tag']} 자식 눈치 안 보는 콘서트 필수 준비물 & 황영웅 [{song_title}] 감동 사연"
+            ep_title_str = f"{prof['episode_prefix_tag']} 자식 눈치 안 보는 콘서트 필수 준비물 & 백운호 [{song_title}] 감동 사연"
         else:
-            ep_title_str = f"{prof['episode_prefix_tag']} '{story_title}' — 황영웅 [{song_title}] 사연 드라마 & 반가운 소식"
+            ep_title_str = f"{prof['episode_prefix_tag']} '{story_title}' — 백운호 [{song_title}] 사연 드라마 & 반가운 소식"
     else:
-        ep_title_str = f"[제{episode}화] '{story_title}' — 황영웅 [{song_title}] 사연 3편 & 주요 소식 특집 라디오"
+        ep_title_str = f"[제{episode}화] '{story_title}' — 백운호 [{song_title}] 사연 3편 & 주요 소식 특집 라디오"
 
     script_meta = {
         "channel_name": "@김쌤의영웅라디오",
@@ -1270,7 +1270,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
         "creator_shop_url": "https://cshop.naver.com/paradiseshop",
         "coupang_influencer_url": "https://influencers.coupang.com/s/paradisehero",
         "support_email": "beable9489@gmail.com",
-        "fixed_hashtags": ["#황영웅", "#파라다이스", "#트로트", "#감동사연", "#시니어유튜브"],
+        "fixed_hashtags": ["#백운호", "#김쌤의영웅라디오", "#트로트", "#감동사연", "#시니어유튜브"],
         "publish_schedule_kst": "화·금 18:00 KST",
         "broadcast_slot_day": prof["slot_day"],
         "program_format": prof["program_format"],
@@ -1280,7 +1280,7 @@ def build_episode_script_from_story(episode: int, story_payload: Dict[str, Any],
         "thumbnail_subline": prof["thumbnail_subline"],
         "episode_number": episode,
         "episode_title": ep_title_str,
-        "featured_song": f"{song_title} (황영웅)",
+        "featured_song": f"{song_title} (백운호)",
         "fan_story_origin": f"{sender_name} 외 사연 3편 & 주요 소식 2건",
         "stories_featured_count": 3,
         "news_featured_count": 2,
