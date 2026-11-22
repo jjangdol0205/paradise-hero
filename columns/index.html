@@ -33,14 +33,15 @@
     .hub-sns-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; max-width:860px; margin:16px auto; }
     .hub-sns-pill { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:64px; padding:12px 20px; border-radius:999px; font-size:20px; font-weight:900; color:#ffffff !important; border:2px solid #fde68a; text-decoration:none; }
   </style>
+  <script src="/assets/csp/csp-events.js"></script>
 </head>
 <body>
   <header class="topbar">
     <a href="/" style="font-size:24px;font-weight:900;color:#fbbf24;min-height:60px;display:inline-flex;align-items:center;">📻 김쌤의영웅라디오 홈으로</a>
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <button type="button" id="btn-font-scaler" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','22px')">보통</button>
-      <button type="button" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','26px')">크게</button>
-      <button type="button" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','30px')">특대</button>
+      <button type="button" id="btn-font-scaler" class="font-btn" data-csp-click="h_09f9d7d5b9f4">보통</button>
+      <button type="button" class="font-btn" data-csp-click="h_d0e1b85321d4">크게</button>
+      <button type="button" class="font-btn" data-csp-click="h_a97451975e10">특대</button>
     </div>
   </header>
   <main class="wrap">
@@ -101,7 +102,7 @@
     <section id="hero-brand-partnership-box" class="card" style="border-color:#34d399;">
       <span class="badge">🤝 공식 브랜드 협찬 · 제휴 문의</span>
       <h2>유튜브 @김쌤의영웅라디오 &amp; 시니어 브랜드 제휴 안내</h2>
-      <p>음향·공연·청취 건강 브랜드 협찬 및 라디오 사연 캠페인 문의: <a href="mailto:beable9489@gmail.com" style="font-weight:900;text-decoration:underline;">beable9489@gmail.com</a></p>
+      <p>음향·공연·청취 건강 브랜드 협찬 및 라디오 사연 캠페인 문의: <a href="mailto:radio@paradise-hero.com" style="font-weight:900;text-decoration:underline;">radio@paradise-hero.com</a></p>
     </section>
   </main>
   <footer class="hub-footer" role="contentinfo">
@@ -110,7 +111,8 @@
       <a class="hub-sns-pill" style="background:linear-gradient(135deg,#991b1b,#dc2626);" href="https://www.youtube.com/@김쌤의영웅라디오" target="_blank" rel="noopener noreferrer">📺 공식 유튜브 @김쌤의영웅라디오 👉</a>
       <a class="hub-sns-pill" style="background:linear-gradient(135deg,#831843,#be185d 55%,#d97706);" href="https://www.instagram.com/paradise_hero1/" target="_blank" rel="noopener noreferrer">📸 공식 인스타그램 @paradise_hero1 👉</a>
     </div>
-    <p style="margin:12px 0 0;font-size:16px;color:#9ca3af;">© 2026 김쌤의영웅라디오 가족 사랑방 (paradise-hero.com) · Dream Company 4사업부</p>
+    <p style="margin:12px 0 0;font-size:16px;color:#9ca3af;">© 2026 김쌤의영웅라디오 가족 사랑방 (paradise-hero.com)</p>
+    <p class="footer-ftc-disclosure" style="text-align:center;font-size:14px;color:#D1FAE5;margin:10px 0 0;padding:0 16px;">※ 본 사이트는 100% 무료 시니어 라디오 사랑방이며, 일부 준비물 안내 링크는 네이버 쇼핑커넥트·쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 제공받습니다.</p>
   </footer>
   <script src="/js/hq_member_crm_client.js" defer></script>
   <script src="/js/senior-accessibility.js" defer></script>
