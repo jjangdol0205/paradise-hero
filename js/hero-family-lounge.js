@@ -621,6 +621,7 @@
       window.SeniorAccessibility.showToast('👏 따뜻한 공감 박수가 전국 사랑방에 전달되었습니다!');
     }
 
+    if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.cheerHeroStory === 'function') { window.DreamCompanyCRM.cheerHeroStory(postId).catch(function(){}); }
     pingHeroGasCounter('lounge_clap', 'clap_' + postId);
   }
 
@@ -724,7 +725,7 @@
         clapBtn.setAttribute('aria-label', (post.nickname || '이웃') + ' 글에 공감 박수 보내기');
 
         var clapLabel = document.createElement('span');
-        clapLabel.textContent = '👏 공감 박수';
+        clapLabel.textContent = '❤️ 응원하기';
 
         var clapCount = document.createElement('span');
         clapCount.className = 'shared-clap-count';
@@ -770,14 +771,28 @@
         feedPath = '../data/shared_lounge_feed.json';
       }
     } catch (e) {}
-    return fetch(feedPath, { cache: 'no-cache' })
+    var staticP = fetch(feedPath, { cache: 'no-cache' })
       .then(function (res) { return res && res.ok ? res.json() : null; })
-      .then(function (arr) {
-        return Array.isArray(arr) && arr.length > 0 ? arr : FALLBACK_SHARED_FEED.slice();
-      })
-      .catch(function () {
-        return FALLBACK_SHARED_FEED.slice();
+      .then(function (arr) { return Array.isArray(arr) && arr.length > 0 ? arr : FALLBACK_SHARED_FEED.slice(); })
+      .catch(function () { return FALLBACK_SHARED_FEED.slice(); });
+    var liveP = (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.fetchHeroStories === 'function')
+      ? window.DreamCompanyCRM.fetchHeroStories()
+      : Promise.resolve({ ok: false, stories: [], cheers: {} });
+    return Promise.all([liveP, staticP]).then(function (pair) {
+      var liveRes = pair[0] || {};
+      var seedArr = pair[1] || FALLBACK_SHARED_FEED.slice();
+      var cheersMap = liveRes.cheers || {};
+      var liveArr = Array.isArray(liveRes.stories) ? liveRes.stories : [];
+      var merged = liveArr.concat(seedArr).map(function (item) {
+        var pid = item && item.id;
+        if (pid && cheersMap[pid]) {
+          var baseC = parseInt(item.clap_count, 10) || 0;
+          return Object.assign({}, item, { clap_count: baseC + Number(cheersMap[pid] || 0) });
+        }
+        return item;
       });
+      return merged;
+    });
   }
 
   function showLoveLetterConfirmation(message) {

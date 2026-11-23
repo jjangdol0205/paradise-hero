@@ -177,7 +177,37 @@
         }
       } catch (e) {}
       return communityStoryClapsCache;
-    })();
+    
+  // Add-on ⑤: No-Login 1-Click Warm Senior Nickname Picker (Remembered in localStorage)
+  (function initWarmAutoNickname() {
+    var WARM_NICKS = [
+      '봄날의 동백꽃 어머님', '강변 산책길 아버님', '따뜻한 보리차 어머님',
+      '노을빛 백운호 어머님', '고향역 첫차 아버님', '국화향기 사랑방 어머님',
+      '새벽 정원 어머님', '다정한 찻잔 어머님', '은빛 미소 어머님',
+      '솔바람 산책 아버님', '동백꽃 필 무렵 어머님', '금빛 노을 사랑방 가족'
+    ];
+    function bindNickPicker() {
+      var btn = document.getElementById('btn-hero-auto-nickname');
+      var inp = document.getElementById('story-sender');
+      if (!inp) return;
+      var saved = safeLocalGet('hero_auto_nickname_v1');
+      if (saved && !inp.value) inp.value = saved;
+      if (btn && !btn.__nickBound) {
+        btn.__nickBound = true;
+        var idx = Math.floor(Math.random() * WARM_NICKS.length);
+        btn.addEventListener('click', function () {
+          idx = (idx + 1) % WARM_NICKS.length;
+          var chosen = WARM_NICKS[idx];
+          inp.value = chosen;
+          safeLocalSet('hero_auto_nickname_v1', chosen);
+          btn.textContent = '✨ 추천 별명 적용됨: ' + chosen + ' (다시 누르면 변경)';
+        });
+      }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindNickPicker);
+    else bindNickPicker();
+  })();
+})();
     return communityStoryClapsPromise;
   }
 
@@ -504,6 +534,15 @@
       var fullStoryText = '[신청곡: ' + (formData.song || '어머니의 봄날') + '] [제목: ' + formData.title + '] ' + formData.content;
       var formattedMsg = '[연락처: ' + (formData.contact || '미기재') + '] ' + fullStoryText;
 
+      if (typeof window !== 'undefined' && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.submitHeroStory === 'function') {
+        window.DreamCompanyCRM.submitHeroStory({
+          nickname: resolvedNickname,
+          region: '전국 사랑방',
+          category: '라디오 사연',
+          song: formData.song || '어머니의 봄날',
+          message: '[' + formData.title + '] ' + formData.content
+        }).catch(function () {});
+      }
       if (typeof window !== 'undefined' && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
         return window.DreamCompanyCRM.registerMember({
           div: 'HERO',
@@ -904,4 +943,34 @@
     generateStoryAliasEmail: generateStoryAliasEmail,
     SEED_STORIES: SEED_STORIES
   };
+
+  // Add-on ⑤: No-Login 1-Click Warm Senior Nickname Picker (Remembered in localStorage)
+  (function initWarmAutoNickname() {
+    var WARM_NICKS = [
+      '봄날의 동백꽃 어머님', '강변 산책길 아버님', '따뜻한 보리차 어머님',
+      '노을빛 백운호 어머님', '고향역 첫차 아버님', '국화향기 사랑방 어머님',
+      '새벽 정원 어머님', '다정한 찻잔 어머님', '은빛 미소 어머님',
+      '솔바람 산책 아버님', '동백꽃 필 무렵 어머님', '금빛 노을 사랑방 가족'
+    ];
+    function bindNickPicker() {
+      var btn = document.getElementById('btn-hero-auto-nickname');
+      var inp = document.getElementById('story-sender');
+      if (!inp) return;
+      var saved = safeLocalGet('hero_auto_nickname_v1');
+      if (saved && !inp.value) inp.value = saved;
+      if (btn && !btn.__nickBound) {
+        btn.__nickBound = true;
+        var idx = Math.floor(Math.random() * WARM_NICKS.length);
+        btn.addEventListener('click', function () {
+          idx = (idx + 1) % WARM_NICKS.length;
+          var chosen = WARM_NICKS[idx];
+          inp.value = chosen;
+          safeLocalSet('hero_auto_nickname_v1', chosen);
+          btn.textContent = '✨ 추천 별명 적용됨: ' + chosen + ' (다시 누르면 변경)';
+        });
+      }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindNickPicker);
+    else bindNickPicker();
+  })();
 })();

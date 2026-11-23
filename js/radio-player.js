@@ -105,8 +105,8 @@
 
   // 정식 대표 롱폼 [1화] (18분 풀버전 — 유튜브 @김쌤의영웅라디오 업로드 즉시 youtubeVideoId 입력 시 자동 전환, 빈 값일 때는 깨진 iframe 0건 + 무광고 연속 스튜디오 스트림 즉시 재생)
   const FLAGSHIP_EP1_CONFIG = {
-    title: '[1화 정규 14분 본방송] 어머님 감동 사연 2편 & 백운호 대표곡 3곡 연속 듣기 | 어머니의 봄날 · 백운호 연가',
-    youtubeVideoId: 'lUQWTtVW3PM',
+    title: '[1부·2부 연속 인생 사연 극장] 어머님 감동 사연 & 백운호 대표곡 연속 듣기 (다음 화 결말 예고 포함)',
+    youtubeVideoId: 'O2_HvEfJoTw',
     channelUrl: 'https://www.youtube.com/@%EA%B9%80%EC%8C%A4%EC%9D%98%EC%98%81%EC%9B%85%EB%9D%BC%EB%94%94%EC%98%A4',
     poster: 'assets/ep1_flagship_thumb_1280x720.png',
     continuousTracks: [
@@ -693,7 +693,7 @@
         if (audio && !audio.paused) audio.pause();
       } catch (e) {}
       mount.innerHTML =
-        '<div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:3px solid #D4AF37;background:#000;">' +
+        '<div style="position:relative;width:100%;aspect-ratio:16/9;margin-bottom:22px;border-radius:14px;overflow:hidden;border:3px solid #D4AF37;background:#000;z-index:1;">' +
         '<iframe src="https://www.youtube-nocookie.com/embed/' + vid + '?autoplay=1&rel=0" ' +
         'title="' + FLAGSHIP_EP1_CONFIG.title.replace(/"/g, '&quot;') + '" ' +
         'style="position:absolute;inset:0;width:100%;height:100%;border:0;" ' +
