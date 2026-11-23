@@ -432,7 +432,7 @@
 
     ctx.fillStyle = '#A7F3D0';
     ctx.font = 'bold 24px "Malgun Gothic", sans-serif';
-    ctx.fillText('유튜브 @김쌤의영웅라디오 가족 사랑방 · PARADISE-HERO.COM', W / 2, 1290);
+    ctx.fillText('무료 백운호 라디오 듣기: paradise-hero.com', W / 2, 1290);
   }
 
   // ===========================================================================
