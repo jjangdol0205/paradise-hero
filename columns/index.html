@@ -33,15 +33,14 @@
     .hub-sns-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; max-width:860px; margin:16px auto; }
     .hub-sns-pill { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:64px; padding:12px 20px; border-radius:999px; font-size:20px; font-weight:900; color:#ffffff !important; border:2px solid #fde68a; text-decoration:none; }
   </style>
-  <script src="/assets/csp/csp-events.js"></script>
 </head>
 <body>
   <header class="topbar">
     <a href="/" style="font-size:24px;font-weight:900;color:#fbbf24;min-height:60px;display:inline-flex;align-items:center;">📻 김쌤의영웅라디오 홈으로</a>
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <button type="button" id="btn-font-scaler" class="font-btn" data-csp-click="h_09f9d7d5b9f4">보통</button>
-      <button type="button" class="font-btn" data-csp-click="h_d0e1b85321d4">크게</button>
-      <button type="button" class="font-btn" data-csp-click="h_a97451975e10">특대</button>
+      <button type="button" id="btn-font-scaler" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','22px')">보통</button>
+      <button type="button" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','26px')">크게</button>
+      <button type="button" class="font-btn" onclick="document.documentElement.style.setProperty('--base-font','30px')">특대</button>
     </div>
   </header>
   <main class="wrap">
