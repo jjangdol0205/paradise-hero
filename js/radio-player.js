@@ -106,7 +106,7 @@
   // 정식 대표 롱폼 [1화] (18분 풀버전 — 유튜브 @김쌤의영웅라디오 업로드 즉시 youtubeVideoId 입력 시 자동 전환, 빈 값일 때는 깨진 iframe 0건 + 무광고 연속 스튜디오 스트림 즉시 재생)
   const FLAGSHIP_EP1_CONFIG = {
     title: '[1부·2부 연속 인생 사연 극장] 어머님 감동 사연 & 백운호 대표곡 연속 듣기 (다음 화 결말 예고 포함)',
-    youtubeVideoId: '-1rd13J5enM',
+    youtubeVideoId: '1E9d_33SBqI',
     channelUrl: 'https://www.youtube.com/@%EA%B9%80%EC%8C%A4%EC%9D%98%EC%98%81%EC%9B%85%EB%9D%BC%EB%94%94%EC%98%A4',
     poster: 'assets/ep1_flagship_thumb_1280x720.png',
     continuousTracks: [
