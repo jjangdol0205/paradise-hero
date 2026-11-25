@@ -1229,7 +1229,74 @@
     initLoveLetterbox(function (nowKst) {
       triggerLoungeHeartIncrement(nowKst, false);
     });
+    initCommunityAutoNickname();
     initHonorPatronAndSongVote();
+  }
+
+
+  function initCommunityAutoNickname() {
+    if (typeof document === 'undefined') return;
+    var input = document.getElementById('hero-love-author-input');
+    var btn = document.getElementById('btn-hero-community-auto-nickname');
+    if (!input) return;
+
+    var AUTO_NICK_KEY = 'hero_auto_nickname_v1';
+    var WARM_NICKNAMES = [
+      '따뜻한 봄날 어머님',
+      '백운호 산책길 가족',
+      '다정한 저녁노을 님',
+      '동백꽃 미소 어머님',
+      '고향역 향수 아버님',
+      '보리차 한 잔 식구',
+      '금빛 노을 산책가',
+      '포근한 거실 청취자',
+      '봄바람 꽃길 어머님',
+      '항구의 등불 아버님',
+      '정겨운 아침차 식구',
+      '물안개 호숫가 님',
+      '해맑은 들국화 어머님',
+      '은빛 미소 가족님',
+      '오후의 햇살 청취자',
+      '단풍길 산책 아버님',
+      '포근한 목도리 식구',
+      '노래하는 백운호 팬'
+    ];
+
+    try {
+      var remembered = localStorage.getItem(AUTO_NICK_KEY) || localStorage.getItem(LOVE_AUTHOR_STORAGE_KEY) || '';
+      if (remembered && !input.value) {
+        input.value = remembered;
+      }
+    } catch (_) {}
+
+    if (btn && !btn._heroNickBound) {
+      btn._heroNickBound = true;
+      var pickIdx = -1;
+      btn.addEventListener('click', function () {
+        if (pickIdx < 0) {
+          pickIdx = Math.floor(Math.random() * WARM_NICKNAMES.length);
+        } else {
+          pickIdx = (pickIdx + 1) % WARM_NICKNAMES.length;
+        }
+        var chosen = WARM_NICKNAMES[pickIdx];
+        input.value = chosen;
+        try {
+          localStorage.setItem(AUTO_NICK_KEY, chosen);
+          localStorage.setItem(LOVE_AUTHOR_STORAGE_KEY, chosen);
+        } catch (_) {}
+        btn.textContent = '✨ 추천 별명 적용됨: ' + chosen + ' (다시 누르면 변경)';
+      });
+    }
+
+    input.addEventListener('change', function () {
+      var v = String(input.value || '').trim();
+      if (v) {
+        try {
+          localStorage.setItem(AUTO_NICK_KEY, v);
+          localStorage.setItem(LOVE_AUTHOR_STORAGE_KEY, v);
+        } catch (_) {}
+      }
+    });
   }
 
   function initHonorPatronAndSongVote() {
