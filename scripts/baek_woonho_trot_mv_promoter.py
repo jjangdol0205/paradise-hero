@@ -397,24 +397,28 @@ def produce_hero_short_mv(
     srt_text = build_synced_srt(cues, offset_sec=0.0)
     out_srt.write_text(srt_text, encoding="utf-8")
 
-    yt_title = f"♪ 백운호 〈{song['title']}〉 {song['hook_headline']} #백운호 #트로트 #Shorts"[:98]
-    utm_yt = f"{cat['radio_url']}?utm_source=youtube&utm_medium=shorts&utm_campaign=hero_mv_{song['song_id']}"
-    utm_ig = f"{cat['radio_url']}?utm_source=instagram&utm_medium=reels&utm_campaign=hero_mv_{song['song_id']}"
+    first_lyric = f"{cues[0][2]} {cues[0][3]}".strip() if cues else song["hook_headline"]
+    sl_id = str(sl.get("slice_id") or "")
+    if sl_id == "chorus1":
+        yt_title = f"♪ 백운호 〈{song['title']}〉 {song['hook_headline']} #백운호 #트로트 #Shorts"[:98]
+    elif sl_id == "verse1":
+        yt_title = f"♪ 백운호 〈{song['title']}〉 \"{first_lyric}\" 1절 첫 소절 무대 #백운호 #트로트 #Shorts"[:98]
+    else:
+        yt_title = f"♪ 백운호 〈{song['title']}〉 \"{first_lyric}\" {sl['label']} #백운호 #트로트 #Shorts"[:98]
+    utm_yt = "https://paradise-hero.com/go/yt"
+    utm_ig = "https://paradise-hero.com/go/ig"
     description = (
         f"{yt_title}\n\n"
         f"어머님, 아버님 반갑습니다 💚\n"
         f"마음을 노래하는 AI 가상 트로트 가수 『백운호』의 {song['badge']} 〈{song['title']}〉 {sl['label']}입니다.\n\n"
-        f"🎵 백운호 6곡 완곡 무료 라디오 (가입 없음): {utm_yt}\n"
-        f"💐 매일 아침 카톡 무료 안부카드 만들기: {cat['card_url']}?utm_source=youtube&utm_medium=shorts&utm_campaign=hero_card\n"
-        f"📸 공식 인스타그램 (@paradise_hero1): {cat['instagram_url']}\n"
-        f"💌 사연 제보 및 협찬 문의: {cat['contact_email']}\n\n"
+        f"🎵 백운호 6곡 완곡 무료 라디오 & 카톡 무료 안부카드 (가입 없음): {utm_yt}\n"
+        f"📸 공식 인스타그램 (@paradise_hero1): {cat['instagram_url']}\n\n"
         f"💬 {song['either_or_question']}\n\n"
         f"※ {cat['ai_disclosure']}\n"
         f"#백운호 #{song['title'].replace(' ', '')} #김쌤의영웅라디오 #시니어트로트 #트로트무대 #Shorts"
     )
     pinned_comment = (
-        f"🎵 백운호 〈{song['title']}〉 포함 6곡 완곡 무료 듣기 (가입 없음): {utm_yt}\n"
-        f"💐 카톡 무료 아침 안부카드 만들기: {cat['card_url']}\n"
+        f"🎵 백운호 〈{song['title']}〉 포함 6곡 완곡 무료 라디오 & 카톡 안부카드 (가입 없음): {utm_yt}\n"
         f"💬 {song['either_or_question']}"
     )
     meta = {
@@ -431,7 +435,7 @@ def produce_hero_short_mv(
         "description": description,
         "ig_caption": description.replace(utm_yt, utm_ig),
         "pinned_comment": pinned_comment,
-        "status": {"madeForKids": False, "selfDeclaredMadeForKids": False, "containsSyntheticMedia": True},
+        "status": {"madeForKids": False, "selfDeclaredMadeForKids": False},
         "stage_clips_used": [p.name for p in selected_clips],
         "generated_at_kst": datetime.now(KST).isoformat(),
     }
@@ -536,7 +540,7 @@ def produce_hero_full_mv_16x9(track_no: int = 1, out_dir: Optional[Path] = None)
 
     out_srt.write_text(build_synced_srt(all_cues, offset_sec=0.0), encoding="utf-8")
     yt_title = f"[공식 뮤직비디오 · 완곡] 백운호 〈{song['title']}〉 ({song['badge']}) | 큰글씨 가사 · 김쌤의영웅라디오"[:98]
-    utm_yt = f"{cat['radio_url']}?utm_source=youtube&utm_medium=music_video&utm_campaign=hero_full_mv_{song['song_id']}"
+    utm_yt = "https://paradise-hero.com/go/yt"
     description = (
         f"{yt_title}\n\n"
         f"어머님, 아버님 반갑습니다 💚\n"
@@ -544,10 +548,8 @@ def produce_hero_full_mv_16x9(track_no: int = 1, out_dir: Optional[Path] = None)
         f"⏱️ [곡 순서]\n"
         f"00:00 따뜻한 사연 헌정 인사\n"
         f"00:{int(intro_dur):02d} 백운호 〈{song['title']}〉 완곡 공식 무대 (큰글씨 가사)\n\n"
-        f"🎵 백운호 6곡 완곡 무료 연속듣기 (가입 없음): {utm_yt}\n"
-        f"💐 매일 아침 카톡 무료 안부카드 만들기: {cat['card_url']}?utm_source=youtube&utm_medium=music_video&utm_campaign=hero_card\n"
-        f"📸 공식 인스타그램 (@paradise_hero1): {cat['instagram_url']}\n"
-        f"💌 사연 제보 및 협찬 문의: {cat['contact_email']}\n\n"
+        f"🎵 백운호 6곡 완곡 무료 라디오 & 카톡 안부카드 (가입 없음): {utm_yt}\n"
+        f"📸 공식 인스타그램 (@paradise_hero1): {cat['instagram_url']}\n\n"
         f"💬 {song['either_or_question']}\n\n"
         f"※ {cat['ai_disclosure']}\n"
         f"#백운호 #{song['title'].replace(' ', '')} #공식뮤직비디오 #김쌤의영웅라디오 #시니어트로트 #트로트신곡"
@@ -565,11 +567,10 @@ def produce_hero_full_mv_16x9(track_no: int = 1, out_dir: Optional[Path] = None)
         "yt_title": yt_title,
         "description": description,
         "pinned_comment": (
-            f"🎵 백운호 〈{song['title']}〉 포함 6곡 완곡 무료 라디오 (가입 없음): {utm_yt}\n"
-            f"💐 카톡 무료 아침 안부카드 만들기: {cat['card_url']}\n"
+            f"🎵 백운호 〈{song['title']}〉 포함 6곡 완곡 무료 라디오 & 카톡 안부카드 (가입 없음): {utm_yt}\n"
             f"💬 {song['either_or_question']}"
         ),
-        "status": {"madeForKids": False, "selfDeclaredMadeForKids": False, "containsSyntheticMedia": True},
+        "status": {"madeForKids": False, "selfDeclaredMadeForKids": False},
         "stage_clips_used": [p.name for p in stage_clips],
         "generated_at_kst": datetime.now(KST).isoformat(),
     }
