@@ -525,7 +525,7 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
     <section id="hero-brand-partnership-box" class="partner-box" aria-label="공식 브랜드 협찬 및 제휴 문의">
       <h2 style="font-size:1.15em;color:var(--gold);margin:0 0 8px;">🤝 공식 브랜드 협찬 · 라디오 캠페인 제휴 창구</h2>
       <p style="margin:0;color:var(--muted);font-size:0.95em;">5070 시니어 청취자분들께 유익한 음향·공연·청취 건강 브랜드 협찬 및 사연 캠페인 문의는 공식 이메일 창구로 연락해 주세요.</p>
-      <a class="partner-btn" href="mailto:beable9489@gmail.com">📧 공식 제휴·사연 문의: beable9489@gmail.com</a>
+      <a class="partner-btn" href="mailto:radio@paradise-hero.com">📧 공식 제휴·사연 문의: radio@paradise-hero.com</a>
     </section>
   </main>
   <footer class="col-footer" role="contentinfo">
@@ -546,8 +546,9 @@ def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
         <a href="/vip.html">🎁 무료선물관</a>
         <a href="/columns/">📖 편지함목록</a>
       </nav>
-      <p style="margin:14px 0 0;font-size:16px;color:#9ca3af;">© 2026 김쌤의영웅라디오 가족 사랑방 (paradise-hero.com) · Dream Company 4사업부</p>
+      <p style="margin:14px 0 0;font-size:16px;color:#9ca3af;">© 2026 김쌤의영웅라디오 가족 사랑방 (paradise-hero.com). All rights reserved.</p>
     </div>
+    <p class="footer-ftc-disclosure" style="text-align:center;font-size:14px;color:#D1FAE5;margin:10px 0 0;padding:0 16px;">※ 본 사이트는 100% 무료 시니어 라디오 사랑방이며, 일부 준비물 안내 링크는 네이버 쇼핑커넥트·쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 제공받습니다.</p>
   </footer>
   <script src="/js/hq_member_crm_client.js" defer></script>
   <script src="/js/senior-accessibility.js" defer></script>
@@ -690,7 +691,7 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
     <section id="hero-brand-partnership-box" class="card" style="border-color:#34d399;">
       <span class="badge">🤝 공식 브랜드 협찬 · 제휴 문의</span>
       <h2>유튜브 @김쌤의영웅라디오 &amp; 시니어 브랜드 제휴 안내</h2>
-      <p>음향·공연·청취 건강 브랜드 협찬 및 라디오 사연 캠페인 문의: <a href="mailto:beable9489@gmail.com" style="font-weight:900;text-decoration:underline;">beable9489@gmail.com</a></p>
+      <p>음향·공연·청취 건강 브랜드 협찬 및 라디오 사연 캠페인 문의: <a href="mailto:radio@paradise-hero.com" style="font-weight:900;text-decoration:underline;">radio@paradise-hero.com</a></p>
     </section>
   </main>
   <footer class="hub-footer" role="contentinfo">
@@ -699,7 +700,8 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
       <a class="hub-sns-pill" style="background:linear-gradient(135deg,#991b1b,#dc2626);" href="https://www.youtube.com/@김쌤의영웅라디오" target="_blank" rel="noopener noreferrer">📺 공식 유튜브 @김쌤의영웅라디오 👉</a>
       <a class="hub-sns-pill" style="background:linear-gradient(135deg,#831843,#be185d 55%,#d97706);" href="https://www.instagram.com/paradise_hero1/" target="_blank" rel="noopener noreferrer">📸 공식 인스타그램 @paradise_hero1 👉</a>
     </div>
-    <p style="margin:12px 0 0;font-size:16px;color:#9ca3af;">© 2026 김쌤의영웅라디오 가족 사랑방 (paradise-hero.com) · Dream Company 4사업부</p>
+    <p style="margin:12px 0 0;font-size:16px;color:#9ca3af;">© 2026 김쌤의영웅라디오 가족 사랑방 (paradise-hero.com). All rights reserved.</p>
+    <p class="footer-ftc-disclosure" style="text-align:center;font-size:14px;color:#D1FAE5;margin:10px 0 0;padding:0 16px;">※ 본 사이트는 100% 무료 시니어 라디오 사랑방이며, 일부 준비물 안내 링크는 네이버 쇼핑커넥트·쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 제공받습니다.</p>
   </footer>
   <script src="/js/hq_member_crm_client.js" defer></script>
   <script src="/js/senior-accessibility.js" defer></script>
@@ -805,7 +807,7 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
         f"- 백운호 탄생 이야기 · 명곡 해설 · 청취 건강 편지함: https://{HOST}/columns/",
         "- 공식 유튜브 (@김쌤의영웅라디오): https://www.youtube.com/@김쌤의영웅라디오",
         "- 공식 인스타그램 (@paradise_hero1): https://www.instagram.com/paradise_hero1/",
-        "- 공식 제휴·사연 문의: mailto:beable9489@gmail.com",
+        "- 공식 제휴·사연 문의: mailto:radio@paradise-hero.com",
         "",
         "## 2. 오리지널 가상 트로트 가수 『백운호(白雲湖)』 큰 글씨 칼럼 목록 (/columns/)",
     ]
