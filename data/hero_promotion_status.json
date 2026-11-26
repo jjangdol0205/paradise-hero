@@ -1,14 +1,22 @@
 {
-  "last_run": "2026-11-25T19:00:15.571864",
-  "telegraph_url": "https://telegra.ph/김쌤의-사랑방-아침-편지-2026-11-25-가상-트로트-가수-백운호-탄생-이야기--세월의-강을-건너온-우리네-어머니아버지를-위한-중저음-위로-11-24",
-  "latest_column_url": "https://paradise-hero.com/columns/baek-woon-ho-debut-story.html",
+  "last_run": "2026-11-27T08:00:37.098339",
+  "telegraph_url": "https://telegra.ph/김쌤의-사랑방-아침-편지-2026-11-27-백운호-연가-스튜디오-녹음-노트--호숫가-물안개처럼-잔잔히-스며드는-저녁-라디오-편지-11-26",
+  "latest_column_url": "https://paradise-hero.com/columns/baek-woon-ho-yeonga-radio-note.html",
   "indexnow": {
-    "status": "NO_DELTA_SKIPPED",
-    "submitted_count": 0,
-    "reason": "0 canonical HTML content hashes changed; skipped IndexNow ping (Zero-Ban Protection)."
+    "status": "SUBMITTED_OK",
+    "http_code": 200,
+    "submitted_count": 5,
+    "urls": [
+      "https://paradise-hero.com/columns/baek-woon-ho-debut-story/",
+      "https://paradise-hero.com/columns/mothers-spring-day-lyric-story/",
+      "https://paradise-hero.com/columns/baek-woon-ho-yeonga-radio-note/",
+      "https://paradise-hero.com/columns/blooming-camellia-again-hope/",
+      "https://paradise-hero.com/columns/senior-radio-concert-wellness-guide/"
+    ]
   },
   "websub": {
-    "status": "NO_FEED_DELTA",
+    "status": "PINGED",
+    "http_code": 204,
     "feed_url": "https://paradise-hero.com/rss.xml"
   },
   "syndication_status": "OK"

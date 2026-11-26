@@ -509,7 +509,7 @@
     }
     var rand4 = Math.random().toString(36).replace(/[^a-z0-9]/g, '').slice(0, 4);
     while (rand4.length < 4) { rand4 += 'a'; }
-    return 'beable9489+story-' + Date.now() + '-' + rand4 + '@gmail.com';
+    return 'story-anon-' + Date.now() + '-' + rand4 + '@paradise-hero.com';
   }
 
   // -------------------------------------------------------------------------
@@ -840,7 +840,7 @@
     if (!record || !record.email) return null;
 
     var cleanEmail = String(record.email || '').trim().toLowerCase();
-    if (/^beable9489\+story-/i.test(cleanEmail)) return null;
+    if (/^story-anon-/i.test(cleanEmail)) return null;
     var cleanNick = String(record.nickname || '').trim();
     var displayNick = cleanNick || '사랑방 가족';
 
@@ -1058,7 +1058,7 @@
 
     function postCheerToBroadcastServer(rawAuthor, rawMessage, rawEmail, nowKst) {
       var cleanEmail = String(rawEmail || '').trim().toLowerCase();
-      var hasRealEmail = isValidSeniorEmail(cleanEmail) && !/^beable9489\+story-/i.test(cleanEmail);
+      var hasRealEmail = isValidSeniorEmail(cleanEmail) && !/^story-anon-/i.test(cleanEmail);
       var resolvedEmail = hasRealEmail ? cleanEmail : generateStoryPlusAliasEmail();
       var cleanAuthor = String(rawAuthor || '').replace(/\s+/g, ' ').trim();
       var resolvedNickname = cleanAuthor || '익명 사랑방 가족';

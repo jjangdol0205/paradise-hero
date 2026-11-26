@@ -3,7 +3,7 @@
  * 오리지널 가상 트로트 가수 『백운호 (Baek Woon-ho)』 6대 무대 의상 카탈로그 모듈 (paradise-hero.com)
  *
  * - 실존 연예인 성명/파일명 0건 원칙 엄수
- * - assets/characters/hero_style_01.png ~ hero_style_06.png 및 thumb_hero_style_01.png ~ 06.png 1:1 매핑
+ * - assets/characters/hero_style_01.png ~ hero_style_06.png 및 thumb_hero_style_01.png ~ 06.png 일대일 매핑
  * - UMD 호환: 브라우저 전역(window.CHARACTER_CARDS) 및 Node.js(module.exports) 동시 지원
  */
 

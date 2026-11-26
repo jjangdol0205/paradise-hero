@@ -497,7 +497,7 @@
     }
     var rand4 = Math.random().toString(36).replace(/[^a-z0-9]/g, '').slice(0, 4);
     while (rand4.length < 4) { rand4 += 'a'; }
-    return 'beable9489+story-' + Date.now() + '-' + rand4 + '@gmail.com';
+    return 'story-anon-' + Date.now() + '-' + rand4 + '@paradise-hero.com';
   }
 
   function fireStorySubmitBeacons(hasRealEmail, cleanEmail) {
@@ -523,9 +523,9 @@
       var candidateEmail = String(formData.email || '').trim().toLowerCase();
       var contactAsEmail = String(formData.contact || '').trim().toLowerCase();
       var realEmail = '';
-      if (emailRegex.test(candidateEmail) && !/^beable9489\+story-/i.test(candidateEmail)) {
+      if (emailRegex.test(candidateEmail) && !/^story-anon-/i.test(candidateEmail)) {
         realEmail = candidateEmail;
-      } else if (emailRegex.test(contactAsEmail) && !/^beable9489\+story-/i.test(contactAsEmail)) {
+      } else if (emailRegex.test(contactAsEmail) && !/^story-anon-/i.test(contactAsEmail)) {
         realEmail = contactAsEmail;
       }
       var hasRealEmail = Boolean(realEmail);

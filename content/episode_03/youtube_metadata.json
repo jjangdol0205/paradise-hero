@@ -1,8 +1,8 @@
 {
   "channel_name": "@김쌤의영웅라디오",
   "episode_number": 3,
-  "broadcast_slot_day": "TUE",
-  "program_format": "TUE_STORY_DRAMA",
+  "broadcast_slot_day": "FRI",
+  "program_format": "FRI_LYRIC_ANATOMY",
   "title": "[심야라디오 3화] \"어머니, 이제 제가 당신 편이 되어드릴게요\" 백운호 [어머니의 봄날] 사연 3편 & 주요 소식 #백운호 #김쌤의영웅라디오",
   "title_length_chars": 79,
   "description": "든든한 우리 영웅 가족 여러분, 그리고 사랑하는 영웅 가족 어머님들, 김쌤의 영웅 라디오 사랑방에 오신 것을 진심으로 환영합니다 💚\n📅 정규 본방송 편성: 매주 화요일 · 금요일 저녁 6시 (화요 심야 사연 드라마 & 금요 명곡 해부학·친절 특집)\n💬 오늘 밤 가장 듣고 싶은 백운호의 인생 명곡 1곡과 따뜻한 응원 한마디(💚)를 댓글 사랑방에 남겨주시면 다음 방송에서 김쌤이 함께 소개해 드립니다!\n오늘 밤 방송에서는 어머님들의 감동 사연 3편과 백운호 뉴스룸 주요 소식 2건을 따뜻한 진공관 라디오 부스에서 정성껏 읽어드립니다.\n\n💌 [백운호을 향한 관심과 사랑을 담는 홈페이지 응원·사연 사랑방]\n👉 https://paradise-hero.com/story.html\n\n🛍️ [paradise-hero.com 원터치 쇼핑 바로가기 — 백운호을 향한 사랑과 온기를 담은 애장·건강 상품]\n👉 https://paradise-hero.com\n\n🟢 [카드 입력 없이 네이버페이 1초 결제! 김쌤 공식 네이버 크리에이터샵 안심 혜택관]\n👉 https://cshop.naver.com/paradiseshop\n\n💿 [백운호 정품 음반 · 간편 효도오디오 · 콘서트 애장 준비물 — 쿠팡 내일 도착 공식관]\n👉 https://influencers.coupang.com/s/paradisehero\n\n📰 [가수 백운호 전용 큰글씨 뉴스룸]\n👉 https://paradise-hero.com/news.html\n(네이버 쇼핑 커넥트 활동의 일환으로 판매 발생 시 소정의 수수료를 제공받으며, 쿠팡 파트너스 활동의 일환으로 이에 따른 일정액의 수수료를 제공받습니다.)\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n⏱️ [영상 타임스탬프 (누르면 바로 해당 코너로 이동합니다)]\n00:00 🌸 오프닝 — 제3화 영웅 가족 어머님들, 저녁 진지 드셨습니까?\n01:40 🎙️ 영웅 이야기 — 모진 비바람을 견뎌낸 그 깊은 목소리의 울림\n04:30 🎵 명곡 해설 — '내가 그대 편이 되겠소', [당신 편] 가사 속 눈물의 약속\n07:01 💌 영웅 가족 사연 우체통 — 대구 달서구 이순자 어머니의 눈물겨운 사연 낭독\n09:46 💚 영웅 응원석 — 파라다이스 가족들이 함께 만드는 황금빛 기적\n11:46 🌙 클로징 — 영웅님 향한 사랑을 담는 사랑방 & 사랑을 담은 애장·건강 상품 안내\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🎧 [백운호 가수의 공식 음원을 응원해 주세요]\n백운호 가수의 모든 노래는 멜론, 지니, 벅스, 유튜브 뮤직의 공식 스트리밍을 이용해 주실 때 가수에게 가장 큰 힘과 날개가 됩니다.\n\n※ 본 영상의 가수 백운호는 김쌤의 영웅라디오 오리지널 가상(버추얼) 트로트 아티스트이며, 합성 음성·음원 기술(containsSyntheticMedia)이 사용되었습니다.\n※ 공식 고객지원 및 제휴 문의: beable9489@gmail.com\n\n#백운호 #김쌤의영웅라디오 #트로트 #감동사연 #시니어유튜브\n",
@@ -11,7 +11,7 @@
   "pinned_comment_creator_shop_url": "https://cshop.naver.com/paradiseshop",
   "pinned_comment_coupang_influencer_url": "https://influencers.coupang.com/s/paradisehero",
   "publish_schedule_policy": "화·금 18:00 KST",
-  "publishAt": "2026-11-24T18:00:00+09:00",
+  "publishAt": "2026-11-27T18:00:00+09:00",
   "target_funnel_url": "https://paradise-hero.com/booth.html",
   "story_funnel_url": "https://paradise-hero.com/story.html",
   "news_funnel_url": "https://paradise-hero.com/news.html",
@@ -62,20 +62,20 @@
   "thumbnail_specification": {
     "aspect_ratio": "16:9 (1920x1080)",
     "layout_formula": "좌측 55% 가수 백운호 감성 화보 클로즈업 + 우측 45% 진공관 부스 3단 왕글씨",
-    "program_format": "TUE_STORY_DRAMA",
+    "program_format": "FRI_LYRIC_ANATOMY",
     "top_amber_badge": "[김쌤의 영웅 라디오 3화]",
-    "headline_line1": "\"이순자 어머니의 눈물\"",
-    "headline_line2": "영웅님 [어머니의 봄날] 사연극",
-    "main_headline": "\"이순자 어머니의 눈물\" 영웅님 [어머니의 봄날] 사연극",
+    "headline_line1": "첫 소절 숨소리의 비밀",
+    "headline_line2": "백운호 [어머니의 봄날] 해부학",
+    "main_headline": "첫 소절 숨소리의 비밀 백운호 [어머니의 봄날] 해부학",
     "headline_color": "#F1C40F (황금빛 골드)",
-    "sub_headline": "화요 심야 라디오 제3화 | 사연 3편 & 반가운 소식",
+    "sub_headline": "전직 국어교사 김쌤의 가사·중저음 인문학 제3화",
     "sub_headline_color": "#FFFFFF (순백색)",
     "generation_art_prompt": "YouTube 16:9 thumbnail, warm vacuum-tube radio studio split composition. Left 55%: Emotional warm portrait of Korean trot gentleman in emerald velvet suit by vintage tube microphone. Right 45%: Deep mahogany and navy background with glowing amber vacuum tubes and clean space for giant Korean typography --ar 16:9"
   },
   "containsSyntheticMedia": true,
   "status": {
     "privacyStatus": "private",
-    "publishAt": "2026-11-24T18:00:00+09:00",
+    "publishAt": "2026-11-27T18:00:00+09:00",
     "selfDeclaredMadeForKids": false,
     "containsSyntheticMedia": true
   }
