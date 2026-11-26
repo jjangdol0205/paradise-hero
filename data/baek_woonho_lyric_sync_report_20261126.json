@@ -1,0 +1,321 @@
+{
+  "calibrated_at_kst": "2026-11-26T19:10:33.818773+09:00",
+  "sync_method": "demucs_htdemucs_vocal_vad+gemini_2.5_audio_alignment",
+  "catalog_path": "D:\\드림컴퍼니\\4사업부\\data\\baek_woonho_6songs_mv_catalog.json",
+  "catalog_sha256": "f4b0a62c50bba0d00e0dbf598f77fe5b0525364fc11fa1b48c4734c144f9ea87",
+  "elapsed_sec": 2146.5,
+  "tracks": [
+    {
+      "track_no": 1,
+      "song_id": "mothers_spring",
+      "title": "어머니의 봄날",
+      "duration_sec": 165.15,
+      "gemini_model": "gemini-2.5-pro",
+      "mean_vocal_ratio": 0.907,
+      "min_vocal_ratio": 0.793,
+      "before": {
+        "chorus1": {
+          "start_sec": 41.0,
+          "duration_sec": 34.0
+        },
+        "verse1": {
+          "start_sec": 11.5,
+          "duration_sec": 32.0
+        },
+        "chorus2": {
+          "start_sec": 119.0,
+          "duration_sec": 34.0
+        }
+      },
+      "after": {
+        "chorus1": {
+          "start_sec": 41.77,
+          "duration_sec": 31.93,
+          "vocal_span_abs": [
+            42.12,
+            71.5
+          ],
+          "delta_start_sec": 0.77
+        },
+        "verse1": {
+          "start_sec": 11.72,
+          "duration_sec": 31.08,
+          "vocal_span_abs": [
+            12.07,
+            40.6
+          ],
+          "delta_start_sec": 0.22
+        },
+        "chorus2": {
+          "start_sec": 113.87,
+          "duration_sec": 31.83,
+          "vocal_span_abs": [
+            114.22,
+            143.5
+          ],
+          "delta_start_sec": -5.13
+        }
+      }
+    },
+    {
+      "track_no": 2,
+      "song_id": "baek_woon_ho_yeonga",
+      "title": "백운호 연가",
+      "duration_sec": 165.28,
+      "gemini_model": "gemini-2.5-pro",
+      "mean_vocal_ratio": 0.877,
+      "min_vocal_ratio": 0.763,
+      "before": {
+        "chorus1": {
+          "start_sec": 41.0,
+          "duration_sec": 34.0
+        },
+        "verse1": {
+          "start_sec": 11.5,
+          "duration_sec": 32.0
+        },
+        "chorus2": {
+          "start_sec": 119.0,
+          "duration_sec": 34.0
+        }
+      },
+      "after": {
+        "chorus1": {
+          "start_sec": 40.67,
+          "duration_sec": 31.8,
+          "vocal_span_abs": [
+            41.02,
+            70.27
+          ],
+          "delta_start_sec": -0.33
+        },
+        "verse1": {
+          "start_sec": 11.37,
+          "duration_sec": 29.5,
+          "vocal_span_abs": [
+            11.72,
+            38.67
+          ],
+          "delta_start_sec": -0.13
+        },
+        "chorus2": {
+          "start_sec": 119.72,
+          "duration_sec": 34.95,
+          "vocal_span_abs": [
+            120.07,
+            152.47
+          ],
+          "delta_start_sec": 0.72
+        }
+      }
+    },
+    {
+      "track_no": 3,
+      "song_id": "harbor_light",
+      "title": "항구의 등불",
+      "duration_sec": 167.42,
+      "gemini_model": "gemini-2.5-pro",
+      "mean_vocal_ratio": 0.944,
+      "min_vocal_ratio": 0.827,
+      "before": {
+        "chorus1": {
+          "start_sec": 41.0,
+          "duration_sec": 34.0
+        },
+        "verse1": {
+          "start_sec": 11.5,
+          "duration_sec": 32.0
+        },
+        "chorus2": {
+          "start_sec": 119.0,
+          "duration_sec": 34.0
+        }
+      },
+      "after": {
+        "chorus1": {
+          "start_sec": 46.42,
+          "duration_sec": 33.78,
+          "vocal_span_abs": [
+            46.77,
+            78.0
+          ],
+          "delta_start_sec": 5.42
+        },
+        "verse1": {
+          "start_sec": 11.92,
+          "duration_sec": 35.4,
+          "vocal_span_abs": [
+            12.27,
+            45.12
+          ],
+          "delta_start_sec": 0.42
+        },
+        "chorus2": {
+          "start_sec": 125.22,
+          "duration_sec": 33.18,
+          "vocal_span_abs": [
+            125.57,
+            156.2
+          ],
+          "delta_start_sec": 6.22
+        }
+      }
+    },
+    {
+      "track_no": 4,
+      "song_id": "blooming_camellia",
+      "title": "다시 피는 동백꽃",
+      "duration_sec": 165.96,
+      "gemini_model": "gemini-2.5-pro",
+      "mean_vocal_ratio": 0.92,
+      "min_vocal_ratio": 0.83,
+      "before": {
+        "chorus1": {
+          "start_sec": 41.0,
+          "duration_sec": 34.0
+        },
+        "verse1": {
+          "start_sec": 11.5,
+          "duration_sec": 32.0
+        },
+        "chorus2": {
+          "start_sec": 119.0,
+          "duration_sec": 34.0
+        }
+      },
+      "after": {
+        "chorus1": {
+          "start_sec": 42.37,
+          "duration_sec": 32.33,
+          "vocal_span_abs": [
+            42.72,
+            72.5
+          ],
+          "delta_start_sec": 1.37
+        },
+        "verse1": {
+          "start_sec": 10.27,
+          "duration_sec": 32.23,
+          "vocal_span_abs": [
+            10.62,
+            40.3
+          ],
+          "delta_start_sec": -1.23
+        },
+        "chorus2": {
+          "start_sec": 113.75,
+          "duration_sec": 32.47,
+          "vocal_span_abs": [
+            114.1,
+            144.02
+          ],
+          "delta_start_sec": -5.25
+        }
+      }
+    },
+    {
+      "track_no": 5,
+      "song_id": "hometown_first_train",
+      "title": "고향역 첫차",
+      "duration_sec": 166.43,
+      "gemini_model": "gemini-2.5-flash",
+      "mean_vocal_ratio": 0.95,
+      "min_vocal_ratio": 0.92,
+      "before": {
+        "chorus1": {
+          "start_sec": 41.0,
+          "duration_sec": 34.0
+        },
+        "verse1": {
+          "start_sec": 11.5,
+          "duration_sec": 32.0
+        },
+        "chorus2": {
+          "start_sec": 119.0,
+          "duration_sec": 34.0
+        }
+      },
+      "after": {
+        "chorus1": {
+          "start_sec": 40.42,
+          "duration_sec": 29.08,
+          "vocal_span_abs": [
+            40.77,
+            67.3
+          ],
+          "delta_start_sec": -0.58
+        },
+        "verse1": {
+          "start_sec": 12.85,
+          "duration_sec": 28.97,
+          "vocal_span_abs": [
+            13.2,
+            39.62
+          ],
+          "delta_start_sec": 1.35
+        },
+        "chorus2": {
+          "start_sec": 112.87,
+          "duration_sec": 28.33,
+          "vocal_span_abs": [
+            113.22,
+            139.0
+          ],
+          "delta_start_sec": -6.13
+        }
+      }
+    },
+    {
+      "track_no": 6,
+      "song_id": "golden_sunset_of_life",
+      "title": "내 인생의 금빛 노을",
+      "duration_sec": 169.4,
+      "gemini_model": "gemini-2.5-pro",
+      "mean_vocal_ratio": 0.905,
+      "min_vocal_ratio": 0.844,
+      "before": {
+        "chorus1": {
+          "start_sec": 41.0,
+          "duration_sec": 34.0
+        },
+        "verse1": {
+          "start_sec": 11.5,
+          "duration_sec": 32.0
+        },
+        "chorus2": {
+          "start_sec": 119.0,
+          "duration_sec": 34.0
+        }
+      },
+      "after": {
+        "chorus1": {
+          "start_sec": 42.72,
+          "duration_sec": 32.98,
+          "vocal_span_abs": [
+            43.07,
+            73.5
+          ],
+          "delta_start_sec": 1.72
+        },
+        "verse1": {
+          "start_sec": 11.67,
+          "duration_sec": 32.53,
+          "vocal_span_abs": [
+            12.02,
+            42.0
+          ],
+          "delta_start_sec": 0.17
+        },
+        "chorus2": {
+          "start_sec": 120.52,
+          "duration_sec": 32.88,
+          "vocal_span_abs": [
+            120.87,
+            151.2
+          ],
+          "delta_start_sec": 1.52
+        }
+      }
+    }
+  ]
+}

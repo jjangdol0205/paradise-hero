@@ -83,8 +83,18 @@ def _pick_kr_font(size: int) -> ImageFont.FreeTypeFont:
     return ImageFont.load_default()
 
 
-def load_catalog() -> Dict[str, Any]:
-    return json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+def load_catalog(enforce_sync_gate: bool = True) -> Dict[str, Any]:
+    cat = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+    if enforce_sync_gate:
+        cloud_dir = str(ROOT / "cloud_automation")
+        if cloud_dir not in sys.path:
+            sys.path.insert(0, cloud_dir)
+        from promo_hard_gate import check_hero_lyric_sync_catalog_gate  # type: ignore
+
+        ok_sync, sync_errs = check_hero_lyric_sync_catalog_gate(cat)
+        if not ok_sync:
+            raise RuntimeError(f"HERO_LYRIC_SYNC_HARD_GATE_BLOCKED: {sync_errs}")
+    return cat
 
 
 def get_hero_stage_clips(aspect_ratio: str = "9:16") -> List[Path]:
@@ -110,10 +120,17 @@ def _fmt_srt_time(sec: float) -> str:
     return f"{h:02d}:{m:02d}:{rem:02d},{ms:03d}"
 
 
+_SRT_EMOJI_RE = re.compile(r"[\U0001F300-\U0001FAFF\U00002600-\U000027BF]")
+
+
 def build_synced_srt(cues: Sequence[Tuple[float, float, str, str]], offset_sec: float = 0.0) -> str:
     blocks: List[str] = []
     for idx, (t0, t1, l1, l2) in enumerate(cues, start=1):
-        txt = f"{l1}\n{l2}".strip() if l2 else l1.strip()
+        c1 = _SRT_EMOJI_RE.sub("", re.sub(r"https?://\S+", "", str(l1 or ""))).strip()
+        c2 = _SRT_EMOJI_RE.sub("", re.sub(r"https?://\S+", "", str(l2 or ""))).strip()
+        txt = f"{c1}\n{c2}".strip() if c2 else c1
+        if not txt:
+            continue
         blocks.append(f"{idx}\n{_fmt_srt_time(t0 + offset_sec)} --> {_fmt_srt_time(t1 + offset_sec)}\n{txt}\n")
     return "\n".join(blocks)
 
