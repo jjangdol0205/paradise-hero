@@ -34,6 +34,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import wave
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from PIL import Image, ImageDraw, ImageFont
@@ -274,8 +275,10 @@ def _synthesize_intro_tts(text: str, out_mp3: Path) -> Optional[Path]:
 
 
 def _probe_duration(path: Path) -> float:
+    if not path or not path.exists():
+        return 0.0
     ffprobe = shutil.which("ffprobe")
-    if ffprobe and path.exists():
+    if ffprobe:
         try:
             return float(subprocess.check_output(
                 [ffprobe, "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
@@ -283,6 +286,14 @@ def _probe_duration(path: Path) -> float:
             ).strip())
         except Exception:
             pass
+    # Fallback via ffmpeg -i stderr regex (works even when ffprobe is not on PATH!)
+    try:
+        r = subprocess.run([_get_ffmpeg(), "-i", str(path)], stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, encoding="utf-8", errors="replace", timeout=15)
+        m = re.search(r"Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)", r.stderr or "")
+        if m:
+            return int(m.group(1)) * 3600.0 + int(m.group(2)) * 60.0 + float(m.group(3))
+    except Exception:
+        pass
     return 0.0
 
 
@@ -484,35 +495,69 @@ def produce_hero_full_mv_16x9(track_no: int = 1, out_dir: Optional[Path] = None)
     with tempfile.TemporaryDirectory(prefix=f"{stem}_") as td:
         tdir = Path(td)
         intro_mp3 = _synthesize_intro_tts(song["story_intro"], tdir / "intro_tts.mp3")
-        intro_dur = max(14.0, _probe_duration(intro_mp3) + 1.5) if intro_mp3 else 0.0
-        total_dur = intro_dur + song_dur
+        raw_intro_tts_dur = _probe_duration(intro_mp3) if intro_mp3 else 0.0
+        target_intro_dur = max(14.0, round(raw_intro_tts_dur + 1.5, 2)) if (intro_mp3 and raw_intro_tts_dur > 1.0) else 0.0
 
-        # Build master audio: [Intro TTS over gentle ducked song intro bed] + [Full uncut song]
+        # Build exact PCM segments FIRST and read exact sample-accurate durations via wave.open()!
+        # Prevents apad=pad_dur premature cutoff when intro_tts < 12.5s!
         master_m4a = tdir / "full_master.m4a"
-        if intro_mp3 and intro_dur > 5.0:
+        song_wav = tdir / "song_seg.wav"
+        rs = subprocess.run(
+            [
+                ffmpeg, "-y", "-threads", "2",
+                "-i", str(audio_path),
+                "-af", f"aresample=44100,aformat=channel_layouts=stereo,afade=t=in:st=0:d=0.4,afade=t=out:st={max(1.0, song_dur-1.8):.2f}:d=1.8",
+                "-ar", "44100", "-ac", "2", "-c:a", "pcm_s16le", str(song_wav),
+            ],
+            stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, timeout=90,
+        )
+        if rs.returncode != 0 or not song_wav.exists():
+            raise RuntimeError(f"Song WAV render failed: {rs.stderr[-260:]}")
+        with wave.open(str(song_wav), "rb") as wf:
+            actual_song_dur = wf.getnframes() / float(wf.getframerate())
+
+        actual_intro_dur = 0.0
+        if intro_mp3 and target_intro_dur > 5.0:
+            intro_wav = tdir / "intro_seg.wav"
+            ri = subprocess.run(
+                [
+                    ffmpeg, "-y", "-threads", "2",
+                    "-i", str(intro_mp3),
+                    "-t", f"{target_intro_dur:.2f}", "-i", str(audio_path),
+                    "-filter_complex",
+                    f"[0:a]aresample=44100,aformat=channel_layouts=stereo,apad=whole_dur={target_intro_dur:.2f},atrim=0:{target_intro_dur:.2f},asetpts=PTS-STARTPTS[v0];"
+                    f"[1:a]aresample=44100,aformat=channel_layouts=stereo,apad=whole_dur={target_intro_dur:.2f},atrim=0:{target_intro_dur:.2f},asetpts=PTS-STARTPTS,volume=0.18,afade=t=out:st={max(1.0, target_intro_dur-1.2):.2f}:d=1.2[bed];"
+                    f"[v0][bed]amix=inputs=2:duration=first:normalize=0[intro]",
+                    "-map", "[intro]", "-ar", "44100", "-ac", "2", "-c:a", "pcm_s16le", str(intro_wav),
+                ],
+                stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, timeout=90,
+            )
+            if ri.returncode != 0 or not intro_wav.exists():
+                raise RuntimeError(f"Intro WAV render failed: {ri.stderr[-260:]}")
+            with wave.open(str(intro_wav), "rb") as wf:
+                actual_intro_dur = wf.getnframes() / float(wf.getframerate())
+
             cmd_a = [
                 ffmpeg, "-y", "-threads", "2",
-                "-i", str(intro_mp3),
-                "-t", f"{intro_dur:.2f}", "-i", str(audio_path),
-                "-i", str(audio_path),
-                "-filter_complex",
-                f"[0:a]aresample=44100,aformat=channel_layouts=stereo,apad=pad_dur=1.5,atrim=0:{intro_dur:.2f}[v0];"
-                f"[1:a]aresample=44100,aformat=channel_layouts=stereo,volume=0.18,afade=t=out:st={max(1.0, intro_dur-1.2):.2f}:d=1.2[bed];"
-                f"[v0][bed]amix=inputs=2:duration=first[intro];"
-                f"[2:a]aresample=44100,aformat=channel_layouts=stereo,afade=t=in:st=0:d=0.6,afade=t=out:st={max(1.0, song_dur-2.0):.2f}:d=2.0[song];"
-                f"[intro][song]concat=n=2:v=0:a=1,alimiter=limit=0.944[aout]",
+                "-i", str(intro_wav),
+                "-i", str(song_wav),
+                "-filter_complex", "[0:a][1:a]concat=n=2:v=0:a=1,alimiter=limit=0.944[aout]",
                 "-map", "[aout]", "-c:a", "aac", "-b:a", "192k", str(master_m4a),
             ]
         else:
             cmd_a = [
                 ffmpeg, "-y", "-threads", "2",
-                "-i", str(audio_path),
-                "-af", f"aresample=44100,afade=t=in:st=0:d=0.5,afade=t=out:st={max(1.0, song_dur-2.0):.2f}:d=2.0,alimiter=limit=0.944",
+                "-i", str(song_wav),
+                "-af", "alimiter=limit=0.944",
                 "-c:a", "aac", "-b:a", "192k", str(master_m4a),
             ]
         ra = subprocess.run(cmd_a, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, timeout=120)
         if ra.returncode != 0:
             raise RuntimeError(f"Full MV audio failed: {ra.stderr[-260:]}")
+
+        intro_dur = actual_intro_dur
+        song_dur = actual_song_dur
+        total_dur = intro_dur + song_dur
 
         # Stitch 16:9 stage montage covering full total_dur
         bg_mp4 = _stitch_stage_montage(ffmpeg, stage_clips, 1920, 1080, total_dur, tdir / "bg_16x9.mp4")
@@ -530,30 +575,63 @@ def produce_hero_full_mv_16x9(track_no: int = 1, out_dir: Optional[Path] = None)
         for t0, t1, l1, l2 in song["full_cues"]:
             all_cues.append((float(t0) + intro_dur, float(t1) + intro_dur, str(l1), str(l2)))
 
-        inputs = ["-i", str(bg_mp4), "-i", str(master_m4a)]
-        filter_parts: List[str] = []
-        last_v = "0:v"
+        # Render each cue segment independently (1 static PNG overlay per ~8s clip -> ~100MB RAM, ZERO overlay deadlock!)
+        # then stream-copy concat all segments + exact master audio (0-frame cumulative drift at 30fps!).
+        blank_png = tdir / "blank_1080p.png"
+        Image.new("RGBA", (1920, 1080), (0, 0, 0, 0)).save(blank_png)
+
+        seg_specs: List[Tuple[float, float, Path]] = []
+        ov_t = 0.0
         for idx, (t0, t1, l1, l2) in enumerate(all_cues):
             is_last = idx == (len(all_cues) - 1)
+            if t0 > ov_t + 0.04:
+                seg_specs.append((ov_t, t0, blank_png))
+                ov_t = t0
             png_p = _render_lyric_card_png(1920, 1080, song["title"], song["badge"], l1, l2, show_cta=is_last, out_png=tdir / f"fcue_{idx:02d}.png")
-            inp_idx = idx + 2
-            inputs.extend(["-i", str(png_p)])
-            out_v = f"v{idx}"
-            filter_parts.append(f"[{last_v}][{inp_idx}:v]overlay=0:0:enable='between(t,{t0:.2f},{t1:.2f})'[{out_v}]")
-            last_v = out_v
+            end_c = min(total_dur, t1)
+            if end_c > ov_t + 0.04:
+                seg_specs.append((ov_t, end_c, png_p))
+                ov_t = end_c
+        if total_dur > ov_t + 0.04:
+            seg_specs.append((ov_t, total_dur, blank_png))
 
+        seg_mp4s: List[Path] = []
+        emitted_v = 0.0
+        for sidx, (st_s, en_s, ov_png) in enumerate(seg_specs):
+            raw_d = max(1.0 / 30.0, en_s - emitted_v)
+            frames = max(1, int(round(raw_d * 30.0)))
+            snapped_d = frames / 30.0
+            seg_out = tdir / f"vseg_{sidx:03d}.mp4"
+            cmd_seg = [
+                ffmpeg, "-y", "-threads", "2",
+                "-ss", f"{emitted_v:.4f}", "-t", f"{snapped_d:.4f}", "-i", str(bg_mp4),
+                "-i", str(ov_png),
+                "-filter_complex", "[0:v][1:v]overlay=0:0,fps=30,format=yuv420p[vs]",
+                "-map", "[vs]", "-an",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "22", "-g", "60",
+                "-video_track_timescale", "15360",
+                str(seg_out),
+            ]
+            rs = subprocess.run(cmd_seg, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, timeout=120)
+            if rs.returncode != 0 or not seg_out.exists():
+                raise RuntimeError(f"Full MV segment {sidx} failed: {rs.stderr[-250:]}")
+            seg_mp4s.append(seg_out)
+            emitted_v += snapped_d
+
+        seg_list_txt = tdir / "vseg_concat.txt"
+        seg_list_txt.write_text("\n".join(f"file '{p.as_posix()}'" for p in seg_mp4s) + "\n", encoding="utf-8")
         cmd_v = [
             ffmpeg, "-y", "-threads", "2",
-            *inputs,
-            "-filter_complex", ";".join(filter_parts) + f";[{last_v}]format=yuv420p[vfinal]",
-            "-map", "[vfinal]", "-map", "1:a",
-            "-t", f"{total_dur:.2f}",
-            "-c:v", "libx264", "-preset", "fast", "-crf", "22", "-movflags", "+faststart",
-            "-c:a", "copy", str(out_mp4),
+            "-f", "concat", "-safe", "0", "-i", str(seg_list_txt),
+            "-i", str(master_m4a),
+            "-map", "0:v:0", "-map", "1:a:0",
+            "-c:v", "copy", "-c:a", "copy",
+            "-movflags", "+faststart", "-shortest",
+            str(out_mp4),
         ]
-        rv = subprocess.run(cmd_v, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, timeout=420)
+        rv = subprocess.run(cmd_v, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, timeout=180)
         if rv.returncode != 0 or not out_mp4.exists():
-            raise RuntimeError(f"Full MV 16:9 compose failed: {rv.stderr[-300:]}")
+            raise RuntimeError(f"Full MV 16:9 concat mux failed: {rv.stderr[-300:]}")
 
     out_srt.write_text(build_synced_srt(all_cues, offset_sec=0.0), encoding="utf-8")
     yt_title = f"[공식 뮤직비디오 · 완곡] 백운호 〈{song['title']}〉 ({song['badge']}) | 큰글씨 가사 · 김쌤의영웅라디오"[:98]
@@ -576,8 +654,9 @@ def produce_hero_full_mv_16x9(track_no: int = 1, out_dir: Optional[Path] = None)
         "track_no": track_no,
         "song_id": song["song_id"],
         "song_title": song["title"],
-        "intro_sec": round(intro_dur, 2),
-        "total_duration_sec": round(total_dur, 2),
+        "intro_sec": round(intro_dur, 4),
+        "song_dur_sec": round(song_dur, 4),
+        "total_duration_sec": round(total_dur, 4),
         "mp4_path": str(out_mp4),
         "srt_path": str(out_srt),
         "thumbnail_path": str(out_thumb),

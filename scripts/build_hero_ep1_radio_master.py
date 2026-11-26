@@ -479,7 +479,7 @@ def render_cue_png(
     else:
         draw_centered(line1, (box_y0 + box_y1) // 2 + 6, (255, 245, 168, 255))
 
-    canvas.convert("RGB").save(out_png, format="PNG", optimize=True)
+    canvas.convert("RGB").save(out_png, format="PNG")
 
 
 async def synth_tts_mp3(text: str, role: str, out_mp3: Path) -> None:
@@ -602,9 +602,15 @@ async def build_ep1_master() -> Dict[str, Any]:
     for d in (cues_dir, tts_dir, audio_parts_dir):
         d.mkdir(parents=True, exist_ok=True)
 
-    # 1. Hard Pre-Render Assert on 3 distinct MP3s
+    # 1. Hard Pre-Render Assert on 3 distinct MP3s + Calibrated Lyric-Sync Hard Gate
     tracks = assert_three_distinct_song_mp3s()
     mv_cat = json.loads(MV_CATALOG_PATH.read_text(encoding="utf-8"))
+    cloud_dir = str(HQ_ROOT / "cloud_automation")
+    if cloud_dir not in sys.path:
+        sys.path.insert(0, cloud_dir)
+    from promo_hard_gate import check_hero_lyric_sync_catalog_gate  # type: ignore
+    ok_sync, sync_errs = check_hero_lyric_sync_catalog_gate(mv_cat)
+    assert ok_sync, f"FATAL: HERO_LYRIC_SYNC_HARD_GATE_BLOCKED: {sync_errs}"
     mv_by_id = {s["song_id"]: s for s in mv_cat["songs"]}
     norm_pairs = load_glossary_normalizer()
 
@@ -623,24 +629,44 @@ async def build_ep1_master() -> Dict[str, Any]:
         spoken_wavs[blk_key] = items
         print(f"  [TTS OK] {blk_key}: {len(items)} segments ({sum(x[4] for x in items):.1f}s)", flush=True)
 
-    # 3. Assemble timeline (audio parts + visual cues + SRT cues + exact chapter timestamps)
-    print("\n[STEP 3] Building exact synced audio parts, 1080p cue cards & SRT...", flush=True)
+    # 3. Assemble timeline with zero-cumulative-drift frame grid (emitted_video_sec locked to actual WAV cursor!)
+    print("\n[STEP 3] Building exact synced audio parts, 1080p cue cards & SRT (zero cumulative drift)...", flush=True)
     bg_cache: Dict[str, Image.Image] = {}
     audio_concat_wavs: List[Path] = []
     video_cues: List[Tuple[Path, float]] = []
     srt_entries: List[Tuple[float, float, str]] = []
     chapter_timestamps: List[Dict[str, Any]] = []
     song_spans: List[Dict[str, Any]] = []
+    song_cue_timelines: Dict[int, List[Dict[str, Any]]] = {}
 
+    FPS = 24
     cursor_sec = 0.0
+    emitted_video_sec = 0.0
     cue_seq = 0
+    _srt_sym_re = re.compile(r"[\U0001F300-\U0001FAFF\U00002600-\U000027BF]")
+
+    def emit_visual_cue_until(png_path: Path, target_end_sec: float) -> Tuple[float, float]:
+        nonlocal emitted_video_sec
+        start_v = emitted_video_sec
+        raw_d = max(1.0 / FPS, target_end_sec - emitted_video_sec)
+        # Snap to exact 24fps frame boundary so FFmpeg concat accumulates ZERO drift across 100+ cues!
+        frames = max(1, int(round(raw_d * FPS)))
+        snapped_d = frames / float(FPS)
+        video_cues.append((png_path, snapped_d))
+        emitted_video_sec += snapped_d
+        return start_v, emitted_video_sec
+
+    def wav_exact_dur(p: Path) -> float:
+        with wave.open(str(p), "rb") as wf:
+            return wf.getnframes() / float(wf.getframerate())
 
     def add_spoken_block(blk_key: str) -> None:
         nonlocal cursor_sec, cue_seq
         blk = SPOKEN_BLOCKS[blk_key]
+        blk_start = cursor_sec
         chapter_timestamps.append({
-            "sec": round(cursor_sec, 2),
-            "mmss": fmt_mmss(cursor_sec),
+            "sec": round(blk_start, 2),
+            "mmss": fmt_mmss(blk_start),
             "label": blk["chapter_label"],
         })
         items = spoken_wavs[blk_key]
@@ -648,11 +674,27 @@ async def build_ep1_master() -> Dict[str, Any]:
         pause_045 = audio_parts_dir / "pause_045s.wav"
         if not pause_045.exists():
             make_silence_wav(0.45, pause_045)
+        pause_dur = wav_exact_dur(pause_045)
 
-        blk_start = cursor_sec
-        blk_total_dur = 0.0
+        # Build audio block FIRST so we know exact mixed WAV length before aligning final cue!
+        for _role, _pill, _txt, seg_wav, _seg_dur in items:
+            seg_concat_lines.append(f"file '{seg_wav.as_posix()}'")
+            seg_concat_lines.append(f"file '{pause_045.as_posix()}'")
+        blk_list = audio_parts_dir / f"{blk_key}_list.txt"
+        blk_list.write_text("\n".join(seg_concat_lines) + "\n", encoding="utf-8")
+        blk_voice_wav = audio_parts_dir / f"{blk_key}_voice.wav"
+        subprocess.run(
+            [FFMPEG_EXE, "-y", "-threads", "2", "-f", "concat", "-safe", "0", "-i", str(blk_list), "-c", "copy", str(blk_voice_wav)],
+            check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        voice_dur = wav_exact_dur(blk_voice_wav)
+        blk_mixed_wav = audio_parts_dir / f"{blk_key}_mixed.wav"
+        mix_speech_over_mr_bed(blk_voice_wav, blk_mixed_wav, voice_dur)
+        real_blk_dur = wav_exact_dur(blk_mixed_wav)
+        blk_target_end = blk_start + real_blk_dur
+
         half_idx = max(1, len(items) // 2)
-
+        seg_cursor = blk_start
         for idx, (role, speaker_pill, clean_txt, seg_wav, seg_dur) in enumerate(items):
             if "segment_bgs" in blk and idx < len(blk["segment_bgs"]):
                 bg_name = blk["segment_bgs"][idx]
@@ -662,41 +704,27 @@ async def build_ep1_master() -> Dict[str, Any]:
                 bg_name = blk["bg_image"]
             bg_img = load_cover_bg(bg_name, bg_cache)
 
-            # Append voice wav + 0.45s breath pause
-            seg_concat_lines.append(f"file '{seg_wav.as_posix()}'")
-            seg_concat_lines.append(f"file '{pause_045.as_posix()}'")
-            slot_dur = seg_dur + 0.45
-
+            slot_dur = seg_dur + pause_dur
             chunks = split_speech_into_subtitle_chunks(clean_txt, max_chars=38)
             total_chars = max(1, sum(len(c) for c in chunks))
-            sub_t = cursor_sec
+            sub_t = seg_cursor
             for ci, ch_txt in enumerate(chunks):
+                is_very_last = (idx == len(items) - 1) and (ci == len(chunks) - 1)
                 frac = len(ch_txt) / float(total_chars)
-                cdur = slot_dur * frac if ci < len(chunks) - 1 else (cursor_sec + slot_dur - sub_t)
-                cdur = max(0.35, cdur)
+                target_end = blk_target_end if is_very_last else (sub_t + slot_dur * frac)
                 l1, l2 = wrap_two_lines(ch_txt, max_chars=20)
                 cue_seq += 1
                 png_path = cues_dir / f"cue_{cue_seq:04d}.png"
                 render_cue_png(bg_img, blk["chapter_badge"], speaker_pill, l1, l2, png_path, is_song=False)
-                video_cues.append((png_path, cdur))
-                srt_entries.append((sub_t + 0.05, sub_t + max(0.25, cdur - 0.08), ch_txt))
-                sub_t += cdur
+                v0, v1 = emit_visual_cue_until(png_path, target_end)
+                srt_entries.append((v0 + 0.04, max(v0 + 0.25, v1 - 0.06), _srt_sym_re.sub("", ch_txt).strip()))
+                sub_t = target_end
+            seg_cursor += slot_dur
 
-            cursor_sec += slot_dur
-            blk_total_dur += slot_dur
-
-        # Concatenate block voice wavs and gently mix over real trot MR bed
-        blk_list = audio_parts_dir / f"{blk_key}_list.txt"
-        blk_list.write_text("\n".join(seg_concat_lines) + "\n", encoding="utf-8")
-        blk_voice_wav = audio_parts_dir / f"{blk_key}_voice.wav"
-        subprocess.run(
-            [FFMPEG_EXE, "-y", "-threads", "2", "-f", "concat", "-safe", "0", "-i", str(blk_list), "-c", "copy", str(blk_voice_wav)],
-            check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-        )
-        blk_mixed_wav = audio_parts_dir / f"{blk_key}_mixed.wav"
-        mix_speech_over_mr_bed(blk_voice_wav, blk_mixed_wav, blk_total_dur)
         audio_concat_wavs.append(blk_mixed_wav)
-        print(f"  [BLOCK OK] {blk_key} @{fmt_mmss(blk_start)} ({blk_total_dur:.2f}s)", flush=True)
+        cursor_sec = blk_target_end
+        drift_ms = (emitted_video_sec - cursor_sec) * 1000.0
+        print(f"  [BLOCK OK] {blk_key} @{fmt_mmss(blk_start)} ({real_blk_dur:.2f}s | av_drift={drift_ms:+.1f}ms)", flush=True)
 
     def add_song_block(slot: int) -> None:
         nonlocal cursor_sec, cue_seq
@@ -705,12 +733,13 @@ async def build_ep1_master() -> Dict[str, Any]:
         song_wav = audio_parts_dir / f"song_{slot:02d}_{info['song_id']}.wav"
         actual_dur = mp3_to_48k_stereo_wav(info["path"], song_wav, target_lufs=-14.0)
 
-        # Add clean 1.0s post-song silence breathing room
         pad_wav = audio_parts_dir / "pause_100s.wav"
         if not pad_wav.exists():
             make_silence_wav(1.0, pad_wav)
+        pad_dur = wav_exact_dur(pad_wav)
 
         start_s = cursor_sec
+        song_block_end = start_s + actual_dur + pad_dur
         chapter_timestamps.append({
             "sec": round(start_s, 2),
             "mmss": fmt_mmss(start_s),
@@ -722,36 +751,53 @@ async def build_ep1_master() -> Dict[str, Any]:
             "title": info["title"],
             "mp3_filename": info["mp3_filename"],
             "md5": info["md5"],
-            "start_sec": round(start_s, 2),
-            "end_sec": round(start_s + actual_dur, 2),
-            "duration_sec": round(actual_dur, 2),
+            "start_sec": round(start_s, 3),
+            "end_sec": round(start_s + actual_dur, 3),
+            "duration_sec": round(actual_dur, 3),
         })
 
         bg_img = load_cover_bg(info["bg_image"], bg_cache)
         cues = mv_song["full_cues"]
-        t_local = 0.0
-        for ci, (c0, c1, l1_raw, l2_raw) in enumerate(cues):
+        recorded_cues: List[Dict[str, Any]] = []
+        for ci, (c0_raw, c1_raw, l1_raw, l2_raw) in enumerate(cues):
+            c0 = float(c0_raw)
+            c1 = float(c1_raw)
             l1 = sanitize_text(str(l1_raw), norm_pairs)
             l2 = sanitize_text(str(l2_raw), norm_pairs)
-            # Ensure exact seamless coverage from 0.0 to actual_dur + 1.0s pad
+            # Target end aligns next cue's visual onset EXACTLY to cues[ci+1][0] (0-frame cumulative drift!)
             if ci == len(cues) - 1:
-                cue_end = actual_dur + 1.0
+                target_end_abs = song_block_end
             else:
-                next_start = float(cues[ci + 1][0])
-                cue_end = min(actual_dur, max(float(c1), next_start))
-            cdur = max(0.5, cue_end - t_local)
+                next_c0 = float(cues[ci + 1][0])
+                target_end_abs = start_s + min(actual_dur, max(c1, next_c0))
             cue_seq += 1
             png_path = cues_dir / f"cue_{cue_seq:04d}.png"
             render_cue_png(bg_img, info["chapter_badge"], info["pill_label"], l1, l2, png_path, is_song=True)
-            video_cues.append((png_path, cdur))
-            srt_text = f"♪ {l1}\n{l2}".strip() if not l1.startswith("♪") else f"{l1}\n{l2}".strip()
-            srt_entries.append((start_s + t_local + 0.05, start_s + t_local + cdur - 0.08, srt_text))
-            t_local += cdur
+            v0, v1 = emit_visual_cue_until(png_path, target_end_abs)
+            # SRT uses exact calibrated vocal start/end [start_s + c0, start_s + c1] with emoji-free text!
+            s1 = _srt_sym_re.sub("", l1).strip()
+            s2 = _srt_sym_re.sub("", l2).strip()
+            srt_text = f"{s1}\n{s2}".strip() if s2 else s1
+            srt_t0 = start_s + c0
+            srt_t1 = min(song_block_end - 0.05, start_s + max(c0 + 0.4, c1))
+            if srt_text:
+                srt_entries.append((srt_t0, srt_t1, srt_text))
+            recorded_cues.append({
+                "cue_idx": ci + 1,
+                "cat_c0": c0,
+                "cat_c1": c1,
+                "video_rel_start": round(v0 - start_s, 3),
+                "video_rel_end": round(v1 - start_s, 3),
+                "l1": l1,
+                "is_non_lyric": l1.startswith("♪"),
+            })
 
+        song_cue_timelines[slot] = recorded_cues
         audio_concat_wavs.append(song_wav)
         audio_concat_wavs.append(pad_wav)
-        cursor_sec += actual_dur + 1.0
-        print(f"  [SONG {slot} OK] 〈{info['title']}〉 @{fmt_mmss(start_s)} ({actual_dur:.2f}s | MD5={info['md5']})", flush=True)
+        cursor_sec = song_block_end
+        drift_ms = (emitted_video_sec - cursor_sec) * 1000.0
+        print(f"  [SONG {slot} OK] 〈{info['title']}〉 @{fmt_mmss(start_s)} ({actual_dur:.2f}s | av_drift={drift_ms:+.1f}ms | MD5={info['md5']})", flush=True)
 
     # Exact Broadcast Sequence: Opening -> Story1 -> Song1 -> Story2 -> Song2 -> Health -> Song3 -> Closing
     add_spoken_block("ch1_opening")
@@ -879,6 +925,7 @@ async def build_ep1_master() -> Dict[str, Any]:
         "srt_cue_count": len(srt_entries),
         "chapter_timestamps": chapter_timestamps,
         "song_spans": song_spans,
+        "song_cue_timelines": song_cue_timelines,
         "post_render_audio_audit": audit_matrix,
         "keyframes": kf_paths,
         "elapsed_sec": round(time.time() - t_start, 1),
