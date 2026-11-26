@@ -297,7 +297,8 @@ def _render_related_columns_html(current_slug: str) -> str:
 
 
 def _render_column_html(col: Dict[str, Any], today_iso: str) -> str:
-    canonical_url = f"https://{HOST}/columns/{col['slug']}"
+    clean_slug = col["slug"][:-5] if col["slug"].endswith(".html") else col["slug"]
+    canonical_url = f"https://{HOST}/columns/{clean_slug}"
     faq_entities = [
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
         for q, a in col["faqs"]
@@ -730,6 +731,8 @@ def generate_all_senior_columns_and_feeds() -> Dict[str, pathlib.Path]:
     def _normalize_canonical_loc(raw_loc: str) -> str:
         if raw_loc.endswith("/index.html"):
             return raw_loc[: -len("index.html")]
+        if raw_loc.endswith(".html"):
+            return raw_loc[:-5]
         return raw_loc
 
     for slug_url, rel_path, prio, freq in core_pages:
