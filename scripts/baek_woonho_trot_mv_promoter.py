@@ -273,14 +273,14 @@ def _render_thumbnail_16x9(song: Dict[str, Any], frame_jpg: Path, out_png: Path)
     return out_png
 
 
-def _synthesize_intro_tts(text: str, out_mp3: Path) -> Optional[Path]:
+def _synthesize_intro_tts(text: str, out_mp3: Path, rate: str = "-4%") -> Optional[Path]:
     try:
         import edge_tts  # type: ignore
     except Exception:
         return None
 
     async def _gen() -> None:
-        comm = edge_tts.Communicate(text, voice="ko-KR-InJoonNeural", rate="-4%")
+        comm = edge_tts.Communicate(text, voice="ko-KR-InJoonNeural", rate=rate)
         await comm.save(str(out_mp3))
 
     try:
@@ -367,8 +367,7 @@ def _stitch_stage_montage(
 
 
 HERO_DJ_OUTRO_SPOKEN = (
-    "어머님, 이 노래 3분 완곡과 무료 카톡 꽃카드는 "
-    "화면 아래 동그란 백운호 얼굴 누르시고 맨 위 파란 주소를 누르시면 바로 열립니다."
+    "어머님, 완곡과 꽃카드는 아래 백운호 얼굴 누르고 파란 주소를 누르세요."
 )
 
 
@@ -423,10 +422,10 @@ def produce_hero_short_mv(
     with tempfile.TemporaryDirectory(prefix=f"{stem}_") as td:
         tdir = Path(td)
 
-        # 1. Synthesize warm DJ Kim-ssaem 5~6s outro voice (exact PCM duration measured via wave.open!)
-        dj_mp3 = _synthesize_intro_tts(HERO_DJ_OUTRO_SPOKEN, tdir / "dj_outro.mp3")
+        # 1. Synthesize warm DJ Kim-ssaem compact 5~6s outro voice (exact PCM duration measured via wave.open!)
+        dj_mp3 = _synthesize_intro_tts(HERO_DJ_OUTRO_SPOKEN, tdir / "dj_outro.mp3", rate="+4%")
         dj_wav = tdir / "dj_outro.wav"
-        outro_dur = 6.0
+        outro_dur = 5.8
         dj_voice_ready = False
         if dj_mp3 and dj_mp3.exists():
             rd = subprocess.run(
@@ -436,7 +435,8 @@ def produce_hero_short_mv(
             if rd.returncode == 0 and dj_wav.exists():
                 with wave.open(str(dj_wav), "rb") as wf:
                     raw_dj_sec = wf.getnframes() / float(wf.getframerate())
-                outro_dur = round(max(5.5, min(9.5, raw_dj_sec + 0.55)), 2)
+                # Strictly enforce seg_dur >= tts_dur + 0.22s (0.40s breath cushion, compact ~5.6~6.3s outro!)
+                outro_dur = round(max(5.0, raw_dj_sec + 0.40), 2)
                 dj_voice_ready = True
 
         total_dur = round(sing_dur + outro_dur, 2)
