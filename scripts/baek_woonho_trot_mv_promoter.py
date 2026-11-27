@@ -206,24 +206,42 @@ def _render_lyric_card_png(
     if line2:
         _draw_centered(draw, w, y_l1 + th1 + (20 if is_vertical else 16), line2, f2, (255, 255, 255, 255), stroke_w=8)
 
-    # Zero-Typing CTA footer in final 4s (strictly native Korean/ASCII glyphs + auto-fit width, ZERO clipping, ZERO tofu!)
+    # Centered Safe-Zone CTA Box (`Y=1100~1250`, `bottom: 35%~42%`) on vertical Shorts — NEVER buried behind YT Shorts UI!
     if show_cta:
-        cta_txt = (
-            "프로필 눌러 백운호 6곡 무료 듣기 → paradise-hero.com"
-            if is_vertical
-            else "♪ 백운호 6곡 완곡 무료 라디오 & 카톡 안부카드 → paradise-hero.com/radio.html"
-        )
-        cta_font = _fit_font(draw, cta_txt, 32 if is_vertical else 36, w - 120)
-        cbb = draw.textbbox((0, 0), cta_txt, font=cta_font)
-        cw, ch = cbb[2] - cbb[0] + 48, cbb[3] - cbb[1] + 24
-        cx = (w - cw) // 2
-        cy = 1605 if is_vertical else 985
-        draw.rounded_rectangle([cx, cy, cx + cw, cy + ch], radius=16, fill=(14, 58, 44, 235), outline=(245, 208, 90, 255), width=3)
-        draw.text((cx + 24, cy + 10), cta_txt, font=cta_font, fill=(255, 250, 230, 255))
+        if is_vertical:
+            cta_l1 = "아래 동그란 백운호 얼굴 터치"
+            cta_l2 = "→ 맨 위 파란 주소 1번 클릭!"
+            f_c1 = _fit_font(draw, cta_l1, 40, w - 160)
+            f_c2 = _fit_font(draw, cta_l2, 42, w - 160)
+            b1 = draw.textbbox((0, 0), cta_l1, font=f_c1)
+            b2 = draw.textbbox((0, 0), cta_l2, font=f_c2)
+            bx0, bx1 = 68, w - 68
+            by0, by1 = 1102, 1236
+            draw.rounded_rectangle([bx0 + 4, by0 + 6, bx1 + 4, by1 + 6], radius=24, fill=(0, 0, 0, 180))
+            draw.rounded_rectangle([bx0, by0, bx1, by1], radius=24, fill=(255, 224, 72, 248), outline=(14, 38, 28, 255), width=6)
+            x1 = (w - (b1[2] - b1[0])) // 2
+            x2 = (w - (b2[2] - b2[0])) // 2
+            draw.text((x1, by0 + 18 - b1[1]), cta_l1, font=f_c1, fill=(14, 24, 20, 255))
+            draw.text((x2, by0 + 74 - b2[1]), cta_l2, font=f_c2, fill=(120, 24, 18, 255))
+            # Downward pointer triangle right below safe-zone CTA box (strictly <= Y=1262)
+            cx_a = w // 2
+            arr = [(cx_a - 36, by1 + 4), (cx_a + 36, by1 + 4), (cx_a, by1 + 26)]
+            draw.polygon([(x + 3, y + 4) for x, y in arr], fill=(0, 0, 0, 170))
+            draw.polygon(arr, fill=(255, 224, 72, 255), outline=(14, 38, 28, 255))
+        else:
+            cta_txt = "♪ 백운호 6곡 완곡 무료 라디오 & 카톡 안부카드 → paradise-hero.com/go/yt"
+            cta_font = _fit_font(draw, cta_txt, 36, w - 120)
+            cbb = draw.textbbox((0, 0), cta_txt, font=cta_font)
+            cw, ch = cbb[2] - cbb[0] + 48, cbb[3] - cbb[1] + 24
+            cx = (w - cw) // 2
+            cy = 985
+            draw.rounded_rectangle([cx, cy, cx + cw, cy + ch], radius=16, fill=(14, 58, 44, 235), outline=(245, 208, 90, 255), width=3)
+            draw.text((cx + 24, cy + 10), cta_txt, font=cta_font, fill=(255, 250, 230, 255))
     else:
-        sub_txt = "유튜브 @김쌤의영웅라디오 · 무료 6곡 듣기 paradise-hero.com"
-        sub_font = _fit_font(draw, sub_txt, 28, w - 96, stroke_w=5)
-        _draw_centered(draw, w, 1625 if is_vertical else 998, sub_txt, sub_font, (220, 236, 228, 225), stroke_w=5)
+        if not is_vertical:
+            sub_txt = "유튜브 @김쌤의영웅라디오 · 무료 6곡 듣기 paradise-hero.com/go/yt"
+            sub_font = _fit_font(draw, sub_txt, 28, w - 96, stroke_w=5)
+            _draw_centered(draw, w, 998, sub_txt, sub_font, (220, 236, 228, 225), stroke_w=5)
 
     out_png.parent.mkdir(parents=True, exist_ok=True)
     img.save(out_png)
@@ -348,6 +366,12 @@ def _stitch_stage_montage(
     return out_bg_mp4
 
 
+HERO_DJ_OUTRO_SPOKEN = (
+    "어머님, 이 노래 3분 완곡과 무료 카톡 꽃카드는 "
+    "화면 아래 동그란 백운호 얼굴 누르시고 맨 위 파란 주소를 누르시면 바로 열립니다."
+)
+
+
 def produce_hero_short_mv(
     track_no: int = 1,
     slice_id: str = "chorus1",
@@ -355,7 +379,14 @@ def produce_hero_short_mv(
     stage_clips_override: Optional[List[Path]] = None,
     audio_override: Optional[Path] = None,
 ) -> Dict[str, Any]:
-    """Produces a Music-First 9:16 (1080x1920, 34s) Baek Woon-ho Trot Singing Short/Reel MV."""
+    """
+    Produces a Music-First 9:16 (1080x1920) Baek Woon-ho Trot Singing Short/Reel MV:
+      - `0 ~ sing_dur` (~26.0s): Full-volume Baek Woon-ho singing with Demucs-calibrated synced karaoke lyrics!
+      - Final `5.5 ~ 6.0s` (`sing_dur ~ total_dur`): Song accompaniment smoothly ducks to `volume=0.22`
+        while DJ Kim-ssaem (`ko-KR-InJoonNeural`) gives warm voice guidance to tap Baek Woon-ho's round
+        profile photo -> top blue link, paired with a centered safe-zone (`Y=1100~1250`, `bottom: 35%~42%`)
+        golden-yellow big-font CTA card + synced `.srt` cue!
+    """
     cat = load_catalog()
     song = next(s for s in cat["songs"] if s["track_no"] == track_no)
     sl = next((x for x in song["slices"] if x["slice_id"] == slice_id), song["slices"][0])
@@ -376,27 +407,82 @@ def produce_hero_short_mv(
     out_srt = target_dir / f"{stem}.srt"
     out_meta = target_dir / f"{stem}_metadata.json"
 
-    dur = float(sl["duration_sec"])
+    raw_dur = float(sl["duration_sec"])
     start_s = float(sl["start_sec"])
-    cues: List[Tuple[float, float, str, str]] = [(float(a), float(b), str(c), str(d)) for a, b, c, d in sl["cues"]]
+    raw_cues: List[Tuple[float, float, str, str]] = [(float(a), float(b), str(c), str(d)) for a, b, c, d in sl["cues"]]
+    # Keep 0~26s (or up to vocal_end <= 26.5s) full singing so exact Demucs vocal-lyric sync stays <= 0.50s!
+    voc_end_raw = float(sl.get("vocal_end_rel_sec") or 26.0)
+    sing_dur = round(min(26.5, max(20.0, min(raw_dur - 5.5, voc_end_raw))), 2)
+    # Clip sung cues cleanly to sing_dur (drop non-lyric tail card if it only sits after sing_dur)
+    cues: List[Tuple[float, float, str, str]] = []
+    for t0, t1, l1, l2 in raw_cues:
+        if t0 >= sing_dur - 0.4:
+            continue
+        cues.append((t0, min(t1, sing_dur - 0.05), l1, l2))
 
     with tempfile.TemporaryDirectory(prefix=f"{stem}_") as td:
         tdir = Path(td)
-        bg_mp4 = _stitch_stage_montage(ffmpeg, selected_clips, 1080, 1920, dur, tdir / "bg.mp4")
 
-        # Prepare sliced 34s real Baek Woon-ho trot singing audio (-0.5 dBFS broadcast limiter, smooth fade in/out)
-        aud_m4a = tdir / "song_slice.m4a"
-        cmd_a = [
-            ffmpeg, "-y", "-threads", "2",
-            "-ss", f"{start_s:.2f}", "-t", f"{dur:.2f}", "-i", str(audio_path),
-            "-af", f"aresample=44100,afade=t=in:st=0:d=0.6,afade=t=out:st={max(1.0, dur-1.6):.2f}:d=1.6,alimiter=limit=0.944",
-            "-c:a", "aac", "-b:a", "192k", str(aud_m4a),
-        ]
+        # 1. Synthesize warm DJ Kim-ssaem 5~6s outro voice (exact PCM duration measured via wave.open!)
+        dj_mp3 = _synthesize_intro_tts(HERO_DJ_OUTRO_SPOKEN, tdir / "dj_outro.mp3")
+        dj_wav = tdir / "dj_outro.wav"
+        outro_dur = 6.0
+        dj_voice_ready = False
+        if dj_mp3 and dj_mp3.exists():
+            rd = subprocess.run(
+                [ffmpeg, "-y", "-threads", "2", "-i", str(dj_mp3), "-ar", "44100", "-ac", "2", "-c:a", "pcm_s16le", str(dj_wav)],
+                stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, timeout=60,
+            )
+            if rd.returncode == 0 and dj_wav.exists():
+                with wave.open(str(dj_wav), "rb") as wf:
+                    raw_dj_sec = wf.getnframes() / float(wf.getframerate())
+                outro_dur = round(max(5.5, min(9.5, raw_dj_sec + 0.55)), 2)
+                dj_voice_ready = True
+
+        total_dur = round(sing_dur + outro_dur, 2)
+        bg_mp4 = _stitch_stage_montage(ffmpeg, selected_clips, 1080, 1920, total_dur, tdir / "bg.mp4")
+
+        # 2. Mix 0~sing_dur full-volume Baek Woon-ho singing + final outro_dur smoothly ducked to volume=0.22 under DJ Kim-ssaem!
+        aud_m4a = tdir / "song_plus_dj_outro.m4a"
+        fade_duck_s = 0.45
+        vol_expr = (
+            f"if(lt(t,{sing_dur:.2f}),1.0,"
+            f"if(lt(t,{sing_dur + fade_duck_s:.2f}),1.0-0.78*(t-{sing_dur:.2f})/{fade_duck_s:.2f},0.22))"
+        )
+        if dj_voice_ready:
+            delay_ms = int(round((sing_dur + 0.15) * 1000))
+            cmd_a = [
+                ffmpeg, "-y", "-threads", "2",
+                "-ss", f"{start_s:.2f}", "-t", f"{total_dur:.2f}", "-i", str(audio_path),
+                "-i", str(dj_wav),
+                "-filter_complex",
+                f"[0:a]aresample=44100,aformat=channel_layouts=stereo,"
+                f"afade=t=in:st=0:d=0.5,volume='{vol_expr}':eval=frame,"
+                f"afade=t=out:st={max(1.0, total_dur - 1.2):.2f}:d=1.2[songduck];"
+                f"[1:a]aresample=44100,aformat=channel_layouts=stereo,volume=1.18,adelay={delay_ms}|{delay_ms}[dj];"
+                f"[songduck][dj]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.944[aout]",
+                "-map", "[aout]", "-t", f"{total_dur:.2f}",
+                "-c:a", "aac", "-b:a", "192k", str(aud_m4a),
+            ]
+        else:
+            cmd_a = [
+                ffmpeg, "-y", "-threads", "2",
+                "-ss", f"{start_s:.2f}", "-t", f"{total_dur:.2f}", "-i", str(audio_path),
+                "-af", f"aresample=44100,afade=t=in:st=0:d=0.6,afade=t=out:st={max(1.0, total_dur-1.6):.2f}:d=1.6,alimiter=limit=0.944",
+                "-c:a", "aac", "-b:a", "192k", str(aud_m4a),
+            ]
         ra = subprocess.run(cmd_a, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True, timeout=90)
-        if ra.returncode != 0:
-            raise RuntimeError(f"Audio slice failed: {ra.stderr[-240:]}")
+        if ra.returncode != 0 or not aud_m4a.exists():
+            raise RuntimeError(f"Audio slice+DJ outro failed: {ra.stderr[-260:]}")
 
-        # Render synced karaoke lyric PNGs (4 cues + CTA on final cue)
+        # 3. Append final DJ Kim-ssaem safe-zone CTA visual & SRT cue (`sing_dur .. total_dur`)
+        cues.append((
+            sing_dur,
+            total_dur - 0.05,
+            "3분 완곡 · 무료 카톡 꽃카드 안내",
+            "아래 백운호 얼굴 → 맨 위 파란 주소!",
+        ))
+
         inputs = ["-i", str(bg_mp4), "-i", str(aud_m4a)]
         filter_parts: List[str] = []
         last_v = "0:v"
@@ -414,7 +500,7 @@ def produce_hero_short_mv(
             *inputs,
             "-filter_complex", ";".join(filter_parts) + f";[{last_v}]format=yuv420p[vfinal]",
             "-map", "[vfinal]", "-map", "1:a",
-            "-t", f"{dur:.2f}",
+            "-t", f"{total_dur:.2f}",
             "-c:v", "libx264", "-preset", "fast", "-crf", "22", "-movflags", "+faststart",
             "-c:a", "copy", str(out_mp4),
         ]
@@ -422,8 +508,11 @@ def produce_hero_short_mv(
         if rv.returncode != 0 or not out_mp4.exists():
             raise RuntimeError(f"Short MV compose failed: {rv.stderr[-300:]}")
 
-    srt_text = build_synced_srt(cues, offset_sec=0.0)
+    # Build official `.srt` with exact sung lyrics (0~sing_dur) + exact spoken DJ Kim-ssaem guidance (final outro_dur)!
+    srt_cues = list(cues[:-1]) + [(sing_dur + 0.15, total_dur - 0.10, HERO_DJ_OUTRO_SPOKEN, "")]
+    srt_text = build_synced_srt(srt_cues, offset_sec=0.0)
     out_srt.write_text(srt_text, encoding="utf-8")
+    dur = total_dur
 
     first_lyric = f"{cues[0][2]} {cues[0][3]}".strip() if cues else song["hook_headline"]
     sl_id = str(sl.get("slice_id") or "")
@@ -436,17 +525,17 @@ def produce_hero_short_mv(
     utm_yt = "https://paradise-hero.com/go/yt"
     utm_ig = "https://paradise-hero.com/go/ig"
     description = (
+        f"백운호 6곡 완곡 무료 라디오 & 카톡 아침 안부카드 (가입 없음): {utm_yt}\n\n"
         f"{yt_title}\n\n"
         f"어머님, 아버님 반갑습니다 💚\n"
         f"마음을 노래하는 AI 가상 트로트 가수 『백운호』의 {song['badge']} 〈{song['title']}〉 {sl['label']}입니다.\n\n"
-        f"🎵 백운호 6곡 완곡 무료 라디오 & 카톡 무료 안부카드 (가입 없음): {utm_yt}\n"
         f"📸 공식 인스타그램 (@paradise_hero1): {cat['instagram_url']}\n\n"
         f"💬 {song['either_or_question']}\n\n"
         f"※ {cat['ai_disclosure']}\n"
         f"#백운호 #{song['title'].replace(' ', '')} #김쌤의영웅라디오 #시니어트로트 #트로트무대 #Shorts"
     )
     pinned_comment = (
-        f"🎵 백운호 〈{song['title']}〉 포함 6곡 완곡 무료 라디오 & 카톡 안부카드 (가입 없음): {utm_yt}\n"
+        f"백운호 〈{song['title']}〉 포함 6곡 완곡 무료 라디오 & 카톡 안부카드 (가입 없음): {utm_yt}\n"
         f"💬 {song['either_or_question']}"
     )
     meta = {
@@ -456,7 +545,9 @@ def produce_hero_short_mv(
         "song_title": song["title"],
         "slice_id": sl["slice_id"],
         "duration_sec": dur,
-        "vocal_highlight_sec": dur,
+        "vocal_highlight_sec": sing_dur,
+        "dj_outro_sec": outro_dur,
+        "dj_outro_voice_ready": dj_voice_ready,
         "mp4_path": str(out_mp4),
         "srt_path": str(out_srt),
         "yt_title": yt_title,
@@ -637,13 +728,13 @@ def produce_hero_full_mv_16x9(track_no: int = 1, out_dir: Optional[Path] = None)
     yt_title = f"[공식 뮤직비디오 · 완곡] 백운호 〈{song['title']}〉 ({song['badge']}) | 큰글씨 가사 · 김쌤의영웅라디오"[:98]
     utm_yt = "https://paradise-hero.com/go/yt"
     description = (
+        f"백운호 6곡 완곡 무료 라디오 & 카톡 아침 안부카드 (가입 없음): {utm_yt}\n\n"
         f"{yt_title}\n\n"
         f"어머님, 아버님 반갑습니다 💚\n"
         f"{song['story_intro']}\n\n"
         f"⏱️ [곡 순서]\n"
         f"00:00 따뜻한 사연 헌정 인사\n"
         f"00:{int(intro_dur):02d} 백운호 〈{song['title']}〉 완곡 공식 무대 (큰글씨 가사)\n\n"
-        f"🎵 백운호 6곡 완곡 무료 라디오 & 카톡 안부카드 (가입 없음): {utm_yt}\n"
         f"📸 공식 인스타그램 (@paradise_hero1): {cat['instagram_url']}\n\n"
         f"💬 {song['either_or_question']}\n\n"
         f"※ {cat['ai_disclosure']}\n"
