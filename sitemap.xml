@@ -9,121 +9,85 @@
   <url>
     <loc>https://paradise-hero.com/radio</loc>
     <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/booth</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/photobooth</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/story</loc>
     <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/community</loc>
     <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/stream</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.88</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/vip</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.92</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/news</loc>
     <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.92</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/columns/</loc>
     <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.93</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/columns/baek-woon-ho-debut-story</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/columns/mothers-spring-day-lyric-story</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/columns/baek-woon-ho-yeonga-radio-note</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/columns/blooming-camellia-again-hope</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://paradise-hero.com/columns/senior-radio-concert-wellness-guide</loc>
     <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://paradise-hero.com/story/baek-woonho-free-radio-guide-2026</loc>
-    <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://paradise-hero.com/story/baek-woonho-morning-greeting-card-guide</loc>
-    <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://paradise-hero.com/story/senior-radio-listening-guide-kitchen-bedside-livingroom</loc>
-    <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://paradise-hero.com/story/hero-s2-proof-2026-11-23</loc>
-    <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://paradise-hero.com/story/hero-s2-proof-2026-11-25</loc>
-    <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://paradise-hero.com/story/hero-s2-proof-2026-11-26</loc>
-    <lastmod>2026-11-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
 </urlset>
