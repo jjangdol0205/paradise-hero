@@ -40,6 +40,30 @@
 
   const GREETING_TEMPLATES = [
     {
+      id: 'winter_snow',
+      title: '겨울 눈길 아침 인사',
+      header: '소복이 눈 내린 겨울 아침 안부',
+      line1: '찬 바람 부는 겨울 눈길에도',
+      line2: '발걸음마다 포근한 온기가 깃들고',
+      line3: '감기 없이 평안한 하루 보내세요!'
+    },
+    {
+      id: 'winter_teahouse',
+      title: '따뜻한 한옥 찻집 안부',
+      header: '따뜻한 차 한 잔의 겨울 안부',
+      line1: '김이 모락모락 피어오르는 찻잔처럼',
+      line2: '마음까지 훈훈해지는 백운호 노래와 함께',
+      line3: '여유롭고 따뜻한 겨울날 보내세요!'
+    },
+    {
+      id: 'winter_camellia',
+      title: '겨울 동백꽃 평안 인사',
+      header: '겨울 동백처럼 붉고 고운 안부',
+      line1: '하얀 눈을 이기고 피어난 겨울 동백처럼',
+      line2: '오늘도 흔들림 없이 건강하시고',
+      line3: '웃음꽃 활짝 피는 날 되시길 빕니다!'
+    },
+    {
       id: 'morning',
       title: '아침 문안 인사',
       header: '행복한 아침 문안 인사',
@@ -361,11 +385,99 @@
     const tpl = GREETING_TEMPLATES.find((t) => t.id === themeId) || GREETING_TEMPLATES[0];
 
     const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
-    bgGrad.addColorStop(0, '#0E2820');
-    bgGrad.addColorStop(0.55, '#1B4D3E');
-    bgGrad.addColorStop(1, '#091A14');
+    if (themeId === 'winter_snow') {
+      bgGrad.addColorStop(0, '#162A3E');
+      bgGrad.addColorStop(0.55, '#294A66');
+      bgGrad.addColorStop(1, '#0E1C2B');
+    } else if (themeId === 'winter_teahouse') {
+      bgGrad.addColorStop(0, '#3B2316');
+      bgGrad.addColorStop(0.55, '#5E3923');
+      bgGrad.addColorStop(1, '#24140C');
+    } else if (themeId === 'winter_camellia') {
+      bgGrad.addColorStop(0, '#0E2820');
+      bgGrad.addColorStop(0.55, '#1D4437');
+      bgGrad.addColorStop(1, '#091A14');
+    } else {
+      bgGrad.addColorStop(0, '#0E2820');
+      bgGrad.addColorStop(0.55, '#1B4D3E');
+      bgGrad.addColorStop(1, '#091A14');
+    }
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, W, H);
+
+    // Korean 2D Winter Seasonal Vector Motifs (Zero Western 3D, Zero Canvas Emojis)
+    if (themeId === 'winter_snow') {
+      ctx.save();
+      // Soft 2D Korean winter mountain ridge & snowy walkway silhouette
+      ctx.fillStyle = 'rgba(226, 232, 240, 0.14)';
+      ctx.beginPath();
+      ctx.moveTo(52, 860);
+      ctx.quadraticCurveTo(280, 690, 540, 770);
+      ctx.quadraticCurveTo(810, 680, W - 52, 840);
+      ctx.lineTo(W - 52, 900);
+      ctx.lineTo(52, 900);
+      ctx.closePath();
+      ctx.fill();
+      // 2D gentle falling snow dots
+      const snowCoords = [
+        [135, 260, 7], [220, 340, 5], [170, 480, 9], [115, 620, 6], [245, 710, 5],
+        [890, 250, 8], [950, 390, 6], [860, 510, 9], [935, 640, 5], [820, 740, 7],
+        [340, 240, 5], [740, 270, 6], [420, 195, 4], [665, 210, 5], [150, 770, 6], [920, 780, 7]
+      ];
+      ctx.fillStyle = 'rgba(248, 250, 252, 0.72)';
+      snowCoords.forEach(function (pt) {
+        ctx.beginPath();
+        ctx.arc(pt[0], pt[1], pt[2], 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.restore();
+    } else if (themeId === 'winter_teahouse') {
+      ctx.save();
+      // Traditional Korean hanok lattice window (창살) subtle 2D lines
+      ctx.strokeStyle = 'rgba(253, 230, 138, 0.16)';
+      ctx.lineWidth = 3;
+      for (let gx = 90; gx <= W - 90; gx += 90) {
+        ctx.beginPath();
+        ctx.moveTo(gx, 60);
+        ctx.lineTo(gx, 860);
+        ctx.stroke();
+      }
+      for (let gy = 180; gy <= 840; gy += 95) {
+        ctx.beginPath();
+        ctx.moveTo(60, gy);
+        ctx.lineTo(W - 60, gy);
+        ctx.stroke();
+      }
+      // Subtle 2D rising warm tea steam curves on left & right margins
+      ctx.strokeStyle = 'rgba(254, 243, 199, 0.38)';
+      ctx.lineWidth = 5;
+      [140, 175, W - 175, W - 140].forEach(function (sx) {
+        ctx.beginPath();
+        ctx.moveTo(sx, 780);
+        ctx.quadraticCurveTo(sx - 24, 680, sx + 18, 590);
+        ctx.quadraticCurveTo(sx + 34, 515, sx - 10, 445);
+        ctx.stroke();
+      });
+      ctx.restore();
+    } else if (themeId === 'winter_camellia') {
+      ctx.save();
+      // 2D winter red camellia foliage & blossoms along margins + soft snow dots
+      [[135, 360, 34], [125, 650, 28], [W - 135, 360, 34], [W - 125, 650, 28]].forEach(function (cm) {
+        ctx.fillStyle = '#065F46';
+        ctx.beginPath();
+        ctx.ellipse(cm[0] - cm[2] * 0.9, cm[1] + cm[2] * 0.4, cm[2] * 0.75, cm[2] * 0.36, -0.45, 0, Math.PI * 2);
+        ctx.ellipse(cm[0] + cm[2] * 0.9, cm[1] + cm[2] * 0.4, cm[2] * 0.75, cm[2] * 0.36, 0.45, 0, Math.PI * 2);
+        ctx.fill();
+        drawVectorRose(ctx, cm[0], cm[1], cm[2], '#DC2626', '#FDE047');
+      });
+      ctx.fillStyle = 'rgba(248, 250, 252, 0.55)';
+      [[180, 270, 5], [900, 280, 6], [160, 500, 6], [920, 510, 5], [200, 770, 5], [880, 760, 6]].forEach(function (pt) {
+        ctx.beginPath();
+        ctx.arc(pt[0], pt[1], pt[2], 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.restore();
+    }
 
     ctx.strokeStyle = '#D4AF37';
     ctx.lineWidth = 14;
