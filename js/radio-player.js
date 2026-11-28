@@ -570,6 +570,189 @@
     document.body.appendChild(bar);
   }
 
+
+  let hero10sRibbonShown = false;
+  let hero10sTimerId = null;
+
+  function fireHeroAudioPlayEvent(sourceTag) {
+    try {
+      const nowTs = Date.now();
+      if (window.__heroLastAudioPlayTs && nowTs - window.__heroLastAudioPlayTs < 1500) return;
+      window.__heroLastAudioPlayTs = nowTs;
+      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+        window.DreamCompanyCRM.trackFunnelEvent('HERO', 'audio_play', { event_meta: sourceTag || 'hero_1touch_radio' });
+      }
+    } catch (_) {}
+  }
+
+  function revealHero10sRibbon() {
+    if (hero10sRibbonShown) return;
+    const rib = typeof document !== 'undefined' ? document.getElementById('hero-10s-action-ribbon') : null;
+    if (!rib) return;
+    hero10sRibbonShown = true;
+    rib.style.display = 'block';
+  }
+
+  function scheduleHero10sRibbon() {
+    if (hero10sRibbonShown) return;
+    if (hero10sTimerId) clearTimeout(hero10sTimerId);
+    hero10sTimerId = setTimeout(function () {
+      const audio = typeof document !== 'undefined' ? document.getElementById('baek-studio-audio') : null;
+      if (isPlaying || (audio && !audio.paused) || (audio && audio.currentTime >= 10)) {
+        revealHero10sRibbon();
+      }
+    }, 10000);
+  }
+
+  function renderTodayFlowerCardDataUrl() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 0, 1350);
+    grad.addColorStop(0, '#FFFDF5');
+    grad.addColorStop(0.55, '#ECFDF5');
+    grad.addColorStop(1, '#FDE68A');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 1080, 1350);
+
+    // Warm gold double frame
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 14;
+    ctx.strokeRect(36, 36, 1008, 1278);
+    ctx.strokeStyle = '#0E2820';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(58, 58, 964, 1234);
+
+    // Drawn camellia petals (pure vector, zero emoji tofu!)
+    const drawFlower = function (cx, cy, r, col) {
+      ctx.save();
+      ctx.fillStyle = col;
+      for (let i = 0; i < 6; i++) {
+        const ang = (i * Math.PI) / 3;
+        ctx.beginPath();
+        ctx.arc(cx + Math.cos(ang) * r * 0.55, cy + Math.sin(ang) * r * 0.55, r * 0.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.fillStyle = '#F59E0B';
+      ctx.beginPath();
+      ctx.arc(cx, cy, r * 0.34, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    };
+    drawFlower(180, 200, 48, '#E11D48');
+    drawFlower(900, 200, 48, '#E11D48');
+    drawFlower(540, 260, 62, '#F43F5E');
+
+    const kstNow = new Date(Date.now() + 9 * 3600 * 1000);
+    const dateStr = kstNow.getUTCFullYear() + '년 ' + (kstNow.getUTCMonth() + 1) + '월 ' + kstNow.getUTCDate() + '일';
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#0E2820';
+    ctx.font = 'bold 42px "Malgun Gothic", "Noto Sans KR", sans-serif';
+    ctx.fillText(dateStr + ' 아침 안부 카드', 540, 420);
+
+    ctx.fillStyle = '#B45309';
+    ctx.font = 'bold 62px "Malgun Gothic", "Noto Sans KR", sans-serif';
+    ctx.fillText('오늘도 건강하시고', 540, 565);
+    ctx.fillText('꽃길만 걸으세요', 540, 655);
+
+    ctx.fillStyle = '#1F2937';
+    ctx.font = 'bold 40px "Malgun Gothic", "Noto Sans KR", sans-serif';
+    ctx.fillText('백운호의 따뜻한 노래와 함께', 540, 815);
+    ctx.fillText('마음 평안하고 웃음꽃 피는', 540, 885);
+    ctx.fillText('행복한 하루 보내시길 빕니다.', 540, 955);
+
+    ctx.fillStyle = '#0E2820';
+    ctx.fillRect(140, 1085, 800, 130);
+    ctx.fillStyle = '#FEF08A';
+    ctx.font = 'bold 38px "Malgun Gothic", "Noto Sans KR", sans-serif';
+    ctx.fillText('김쌤의영웅라디오 · 가상 가수 백운호', 540, 1145);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 30px "Malgun Gothic", "Noto Sans KR", sans-serif';
+    ctx.fillText('paradise-hero.com (평생 무료 라디오)', 540, 1195);
+
+    return canvas.toDataURL('image/png');
+  }
+
+  function bindHomeFlowerMiniCard() {
+    if (typeof document === 'undefined') return;
+    const saveBtn = document.getElementById('btn-hero-mini-card-save');
+    const shareBtn = document.getElementById('btn-hero-mini-card-share');
+    const statusEl = document.getElementById('hero-mini-card-status');
+    const previewWrap = document.getElementById('hero-mini-card-preview-wrap');
+    const previewImg = document.getElementById('hero-mini-card-preview-img');
+
+    const setStatus = function (msg) {
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      statusEl.style.display = 'block';
+    };
+
+    if (saveBtn && !saveBtn.__heroCardBound) {
+      saveBtn.__heroCardBound = true;
+      saveBtn.addEventListener('click', function () {
+        try {
+          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+            window.DreamCompanyCRM.trackFunnelEvent('HERO', 'gift_download', { event_meta: 'hero_home_flower_card' });
+          }
+        } catch (_) {}
+        try {
+          const dataUrl = renderTodayFlowerCardDataUrl();
+          if (previewImg) previewImg.src = dataUrl;
+          if (previewWrap) previewWrap.style.display = 'block';
+          const a = document.createElement('a');
+          a.href = dataUrl;
+          a.download = 'baek_woonho_morning_flower_card.png';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setStatus('오늘의 꽃그림 안부카드가 준비되었습니다! 바로 카톡 가족방에 보내 보세요.');
+        } catch (_) {
+          setStatus('꽃그림 안부카드를 불러왔습니다. 선물관에서 더 많은 카드를 보실 수 있습니다.');
+        }
+      });
+    }
+
+    if (shareBtn && !shareBtn.__heroShareBound) {
+      shareBtn.__heroShareBound = true;
+      shareBtn.addEventListener('click', function () {
+        let shareUrl = 'https://paradise-hero.com/';
+        try {
+          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.buildReferralShareUrl === 'function') {
+            shareUrl = window.DreamCompanyCRM.buildReferralShareUrl('https://paradise-hero.com/');
+          }
+          // Double-ensure ?internal_check / ?owner_device stripped cleanly
+          const u = new URL(shareUrl);
+          ['internal_check', 'owner_device', 'internal_test', 'smoke_test', 'nocache'].forEach(function (k) {
+            u.searchParams.delete(k);
+          });
+          shareUrl = u.toString();
+        } catch (_) {}
+
+        try {
+          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+            window.DreamCompanyCRM.trackFunnelEvent('HERO', 'share_click', { event_meta: 'hero_home_flower_card' });
+          }
+        } catch (_) {}
+
+        const shareText = '오늘도 건강하시고 꽃길만 걸으세요! 백운호 무료 트로트 라디오 & 아침 꽃카드 선물해 드립니다.';
+        if (navigator.share) {
+          navigator.share({ title: '김쌤의영웅라디오 · 백운호 아침 꽃카드', text: shareText, url: shareUrl }).catch(function () {});
+          setStatus('가족·친구께 보내실 공유 창을 열었습니다.');
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(shareText + ' ' + shareUrl).then(function () {
+            setStatus('안부 인사말과 주소가 복사되었습니다! 카톡방에 붙여넣기 하시면 됩니다.');
+          }).catch(function () {
+            setStatus('공유 주소: ' + shareUrl);
+          });
+        } else {
+          setStatus('공유 주소: ' + shareUrl);
+        }
+      });
+    }
+  }
+
   function loadAndPlayCurrentEpisode(shouldPlay) {
     const ep = RADIO_EPISODES[currentIndex];
     const audio = ensureStudioAudioElement();
@@ -590,6 +773,8 @@
       isPlaying = true;
       saveState();
       syncUiState(true);
+      fireHeroAudioPlayEvent("hero_radio_play_ep" + String(currentIndex + 1));
+      scheduleHero10sRibbon();
       const p = audio.play();
       if (p && typeof p.catch === 'function') {
         p.catch(function () {
@@ -769,12 +954,15 @@
       }, 120);
     });
 
+    bindHomeFlowerMiniCard();
+
     const heroRadioCta = document.getElementById('btn-hero-radio-now');
     if (heroRadioCta) {
       heroRadioCta.addEventListener('click', function (e) {
         const radioSection = document.getElementById('hero-radio-section');
         if (radioSection) {
           e.preventDefault();
+          fireHeroAudioPlayEvent("hero_atf_1touch");
           playEpisodeByIndex(currentIndex || 0);
         }
       });

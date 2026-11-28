@@ -139,7 +139,7 @@
 
           <a href="#hero-radio-section" id="btn-hero-radio-now" class="senior-btn btn-gold btn-hero-atf" style="min-height: 66px; font-size: 22px; text-decoration: none;">
             <span aria-hidden="true">▶️</span>
-            <span>지금 바로 라디오 사연·노래 듣기 (▶ 방송 듣기)</span>
+            <span>1터치로 백운호 노래·사연 바로 듣기 (▶ 즉시 재생)</span>
           </a>
 
           <div class="hero-atf-secondary-row">
@@ -153,6 +153,33 @@
             </a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- 오늘의 백운호 꽃그림 아침 안부카드 1터치 저장·카톡 공유 미니카드 -->
+    <section id="hero-today-flower-card" class="senior-card" aria-labelledby="hero-flower-mini-heading" style="margin-top: 0; margin-bottom: 16px; padding: 16px 18px; border: 3px solid var(--brand-emerald); background: linear-gradient(135deg, #FFFDF5 0%, #ECFDF5 100%);">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;">
+        <img src="assets/og/og-share-hero-winter.png" alt="오늘의 백운호 꽃그림 아침 안부카드 미리보기" width="160" height="100" style="width:120px;height:90px;object-fit:cover;border-radius:12px;border:2px solid #D4AF37;flex-shrink:0;">
+        <div style="flex:1 1 220px;min-width:0;">
+          <span class="section-badge" style="background:#0E2820;color:#FEF08A;font-size:15px;padding:4px 12px;margin-bottom:6px;">💐 100% 무료 · 가입 없음 · 오늘의 아침 선물</span>
+          <h2 id="hero-flower-mini-heading" class="section-title" style="font-size:22px;line-height:1.35;margin:2px 0 6px;">오늘의 백운호 꽃그림 아침 안부카드 1터치 선물</h2>
+          <p style="font-size:18px;line-height:1.45;margin:0;color:#1F2937;font-weight:700;">
+            &ldquo;오늘도 건강하시고 꽃길만 걸으세요&rdquo; &mdash; 가족·친구 단톡방에 1터치로 바로 저장·공유하세요.
+          </p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:12px;">
+        <button type="button" id="btn-hero-mini-card-save" class="senior-btn btn-gold" style="min-height:62px;font-size:20px;padding:12px 14px;">
+          <span>📥 오늘의 꽃카드 1터치 저장하기</span>
+        </button>
+        <button type="button" id="btn-hero-mini-card-share" class="senior-btn btn-primary" style="min-height:62px;font-size:20px;padding:12px 14px;">
+          <span>💌 카톡·가족에게 바로 공유하기</span>
+        </button>
+      </div>
+      <div id="hero-mini-card-status" role="status" aria-live="polite" style="display:none;margin-top:10px;padding:10px 14px;border-radius:10px;background:#FFFFFF;border:2px solid #059669;color:#064E3B;font-size:18px;font-weight:800;"></div>
+      <div id="hero-mini-card-preview-wrap" style="display:none;margin-top:10px;text-align:center;">
+        <img id="hero-mini-card-preview-img" alt="저장용 백운호 꽃그림 아침 안부카드" style="max-width:260px;width:100%;border-radius:12px;border:2px solid #D4AF37;">
+        <p style="margin:6px 0 0;font-size:17px;font-weight:800;color:#065F46;">카톡 화면에서는 위 그림을 2초 꾹 누르시면 사진첩에 저장됩니다.</p>
       </div>
     </section>
 
@@ -217,6 +244,21 @@
           </div>
         </div>
         <audio id="baek-studio-audio" preload="metadata" src="assets/audio/baek_woonho_01_mothers_spring.mp3"></audio>
+      </div>
+
+      <!-- 재생 10초 시점 큰글씨 2버튼 띠배너 (카톡 꽃카드 · 청취 눈·목 준비물 3종) -->
+      <div id="hero-10s-action-ribbon" role="region" aria-label="청취 중 빠른 안내" style="display:none;margin-top:12px;padding:14px 16px;border-radius:14px;background:#FFFBEB;border:2.5px solid #D4AF37;">
+        <div style="font-size:19px;font-weight:900;color:#0E2820;margin-bottom:10px;line-height:1.4;">
+          🎵 노래가 좋으셨나요? 가족께 꽃카드를 보내거나 청취 준비물을 살펴보세요
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;">
+          <a href="#hero-today-flower-card" id="btn-hero-ribbon-card" class="senior-btn btn-gold" style="min-height:60px;font-size:19px;padding:10px 14px;text-decoration:none;">
+            <span>💐 카톡 꽃카드 보내기</span>
+          </a>
+          <a href="#senior-curation-market" id="btn-hero-ribbon-shop" class="senior-btn btn-primary" style="min-height:60px;font-size:19px;padding:10px 14px;text-decoration:none;">
+            <span>💚 청취 눈·목 준비물 3종</span>
+          </a>
+        </div>
       </div>
 
       <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px;">
@@ -781,9 +823,9 @@
   </footer>
 
   <script src="/assets/csp/inline_262b1a5f89c0.js?v=20261121vl2"></script>
-  <script src="js/hq_member_crm_client.js?v=20261128ta"></script>
+  <script src="js/hq_member_crm_client.js?v=20261128sw"></script>
   <script src="js/senior-accessibility.js?v=20261122sprint2"></script>
-  <script src="js/radio-player.js?v=20261126ep1v2"></script>
+  <script src="js/radio-player.js?v=20261128sw"></script>
   <script src="js/hero-family-lounge.js?v=20261123a"></script>
   <script defer src="js/dc-ux-addons.js?v=20261128ta"></script>
 </body>
