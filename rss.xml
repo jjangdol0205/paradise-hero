@@ -1,47 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 새 소식 &amp; 큰 글씨 편지</title>
+    <title>김쌤의영웅라디오 · 가상 트로트 가수 백운호 가족 사랑방</title>
     <link>https://paradise-hero.com/</link>
+    <description>가상 트로트 가수 백운호 6대 대표곡 무료 감상, 12월 겨울·동지·2027 정미년 큰글씨 무료 꽃카드 사랑방.</description>
+    <language>ko</language>
+    <lastBuildDate>Sat, 28 Nov 2026 05:00:00 +0000</lastBuildDate>
     <atom:link href="https://paradise-hero.com/rss.xml" rel="self" type="application/rss+xml" />
-    <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />
-    <description>5070 시니어 가족분들의 음악 위로와 사연 소통을 위한 오리지널 가상 트로트 가수 백운호 &amp; @김쌤의영웅라디오 공식 사랑방</description>
-    <language>ko-KR</language>
-    <lastBuildDate>Sat, 28 Nov 2026 00:00:00 +0000</lastBuildDate>
     <item>
-      <title><![CDATA[가상 트로트 가수 백운호 탄생 이야기 — 세월의 강을 건너온 우리네 어머니·아버지를 위한 중저음 위로]]></title>
+      <title>겨울 한파·12/22 동지·성탄·2027 정미년 무료 큰글씨 꽃카드 &amp; 백운호 노래 | @김쌤의영웅라디오</title>
+      <link>https://paradise-hero.com/winter-cards</link>
+      <guid isPermaLink="true">https://paradise-hero.com/winter-cards</guid>
+      <pubDate>Sat, 28 Nov 2026 05:00:00 +0000</pubDate>
+      <description>12월 한파·12/22 동지 팥죽·성탄절·연말 감사·2027년 정미년 새해 큰글씨 안부 꽃카드 무료 만들기! 카카오톡·문자로 보내면 가상 트로트 가수 백운호 노래 플레이어가 즉시 열립니다.</description>
+    </item>
+    <item>
+      <title>유튜브 @김쌤의영웅라디오 가족 사랑방 · 가상 트로트 가수 백운호 라운지</title>
+      <link>https://paradise-hero.com/</link>
+      <guid isPermaLink="true">https://paradise-hero.com/</guid>
+      <pubDate>Sat, 28 Nov 2026 05:00:00 +0000</pubDate>
+      <description>가족을 위해 평생을 바치신 어머님·아버님, 당신이 우리 인생의 진짜 영웅입니다! 오리지널 가상 트로트 가수 백운호의 〈어머니의 봄날〉과 따뜻한 인생 사연이 흐르는 김쌤의 라디오 사랑방.</description>
+    </item>
+    <item>
+      <title>가상 트로트 가수 백운호 6대 대표곡 연속 듣기 · 어머니의 봄날 | @김쌤의영웅라디오</title>
+      <link>https://paradise-hero.com/stream</link>
+      <guid isPermaLink="true">https://paradise-hero.com/stream</guid>
+      <pubDate>Sat, 28 Nov 2026 05:00:00 +0000</pubDate>
+      <description>오리지널 가상 트로트 가수 백운호의 타이틀곡 〈어머니의 봄날〉, 〈백운호 연가〉, 〈항구의 등불〉, 〈다시 피는 동백꽃〉, 〈고향역 첫차〉, 〈내 인생의 금빛 노을〉 감상관입니다.</description>
+    </item>
+    <item>
+      <title>유튜브 @김쌤의영웅라디오 1~5화 연속 다시듣기 | 백운호 사연 라디오</title>
+      <link>https://paradise-hero.com/radio</link>
+      <guid isPermaLink="true">https://paradise-hero.com/radio</guid>
+      <pubDate>Sat, 28 Nov 2026 05:00:00 +0000</pubDate>
+      <description>어머님·아버님들의 진솔한 인생 사연과 가상 트로트 가수 백운호의 중저음 노래를 1화부터 5화까지 편안하게 연속 감상하세요.</description>
+    </item>
+    <item>
+      <title>🎁 백운호 카톡 안부카드 · 큰글씨 달력 무료 선물관 | @김쌤의영웅라디오</title>
+      <link>https://paradise-hero.com/vip</link>
+      <guid isPermaLink="true">https://paradise-hero.com/vip</guid>
+      <pubDate>Sat, 28 Nov 2026 05:00:00 +0000</pubDate>
+      <description>회원가입·결제 없이 100% 무료! 가상 트로트 가수 백운호 카톡 아침 안부카드, 큰글씨 달력 배경화면, 왕글씨 가사집 등 10종 디지털 선물을 만들어 보세요.</description>
+    </item>
+    <item>
+      <title>회원가입 없이 큰글씨로 매일 듣는 백운호 6곡 완곡 무료 라디오 이용 안내 | 김쌤의영웅라디오 · 백운호 사랑방</title>
+      <link>https://paradise-hero.com/story/baek-woonho-free-radio-guide-2026</link>
+      <guid isPermaLink="true">https://paradise-hero.com/story/baek-woonho-free-radio-guide-2026</guid>
+      <pubDate>Sat, 28 Nov 2026 05:00:00 +0000</pubDate>
+      <description>마음을 노래하는 AI 가상 트로트 가수 백운호의 6곡 완곡과 화·금 저녁 6시 연속 인생 사연 라디오를 회원가입 없이 26px 큰글씨로 무료 청취하는 방법.</description>
+    </item>
+    <item>
+      <title>내일 아침 단톡방에 3초 만에 보내는 백운호 꽃그림 무료 카톡 안부카드 만들기 | 김쌤의영웅라디오 · 백운호 사랑방</title>
+      <link>https://paradise-hero.com/story/baek-woonho-morning-greeting-card-guide</link>
+      <guid isPermaLink="true">https://paradise-hero.com/story/baek-woonho-morning-greeting-card-guide</guid>
+      <pubDate>Sat, 28 Nov 2026 05:00:00 +0000</pubDate>
+      <description>복잡한 앱 설치 없이 3초 만에 이름과 따뜻한 인사말을 넣어 카카오톡 단톡방에 보내는 백운호 꽃그림 아침 안부카드 무료 사용법.</description>
+    </item>
+    <item>
+      <title>주방 설거지·침대 머리맡·거실 청취용: 어머님 일상 상황별 라디오 청취 준비물 가이드 | 김쌤의영웅라디오 · 백운호 사랑방</title>
+      <link>https://paradise-hero.com/story/senior-radio-listening-guide-kitchen-bedside-livingroom</link>
+      <guid isPermaLink="true">https://paradise-hero.com/story/senior-radio-listening-guide-kitchen-bedside-livingroom</guid>
+      <pubDate>Sat, 28 Nov 2026 05:00:00 +0000</pubDate>
+      <description>백운호 14분 연속 사연 라디오를 주방·침실·거실에서 눈과 목이 편안하게 즐기실 수 있도록 정리한 어머님 일상 상황별 맞춤 안내.</description>
+    </item>
+    <item>
+      <title>가상 트로트 가수 백운호 탄생 이야기 — 세월의 강을 건너온 우리네 어머니·아버지를 위한 중저음 위로 | 김쌤의영웅라디오</title>
       <link>https://paradise-hero.com/columns/baek-woon-ho-debut-story</link>
       <guid isPermaLink="true">https://paradise-hero.com/columns/baek-woon-ho-debut-story</guid>
-      <pubDate>Sat, 28 Nov 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[유튜브 @김쌤의영웅라디오 가족 사랑방에서 오직 5070 어머님·아버님들의 마음을 안아드리기 위해 탄생한 오리지널 가상 트로트 가수 『백운호(白雲湖)』의 첫걸음과 음악 철학을 소개합니다.]]></description>
+      <pubDate>Sat, 28 Nov 2026 05:00:00 +0000</pubDate>
+      <description>유튜브 @김쌤의영웅라디오 가족 사랑방에서 오직 5070 어머님·아버님들의 마음을 안아드리기 위해 탄생한 오리지널 가상 트로트 가수 『백운호(白雲湖)』의 첫걸음과 음악 철학을 소개합니다.</description>
     </item>
     <item>
-      <title><![CDATA[대표곡 〈어머니의 봄날〉 가사 해설과 사연 — 자식 키우느라 잊고 산 봄날을 다시 불러드립니다]]></title>
+      <title>대표곡 〈어머니의 봄날〉 가사 해설과 사연 — 자식 키우느라 잊고 산 봄날을 다시 불러드립니다 | 김쌤의영웅라디오</title>
       <link>https://paradise-hero.com/columns/mothers-spring-day-lyric-story</link>
       <guid isPermaLink="true">https://paradise-hero.com/columns/mothers-spring-day-lyric-story</guid>
-      <pubDate>Sat, 28 Nov 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[첫 소절만 들어도 코끝이 찡해지는 가상 트로트 가수 백운호의 대표 타이틀곡 〈어머니의 봄날〉 노랫말 구절별 의미와 전국 사랑방 어머님들의 실제 감동 사연을 함께 전해드립니다.]]></description>
-    </item>
-    <item>
-      <title><![CDATA[〈백운호 연가〉 스튜디오 녹음 노트 — 호숫가 물안개처럼 잔잔히 스며드는 저녁 라디오 편지]]></title>
-      <link>https://paradise-hero.com/columns/baek-woon-ho-yeonga-radio-note</link>
-      <guid isPermaLink="true">https://paradise-hero.com/columns/baek-woon-ho-yeonga-radio-note</guid>
-      <pubDate>Sat, 28 Nov 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[동네 공원 산책길과 저녁 차 한 잔의 시간에 가장 많은 사랑을 받는 〈백운호 연가〉의 76 BPM 트롯 왈츠 편곡 비밀과 스튜디오 제작 노트를 공개합니다.]]></description>
-    </item>
-    <item>
-      <title><![CDATA[신곡 〈다시 피는 동백꽃〉 응원 사연 모음 — 인생 후반전, 오늘이 가장 젊은 날입니다]]></title>
-      <link>https://paradise-hero.com/columns/blooming-camellia-again-hope</link>
-      <guid isPermaLink="true">https://paradise-hero.com/columns/blooming-camellia-again-hope</guid>
-      <pubDate>Sat, 28 Nov 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[모진 겨울 찬 서리를 이겨내고 가장 붉게 피어나는 동백꽃처럼, 자녀 뒷바라지를 마치고 인생 후반전을 맞이한 전국 사랑방 가족들의 가슴 뭉클한 응원 사연을 모았습니다.]]></description>
-    </item>
-    <item>
-      <title><![CDATA[화·금 저녁 6시 김쌤의영웅라디오 15분 본방송 100% 즐기는 법 & 눈·목 편안한 청취 건강 수칙]]></title>
-      <link>https://paradise-hero.com/columns/senior-radio-concert-wellness-guide</link>
-      <guid isPermaLink="true">https://paradise-hero.com/columns/senior-radio-concert-wellness-guide</guid>
-      <pubDate>Sat, 28 Nov 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[매주 화요일·금요일 저녁 6시 유튜브 @김쌤의영웅라디오 15분 정규 방송을 자녀 도움 없이 큰 글씨로 편하게 즐기시는 방법과 스마트폰 청취 시 눈·목 건강 수칙을 안내해 드립니다.]]></description>
+      <pubDate>Sat, 28 Nov 2026 05:00:00 +0000</pubDate>
+      <description>첫 소절만 들어도 코끝이 찡해지는 가상 트로트 가수 백운호의 대표 타이틀곡 〈어머니의 봄날〉 노랫말 구절별 의미와 전국 사랑방 어머님들의 실제 감동 사연을 함께 전해드립니다.</description>
     </item>
   </channel>
 </rss>
