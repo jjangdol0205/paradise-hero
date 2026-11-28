@@ -29,4 +29,4 @@ Allow: /
 
 Sitemap: https://paradise-hero.com/sitemap.xml
 
-#DaumWebMasterTool:1c7998a597348207ce15a13365f7e5882e269e3d9c63affd95432bbee1c9fe4a:wRgbLNgPvWQylyHAj1bNag==
+#DaumWebMasterTool:cc352b735309d9363ed27e75f86e42eea206b44ae48a95a05313f624bcd95a2b:wRgbLNgPvWQylyHAj1bNag==
