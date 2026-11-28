@@ -19,6 +19,9 @@ const BLOCKED_EXACT = new Set([
   '/.env',
   '/.npmrc',
   '/.yarnrc.yml',
+  '/data/hero_telegraph_account.json',
+  '/data/baek_woon_ho_suno_3songs_pack.json',
+  '/data/hero_promotion_status.json',
 ]);
 
 const BLOCKED_PREFIXES = [
